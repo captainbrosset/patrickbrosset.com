@@ -1,5 +1,7 @@
 name: Build site
 
+on: repository_dispatch
+
 jobs:
   build:
     runs-on: ubuntu-latest
