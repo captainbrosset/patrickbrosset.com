@@ -25,12 +25,12 @@ jobs:
         with:
           path: $GITHUB_WORKSPACE
 
-      # Deploy to OVH over FTP
-      - name: Deploy to OVH
+      # Deploy over FTP
+      - name: Deploy FTP
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: ${{ secrets.ftp_server }}
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          local-dir: $GITHUB_WORKSPACE/_site/
+          local-dir: ${{ env.GITHUB_WORKSPACE }}/_site/
           server-dir: ${{ secrets.ftp_dir }}
