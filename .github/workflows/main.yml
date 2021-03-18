@@ -1,4 +1,4 @@
-name: Build 11ty
+name: Build site
 
 on:
   push:
@@ -12,7 +12,11 @@ jobs:
 
     steps:
       # Check-out the repo under $GITHUB_WORKSPACE
-      - uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Install deps
+        uses: bahmutov/npm-install@v1
       
       # Build with 11ty
       - name: Build 11ty
