@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+#tween {
+  animation: get-tweened-value 1s linear;
+  animation-play-state: paused;
+  animation-fill-mode: forwards;
+  /* Adjust this between 0 and -1s to get all tweened values */
+  animation-delay: 0s;
+
+  /* Preview styles */
+  width: 100px;
+  height: 100px;
+  background: gold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+@keyframes get-tweened-value {
+  from {}
+  to {}
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: arial;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#controls {
+  width: 50%;
+  margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background: rgba(255,255,255,0.9);
+  z-index: 1;
+}
+
+#controls input[type=text] {
+  border: 1px solid #ccc;
+  border-radius: .2em;
+  font-size: 1em;
+  padding: .5em;
+  margin: .5em;
+}
+
+#property-name,
+#output-value {
+  flex-basis: 100%;
+}
+
+#output-value {
+  background-color: #eee;
+  text-align: center;
+  padding: .5em;
+  margin: .5em;
+  border-radius: 2px;
+  min-height: 1.2em;
+}
+
+#slider {
+  flex-grow: 1;
+}
+</style>
+<div id="tween">in between</div>
+
+<div id="controls">
+  <input type="text" id="property-name" placeholder="property" value="transform" />
+  <input type="text" id="from-value" placeholder="from" value="rotate(0deg)" />
+  <input type="range" id="slider" min="0" max="1" step="0.01" value="0.5" />
+  <input type="text" id="to-value" placeholder="to" value="rotate(2turn)" />
+  <div id="output-value"></div>
+</div>
+<script>
+
+var tweenEl = document.querySelector("#tween");
+var outputEl = document.querySelector("#output-value");
+
+var propertyInput = document.querySelector("#property-name");
+var fromInput = document.querySelector("#from-value");
+var toInput = document.querySelector("#to-value");
+var offsetInput = document.querySelector("#slider");
+
+// Assumes the stylesheet is the first one and the keyframes rules is 2nd.
+var fromToRules = document.styleSheets[0].cssRules[1].cssRules;
+var fromRule = fromToRules[0];
+var toRule = fromToRules[1];
+
+var previousProperty;
+
+function getTweenedValue(property, valueFrom, valueTo, offset) {
+  // Remove the old property if any.
+  if (previousProperty && previousProperty !== property) {
+    fromRule.style.removeProperty(previousProperty);
+    toRule.style.removeProperty(previousProperty);
+  }
+  previousProperty = property;
+
+  fromRule.style[property] = valueFrom;
+  toRule.style[property] = valueTo;
+  tweenEl.style.animationDelay = (offset * -1) + "s";
+
+  var s = getComputedStyle(tweenEl);
+  var value = s[property];
+
+  return value;
+}
+
+function onRefresh() {
+  var value = getTweenedValue(propertyInput.value,
+    fromInput.value, toInput.value, offsetInput.value);
+  if (value) {
+    outputEl.textContent = value;
+  } else {
+    outputEl.textContent = "Please choose a longhand property"
+  }
+}
+
+propertyInput.addEventListener("keydown", onRefresh);
+fromInput.addEventListener("keydown", onRefresh);
+toInput.addEventListener("keydown", onRefresh);
+offsetInput.addEventListener("input", onRefresh);
+
+onRefresh();
+</script>

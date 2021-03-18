@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>box shadow inspector</title>
+  <style type="text/css" id="sheet">
+    html, body {
+      font: 12px Arial;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #controls {
+      height: 100%;
+      padding: 1em;
+      float: right;
+      z-index: 3;
+      background: #eee;
+      border-left: 1px solid #ccc;
+      box-shadow: -1px 0 0 #aaa;
+      color: #999;
+    }
+    #controls * {
+      vertical-align: middle;
+    }
+    #controls p {
+      width: 100%;
+    }
+    #controls p:hover {
+      color: black;
+    }
+    #controls label {
+      display: inline-block;
+      width: 80px;
+    }
+    #controls input {
+      width: 200px;
+    }
+    #controls span {
+      display: inline-block;
+      width: 30px;
+    }
+
+    #sample {
+      width: 300px;
+      height: 300px;
+      background: #0063DC;
+      margin: 5em;
+      box-shadow: #666 0 0 50px 0;
+    }
+  </style>
+  <style>
+/* All boxes */
+.shadow-highlighter-box {
+  border: 1px solid #F06;
+  position: absolute;
+  -moz-box-sizing: border-box;
+}
+
+/* Boxes labels */
+.shadow-highlighter-box:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font: 10px Arial;
+  color: #F06;
+  background: white;
+  padding: 0 3px;
+}
+
+/* Offset box */
+.shadow-highlighter-offset:before {
+  content: "offset";
+  bottom: 0;
+  right: 0;
+  left: unset;
+  top: unset;
+}
+
+/* Spread box */
+.shadow-highlighter-spread:before {
+  content: "spread";
+  right: 0;
+  left: unset;
+}
+
+/* Blur box */
+.shadow-highlighter-blur {
+  border-style: dashed;
+}
+
+.shadow-highlighter-blur:before {
+  content: "blur";
+  top: unset;
+  bottom: 0;
+}
+
+/* Arrows and labels */
+.shadow-highlighter-arrow {
+  background: #F06;
+  position: absolute;
+  color: #F06;
+  font: 10px Arial;
+}
+
+.shadow-highlighter-arrow.h {
+  height: 2px;
+  text-indent: 6px;
+  line-height: 16px;
+}
+
+.shadow-highlighter-arrow.v {
+  width: 2px;
+  line-height: 20px;
+  text-indent: 4px;
+}
+
+.shadow-highlighter-arrow:before,
+.shadow-highlighter-arrow:after {
+  content: "";
+  position: absolute;
+  text-indent: 0;
+}
+
+.shadow-highlighter-arrow.h:before {
+  left: 0;
+  top: -4px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #F06;
+}
+
+.shadow-highlighter-arrow.h:after {
+  right: 0;
+  top: -4px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #F06;
+}
+
+.shadow-highlighter-arrow.v:before {
+  top: 0;
+  left: -4px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #F06;
+}
+
+.shadow-highlighter-arrow.v:after {
+  bottom: 0;
+  left: -4px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #F06;
+}
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <p id="widthControl"><label>Width</label><input type="range" min="100" max="500" step="5" value="200" /><span>200</span> px</p>
+    <p id="heightControl"><label>Height</label><input type="range" min="100" max="500" step="5" value="200" /><span>200</span> px</p>
+    <p id="xOffsetControl"><label>Offset x</label><input type="range" min="-50" max="50" step="5" value="20" /><span>20</span> px</p>
+    <p id="yOffsetControl"><label>Offset y</label><input type="range" min="-50" max="50" step="5" value="20" /><span>20</span> px</p>
+    <p id="blurControl"><label>Blur</label><input type="range" min="0" max="100" step="5" value="0" /><span>0</span> px</p>
+    <p id="spreadControl"><label>Spread</label><input type="range" min="-100" max="100" step="5" value="0" /><span>0</span> px</p>
+    <p><label>Inset</label><input type="checkbox" id="inset" /></p>
+    <p><label>Show guides</label><input type="checkbox" id="toggle" checked /></p>
+  </div>
+
+  <div id="sample"></div>
+
+  <script>
+const SHADOW_TYPE_TEXT = "textShadow";
+const SHADOW_TYPE_BOX = "boxShadow";
+
+/**
+ * CSS shadow highlighter.
+ * Draws guides, arrows and labels over a drop shadow to highlight its offset,
+ * spread and blur.
+ */
+function ShadowHighlighter(win) {
+  this.win = win;
+  this.doc = win.document;
+
+  this._createMarkup();
+}
+
+ShadowHighlighter.prototype = {
+  /**
+   * Show (or update if already shown) the CSS shadow of a given node
+   *
+   * @param {Node} node The node whose shadow should be highlighted
+   * @param {String} shadowType Should be either "boxShadow" or "textShadow".
+   *        Defaults to "boxShadow"
+   * @param {Number} shadowIndex Only one shadow highlight is drawn at a time,
+   *        choose which one here. Defaults to 0 (the first one)
+   */
+  show: function(node, shadowType, shadowIndex=0) {
+    this.node = node;
+    this.shadowIndex = shadowIndex;
+    if (shadowType !== SHADOW_TYPE_BOX && shadowType !== SHADOW_TYPE_TEXT) {
+      this.shadowType = SHADOW_TYPE_BOX;
+    } else {
+      this.shadowType = shadowType;
+    }
+
+    if (this.node && this.update()) {
+      this.container.style.display = "block";
+    }
+  },
+
+  /**
+   * Hide the shadow guides
+   */
+  hide: function() {
+    this.container.style.display = "none";
+  },
+
+  /**
+   * Destroy this instance of ShadowHighlighter so that guides are removed from
+   * their parents and references are released
+   */
+  destroy: function() {
+    this.hide();
+    this.node = null;
+    this.container.remove();
+
+    this.container = null;
+    this._offsetBox = null;
+    this._spreadBox = null;
+    this._blurBox = null;
+    this._offsetXArrow = null;
+    this._offsetYArrow = null;
+    this._spreadArrow = null;
+    this._blurArrow = null;
+  },
+
+  _createMarkup: function() {
+    this.container = this.doc.createElement("div");
+    this.container.className = "shadow-highlighter";
+    this.doc.body.appendChild(this.container);
+
+    this._createOffsetBox();
+    this._createSpreadBox();
+    this._createBlurBox();
+  },
+
+  _createOffsetBox: function() {
+    this._offsetBox = this.doc.createElement("div");
+    this._offsetBox.className = "shadow-highlighter-box shadow-highlighter-offset";
+    this.container.appendChild(this._offsetBox);
+
+    this._offsetXArrow = this.doc.createElement("div");
+    this._offsetXArrow.className = "shadow-highlighter-arrow h";
+    this.container.appendChild(this._offsetXArrow);
+
+    this._offsetYArrow = this.doc.createElement("div");
+    this._offsetYArrow.className = "shadow-highlighter-arrow v";
+    this.container.appendChild(this._offsetYArrow);
+  },
+
+  _createSpreadBox: function() {
+    this._spreadBox = this.doc.createElement("div");
+    this._spreadBox.className = "shadow-highlighter-box shadow-highlighter-spread";
+    this.container.appendChild(this._spreadBox);
+
+    this._spreadArrow = this.doc.createElement("div");
+    this._spreadArrow.className = "shadow-highlighter-arrow v";
+    this.container.appendChild(this._spreadArrow);
+  },
+
+  _createBlurBox: function() {
+    this._blurBox = this.doc.createElement("div");
+    this._blurBox.className = "shadow-highlighter-box shadow-highlighter-blur";
+    this.container.appendChild(this._blurBox);
+
+    this._blurArrow = this.doc.createElement("div");
+    this._blurArrow.className = "shadow-highlighter-arrow v";
+    this.container.appendChild(this._blurArrow);
+  },
+
+  update: function() {
+    this._shadow = this._getShadow();
+
+    if (this._shadow) {
+      this._rect = this.node.getBoundingClientRect();
+      this._updateOffsetBox();
+      this._updateSpreadBox();
+      this._updateBlurBox();
+    }
+
+    return !!this._shadow;
+  },
+
+  _updateOffsetBox: function() {
+    let x = this._shadow.xOffset, y = this._shadow.yOffset;
+    if (x === 0 && y === 0) {
+      this._offsetBox.style.display = "none";
+      this._offsetXArrow.style.display = "none";
+      this._offsetYArrow.style.display = "none";
+    } else {
+      this._offsetBox.style.top = this._rect.top + y + "px";
+      this._offsetBox.style.left = this._rect.left + x + "px";
+      this._offsetBox.style.width = this._rect.width + "px";
+      this._offsetBox.style.height = this._rect.height + "px";
+      this._offsetBox.style.display = "block";
+
+      if (x === 0) {
+        this._offsetXArrow.style.display = "none";
+      } else {
+        this._offsetXArrow.style.width = Math.abs(x) + "px";
+        this._offsetXArrow.style.left = Math.min(this._rect.left, this._rect.left + x) + "px";
+        this._offsetXArrow.style.top = Math.max(this._rect.top, this._rect.top + y) + "px";
+        this._offsetXArrow.style.display = "block";
+        this._offsetXArrow.textContent = x;
+      }
+
+      if (y === 0) {
+        this._offsetYArrow.style.display = "none";
+      } else {
+        this._offsetYArrow.style.height = Math.abs(y) + "px";
+        this._offsetYArrow.style.left = Math.max(this._rect.left + x, this._rect.left) + "px";
+        this._offsetYArrow.style.top = Math.min(this._rect.top, this._rect.top + y) + "px";
+        this._offsetYArrow.style.display = "block";
+        this._offsetYArrow.textContent = y;
+      }
+    }
+  },
+
+  _getSpread: function() {
+    if (this.shadowType === SHADOW_TYPE_TEXT) {
+      return 0;
+    } else {
+      return this._shadow.inset ? this._shadow.spread * -1 : this._shadow.spread;
+    }
+  },
+
+  _getSpreadBoxRect: function() {
+    let spread = this._getSpread();
+    let x = this._shadow.xOffset, y = this._shadow.yOffset;
+    let w = this._rect.width + (2 * spread), h = this._rect.height + (2 * spread);
+
+    return {
+      spread: spread,
+      top: this._rect.top + y - spread,
+      left: this._rect.left + x - spread,
+      width: w,
+      height: h
+    }
+  },
+
+  _updateSpreadBox: function() {
+    let rect = this._getSpreadBoxRect();
+
+    if (rect.spread === 0 || rect.width <= 0 || rect.height <= 0) {
+      this._spreadBox.style.display = "none";
+      this._spreadArrow.style.display = "none";
+    } else {
+      this._spreadBox.style.top = rect.top + "px";
+      this._spreadBox.style.left = rect.left + "px";
+      this._spreadBox.style.width = rect.width + "px";
+      this._spreadBox.style.height = rect.height + "px";
+      this._spreadBox.style.display = "block";
+
+      this._spreadArrow.style.height = Math.abs(rect.spread) + "px";
+      this._spreadArrow.style.left = this._rect.left + this._shadow.xOffset + (this._rect.width / 2) + "px";
+      this._spreadArrow.style.top = Math.min(rect.top + rect.spread, rect.top) + "px";
+      this._spreadArrow.textContent = this._shadow.inset ? rect.spread * -1 : rect.spread;
+      this._spreadArrow.style.display = "block";
+    }
+  },
+
+  _updateBlurBox: function() {
+    let spreadRect = this._getSpreadBoxRect();
+    let blur = this._shadow.blur;
+
+    if (blur === 0 || spreadRect.width <= 0 || spreadRect.height <= 0) {
+      this._blurBox.style.display = "none";
+      this._blurArrow.style.display = "none";
+    } else {
+      let width = spreadRect.width + (2 * blur);
+      let height = spreadRect.height + (2 * blur);
+
+      this._blurBox.style.top = spreadRect.top - blur + "px";
+      this._blurBox.style.left = spreadRect.left - blur + "px";
+      this._blurBox.style.width = width + "px";
+      this._blurBox.style.height = height + "px";
+      this._blurBox.style.display = "block";
+
+      this._blurArrow.style.height = Math.abs(blur) + "px";
+      this._blurArrow.style.left = spreadRect.left + (spreadRect.width / 2) + "px";
+      this._blurArrow.style.top = spreadRect.top + spreadRect.height + "px";
+      this._blurArrow.style.display = "block";
+      this._blurArrow.textContent = blur;
+    }
+  },
+
+  _getShadow: function() {
+    let computed = this.win.getComputedStyle(this.node)[this.shadowType];
+    let shadows = this["_parse" + this.shadowType.charAt(0).toUpperCase() +
+      this.shadowType.slice(1)](computed);
+
+    return shadows && shadows[this.shadowIndex];
+  },
+
+  _parseMultipleShadows: function(computedShadow) {
+    let parts = computedShadow.split(","), inColor = false, shadows = [];
+    for (let part of parts) {
+      if (!inColor) {
+        shadows.push("");
+      }
+
+      if (part.indexOf("rgb") !== -1) {
+        inColor = true;
+      } else if (inColor && part.indexOf(")") !== -1) {
+        inColor = false;
+      }
+
+      shadows[shadows.length - 1] += part;
+      if (inColor) {
+        shadows[shadows.length - 1] += ", ";
+      }
+    }
+
+    return shadows;
+  },
+
+  _parseTextShadow: function(computedTextShadow) {
+    if (computedTextShadow && computedTextShadow !== "none") {
+      // The syntax of a single computed text shadow is
+      // <color> <xoffset>px <yoffset>px <blur>px
+      // and there can be several shadows: <shadow> [,<shadow>]*
+      // Split first by single shadow and parse after
+      let shadows = this._parseMultipleShadows(computedTextShadow);
+
+      shadows.forEach(function(shadow, index) {
+        let blur = parseInt(shadow.substring(shadow.lastIndexOf(" ")), 10);
+        shadow = shadow.substring(0, shadow.lastIndexOf(" "));
+
+        let yOffset = parseInt(shadow.substring(shadow.lastIndexOf(" ")), 10);
+        shadow = shadow.substring(0, shadow.lastIndexOf(" "));
+
+        let xOffset = parseInt(shadow.substring(shadow.lastIndexOf(" ")), 10);
+        shadow = shadow.substring(0, shadow.lastIndexOf(" "));
+
+        let color = shadow;
+
+        shadows[index] = {
+          color: color,
+          xOffset: xOffset,
+          yOffset: yOffset,
+          blur: blur
+        }
+      });
+
+      return shadows;
+    } else {
+      return null;
+    }
+  },
+
+  _parseBoxShadow: function(computedBoxShadow) {
+    if (computedBoxShadow && computedBoxShadow !== "none") {
+      // The syntax of a single computed box shadow is
+      // <color> <xoffset>px <yoffset>px <blur>px <spread>px [inset]
+      // and there can be several shadows: <shadow> [,<shadow>]*
+      // Split first by single shadow and parse after
+      let shadows = this._parseMultipleShadows(computedBoxShadow);
+
+      shadows.forEach(function(shadow, index) {
+        let isInset = shadow.indexOf("inset") !== -1;
+        if (isInset) {
+          shadow = shadow.substring(0, shadow.indexOf("inset") - 1);
+        }
+
+        let spread = parseInt(shadow.substring(shadow.lastIndexOf(" ")), 10);
+        shadow = shadow.substring(0, shadow.lastIndexOf(" "));
+
+        let blur = parseInt(shadow.substring(shadow.lastIndexOf(" ")), 10);
+        shadow = shadow.substring(0, shadow.lastIndexOf(" "));
+
+        let yOffset = parseInt(shadow.substring(shadow.lastIndexOf(" ")), 10);
+        shadow = shadow.substring(0, shadow.lastIndexOf(" "));
+
+        let xOffset = parseInt(shadow.substring(shadow.lastIndexOf(" ")), 10);
+        shadow = shadow.substring(0, shadow.lastIndexOf(" "));
+
+        let color = shadow;
+
+        shadows[index] = {
+          color: color,
+          xOffset: xOffset,
+          yOffset: yOffset,
+          blur: blur,
+          spread: spread,
+          inset: isInset
+        }
+      });
+
+      return shadows;
+    } else {
+      return null;
+    }
+  }
+};
+  </script>
+  <script>
+    let sample = document.querySelector("#sample");
+
+    let controls = {
+      "width": null,
+      "height": null,
+      "xOffset": null,
+      "yOffset": null,
+      "blur": null,
+      "spread": null
+    };
+
+    for (let c in controls) {
+      (function(c) {
+        let el = document.getElementById(c + "Control");
+        let valueEl = el.querySelector("span");
+        let rangeEl = el.querySelector("input");
+
+        // Setup initial value
+        let value = parseInt(rangeEl.value, 10);
+        valueEl.textContent = value;
+        controls[c] = value;
+
+        // Listen to changes
+        rangeEl.addEventListener("input", function(e) {
+          let value = parseInt(this.value, 10);
+          controls[c] = value;
+          valueEl.textContent = value;
+          refresh();
+        }, false);
+      })(c);
+    }
+
+    let insetBox = document.getElementById("inset");
+    insetBox.addEventListener("click", refresh, false);
+
+    let highlighter = new ShadowHighlighter(window);
+    highlighter.show(sample, 0);
+    refresh();
+
+    function refresh() {
+      sample.style.width = controls.width + "px";
+      sample.style.height = controls.height + "px";
+
+      let boxShadow = insetBox.checked ? "inset " : "";
+      boxShadow += "#666 " + controls.xOffset + "px " + controls.yOffset + "px " + controls.blur + "px " + controls.spread + "px";
+      sample.style.boxShadow = boxShadow;
+
+      highlighter.update();
+    }
+
+    document.getElementById("toggle").addEventListener("click", function(e) {
+      this.checked ? highlighter.show(sample) : highlighter.hide();
+    }, false);
+  </script>
+</body>
+</html>

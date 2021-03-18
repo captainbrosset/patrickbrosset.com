@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font-family: arial;
+}
+
+input {
+  display: block;
+  font-size: 2em;
+  padding: .5em;
+  margin: 1em auto;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  color: #aaa
+}
+
+a {
+  color: #F06;
+}
+
+.sample {
+  position: relative;
+  margin: 6em auto;
+  width: 416px;
+  height: 20px;
+}
+
+.scale {
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 416px;
+  height: 2px;
+  z-index: 1;
+
+  background: #ccc;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: #f06;
+  z-index: 2;
+
+  position: absolute;
+  top: 0;
+  left: 0px;
+}
+
+.animate {
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  animation-name: preview;
+}
+
+@keyframes preview {
+  0% {
+    left: 0px;
+  }
+  33% {
+    left: 400px;
+  }
+  50% {
+    left: 400px;
+  }
+  83% {
+    left: 0px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+</style>
+<input type="text" value="ease-in-out" />
+
+<div class="sample">
+  <div class="dot"></div>
+  <div class="scale"></div>
+</div>
+
+<p>Enter any css timing-function expression in the field and see the dot animate<br />
+  Examples of timing functions: <a href="#">ease</a>, <a href="#">ease-in</a>, <a href="#">ease-out</a>, <a href="#">ease-in-out</a>, <a href="#">linear</a>, <a href="#">cubic-bezier(.25, 0, .75, 2)</a></p>
+<script>
+var input = document.querySelector("input");
+var div = document.querySelector(".dot");
+var lastValue = null;
+var autoRestartAnimation = null;
+
+input.onkeyup = function(e) {
+  if (!isCharacter(e)) {
+    return;
+  }
+
+  update();
+}
+
+function update() {
+  var value = input.value;
+  clearTimeout(autoRestartAnimation);
+  if (isValidFunction(value)) {
+    div.style.animationTimingFunction = value;
+    restartAnimation();
+  }
+  lastValue = value;
+}
+
+function isCharacter({keyCode}) {
+  // We're only interested to do anything if the keyCode entered is one that
+  // can be used in a cubic-bezier value
+  var chars = "1234567890-.,abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ()"
+  .split("").map(function(c) {return c.charCodeAt()});
+  return chars.indexOf(keyCode) !== -1;
+}
+
+function isValidFunction(value) {
+  if (value === lastValue) {
+    return false;
+  }
+
+  if (["ease", "linear", "ease-in", "ease-out", "ease-in-out"].indexOf(value) !== -1) {
+    return true;
+  }
+
+  if (value.match(/^cubic-bezier\(([0-9.\- ]+,){3}[0-9.\- ]+\)/)) {
+    return true;
+  }
+
+  return false;
+}
+
+function restartAnimation() {
+  // Restart the animation (requires a sync reflow)
+  div.classList.remove("animate");
+  div.offsetWidth = div.offsetWidth;
+  div.classList.add("animate");
+
+  // Restart it again after a while (except if the user starts to type again)
+  autoRestartAnimation = setTimeout(restartAnimation, 2500);
+}
+
+// Auto-start
+restartAnimation();
+
+// Make example links clickable
+[].forEach.call(document.querySelectorAll("a"), function (link) {
+  link.onclick = function() {
+    input.value = link.textContent;
+    update();
+  }
+});
+</script>

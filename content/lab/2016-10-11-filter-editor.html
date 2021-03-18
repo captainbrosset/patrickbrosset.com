@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Filter editor</title>
+  <style>
+:root {
+  /* The margin around the function list, and between columns */
+  --margin: 1em;
+  /* This hard-coded width is useful to avoid the .name elements from growing/shrinking
+     when the value in the ::after pseudo changes, and causing the whole functions ui to
+     grow/shrink as a result */
+  --name-width: 105px;
+  /* Width of a column of filter functions. If the container is wide enough to fit 2 times
+     this value, then 2 columns will appear */
+  --column-width: 160px;
+  /* Color of text and inputs */
+  --color-normal: #52514D;
+  /* Color of text and inputs when a particular function is disabled */
+  --color-disabled: #d6d6d6;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: white;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  font-family: arial;
+}
+
+.rule-view {
+  width: 50vw;
+  border: 1px solid #dde1e4;
+  padding: 50px 0;
+}
+
+.rule-view img {
+  display: block;
+  margin: 50px auto 0 auto;
+  width: 80%;
+}
+
+.filter-editor {
+  padding: var(--margin);
+  background: #fcfcfc;
+  -moz-column-width: var(--column-width);
+  -moz-column-gap: var(--margin);
+  position: relative;
+  border: 1px solid #dde1e4;
+  border-width: 1px 0;
+  overflow: auto;
+}
+
+.functions {
+  display: grid;
+  grid-template-columns: var(--name-width) 1fr;
+  grid-auto-rows: 2em;
+  counter-reset: functions;
+  /* Start overflowing when there is one column and the sliders are half has wide as the
+     names */
+  min-width: calc(var(--name-width) * 1.5);
+}
+
+.functions > * {
+  height: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px dotted transparent;
+}
+
+.functions .name {
+  color: var(--color-normal);
+  white-space: nowrap;
+  cursor: move;
+}
+
+.functions .name.disabled {
+  color: var(--color-disabled);
+}
+
+.functions .name.drop-area,
+.functions .name.drop-area + .value {
+  border-color: #dde1e4;
+}
+
+.functions .name::before {
+  counter-increment: functions;
+  content: counter(functions) ". ";
+}
+
+.functions .name::after {
+  content: "(" attr(data-value) ")";
+}
+
+.functions .name.no-slider {
+  grid-column: span 2;
+}
+
+.functions .value {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.functions .value::-moz-range-thumb {
+  border: 0;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background: var(--color-normal);
+  cursor: pointer;
+}
+
+.functions .name.disabled + .value::-moz-range-thumb {
+  background: var(--color-disabled);
+}
+
+.functions .value::-moz-range-track,
+.functions .value::-moz-range-progress {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: #E8E8E8;
+  border-radius: 2px / 50%;
+  border: 0;
+}
+
+.functions .value::-moz-range-progress {
+  background: var(--color-normal);
+}
+  </style>
+</head>
+<body>
+  <div class="rule-view">
+    <div class="filter-editor">
+      <div class="functions"></div>
+    </div>
+    <img src="http://buukkit.appspot.com/img/verily.jpg" />
+  </div>
+  <script>
+const FUNCTIONS = [{
+  name: "blur",
+  min: 0,
+  max: 100,
+  step: 5,
+  unit: "px"
+}, {
+  name: "drop-shadow",
+  textOnly: true
+}, {
+  name: "contrast",
+  min: 0,
+  max: 200,
+  step: 10,
+  unit: "%"
+}, {
+  name: "grayscale",
+  min: 0,
+  max: 100,
+  step: 5,
+  unit: "%"
+}, {
+  name: "hue-rotate",
+  min: 0,
+  max: 360,
+  step: 10,
+  unit: "deg"
+}, {
+  name: "invert",
+  min: 0,
+  max: 100,
+  step: 5,
+  unit: "%"
+}, {
+  name: "opacity",
+  min: 0,
+  max: 100,
+  step: 5,
+  unit: "%"
+}, {
+  name: "saturate",
+  min: 0,
+  max: 200,
+  step: 10,
+  unit: "%"
+}, {
+  name: "sepia",
+  min: 0,
+  max: 200,
+  step: 10,
+  unit: "%"
+}, {
+  name: "url",
+  textOnly: true
+}];
+
+function addFunction(data, el) {
+  let name = document.createElement("span");
+  name.classList.add("name");
+  name.classList.add("disabled");
+  name.textContent = data.name;
+  name.id = data.name;
+  name.setAttribute("draggable", "true");
+
+  el.appendChild(name);
+
+  let value;
+  if (data.textOnly) {
+    name.classList.add("no-slider");
+  } else {
+    let unsetMin = data.min - data.step;
+
+    value = document.createElement("input");
+    value.setAttribute("type", "range");
+    value.classList.add("value");
+
+    value.setAttribute("min", unsetMin);
+    value.setAttribute("max", data.max);
+    value.setAttribute("step", data.step);
+    value.value = unsetMin;
+
+    el.appendChild(value);
+  }
+
+  return {name, value};
+}
+
+function applyFilter() {
+  let style = [];
+  [...document.querySelectorAll(".name")].forEach(name => {
+    if (name.dataset.value) {
+      style.push(`${name.textContent}(${name.dataset.value})`);
+    }
+  });
+  img.style.filter = style.join(" ");
+}
+
+const el = document.querySelector(".functions");
+const img = document.querySelector("img");
+
+for (let data of FUNCTIONS) {
+  let {name, value} = addFunction(data, el);
+
+  if (value) {
+    let {min, step, unit} = data;
+    value.addEventListener("input", () => {
+      if (value.value === "" + (min - step)) {
+        name.dataset.value = "";
+        name.classList.add("disabled");
+      } else {
+        name.dataset.value = value.value + unit;
+        name.classList.remove("disabled");
+      }
+
+      applyFilter();
+    });
+  }
+}
+
+function unhighlightDropAreas() {
+  [...el.querySelectorAll(".drop-area")]
+    .forEach(drop => drop.classList.remove("drop-area"));
+}
+
+el.addEventListener("dragstart", e => {
+  e.dataTransfer.setData("text/plain", e.target.id);
+  e.dataTransfer.dropEffect = "move";
+});
+
+el.addEventListener("dragover", e => {
+  e.preventDefault();
+  let {target} = e;
+  if (!target.classList.contains("name")) {
+    return;
+  }
+
+  unhighlightDropAreas();
+  target.classList.add("drop-area");
+  e.dataTransfer.dropEffect = "move"
+});
+
+el.addEventListener("drop", e => {
+  e.preventDefault();
+  let {target} = e;
+  if (!target.classList.contains("name")) {
+    return;
+  }
+
+  if (!target.classList.contains("no-slider")) {
+    target = target.nextElementSibling;
+  }
+
+  unhighlightDropAreas();
+
+  let id = e.dataTransfer.getData("text");
+  let source = el.querySelector("#" + id);
+
+  if (source.classList.contains("no-slider")) {
+    target.insertAdjacentElement("afterend", source);
+  } else {
+    let value = source.nextElementSibling;
+    target.insertAdjacentElement("afterend", source);
+    source.insertAdjacentElement("afterend", value);
+  }
+
+  applyFilter();
+});
+  </script>
+</body>
+</html>

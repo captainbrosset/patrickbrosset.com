@@ -1,0 +1,13 @@
+{
+  "name": "11ty-blog",
+  "version": "1.0.0",
+  "description": "My personal website",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
+    "eleventy-plugin-youtube-embed": "^1.4.5"
+  }
+}

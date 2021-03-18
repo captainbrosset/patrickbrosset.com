@@ -1,0 +1,56 @@
+---
+title: patrick / tab
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+    html {
+        font-family: georgia, sans-serif;
+        font-size: 17px;
+    }
+
+    body {
+        margin: 3rem auto;
+        width: 90%;
+    }
+
+    main {
+        column-count: 2;
+        column-gap: 1em;
+    }
+
+    p {
+        color: #999;
+        font-style: italic;
+    }
+
+    p::before { content: "("; }
+    p::after { content: ")"; }
+
+    .line {
+        margin: 1rem 0;
+    }
+
+    em {
+        white-space: pre;
+        display: block;
+        font-family: monospace;
+        font-style: normal;
+    }
+
+    em:first-child {
+        color: #0095ff;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <main>
+        {{ content | safe }}
+    </main>
+  </body>
+</html>

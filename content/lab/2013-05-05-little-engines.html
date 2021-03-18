@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>little engines</title>
+  <style>
+    body {
+      background: #333;
+      padding: 10px;
+      margin: 0;
+    }
+    .example {
+      width: 500px;
+      height: 500px;
+      margin: 20px;
+      float: left;
+      position: relative;
+    }
+    .example .engine {
+      background: black;
+    }
+    .example .engine, .example .trail {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="example" id="ex1"></div>
+  <div class="example" id="ex2"></div>
+  <div class="example" id="ex3"></div>
+  <div class="example" id="ex4"></div>
+  <div class="example" id="ex5"></div>
+  <script src="/assets/littleengines.js"></script>
+  <script>
+    // example 1 : triangle
+    var set1 = new LittleEnginesSet(document.getElementById('ex1'), 500, 500, 'rgba(255,50,50,.6)', 3);
+    set1.addEngine({x: 200, y: 200, r: 100, a: 0, s: Math.PI / 100});
+    set1.addEngine({x: 300, y: 300, r: 50, a: 0, s: -Math.PI / 50});
+    set1.start();
+
+    // example 2 : custom engine that draws squares
+    function round(value, radius) {
+      return Math.round(value/radius)*radius;
+    }
+    function mapToSquare() {
+      var xy, angle = this.a%(Math.PI*2);
+      if((angle >= 0 && angle <= Math.PI/4) || (angle > 7*Math.PI/4 && angle <= 2*Math.PI)) {
+        xy = {
+          x: this.x + this.r,
+          y: this.y + (this.r * Math.sin(angle))
+        };
+      } else if(angle > Math.PI/4 && angle <= 3*Math.PI/4) {
+        xy = {
+          x: this.x + (this.r * Math.cos(angle)),
+          y: this.y + this.r
+        };
+      } else if(angle > 3*Math.PI/4 && angle <= 5*Math.PI/4) {
+        xy = {
+          x: this.x - this.r,
+          y: this.y + (this.r * Math.sin(angle))
+        };
+      } else if(angle > 5*Math.PI/4 && angle <= 7*Math.PI/4) {
+        xy = {
+          x: this.x + (this.r * Math.cos(angle)),
+          y: this.y - this.r
+        };
+      }
+      this.a += this.s;
+      return xy;
+    };
+
+    var set2 = new LittleEnginesSet(document.getElementById('ex2'), 500, 500);
+    set2.addEngine({
+      x: 250,
+      y: 100,
+      r: 50,
+      a: 0,
+      s: Math.PI/100,
+      getXY: function() {
+        return mapToSquare.call(this);
+      }
+    });
+    set2.addEngine({
+      x: 200,
+      y: 400,
+      r: 100,
+      a: 0,
+      s: Math.PI/75,
+      getXY: function() {
+        return mapToSquare.call(this);
+      }
+    });
+    set2.start();
+
+    // example 3 : flower
+    var set3 = new LittleEnginesSet(document.getElementById('ex3'), 500, 500, 'rgba(10,240,240,.5)');
+    set3.addEngine({x: 150, y: 150, r: 100, a: 0, s: Math.PI / 100});
+    set3.addEngine({x: 350, y: 350, r: 50, a: 0, s: -Math.PI / 20});
+    set3.start();
+
+    // example 4 : flower
+    var set4 = new LittleEnginesSet(document.getElementById('ex4'), 500, 500, 'rgba(200,200,50,.5)');
+    set4.addEngine({x: 150, y: 150, r: 100, a: 0, s: Math.PI / 100});
+    set4.addEngine({x: 350, y: 350, r: 30, a: 0, s: -Math.PI / 10});
+    set4.start();
+
+    // example 5 :
+    var set5 = new LittleEnginesSet(document.getElementById('ex5'), 500, 500);
+    var r = 100;
+    for(var i = 0; i < Math.PI * 2; i += Math.PI/32) {
+      r = (r === 100) ? 20 : 100;
+      set5.addEngine({
+            x : 250 + (100 * Math.cos(i)),
+            y : 250 + (100 * Math.sin(i)),
+            r : r,
+            a : 0,
+            s : Math.PI/r
+      });
+    }
+    set5.start();
+  </script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<title>CSS Alignment Cheatsheet</title>
+<meta charset="utf-8">
+<style>
+* { margin: 0; padding: 0; list-style: none; }
+
+body {
+  font-family: arial;
+  color: #333;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+  margin: 1em;
+}
+
+h1, .misc {
+  grid-column: 1 / 3;
+}
+
+h1 a {
+  font-size: small;
+}
+
+@media screen and (max-width: 800px) {
+  body { grid-template-columns: 1fr; }
+  h1, .misc { grid-column: 1 / 2; }
+}
+
+section {
+  background: #dee6e8;
+  padding: 1em;
+  border-radius: 5px;
+  align-self: start;
+}
+
+.definition {
+  margin-bottom: 1em;
+  min-height: 2em;
+}
+
+.display-modes > dt, .display-modes > dd {
+  background: #f9feff;
+  padding: 1em;
+}
+
+.display-modes > dt {
+  font-size: larger;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+}
+
+.display-modes > dd {
+  margin-bottom: 1em;
+  padding-top: 0;
+  border-radius: 0 0 5px 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+  grid-auto-flow: dense;
+}
+
+.display-modes > dd:last-child {
+  margin-bottom: 0;
+}
+
+.display-modes > dd .inline { grid-column: 1; }
+.display-modes > dd .block { grid-column: 2; }
+
+.display-modes > dd > * {
+  place-self: start center;
+}
+.display-modes > dd > img {
+  place-self: center;
+}
+.display-modes > dd > .description {
+  place-self: start stretch;
+}
+
+@media screen and (max-width: 300px) {
+  .display-modes > dd {
+    grid-template-columns: 1fr;
+  }
+  .display-modes > dd .block { grid-column: 1; }
+}
+
+img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.description {
+  font-size: small;
+}
+.description li {
+  margin-bottom: .5em;
+  padding-bottom: .5em;
+  border-bottom: 1px solid #ccc;
+}
+.description li:last-child {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+code {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.exception {
+  color: #d32800;
+}
+.exception::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-bottom: 1em solid orange;
+  border-left: 0.6em solid transparent;
+  border-right: 0.6em solid transparent;
+  margin-inline-end: 0.5em;
+  filter: drop-shadow(1px 1px 0px #0006);
+}
+
+.misc ul {
+  background: #f9feff;
+  margin-top: 1em;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+</style>
+
+<h1>
+  CSS Alignment Cheatsheet
+  <a href="/articles/2018-01-11-demystifying-css-alignment">Go read the full article on alignment</a>
+</h1>
+
+<section class="content-distribution">
+  <h2>Content Distribution</h2>
+  <p class="definition">Control the alignment of a box’s content within itself.</p>
+
+  <dl class="display-modes">
+    <dt>Flexbox</dt>
+    <dd>
+      <div class="axis inline">Inline / Main</div>
+      <img class="inline" src="/assets/content-distribution/flexbox-inline.png">
+      <div class="description inline">
+        <ul>
+          <li><code>justify-content</code></li>
+          <li>Applies to flex containers</li>
+          <li>Distributes flex items</li>
+        </ul>
+      </div>
+      <div class="axis block">Block / Cross</div>
+      <img class="block" src="/assets/content-distribution/flexbox-block.png">
+      <div class="description block">
+        <ul>
+          <li><code>align-content</code></li>
+          <li>Applies to flex containers</li>
+          <li>Distributes flex lines</li>
+          <li class="exception">Only when there are multiple lines (flex-wrap)</li>
+        </ul>
+      </div>
+    </dd>
+    <dt>Grid</dt>
+    <dd>
+      <div class="axis inline">Inline / Main</div>
+      <img class="inline" src="/assets/content-distribution/grid-inline.png">
+      <div class="description inline">
+        <ul>
+          <li><code>justify-content</code></li>
+          <li>Applies to grid containers</li>
+          <li>Distributes grid column tracks</li>
+          <li>Controls the remaining space (if any) between tracks (like grid gaps)</li>
+        </ul>
+      </div>
+      <div class="axis block">Block / Cross</div>
+      <img class="block" src="/assets/content-distribution/grid-block.png">
+      <div class="description block">
+        <ul>
+          <li><code>align-content</code></li>
+          <li>Applies to grid containers</li>
+          <li>Distributes grid row tracks</li>
+          <li>Controls the remaining space (if any) between tracks (like grid gaps)</li>
+        </ul>
+      </div>
+    </dd>
+    <dt>Multi-column</dt>
+    <dd>
+      <div class="axis inline">Inline / Main</div>
+      <img class="inline" src="/assets/content-distribution/multicol-inline.png">
+      <div class="description inline">
+        <ul>
+          <li><code>justify-content</code></li>
+          <li>Applies to multicol containers</li>
+          <li>Distributes column boxes</li>
+          <li>Controls the remaining space (if any) between columns (like column gaps)</li>
+          <li class="exception">No current browser support</li>
+        </ul>
+      </div>
+      <div class="axis block">Block / Cross</div>
+      <img class="block" src="/assets/content-distribution/multicol-block.png">
+      <div class="description block">
+        <ul>
+          <li><code>align-content</code></li>
+          <li>Applies to multicol containers</li>
+          <li>Distributes column boxes</li>
+          <li class="exception">Only when columns aren't as tall as the container</li>
+          <li class="exception">No current browser support</li>
+        </ul>
+      </div>
+    </dd>
+    <dt>Block</dt>
+    <dd>
+      <div class="axis inline">Inline / Main</div>
+      <div class="description inline exception">Not supported.</div>
+      <div class="axis block">Block / Cross</div>
+      <img class="block" src="/assets/content-distribution/block-block.png">
+      <div class="description block">
+        <ul>
+          <li><code>align-content</code></li>
+          <li>Applies to block containers</li>
+          <li>Aligns the entire content of the block, as one unit</li>
+          <li>Similar to padding</li>
+          <li class="exception">No current browser support</li>
+        </ul>
+      </div>
+    </dd>
+  </dl>
+</section>
+<section class="self-alignment">
+  <h2>Self-Alignment</h2>
+  <p class="definition">Control the alignment of a box within its containing block.</p>
+
+  <dl class="display-modes">
+    <dt>Flexbox</dt>
+    <dd>
+      <div class="axis inline">Inline / Main</div>
+      <div class="description inline exception">Not supported. There are multiple items along this axis.</div>
+      <div class="axis block">Block / Cross</div>
+      <img class="block" src="/assets/self-alignment/flexbox-block.png">
+      <div class="description block">
+        <ul>
+          <li><code>align-self</code></li>
+          <li>Applies to flex items</li>
+          <li>Aligns inside flex lines</li>
+        </ul>
+      </div>
+    </dd>
+    <dt>Grid</dt>
+    <dd>
+      <div class="axis inline">Inline / Main</div>
+      <img class="inline" src="/assets/self-alignment/grid-inline.png">
+      <div class="description inline">
+        <ul>
+          <li><code>justify-self</code></li>
+          <li>Applies to grid items</li>
+          <li>Aligns inside grid areas or cells</li>
+        </ul>
+      </div>
+      <div class="axis block">Block / Cross</div>
+      <img class="block" src="/assets/self-alignment/grid-block.png">
+      <div class="description block">
+        <ul>
+          <li><code>align-self</code></li>
+          <li>Applies to grid items</li>
+          <li>Aligns inside grid areas or cells</li>
+        </ul>
+      </div>
+    </dd>
+    <dt>Block</code></dt>
+    <dd>
+      <div class="axis inline">Inline / Main</div>
+      <img class="inline" src="/assets/self-alignment/block-inline.png">
+      <div class="description inline">
+        <ul>
+          <li><code>justify-self</code></li>
+          <li>Applies to block elements</li>
+          <li>Aligns inside their block container</li>
+          <li>Similar to margin</li>
+          <li class="exception">No current browser support</li>
+        </ul>
+      </div>
+      <div class="axis block">Block / Cross</div>
+      <div class="description block exception">Not supported. There are multiple items along this axis.</div>
+    </dd>
+  </dl>
+</section>
+<section class="misc">
+  <h2>Miscellaneous</h2>
+  <ul>
+    <li>Even though <code>justify-items</code> and <code>align-items</code> apply to alignment containers, they are in fact <strong>self-alignment</strong> properties. They only set <code>justify-self</code> and <code>align-self</code>'s default values.</li>
+  </ul>
+</section>

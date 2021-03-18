@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css?family=Rokkitt");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #0b0b0b;
+}
+
+body {
+	margin: 3rem auto;
+	width: 60%;
+	max-width: 1000px;
+	font-family: Rokkitt, serif;
+	font-size: 16pt;
+	line-height: 1.8;
+	color: #8F9BA8;
+	display: grid;
+	grid-template-areas: "header nav" "main main";
+	grid-template-columns: max-content 1fr;
+	column-gap: 1rem;
+}
+
+h1, h2, h3, h4,
+h1 a, h2 a, h3 a, h4 a {
+  color: white;
+}
+
+body > h1 {
+  margin: 0;
+  align-self: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.site-nav {
+  margin: 0;
+  justify-self: end;
+  align-self: center;
+  font-size: larger;
+}
+
+@media only screen and (max-width: 1400px) {
+  body {
+    grid-template-areas: "header" "nav" "main";
+    grid-template-columns: 100%;
+  }
+  .site-nav {
+    justify-self: start;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  body {
+    width: 80%;
+  }
+}
+
+.site-nav ul,
+.site-nav li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+a {
+  color: rgb(5, 177, 177);
+  text-underline-offset: 6px;
+  text-decoration-skip-ink: none;
+}
+
+h1 a {
+  text-decoration: none;
+}
+
+.site-nav li {
+  display: inline;
+  margin-right: 0.5rem;
+}
+
+main {
+  margin: 3rem 0 0 0;
+  grid-area: main;
+  width: 100%;
+  justify-self: start;
+}
+
+#home-image {
+	text-align: center;
+	margin-top: 5rem;
+}
+
+#home-image img {
+	box-shadow: 0 0 10rem -7rem rgb(142, 142, 142);
+}
+
+time {
+  color: #8a8a8a;
+  font-size: smaller;
+}
+
+/* Images in main content are full width */
+main img {
+  max-width: 100%;
+}
+
+main img.thumbnail {
+  max-width: 150px;
+  display: block;
+  margin: .5em 0 .5em .5em;
+  float: right;
+}
+
+/* Inline code snippets */
+code {
+  background: #272822;
+  color: white;
+  padding: .3rem;
+  font-size: small;
+  border-radius: 2px;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  white-space: nowrap;
+}
+
+pre {
+  overflow: auto;
+  max-height: 50vh;
+  width: 100%;
+  white-space: normal;
+}
+
+/* List of articles or demos */
+.entries {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* At most 2 columns in the 1000px max width */
+  column-width: calc(450px - 2rem);
+  column-gap: 2rem;
+}
+.entries > li {
+	break-inside: avoid-column;
+	page-break-inside: avoid;
+	margin: 0;
+  padding: 1rem 0;
+  border-radius: 3px;
+  clear: both;
+  overflow: auto;
+}
+.entries > li time {
+  display: block;
+}

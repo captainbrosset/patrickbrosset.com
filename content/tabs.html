@@ -1,0 +1,463 @@
+---
+layout: main-layout.njk
+subtitle: tabs
+---
+<ul class="entries">
+  <li>
+    <a href="thomas-azier-babylon">Thomas Azier - Babylon</a>
+  </li>
+  <li>
+    <a href="piers-faccini-each-wave-that-breaks">Piers Faccini - Each wave that breaks</a>
+  </li>
+  </li>
+  <li>
+    <a href="archive-bright-light">Archive - Bright light</a>
+  </li>
+  <li>
+    <a href="cinematic-orchestra-to-build-a-home">Cinematic Orchestra - To Build a Home</a>
+  </li>
+  <li>
+    <a href="portishead-roads">Portishead - Roads</a>
+  </li>
+  <li>
+    <a href="daft-punk-instant-crush">Daft Punk - Instant Crush</a>
+  </li>
+  <li>
+    <a href="stereophonics-maybe-tomorrow">Stereophonics - Maybe Tomorrow</a>
+  </li>
+  <li>
+    <a href="asaf-avidan-my-old-pain">Asaf Avidan - My Old Pain</a>
+  </li>
+  <li>
+    <a href="pink-floyd-breathe">Pink Floyd - Breathe</a>
+  </li>
+  <li>
+    <a href="lamb-gabriel">Lamb - Gabriel</a>
+  </li>
+</ul>
+
+<style>
+#chords {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+  max-width: 900px;
+}
+
+.chord {
+  /* Keep in sync with NUMBER_OF_STRINGS in the javascript code */
+  --nb-of-strings: 6;
+  /* Base unit for the chord chart, change this to make the chart smaller or bigger */
+  --unit: 10px;
+  --half-unit: calc(var(--unit) / 2);
+  /* A ratio of 1 means the chart is as tall as it is wide */
+  --height-ratio: 1.2;
+
+  --text-color: white;
+  --main-color: white;
+  --fret-color: #333;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: calc(var(--unit) - 1px);
+  display: inline-grid;
+  grid-template-areas: 
+    "name           ."
+    "strings        position"
+    "finger-numbers .";
+  grid-template-columns: calc(var(--nb-of-strings) * var(--unit)) max-content;
+  margin: var(--unit);
+  color: var(--text-color);
+}
+
+.chord ul, .chord li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.chord .name { grid-area: name; }
+.chord .position { grid-area: position; }
+.chord .strings { grid-area: strings; }
+.chord .finger-numbers { grid-area: finger-numbers; }
+
+.chord .strings,
+.chord .finger-numbers {
+  display: grid;
+  width: calc(var(--nb-of-strings) * var(--unit));
+  grid-template-columns: repeat(var(--nb-of-strings), 1fr);
+  place-items: center;
+}
+
+.chord .name {
+  text-align: center;
+  font-weight: bold;
+}
+
+.chord .strings {
+  height: calc(5 * var(--unit) * var(--height-ratio));
+  grid-template-rows: repeat(5, 1fr);
+  background-image:
+    linear-gradient(to bottom, var(--main-color) 2px, transparent 0),
+    linear-gradient(to right, transparent calc(var(--half-unit) - 0.5px), var(--main-color) calc(var(--half-unit) - 0.5px), var(--main-color) calc(var(--half-unit) + 0.5px), transparent 0),
+    linear-gradient(to bottom, var(--fret-color) 0, var(--fret-color) 1px, transparent 0);
+  background-repeat: no-repeat, repeat-x, repeat-y;
+  background-size: calc(5 * var(--unit)), var(--unit), calc(5 * var(--unit)) calc(var(--unit) * var(--height-ratio));
+  background-position: var(--half-unit), 0, var(--half-unit) -1px;
+}
+
+.chord .finger {
+  background: var(--main-color);
+  border-radius: var(--half-unit);
+  place-self: center;
+  height: var(--half-unit);
+  width: calc(100% - var(--half-unit));
+}
+</style>
+
+<div id="chords"></div>
+
+<script>
+const NUMBER_OF_STRINGS = 6;
+// Here is how each chord is described:
+//
+// - name: string, the name of the chord
+// - position: number, optional, the offset (along the fingerboard) to play this chord
+// - fingers: the list of where fingers go on the fingerboard. Note that they should appear in order (index, middle, ring, pinky):
+//   - position: number, the position along the fingerboard
+//   - strings: number|array, which string (or strings) should this finger hold
+// - muted: array, the number of the strings that should not be played
+const CHORDS = [{
+  name: "A",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: 3
+  }, {
+    position: 2,
+    strings: 4
+  }, {
+    position: 2,
+    strings: 5
+  }],
+  muted: [1]
+}, {
+  name: "Am",
+  position: 0,
+  fingers: [{
+    position: 1,
+    strings: 5
+  }, {
+    position: 2,
+    strings: 3
+  }, {
+    position: 2,
+    strings: 4
+  }],
+  muted: [1]
+}, {
+  name: "Amaj7",
+  position: 0,
+  fingers: [{
+    position: 1,
+    strings: 4
+  }, {
+    position: 2,
+    strings: 3
+  }, {
+    position: 2,
+    strings: 5
+  }],
+  muted: [1, 2]
+}, {
+  name: "Bm",
+  position: 2,
+  fingers: [{
+    position: 1,
+    strings: [2, 6]
+  }, {
+    position: 2,
+    strings: 5
+  }, {
+    position: 3,
+    strings: 3
+  }, {
+    position: 3,
+    strings: 4
+  }],
+  muted: [1]
+}, {
+  name: "C#7",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: 5
+  }, {
+    position: 3,
+    strings: 3
+  }, {
+    position: 4,
+    strings: 2
+  }, {
+    position: 4,
+    strings: 4
+  }],
+  muted: []
+}, {
+  name: "C#m/E",
+  position: 0,
+  fingers: [{
+    position: 1,
+    strings: 4
+  }, {
+    position: 2,
+    strings: 3
+  }, {
+    position: 2,
+    strings: 5
+  }],
+  muted: [1, 2]
+}, {
+  name: "D",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: 4
+  }, {
+    position: 2,
+    strings: 6
+  }, {
+    position: 3,
+    strings: 5
+  }],
+  muted: [1, 2]
+}, {
+  name: "Dm",
+  position: 0,
+  fingers: [{
+    position: 1,
+    strings: 6
+  }, {
+    position: 2,
+    strings: 4
+  }, {
+    position: 3,
+    strings: 5
+  }],
+  muted: [1, 2]
+}, {
+  name: "Dmaj7",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: [3, 6]
+  }],
+  muted: [1, 2]
+}, {
+  name: "Dsus2",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: 4
+  }, {
+
+  }, {
+    position: 3,
+    strings: 5
+  }],
+  muted: [1, 2]
+}, {
+  name: "Dadd9",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: [4, 6]
+  }, {
+
+  }, {
+
+  }, {
+    position: 5,
+    strings: 5
+  }],
+  muted: [1, 2]
+}, {
+  name: "E",
+  position: 0,
+  fingers: [{
+    position: 1,
+    strings: 4
+  }, {
+    position: 2,
+    strings: 2
+  }, {
+    position: 2,
+    strings: 3
+  }],
+  muted: []
+}, {
+  name: "Em",
+  position: 0,
+  fingers: [{
+    position: null,
+    strings: null,
+  }, {
+    position: 2,
+    strings: 2
+  }, {
+    position: 2,
+    strings: 3
+  }],
+  muted: []
+}, {
+  name: "E7",
+  position: 0,
+  fingers: [{
+    position: 1,
+    strings: 4
+  }, {
+    position: 2,
+    strings: 2
+  }],
+  muted: []
+}, {
+  name: "F",
+  position: 0,
+  fingers: [{
+    position: 1,
+    strings: [1,6]
+  }, {
+    position: 2,
+    strings: 4
+  }, {
+    position: 3,
+    strings: 2
+  }, {
+    position: 3,
+    strings: 3
+  }],
+  muted: []
+}, {
+  name: "F#m",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: [1,6]
+  }, {
+    position: 4,
+    strings: 2
+  }, {
+    position: 4,
+    strings: 3
+  }],
+  muted: []
+}, {
+  name: "Fmaj7",
+  position: 0,
+  fingers: [{
+    position: 1,
+    strings: 5
+  }, {
+    position: 2,
+    strings: 4
+  }, {
+    position: 3,
+    strings: 3
+  }],
+  muted: [1, 2]
+}, {
+  name: "G",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: 2
+  }, {
+    position: 3,
+    strings: 1
+  }, {
+    position: 3,
+    strings: 5
+  }, {
+    position: 3,
+    strings: 6
+  }],
+  muted: []
+}, {
+  name: "G6",
+  position: 0,
+  fingers: [{
+    position: 2,
+    strings: 2
+  }, {
+    position: 3,
+    strings: 1
+  }],
+  muted: []
+}];
+
+function createChord(data) {
+  const chordEl = document.createElement("div");
+  chordEl.classList.add("chord");
+
+  const nameEl = document.createElement("div");
+  nameEl.classList.add("name");
+  nameEl.textContent = data.name;
+  chordEl.appendChild(nameEl);
+
+  const positionEl = document.createElement("div");
+  positionEl.classList.add("position");
+  if (data.position) {
+    positionEl.textContent = data.position;
+  }
+  chordEl.appendChild(positionEl);
+
+  const stringsEl = document.createElement("ul");
+  stringsEl.classList.add("strings");
+
+  for (const {position, strings} of data.fingers) {
+    if (!position || !strings) {
+      continue;
+    }
+    const fingerEl = document.createElement("div");
+    fingerEl.classList.add("finger");
+
+    if (Array.isArray(strings)) {
+      fingerEl.style.gridArea = `${position} / ${strings[0]} / ${position + 1} / ${strings[1] + 1}`;
+    } else {
+      fingerEl.style.gridArea = `${position} / ${strings} / ${position + 1} / ${strings + 1}`;
+    }
+
+    stringsEl.appendChild(fingerEl);
+  }
+
+  chordEl.appendChild(stringsEl);
+
+  const fingerNumbersEl = document.createElement("ul");
+  fingerNumbersEl.classList.add("finger-numbers");
+
+  for (let i = 1; i < NUMBER_OF_STRINGS + 1; i++) {
+    const stringEl = document.createElement("li");
+
+    for (const muted of data.muted) {
+      if (muted === i) {
+        stringEl.textContent = "x";
+      }
+    }
+
+    for (const [index, finger] of data.fingers.entries()) {
+      if (!Array.isArray(finger.strings) && finger.strings === i) {
+        stringEl.textContent = index + 1;
+      }
+    }
+
+    fingerNumbersEl.appendChild(stringEl);
+  }
+
+  chordEl.appendChild(fingerNumbersEl);
+
+  return chordEl;
+}
+
+const el = document.querySelector("#chords");
+for (const chord of CHORDS) {
+  el.appendChild(createChord(chord));
+}
+</script>

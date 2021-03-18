@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  --fake-tool-background-color: white;
+}
+.panel {
+  background: #eee;
+  padding: 10px;
+}
+.controls {
+  padding: 20px;
+  width: 270px;
+  background: #0C0C0D;
+  color: #B1B1B3;
+}
+.controls .declaration, .controls label {
+  display: block;
+  padding: 2px;
+  border-radius: 2px;
+  -moz-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+.controls .declaration:hover {
+  background: #00426c;
+}
+.controls .name { color: #7FBFD2; }
+.controls .value { color: #F77DEB; }
+
+.flex-outline {
+  --container-main-size: 250px;
+  --container-cross-size: 150px;
+  --axis-size: 40px;
+  --item-size: 30px;
+  --padding: 4px;
+  --highlight-color: #F77DEB;
+  --item-color-1: #80C0FF;
+  --item-color-2: #579FFF;
+  --item-color-3: #294F8C;
+  --main-lines-color: #333;
+  --faded-lines-color: #888;
+
+  /* This makes sure the outline fits in its container even when rotated */
+  margin: 50px 0;
+
+  /* Create a stacking context because we need to play with negative z-indexes later */
+  z-index: 0;
+  position: relative;
+
+  /* Layout the main elements: container and axis */
+  display: grid;
+  grid-template-columns: var(--container-main-size) var(--axis-size);
+  grid-template-rows: var(--container-cross-size) var(--axis-size);
+  grid-template-areas: "container main"
+                       "cross     .   ";
+}
+
+.flex-outline .container { grid-area: container; }
+.flex-outline .main.axis { grid-area: main; }
+.flex-outline .cross.axis { grid-area: cross; }
+
+.flex-outline .axis {
+  align-self: center;
+  justify-self: center;
+  z-index: -1;
+}
+
+.flex-outline .main.axis {
+  width: var(--axis-size);
+  height: var(--axis-size);
+  background: var(--main-lines-color);
+  clip-path: polygon(0 25%, 70% 25%, 70% 0, 100% 50%, 70% 100%, 70% 75%, 0 75%);
+}
+
+.flex-outline.highlight-main-axis .main.axis {
+  background: var(--highlight-color);
+}
+
+.flex-outline .cross.axis {
+  width: var(--axis-size);
+  height: var(--axis-size);
+  background: var(--faded-lines-color);
+  clip-path: polygon(60% 0, 60% 80%, 70% 80%, 50% 100%, 30% 80%, 40% 80%, 40% 0);
+}
+
+.flex-outline .container {
+  border: 2px solid var(--main-lines-color);
+  background: var(--fake-tool-background-color);
+  display: grid;
+  z-index: 1;
+  position: relative;
+}
+
+.flex-outline .line {
+  display: flex;
+  position: relative;
+}
+
+.flex-outline[data-multi-line] .line {
+  border: 1px dotted var(--main-lines-color);
+}
+
+.flex-outline.highlight-align-content .line {
+  background: var(--fake-tool-background-color);
+}
+
+.flex-outline .item {
+  background: var(--item-color-1);
+  width: var(--item-size);
+  height: var(--item-size);
+  --scale-factor: 1;
+}
+
+.flex-outline .item + .item {
+  background: var(--item-color-2);
+  --scale-factor: 1.5;
+  width: calc(var(--item-size) * var(--scale-factor));
+  height: calc(var(--item-size) * var(--scale-factor));
+}
+.flex-outline .item + .item + .item {
+  background: var(--item-color-3);
+  --scale-factor: .8;
+  width: calc(var(--item-size) * var(--scale-factor));
+  height: calc(var(--item-size) * var(--scale-factor));
+}
+
+.flex-outline[data-align-items=stretch] .line .item {
+  height: 100%;
+}
+
+.flex-outline[data-justify-content=flex-start] .line { justify-content: flex-start; }
+.flex-outline[data-justify-content=flex-end] .line { justify-content: flex-end; }
+.flex-outline[data-justify-content=center] .line { justify-content: center; }
+.flex-outline[data-justify-content=space-between] .line { justify-content: space-between; }
+.flex-outline[data-justify-content=space-around] .line { justify-content: space-around; }
+.flex-outline[data-justify-content=space-evenly] .line { justify-content: space-evenly; }
+
+.flex-outline[data-align-items=flex-start] .line { align-items: flex-start; }
+.flex-outline[data-align-items=flex-end] .line { align-items: flex-end; }
+.flex-outline[data-align-items=center] .line { align-items: center; }
+.flex-outline[data-align-items=baseline] .line { align-items: baseline; }
+.flex-outline[data-align-items=stretch] .line { align-items: stretch; }
+
+.flex-outline[data-multi-line][data-align-content=flex-start] .container { align-content: flex-start; }
+.flex-outline[data-multi-line][data-align-content=flex-end] .container { align-content: flex-end; }
+.flex-outline[data-multi-line][data-align-content=center] .container { align-content: center; }
+.flex-outline[data-multi-line][data-align-content=space-between] .container { align-content: space-between; }
+.flex-outline[data-multi-line][data-align-content=space-around] .container { align-content: space-around; }
+.flex-outline[data-multi-line][data-align-content=space-evenly] .container { align-content: space-evenly; }
+.flex-outline[data-multi-line][data-align-content=stretch] .container { align-content: stretch; }
+
+.flex-outline:not(.highlight-align-items) .align-items-line,
+.flex-outline:not(.highlight-justify-content) .justify-content-arrows,
+.flex-outline:not(.highlight-align-content) .align-content-arrows {
+  display: none;
+}
+
+.flex-outline.highlight-align-items .align-items-line {
+  background: repeating-linear-gradient(to right,
+    var(--highlight-color), var(--highlight-color) 3px, transparent 3px, transparent 6px);
+
+  position: absolute;
+  inline-size: 120%;
+  block-size: 2px;
+  left: -10%;
+}
+
+.flex-outline[data-align-items=flex-end] .align-items-line { bottom: 0; }
+.flex-outline[data-align-items=flex-start] .align-items-line { top: 0; }
+.flex-outline[data-align-items=center] .align-items-line { top: calc(50% - 1px); }
+.flex-outline[data-align-items=baseline] .align-items-line { top: calc(var(--item-size) * 1.2); }
+
+.flex-outline.highlight-justify-content .justify-content-arrows {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  top: calc(50% - 1px);
+  left: 0;
+  z-index: -2;
+  background: var(--highlight-color);
+}
+
+.flex-outline.highlight-align-content .align-content-arrows {
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  left: calc(50% - 1px);
+  top: 0;
+  z-index: -2;
+  background: var(--highlight-color);
+}
+
+.flex-outline .item::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  top: 0;
+  width: calc(var(--item-size) * var(--scale-factor));
+  background: var(--fake-tool-background-color);
+  z-index: -1;
+}
+
+.flex-outline.highlight-justify-content .item::after {
+  content: "";
+  position: absolute;
+  height: 0;
+  top: calc(50% - 6.5px);
+  width: calc(var(--item-size) * var(--scale-factor) - 1px);
+  transform: translateX(-6px);
+  z-index: -1;
+  border-left: 6px solid var(--highlight-color);
+  border-right: 6px solid var(--highlight-color);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+.flex-outline[data-justify-content=flex-start] .item:nth-child(1)::after,
+.flex-outline[data-justify-content=flex-start] .item:nth-child(2)::after,
+.flex-outline[data-justify-content=flex-end] .item:nth-child(2)::after,
+.flex-outline[data-justify-content=flex-end] .item:nth-child(3)::after,
+.flex-outline[data-justify-content=center] .item:nth-child(2)::after {
+  display: none;
+}
+.flex-outline[data-justify-content=flex-start] .item:nth-child(3)::after,
+.flex-outline[data-justify-content=center] .item:nth-child(3)::after,
+.flex-outline[data-justify-content=space-between] .item:nth-child(1)::after {
+  border-left-color: transparent;
+}
+.flex-outline[data-justify-content=flex-end] .item:nth-child(1)::after,
+.flex-outline[data-justify-content=center] .item:nth-child(1)::after,
+.flex-outline[data-justify-content=space-between] .item:nth-child(3)::after {
+  border-right-color: transparent;
+}
+
+.flex-outline.highlight-align-content[data-multi-line] .line::before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  left: 50%;
+  top: 0;
+  transform: translate(-6px, -6px);
+  border-top: 6px solid var(--highlight-color);
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+
+.flex-outline.highlight-align-content[data-multi-line] .line::after {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-6px, 6px);
+  border-bottom: 6px solid var(--highlight-color);
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+
+.flex-outline[data-multi-line][data-align-content=flex-start] .line:nth-child(1)::before,
+.flex-outline[data-multi-line][data-align-content=flex-start] .line:nth-child(1)::after,
+.flex-outline[data-multi-line][data-align-content=flex-start] .line:nth-child(2)::before,
+.flex-outline[data-multi-line][data-align-content=flex-end] .line:nth-child(2)::before,
+.flex-outline[data-multi-line][data-align-content=flex-end] .line:nth-child(2)::after,
+.flex-outline[data-multi-line][data-align-content=flex-end] .line:nth-child(1)::after,
+.flex-outline[data-multi-line][data-align-content=center] .line:nth-child(1)::after,
+.flex-outline[data-multi-line][data-align-content=center] .line:nth-child(2)::before,
+.flex-outline[data-multi-line][data-align-content=space-between] .line:nth-child(1)::before,
+.flex-outline[data-multi-line][data-align-content=space-between] .line:nth-child(2)::after,
+.flex-outline[data-multi-line][data-align-content=stretch] .line::before,
+.flex-outline[data-multi-line][data-align-content=stretch] .line::after {
+  display: none;
+}
+
+
+.flex-outline[data-main-dir=right][data-cross-dir=top] { transform: scaleY(-1); }
+.flex-outline[data-main-dir=left][data-cross-dir=bottom] { transform: scaleX(-1); }
+.flex-outline[data-main-dir=left][data-cross-dir=top] { transform: scaleX(-1) scaleY(-1); }
+.flex-outline[data-main-dir=bottom][data-cross-dir=left] { transform: rotate(90deg); }
+.flex-outline[data-main-dir=bottom][data-cross-dir=right] { transform: rotate(90deg) scaleY(-1); }
+.flex-outline[data-main-dir=top][data-cross-dir=left] { transform: rotate(-90deg) scaleY(-1); }
+.flex-outline[data-main-dir=top][data-cross-dir=right] { transform: rotate(-90deg); }
+
+</style>
+<body>
+<div class="controls">
+  <label>Multi-line
+    <select id="multi-line">
+      <option value="single">single</option>
+      <option value="multi">multi</option>
+    </select>
+  </label>
+  <label>Direction
+    <select id="direction">
+      <option value="row">row</option>
+      <option value="row-reverse">row-reverse</option>
+      <option value="column">column</option>
+      <option value="column-reverse">column-reverse</option>
+    </select>
+  </label>
+</div>
+<div class="panel"></div>
+<div class="controls">
+  <div class="declaration justify-content">
+    <span class="name">justify-content</span>:
+    <span class="value">flex-start</span>;
+  </div>
+  <div class="declaration align-items">
+    <span class="name">align-items</span>:
+    <span class="value">flex-start</span>;
+  </div>
+  <div class="declaration align-content">
+    <span class="name">align-content</span>:
+    <span class="value">stretch</span>;
+  </div>
+</div>
+<script>
+function createOutline(mainDir = "right", crossDir = "bottom",
+                       justifyContent = "center", alignItems = "center", alignContent = "stretch",
+                       multiLine = false) {
+  let flexOutline = document.createElement("div");
+
+  flexOutline.className = "flex-outline";
+  flexOutline.dataset.mainDir = mainDir;
+  flexOutline.dataset.crossDir = crossDir;
+  flexOutline.dataset.justifyContent = justifyContent;
+  flexOutline.dataset.alignItems = alignItems;
+  flexOutline.dataset.alignContent = alignContent;
+  if (multiLine) {
+    flexOutline.dataset.multiLine = true;
+  }
+
+  let container = document.createElement("div");
+  container.className = "container";
+  flexOutline.appendChild(container);
+
+  let nbLines = 1;
+  if (multiLine) {
+    nbLines = 2;
+  }
+
+  for (let i = 0; i < nbLines; i ++) {
+    let line = document.createElement("div");
+    line.className = "line"
+    container.appendChild(line);
+
+    for (let j = 0; j < 3; j ++) {
+      let item = document.createElement("div");
+      item.className = "item";
+      line.appendChild(item);
+    }
+
+    let alignItemsLine = document.createElement("div");
+    alignItemsLine.className = "align-items-line";
+    line.appendChild(alignItemsLine);
+
+    let justifyContentArrows = document.createElement("div");
+    justifyContentArrows.className = "justify-content-arrows";
+    line.appendChild(justifyContentArrows);
+
+  }
+
+  let alignContentArrows = document.createElement("div");
+  alignContentArrows.className = "align-content-arrows";
+  container.appendChild(alignContentArrows);
+
+  let mainAxis = document.createElement("div");
+  mainAxis.className = "main axis";
+  flexOutline.appendChild(mainAxis);
+
+  let crossAxis = document.createElement("div");
+  crossAxis.className = "cross axis";
+  flexOutline.appendChild(crossAxis);
+
+  return flexOutline;
+}
+
+let justifications = ["flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly"];
+let jIndex = 0;
+let alignments = ["flex-start", "flex-end", "center", "baseline", "stretch"];
+let aIndex = 0;
+let contentAlignments = ["stretch", "flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly"];
+let cIndex = 0;
+
+/////////////////////////////
+
+let outline;
+
+function render() {
+  let multiLineSelect = document.querySelector("#multi-line");
+  let multiLine = false;
+  if (multiLineSelect.value === "multi") {
+    multiLine = true;
+  }
+
+  let direction = document.querySelector("#direction").value;
+  let main = "right";
+  let cross = "bottom";
+
+  if (direction === "row-reverse") {
+    main = "left"
+  } else if (direction === "column") {
+    main = "bottom";
+    cross = "right";
+  } else if (direction === "column-reverse") {
+    main = "top";
+    cross = "right";
+  }
+
+  document.querySelector(".panel").innerHTML = "";
+  outline = createOutline(main, cross,
+                          justifications[jIndex],
+                          alignments[aIndex],
+                          contentAlignments[cIndex],
+                          multiLine);
+
+  document.querySelector(".panel").appendChild(outline);
+  document.querySelector(".controls .declaration.align-content").style.display = multiLine ? "unset" : "none";
+}
+render();
+
+// Re-render when selects are changed.
+[...document.querySelectorAll(".controls select")].forEach(input => input.addEventListener("input", render));
+
+// Highlight the main axis when the direction select is hovered.
+document.querySelector(".controls #direction").parentNode.addEventListener("mouseover", e => {
+  outline.classList.add("highlight-main-axis");
+});
+document.querySelector(".controls #direction").parentNode.addEventListener("mouseout", e => {
+  outline.classList.remove("highlight-main-axis");
+});
+
+// Change alignment when properties are changed.
+document.querySelectorAll(".controls .declaration.justify-content, .controls .declaration.align-items, .controls .declaration.align-content")
+        .forEach(decl => {
+          let prop = decl.className.replace("declaration ", "");
+          let className = "highlight-" + prop;
+
+          decl.addEventListener("mouseover", e => {
+            outline.className = "flex-outline";
+            outline.classList.add(className);
+          });
+          decl.addEventListener("mouseout", e => {
+            outline.className = "flex-outline";
+          });
+          decl.addEventListener("click", e => {
+            if (prop === "justify-content") {
+              jIndex ++;
+              if (jIndex >= justifications.length) {
+                jIndex = 0;
+              }
+              outline.dataset.justifyContent = justifications[jIndex];
+              decl.querySelector(".value").textContent = justifications[jIndex];
+            } else if (prop === "align-items") {
+              aIndex ++;
+              if (aIndex >= alignments.length) {
+                aIndex = 0;
+              }
+              outline.dataset.alignItems = alignments[aIndex];
+              decl.querySelector(".value").textContent = alignments[aIndex];
+            } else if (prop === "align-content") {
+              cIndex ++;
+              if (cIndex >= contentAlignments.length) {
+                cIndex = 0;
+              }
+              outline.dataset.alignContent = contentAlignments[cIndex];
+              decl.querySelector(".value").textContent = contentAlignments[cIndex];
+            }
+          });
+        });
+
+</script>
+</body>

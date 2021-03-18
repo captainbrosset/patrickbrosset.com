@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico" rel="stylesheet">
+<style>
+html {
+  height: 100%;
+}
+
+body {
+  font-family: sans-serif;
+  color: #444;
+  margin: 3em 6em;
+}
+
+.playground {
+
+}
+
+.playground .sample-inline {
+  font-size: 20px;
+  line-height: 2;
+  white-space: nowrap;
+}
+
+.playground #add-new {
+
+}
+
+.controls {
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+
+  padding: 2em;
+  box-sizing: border-box;
+  width: 30vw;
+  background: #444;
+  color: white;
+  font-size: smaller;
+  border-radius: 4px 4px 0 0;
+}
+
+.controls > * {
+  display: block;
+  width: 100%;
+}
+
+.controls input, .controls select {
+  grid-row: 2;
+  margin: 0;
+}
+
+.highlighter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.highlighter .box,
+.highlighter .line {
+  position: absolute;
+}
+
+.highlighter .line {
+  height: 1px;
+}
+
+.highlighter .font-box {
+  background-color: #c7e7f9;
+}
+
+
+.highlighter .baseline {
+  color: #e06b25;
+  background-color: currentColor;
+}
+
+.highlighter .line-height {
+  background-color: #7bde7b33;
+}
+
+.highlighter.selected .line-height {
+  box-shadow: 0 2px 0 0 #444;
+}
+
+.highlighter .font-size {
+  background-color: #e6cfa466;
+}
+
+.highlighter .line::before,
+.highlighter .box::before {
+  content: attr(data-label);
+  position: absolute;
+  font-family: verdana;
+  font-size: 9px;
+  top: -13px;
+  color: currentColor;
+  background: #fffc
+}
+
+.highlighter .line.font-box + .line.font-box::before {
+  top: -1px;
+}
+
+.highlighter .box.line-height::before {
+  color: #27a027;
+  top: unset;
+  bottom: -13px;
+  right: 0;
+}
+
+.highlighter .line.font-box::before {
+  color: #6b93a9;
+}
+
+.highlighter .box.font-size::before {
+  color: #e06b25;
+  right: 0;
+}
+</style>
+
+<div class="playground"></div>
+
+<div class="controls">
+  <button id="add-new">+</button>
+  <button id="remove" style="display:none;">-</button>
+  <label>Font size</label>
+  <input type="range" name="font-size" min="0" max="100" steps="5" value="50">
+  <label>Line height</label>
+  <input type="range" name="line-height" min="1" max="5" steps="0.2" value="1">
+  <label>Font family</label>
+  <select name="font-family">
+    <option>Arial</option>
+    <option>Buxton Sketch</option>
+    <option>Comic Sans MS</option>
+    <option>Courier</option>
+    <option>Georgia</option>
+    <option>Helvetica</option>
+    <option>Impact</option>
+    <option>Lobster</option>
+    <option>Pacifico</option>
+    <option>Tahoma</option>
+    <option>Times New Roman</option>
+    <option>Trebuchet MS</option>
+    <option>Verdana</option>
+  </select>
+  <label>Vertical align</label>
+  <select name="vertical-align">
+    <option>baseline</option>
+    <option>sub</option>
+    <option>super</option>
+    <option>middle</option>
+    <option>bottom</option>
+    <option>top</option>
+    <option>text-bottom</option>
+    <option>text-top</option>
+  </select>
+</div>
+<script>
+function getBoxQuads(el) {
+  // If you're lucky enough to be running Firefox Nightly.
+  if (el.getBoxQuads) {
+    return el.getBoxQuads();
+  }
+
+  
+  // Otherwise, you get my crappy polyfill.
+  if (!el.getBoundingClientRect) {
+    return getBoxQuads(el.parentNode);
+  }
+
+  const rect = el.getBoundingClientRect();
+  return [{
+    p1: {x: rect.x, y: rect.y},
+    p2: {x: rect.right, y: rect.y},
+    p3: {x: rect.right, y: rect.bottom},
+    p4: {x: rect.x, y: rect.bottom},
+    getBounds: function() {
+      return rect;
+    }
+  }];
+}
+
+const DEFAULT_TEXT = "The quick brown fox jumps over the lazy dog.";
+
+const addButton = document.querySelector("#add-new");
+const delButton = document.querySelector("#remove");
+const playgroundEl = document.querySelector(".playground");
+
+
+function LineBoxHighlighter(el) {
+  this.el = el;
+
+  this.highlighter = document.createElement("div");
+  this.highlighter.className = "highlighter";
+  document.body.appendChild(this.highlighter);
+}
+
+LineBoxHighlighter.prototype = {
+  getElBounds() {
+    return this.el.firstChild ? getBoxQuads(this.el.firstChild)[0].getBounds() : null;
+  },
+
+  drawLine(y, className="", label="") {
+    let bounds = this.getElBounds();
+    if (!bounds) {
+      return;
+    }
+
+    let line = document.createElement("div");
+    line.className = "line " + className;
+    line.style.top = `${y}px`;
+    line.style.left = bounds.left + "px";
+    line.style.width = bounds.width + "px";
+    this.highlighter.appendChild(line);
+
+    if (label) {
+      line.dataset.label = label;
+    }
+  },
+
+  drawBox(y, h, className="", label="") {
+    let bounds = this.getElBounds();
+    if (!bounds) {
+      return;
+    }
+
+    let line = document.createElement("div");
+    line.className = "box " + className;
+    line.style.top = `${y}px`;
+    line.style.height = `${h}px`;
+    line.style.left = bounds.left + "px";
+    line.style.width = bounds.width + "px";
+    this.highlighter.appendChild(line);
+
+    if (label) {
+      line.dataset.label = label;
+    }
+  },
+
+  getFontBoxAndBaseline(el) {
+    // Create 3 inline boxes inside el and align them to the baseline, top and bottom of
+    // the font box.
+    const createBox = align => {
+      let box = document.createElement("span");
+      box.textContent = "text";
+      box.style.fontSize = "0px";
+      box.style.verticalAlign = align;
+      this.el.appendChild(box);
+      return box;
+    };
+    let baselineBox = createBox("baseline");
+    let topBox = createBox("text-top");
+    let bottomBox = createBox("text-bottom");
+
+    // Get the coordinates of these boxes relative to the provided element.
+    let baselinePos = getBoxQuads(baselineBox)[0].getBounds().top;
+    let topPos = getBoxQuads(topBox)[0].getBounds().top;
+    let bottomPos = getBoxQuads(bottomBox)[0].getBounds().top;
+
+    // Delete the boxes, we don't need them anymore.
+    baselineBox.remove();
+    topBox.remove();
+    bottomBox.remove();
+
+    return {top: topPos, bottom: bottomPos, baseline: baselinePos};
+  },
+
+  highlight() {
+    this.highlighter.innerHTML = "";
+
+    const fontBox = this.getFontBoxAndBaseline(this.el);
+    const elBounds = getBoxQuads(this.el)[0].getBounds();
+    const style = getComputedStyle(this.el);
+
+    let fontSize = parseInt(style.fontSize, 10);
+    let lineHeight = parseFloat(style.lineHeight);
+    let maxFontHeight = fontBox.bottom - fontBox.top;
+
+    this.drawBox(fontBox.top - ((lineHeight - maxFontHeight) / 2), lineHeight, "line-height",
+      `line height = ${style.lineHeight} (${lineHeight / fontSize} * ${style.fontSize})`);
+    this.drawLine(fontBox.top, "font-box", `text top`);
+    this.drawLine(fontBox.bottom, "font-box", `text bottom`);
+    // Not sure what the font size translates to exactly, unclear. So, unsure where to draw it.
+    // this.drawBox(fontBox.bottom - fontSize, fontSize, "font-size", `font size = ${style.fontSize}`);
+    this.drawLine(fontBox.baseline, "baseline", "baseline");
+  },
+
+  select() {
+    this.highlighter.classList.add("selected");
+  },
+
+  unSelect() {
+    this.highlighter.classList.remove("selected");
+  },
+
+  destroy() {
+    this.highlighter.remove();
+    this.el = this.highlighter = null;
+  }
+};
+
+
+function InlineElement(text) {
+  this.el = this.create(text);
+
+  playgroundEl.appendChild(this.el);
+  playgroundEl.appendChild(document.createTextNode(" "));
+
+  this.highlighter = new LineBoxHighlighter(this.el);
+  this.highlighter.highlight();
+}
+
+InlineElement.prototype = {
+  create(text) {
+    const el = document.createElement("span");
+    el.classList.add("sample-inline");
+    el.setAttribute("contenteditable", "");
+    el.setAttribute("spellcheck", "false");
+    el.textContent = text;
+
+    return el;
+  },
+
+  destroy() {
+    this.highlighter.destroy();
+    this.el.remove();
+    this.el = null;
+  }
+};
+
+const inlineElements = new Map();
+let selected = null;
+
+function updateAll() {
+  [...inlineElements.values()].forEach(inlineElement => inlineElement.highlighter.highlight());
+}
+
+function addNewInline(text = DEFAULT_TEXT) {
+  const inlineEl = new InlineElement(text);
+  inlineElements.set(inlineEl.el, inlineEl);
+
+  updateAll();
+}
+
+addButton.addEventListener("click", e => addNewInline());
+
+// Add a few default elements to start with.
+addNewInline();
+addNewInline();
+
+// Remove button.
+delButton.addEventListener("click", e => {
+  if (!selected) {
+    return;
+  }
+
+  inlineElements.delete(selected.el);
+  selected.destroy();
+  selected = null;
+
+  document.body.click();
+
+  updateAll();
+});
+
+// Listen for key events to re-highlight all highlighters.
+addEventListener("keypress", () => {
+  updateAll();
+});
+
+// Re-highlight on resize.
+addEventListener("resize", () => {
+  updateAll();
+});
+
+// Listen for clicks to select elements.
+addEventListener("click", ({target}) => {
+  if (target.closest("input, select, button")) {
+    return;
+  }
+
+  if (selected) {
+    selected.highlighter.unSelect();
+    selected = null;
+  }
+
+  let el = target.closest(".sample-inline");
+  if (!el) {
+    delButton.style.display = "none";
+    return;
+  }
+
+  let inlineElement = inlineElements.get(el);
+  inlineElement.highlighter.select();
+  selected = inlineElement;
+  delButton.style.display = "unset";
+
+  let style = getComputedStyle(el);
+  fontSizeInput.value = parseInt(style.fontSize, 10);
+  lineHeightInput.value = parseFloat(style.lineHeight);
+});
+
+
+// Wire the controls.
+let fontSizeInput = document.querySelector("input[name=font-size]");
+let lineHeightInput = document.querySelector("input[name=line-height]");
+let fontFamilyInput = document.querySelector("select[name=font-family]");
+let verticalAlignInput = document.querySelector("select[name=vertical-align]");
+
+function setFontSize(el, size) {
+  el.style.fontSize = `${size}px`;
+}
+
+function setLineHeight(el, height) {
+  el.style.lineHeight = height;
+}
+
+function setFontFamily(el, family) {
+  el.style.fontFamily = family;
+}
+
+function setVerticalAlign(el, align) {
+  el.style.verticalAlign = align;
+}
+
+function getTargetInlineElements() {
+  if (selected) {
+    let map = new Map();
+    map.set(selected.el, selected);
+    return map;
+  } else {
+    return inlineElements;
+  }
+}
+
+fontSizeInput.addEventListener("input", e => {
+  for (let [el, inlineElement] of inlineElements) {
+    if ((selected && inlineElement === selected) || !selected) {
+      setFontSize(el, fontSizeInput.value);
+    }
+  }
+  updateAll();
+});
+
+lineHeightInput.addEventListener("input", e => {
+  for (let [el, inlineElement] of inlineElements) {
+    if ((selected && inlineElement === selected) || !selected) {
+      setLineHeight(el, lineHeightInput.value);
+    }
+  }
+  updateAll();
+});
+
+fontFamilyInput.addEventListener("input", e => {
+  for (let [el, inlineElement] of inlineElements) {
+    if ((selected && inlineElement === selected) || !selected) {
+      setFontFamily(el, fontFamilyInput.options[fontFamilyInput.options.selectedIndex].textContent);
+    }
+  }
+  // Remote fonts need time to load, need to highlight later.
+  setTimeout(() => {
+    updateAll();
+  }, 100);
+});
+
+verticalAlignInput.addEventListener("input", e => {
+  for (let [el, inlineElement] of inlineElements) {
+    if ((selected && inlineElement === selected) || !selected) {
+      setVerticalAlign(el, verticalAlignInput.value);
+    }
+  }
+  updateAll();
+});
+</script>

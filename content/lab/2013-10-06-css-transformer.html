@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CSS Transforms</title>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      font: normal 2em arial;
+      text-align: center;
+    }
+    #controls {
+      position: absolute;
+      top: 1em;
+      width: 100%;
+      z-index: 2;
+    }
+    #transform-expression {
+      padding: .5em;
+      font-size: .9em;
+      border: none;
+      border-bottom: 2px dotted transparent;
+      color: #666;
+      width: 60%;
+      text-align: center;
+      opacity: .5;
+      background: transparent;
+      transition: opacity .5s, border .5s;
+    }
+    #transform-expression:hover, #transform-expression:focus {
+      opacity: 1;
+      border-bottom: 2px dotted #ccc;
+    }
+    #sandbox {
+      display: block;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+    }
+
+    .movable {
+      cursor: move;
+    }
+    .movable-x {
+      cursor: ew-resize;
+    }
+    .movable-y {
+      cursor: ns-resize;
+    }
+    .original {
+      fill: rgba(210, 242, 254, .6);
+    }
+    .border {
+      fill: transparent;
+      transition: fill .5s;
+    }
+    .border:hover {
+      fill: rgba(210, 242, 254, 1);
+    }
+    .transformed {
+      fill: #FACADE;
+    }
+    .origin {
+      fill: #f971df;
+      transition: fill .5s;
+    }
+    .origin:hover {
+      fill: #BF67AE;
+    }
+    .arrow-line {
+      stroke-width: 3;
+      stroke: rgba(210, 242, 254, .6);
+      stroke-linecap: round;
+    }
+    .arrow-head {
+      fill: rgba(210, 242, 254, .6);
+    }
+    .logoLetter {
+      fill: rgba(255, 255, 255, .5);
+    }
+
+    #transform-parser {
+      position: absolute;
+      visibility: hidden;
+    }
+
+    #selector {
+      position: absolute;
+      bottom: 1em;
+      width: 100%;
+      z-index: 3;
+
+      padding: .5em;
+    }
+    #selector pre {
+      color: #bbb;
+      font: normal .7em arial;
+    }
+
+    #reset {
+      position: absolute;
+      top: .5em;
+      left: 80%;
+      display: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      background: #ccc;
+      cursor: pointer;
+    }
+    #reset:after {
+      content: "x";
+      color: white;
+      font-size: 18px;
+      line-height: 16px;
+      position: absolute;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      top: 0;
+      left: 0;
+      font-family: verdana;
+    }
+    #controls:hover #reset {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <input id="transform-expression" value="" placeholder="Enter a CSS transform expression here" />
+    <span id="reset" title="reset all" onclick="document.location.hash='';document.location.reload();"></span>
+  </div>
+  <svg id="sandbox" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <marker id='arrow-head' orient='auto' markerWidth='2' markerHeight='4' refX='0.1' refY='2'>
+        <path class="arrow-head" d='M0,0 V4 L2,2 Z' />
+      </marker>
+    </defs>
+  </svg>
+  <div id="selector"></div>
+  <div id="transform-parser"></div>
+
+  <script>
+    var sandbox, original, transformed, expression, transformParser, origin, selector;
+
+    window.onload = function () {
+
+      var SVG_NS = "http://www.w3.org/2000/svg";
+
+      var WIDTH = 250;
+      var HEIGHT = 200;
+      var X = document.documentElement.clientWidth/2 - WIDTH/2;
+      var Y = document.documentElement.clientHeight/2 - HEIGHT/2;
+      var TRANSFORM = decodeURI(document.location.hash.substring(1)) || "translateX(250px) rotate(.25turn) skew(45deg)";
+      var ORIGIN_X = Math.round(WIDTH / 2);
+      var ORIGIN_Y = Math.round(HEIGHT / 2);
+      var ORIGIN_SNAP_THRESHOLD = 10;
+      var BORDER_SIZE = 10;
+
+      var hash = decodeURI(document.location.hash.substring(1));
+      if (hash) {
+        var values = hash.split("|");
+        if (values.length === 4) {
+          var dims = values[0].split("x");
+          WIDTH = parseInt(dims[0], 10);
+          HEIGHT = parseInt(dims[1], 10);
+
+          var pos = values[1].split("x");
+          X = parseInt(pos[0], 10);
+          Y = parseInt(pos[1], 10);
+
+          TRANSFORM = values[2];
+
+          var orig = values[3].split("x");
+          ORIGIN_X = parseInt(orig[0], 10);
+          ORIGIN_Y = parseInt(orig[1], 10);
+        }
+      }
+
+      sandbox = document.getElementById("sandbox");
+      expression = document.getElementById("transform-expression");
+      transformParser = document.getElementById("transform-parser");
+      selector = document.getElementById("selector");
+
+      // The core of this demo is this : the transform coordinates calculator
+
+      function getComputedMatrix() {
+        transformParser.style.transform = expression.value;
+        transformParser.style.webkitTransform = expression.value;
+        return getComputedStyle(transformParser).transform || getComputedStyle(transformParser).webkitTransform;
+      }
+
+      function getTransformedPoint(point, originX, originY) {
+        // Get the transformation matrix from the computed style
+        var tr = getComputedMatrix(), transformMatrix = [];
+        tr = tr.substring(0, tr.length - 1).substring(tr.indexOf("(") + 1).split(",");
+
+        tr.forEach(function(value, index) {
+          tr[index] = parseFloat(value, 10);
+        });
+
+        if (tr.length === 6) {
+          // 2d transform
+          transformMatrix = [
+            [tr[0], tr[2], tr[4], 0],
+            [tr[1], tr[3], tr[5], 0],
+            [0,     0,     1,     0],
+            [0,     0,     0,     1]
+          ];
+        } else {
+          // 3d transform
+          transformMatrix = [
+            [tr[0], tr[4], tr[8],  tr[12]],
+            [tr[1], tr[5], tr[9],  tr[13]],
+            [tr[2], tr[6], tr[10], tr[14]],
+            [tr[3], tr[7], tr[11], tr[15]]
+          ];
+        }
+
+        function multiplyMatricesAndGetXY(m1, m2) {
+          var m = [];
+          for (var m1Line = 0; m1Line < m1.length; m1Line ++) {
+            m[m1Line] = 0;
+            for (var m2Col = 0; m2Col < m2.length; m2Col ++) {
+              m[m1Line] += m1[m1Line][m2Col] * m2[m2Col];
+            }
+          }
+          return {x: m[0], y: m[1]};
+        }
+
+        // Each of the shape's corners in a matrix
+        var matrix = [point.x - originX, point.y - originY, 1, 1];
+        var result = multiplyMatricesAndGetXY(transformMatrix, matrix);
+
+        return {x: result.x + originX, y: result.y + originY};
+      }
+
+      function getTransformedRect(originalPoints, originX, originY) {
+        return [
+          getTransformedPoint(originalPoints[0], originX, originY),
+          getTransformedPoint(originalPoints[1], originX, originY),
+          getTransformedPoint(originalPoints[2], originX, originY),
+          getTransformedPoint(originalPoints[3], originX, originY)
+        ];
+      }
+
+      // Simple mix-ins
+
+      function observable(object) {
+        object.listeners = {};
+        object.emit = function(name) {
+          var args = [].slice.call(arguments, 1);
+          if (object.listeners[name]) {
+            object.listeners[name].forEach(function (cb) {
+              cb.apply(null, args);
+            })
+          }
+        }
+        object.on = function(name, cb) {
+          if (!object.listeners[name]) {
+            object.listeners[name] = [];
+          }
+          object.listeners[name].push(cb);
+        }
+      }
+
+      function movable(element, moveByCb, axis) {
+        element.classList.add("movable");
+        if (axis) {
+          element.classList.add("movable-" + axis);
+        }
+
+        var isMoving = false;
+        var position = {x: 0, y: 0};
+        var xConstrained = !axis || axis === "x";
+        var yConstrained = !axis || axis === "y";
+
+        element.addEventListener("mousedown", function(event) {
+          isMoving = true;
+          position = {x: event.clientX, y: event.clientY};
+        }, false);
+
+        document.addEventListener("mouseup", function(event) {
+          isMoving = false;
+          position = {x: 0, y: 0};
+        }, false);
+
+        document.addEventListener("mousemove", function(event) {
+          if (isMoving) {
+            var delta = {
+              x: xConstrained ? event.clientX - position.x : 0,
+              y: yConstrained ? event.clientY - position.y : 0
+            };
+            position = {x: event.clientX, y: event.clientY};
+            moveByCb(delta.x, delta.y, event.shiftKey);
+          }
+        }, false);
+      }
+
+      // Abstract shape class
+
+      function Shape(points, className, insertBefore) {
+        this.element = document.createElementNS(SVG_NS, "polygon");
+        this.element.setAttribute("class", className);
+        if (insertBefore) {
+          sandbox.insertBefore(this.element, insertBefore);
+        } else {
+          sandbox.appendChild(this.element);
+        }
+
+        this.points = points || [
+          {x: 0, y: 0},
+          {x: 200, y: 0},
+          {x: 200, y: 200},
+          {x: 0, y: 200}
+        ];
+
+        this.setPoints(this.points);
+      }
+      Shape.prototype.setPoints = function(points) {
+        this.points = points;
+        var str = [];
+        points.forEach(function (point, index) {
+          str.push(point.x + "," + point.y);
+        });
+        this.element.setAttribute("points", str.join(" "));
+      };
+      Shape.prototype.moveBy = function(x, y) {
+        this.points.forEach(function (point, index) {
+          point.x += x;
+          point.y += y;
+        });
+        this.setPoints(this.points);
+      };
+      Shape.prototype.movePointBy = function(index, x, y) {
+        this.points[index].x += x;
+        this.points[index].y += y;
+        this.setPoints(this.points);
+      };
+
+      // Big CSS logo shape, helps with visualizing mirroring and rotation
+
+      function CssLogo(origin) {
+        this.origin = origin;
+
+        this.shapes = [
+          new Shape([], "logoLetter"),
+          new Shape([], "logoLetter"),
+          new Shape([], "logoLetter")
+        ];
+        this.tShapes = [
+          new Shape([], "logoLetter"),
+          new Shape([], "logoLetter"),
+          new Shape([], "logoLetter")
+        ];
+      }
+
+      CssLogo.prototype.draw = function(inside) {
+        var logoPoints = this.getPoints();
+        var x0 = inside.points[0].x + BORDER_SIZE;
+        var x1 = inside.points[1].x - BORDER_SIZE;
+        var y0 = inside.points[0].y + BORDER_SIZE;
+        var y1 = inside.points[3].y - BORDER_SIZE;
+        function mapX(point) {
+          return x0 + point * (x1 - x0);
+        }
+        function mapY(point) {
+          return y0 + point * (y1 - y0);
+        }
+        mapX = mapX.bind(this);
+        mapY = mapY.bind(this);
+        for (var s = 0; s < logoPoints.length; s ++) {
+          var letter = logoPoints[s];
+          var tLetter = [];
+
+          for (var p = 0; p < letter.length; p ++) {
+            letter[p].x = mapX(letter[p].x);
+            letter[p].y = mapY(letter[p].y);
+            tLetter.push(getTransformedPoint({x: letter[p].x, y: letter[p].y}, this.origin.x, this.origin.y));
+          }
+
+          this.shapes[s].setPoints(letter);
+          this.tShapes[s].setPoints(tLetter);
+        }
+      }
+      CssLogo.prototype.getPoints = function() {
+        return [
+          [{"x":0,"y":0},{"x":0.2727272727272727,"y":0},{"x":0.2727272727272727,"y":0.09090909090909091},{"x":0.09090909090909091,"y":0.09090909090909091},{"x":0.09090909090909091,"y":0.18181818181818182},{"x":0.2727272727272727,"y":0.18181818181818182},{"x":0.2727272727272727,"y":0.2727272727272727},{"x":0,"y":0.2727272727272727}],
+          [{"x":0.36363636363636365,"y":0},{"x":0.6363636363636364,"y":0},{"x":0.6363636363636364,"y":0.09090909090909091},{"x":0.45454545454545453,"y":0.09090909090909091},{"x":0.6363636363636364,"y":0.18181818181818182},{"x":0.6363636363636364,"y":0.2727272727272727},{"x":0.36363636363636365,"y":0.2727272727272727},{"x":0.36363636363636365,"y":0.18181818181818182},{"x":0.5454545454545454,"y":0.18181818181818182},{"x":0.36363636363636365,"y":0.09090909090909091}],
+          [{"x":0.7272727272727273,"y":0},{"x":1,"y":0},{"x":1,"y":0.09090909090909091},{"x":0.8181818181818182,"y":0.09090909090909091},{"x":1,"y":0.18181818181818182},{"x":1,"y":0.2727272727272727},{"x":0.7272727272727273,"y":0.2727272727272727},{"x":0.7272727272727273,"y":0.18181818181818182},{"x":0.9090909090909091,"y":0.18181818181818182},{"x":0.7272727272727273,"y":0.09090909090909091}]
+        ];
+      }
+
+      // Our transformee
+
+      function Original(points) {
+        // Draw a rectangle shape
+        this.shape = new Shape(points, "original");
+        // Make it movable
+        movable(this.shape.element, this.moveBy.bind(this));
+
+        observable(this);
+
+        // Draw borders and make them movable to resize the shape
+        this.top = new Shape([], "border");
+        movable(this.top.element, this.moveTopBy.bind(this), "y");
+        this.bottom = new Shape([], "border");
+        movable(this.bottom.element, this.moveBottomBy.bind(this), "y");
+        this.left = new Shape([], "border");
+        movable(this.left.element, this.moveLeftBy.bind(this), "x");
+        this.right = new Shape([], "border");
+        movable(this.right.element, this.moveRightBy.bind(this), "x");
+
+        this.redrawBorders();
+      }
+      Original.prototype.moveBy = function(x, y) {
+        this.shape.moveBy(x, y);
+        this.emit("moved-by", x, y);
+        this.redrawBorders();
+      }
+      Original.prototype.redrawBorders = function() {
+        this.top.setPoints([
+          {x: this.shape.points[0].x, y: this.shape.points[0].y},
+          {x: this.shape.points[1].x, y: this.shape.points[1].y},
+          {x: this.shape.points[1].x, y: this.shape.points[1].y + BORDER_SIZE},
+          {x: this.shape.points[0].x, y: this.shape.points[0].y + BORDER_SIZE}
+        ]);
+
+        this.bottom.setPoints([
+          {x: this.shape.points[3].x, y: this.shape.points[3].y - BORDER_SIZE},
+          {x: this.shape.points[2].x, y: this.shape.points[2].y - BORDER_SIZE},
+          {x: this.shape.points[2].x, y: this.shape.points[2].y},
+          {x: this.shape.points[3].x, y: this.shape.points[3].y}
+        ]);
+
+        this.left.setPoints([
+          {x: this.shape.points[0].x, y: this.shape.points[0].y},
+          {x: this.shape.points[0].x + BORDER_SIZE, y: this.shape.points[0].y},
+          {x: this.shape.points[3].x + BORDER_SIZE, y: this.shape.points[3].y},
+          {x: this.shape.points[3].x, y: this.shape.points[3].y}
+        ]);
+
+        this.right.setPoints([
+          {x: this.shape.points[1].x - BORDER_SIZE, y: this.shape.points[1].y},
+          {x: this.shape.points[1].x, y: this.shape.points[1].y},
+          {x: this.shape.points[2].x, y: this.shape.points[2].y},
+          {x: this.shape.points[2].x- BORDER_SIZE, y: this.shape.points[2].y}
+        ]);
+        this.emit("updated");
+      }
+      Original.prototype.moveAllBy = function(value) {
+        this.shape.movePointBy(0, 0, value);
+        this.shape.movePointBy(1, 0, value);
+        this.shape.movePointBy(2, 0, -value);
+        this.shape.movePointBy(3, 0, -value);
+        this.shape.movePointBy(0, value, 0);
+        this.shape.movePointBy(3, value, 0);
+        this.shape.movePointBy(1, -value, 0);
+        this.shape.movePointBy(2, -value, 0);
+      }
+      Original.prototype.moveTopBy = function(x, y, isShift) {
+        if (isShift) {
+          this.moveAllBy(y);
+        } else {
+          this.shape.movePointBy(0, 0, y);
+          this.shape.movePointBy(1, 0, y);
+        }
+        this.redrawBorders();
+
+        this.emit("resized");
+      }
+      Original.prototype.moveBottomBy = function(x, y, isShift) {
+        if (isShift) {
+          this.moveAllBy(-y);
+        } else {
+          this.shape.movePointBy(2, 0, y);
+          this.shape.movePointBy(3, 0, y);
+        }
+        this.redrawBorders();
+
+        this.emit("resized");
+      }
+      Original.prototype.moveLeftBy = function(x, y, isShift) {
+        if (isShift) {
+          this.moveAllBy(x);
+        } else {
+          this.shape.movePointBy(0, x, 0);
+          this.shape.movePointBy(3, x, 0);
+        }
+        this.redrawBorders();
+
+        this.emit("resized");
+      }
+      Original.prototype.moveRightBy = function(x, y, isShift) {
+        if (isShift) {
+          this.moveAllBy(-x);
+        } else {
+          this.shape.movePointBy(1, x, 0);
+          this.shape.movePointBy(2, x, 0);
+        }
+        this.redrawBorders();
+
+        this.emit("resized");
+      }
+
+      // Arrows
+      function Arrow() {
+        this.element = document.createElementNS(SVG_NS, "line");
+        this.element.setAttribute("class", "arrow-line");
+        this.element.setAttribute("marker-end", "url(#arrow-head)");
+
+        sandbox.appendChild(this.element);
+      }
+      Arrow.prototype.drawAt = function(x1, y1, x2, y2) {
+        if (Math.abs(x2 - x1) < 10 && Math.abs(y2 - y1) < 10) {
+          this.element.style.display = "none";
+        } else {
+          this.element.setAttribute("x1", x1);
+          this.element.setAttribute("y1", y1);
+          this.element.setAttribute("x2", x2);
+          this.element.setAttribute("y2", y2);
+          this.element.style.display = "block";
+        }
+      }
+
+      // Transformed shape
+      function Transformed(original, origin) {
+        this.original = original;
+        this.origin = origin;
+        this.shape = new Shape([], "transformed", original.shape.element);
+
+        this.original.on("updated", this.draw.bind(this));
+        this.origin.on("updated", this.draw.bind(this));
+
+        this.arrows = [
+          new Arrow(),
+          new Arrow(),
+          new Arrow(),
+          new Arrow()
+        ];
+
+        // Draw the CSS logo
+        this.logo = new CssLogo(this.origin);
+
+        this.draw();
+      }
+      Transformed.prototype.draw = function() {
+        var transformedPoints = getTransformedRect(this.original.shape.points, this.origin.x, this.origin.y);
+        this.shape.setPoints(transformedPoints);
+
+        for (var i = 0; i < 4; i ++) {
+          this.arrows[i].drawAt(this.original.shape.points[i].x, this.original.shape.points[i].y, transformedPoints[i].x, transformedPoints[i].y);
+        }
+
+        this.logo.draw(this.original.shape);
+      }
+
+      // Origin circle
+      function Origin(i, offsetX, offsetY) {
+        observable(this);
+
+        this.inside = i;
+
+        this.element = document.createElementNS(SVG_NS, "circle");
+        this.element.setAttribute("r", 10);
+        this.element.setAttribute("class", "origin");
+        sandbox.appendChild(this.element);
+
+        this.drawAtParentOffset(offsetX, offsetY);
+
+        // Move the origin with the parent original shape
+        this.inside.on("moved-by", function(x, y) {
+          this.x += x;
+          this.y += y;
+          this.drawAt(this.x, this.y);
+        }.bind(this));
+
+        // Move the origin proportionally when the parent original shape gets resized
+        // so that if it was centered before, it stays centered
+        this.inside.on("resized", function() {
+          this.x = this.inside.shape.points[0].x +
+            ((this.inside.shape.points[1].x - this.inside.shape.points[0].x) * this.xRatio / 100);
+          this.y = this.inside.shape.points[0].y +
+            ((this.inside.shape.points[3].y - this.inside.shape.points[0].y) * this.yRatio / 100);
+          this.drawAt(this.x, this.y);
+        }.bind(this));
+
+        // Make the origin movable too
+        movable(this.element, function(x, y) {
+          this.x += x;
+          this.y += y;
+          this.drawAt(this.x, this.y);
+        }.bind(this));
+      }
+      Origin.prototype.drawAt = function(x, y) {
+        var xSnapPoints = [
+          this.inside.shape.points[0].x,
+          this.inside.shape.points[1].x,
+          this.inside.shape.points[0].x + (this.inside.shape.points[1].x - this.inside.shape.points[0].x)/2
+        ];
+        var ySnapPoints = [
+          this.inside.shape.points[0].y,
+          this.inside.shape.points[3].y,
+          this.inside.shape.points[0].y + (this.inside.shape.points[3].y - this.inside.shape.points[0].y)/2
+        ];
+
+        for (var i = 0; i < 3; i ++) {
+          if (x >= xSnapPoints[i] - (ORIGIN_SNAP_THRESHOLD / 2) &&
+            x <= xSnapPoints[i] + (ORIGIN_SNAP_THRESHOLD / 2)) {
+            x = xSnapPoints[i];
+          }
+          if (y >= ySnapPoints[i] - (ORIGIN_SNAP_THRESHOLD / 2) &&
+            y <= ySnapPoints[i] + (ORIGIN_SNAP_THRESHOLD / 2)) {
+            y = ySnapPoints[i];
+          }
+        }
+
+        this.x = x;
+        this.y = y;
+
+        this.element.setAttribute("cx", x);
+        this.element.setAttribute("cy", y);
+
+        this.emit("updated");
+
+        this.xRatio = (this.x - this.inside.shape.points[0].x) /
+          (this.inside.shape.points[1].x - this.inside.shape.points[0].x) * 100;
+
+        this.yRatio = (this.y - this.inside.shape.points[0].y) /
+          (this.inside.shape.points[3].y - this.inside.shape.points[0].y) * 100;
+      }
+      Origin.prototype.drawAtParentOffset = function(x, y) {
+        this.x = this.inside.shape.points[0].x + x;
+        this.y = this.inside.shape.points[0].y + y;
+        this.drawAt(this.x, this.y);
+      }
+
+      expression.value = TRANSFORM;
+
+      original = new Original([
+        {x: X, y: Y},
+        {x: X + WIDTH, y: Y},
+        {x: X + WIDTH, y: Y + HEIGHT},
+        {x: X, y: Y + HEIGHT}
+      ]);
+      origin = new Origin(original, ORIGIN_X, ORIGIN_Y);
+      transformed = new Transformed(original, origin);
+
+      function saveToHash() {
+        var hash = [
+          (original.shape.points[1].x - original.shape.points[0].x) + "x" + (original.shape.points[3].y - original.shape.points[0].y),
+          original.shape.points[0].x + "x" + original.shape.points[0].y,
+          expression.value,
+          (origin.x - original.shape.points[0].x) + "x" + (origin.y - original.shape.points[0].y)
+        ];
+        document.location.hash = encodeURI(hash.join("|"));
+      }
+
+      function generateCssSelector() {
+        var selector = ["div {"];
+
+        var width = Math.round(original.shape.points[1].x - original.shape.points[0].x);
+        var height = Math.round(original.shape.points[3].y - original.shape.points[0].y);
+
+        selector.push("width : " + width + "px;");
+        selector.push("height : " + height + "px;");
+        selector.push("transform : " + expression.value + ";");
+
+        // Approximating origin position
+        var originX = Math.round((origin.x - original.shape.points[0].x) * 100 / width);
+        if (originX >= 0 && originX <= ORIGIN_SNAP_THRESHOLD) {
+          originX = "left";
+        } else if (originX >= 50 - ORIGIN_SNAP_THRESHOLD/2 && originX <= 50 + ORIGIN_SNAP_THRESHOLD/2) {
+          originX = "center";
+        } else if (originX >= 100 - ORIGIN_SNAP_THRESHOLD && originX <= 100) {
+          originX = "right";
+        } else {
+          originX += "%";
+        }
+
+        var originY = Math.round((origin.y - original.shape.points[0].y) * 100 / height);
+        if (originY >= 0 && originY <= ORIGIN_SNAP_THRESHOLD) {
+          originY = "top";
+        } else if (originY >= 50 - ORIGIN_SNAP_THRESHOLD/2 && originY <= 50 + ORIGIN_SNAP_THRESHOLD/2) {
+          originY = "center";
+        } else if (originY >= 100 - ORIGIN_SNAP_THRESHOLD && originY <= 100) {
+          originY = "bottom";
+        } else {
+          originY += "%";
+        }
+
+        selector.push("transform-origin : " + originX + " " + originY + ";");
+
+        selector.push("}");
+        return selector.join(" ");
+      }
+
+      function onChange() {
+        saveToHash();
+        selector.innerHTML = "<pre>" + generateCssSelector() + "</pre>";
+      }
+
+      function isNumber(string) {
+        return parseInt(string) + "" === string || string === "-" || string === ".";
+      }
+
+      function isCloseToNumber(string, index) {
+        return (string[index - 1] && isNumber(string[index - 1])) ||
+          (string[index] && isNumber(string[index]));
+      }
+
+      function getNumberRange(string, index) {
+        if (isCloseToNumber(string, index)) {
+          var start, end;
+
+          index --;
+
+          while (string[index]) {
+            if (isNumber(string[index])) {
+              index --;
+            } else {
+              start = index + 1;
+              break;
+            }
+          }
+
+          index ++;
+
+          while (string[index]) {
+            if (isNumber(string[index])) {
+              index ++;
+            } else {
+              end = index;
+              break;
+            }
+          }
+
+          return {start: start, end: end};
+        } else {
+          return false;
+        }
+      }
+
+      function increaseValue(input, isUp, isShift, isCtrl) {
+        var selectionStartBefore = input.selectionStart;
+        var nbRange = getNumberRange(input.value, selectionStartBefore);
+
+        if (nbRange) {
+          var delta = isUp === false ? -1 : 1;
+          if (isShift) {
+              delta *= 10;
+          } else if (isCtrl) {
+              delta /= 10;
+          }
+
+          var value = parseFloat(input.value.substring(nbRange.start, nbRange.end));
+          value += delta;
+          value = Math.round(value * 10) / 10;
+
+          input.value = input.value.slice(0, nbRange.start) + value + input.value.slice(nbRange.end);
+
+          transformed.draw();
+          onChange();
+
+          setTimeout(function () {
+            input.setSelectionRange(nbRange.start, nbRange.start);
+          }, 0);
+        }
+      }
+
+      expression.addEventListener("keyup", function() {
+        transformed.draw();
+        onChange();
+      }, false);
+
+      expression.addEventListener('keydown', function (evt) {
+        if (evt.keyCode == '38') { // arrow up
+          increaseValue(expression, true, evt.shiftKey, evt.ctrlKey);
+          evt.preventDefault();
+        } else if (evt.keyCode == '40') { // arrow down
+          increaseValue(expression, false, evt.shiftKey, evt.ctrlKey);
+          evt.preventDefault();
+        }
+      }, false);
+
+      origin.on("updated", onChange);
+      original.on("updated", onChange);
+
+      onChange();
+    }
+  </script>
+
+</body>
+</html>

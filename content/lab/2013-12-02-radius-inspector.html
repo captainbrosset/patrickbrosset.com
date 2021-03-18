@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>radius inspector</title>
+  <style type="text/css" id="sheet">
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font: 11px Arial;
+    }
+
+    #declaration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+
+      text-align: center;
+      font: bold 2em arial;
+      line-height: 100px;
+      color: #F06;
+      white-space: nowrap;
+    }
+
+    .control {
+      position: absolute;
+      width: 210px;
+      height: 65px;
+      text-align: right;
+    }
+    .control.topleft {top: 100px; left: 0;}
+    .control.topright {top: 100px; right: 0;}
+    .control.bottomright {bottom: 0; right: 0;}
+    .control.bottomleft {bottom: 0; left: 0;}
+
+    .control * {
+      vertical-align: middle;
+    }
+
+    .sandbox {
+      position: absolute;
+      top: 165px;
+      bottom: 65px;
+      left: 210px;
+      right: 210px;
+      background: #EEE;
+    }
+  </style>
+  <style type="text/css">
+    /* Border */
+    .border-highlight {
+      position: absolute;
+      display: none;
+      border: 2px solid #F06;
+      -moz-box-sizing: border-box;
+    }
+
+    /* Corners */
+    .corner-highlight {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+    }
+
+    .corner-highlight-topleft {top:0;left:0;}
+    .corner-highlight-topright {top:0;right:0;}
+    .corner-highlight-bottomright {bottom:0;right:0;}
+    .corner-highlight-bottomleft {bottom:0;left:0;}
+
+    /* Center dot */
+    .corner-highlight:before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      bottom: -4px;
+      right: -4px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #F06;
+      border: 2px solid #FFF;
+    }
+    .corner-highlight-topright:before {right: unset;left: -4px;}
+    .corner-highlight-bottomright:before {right: unset;bottom: unset;top: -4px;left: -4px;}
+    .corner-highlight-bottomleft:before {bottom: unset;top: -4px;}
+
+    /* Axis */
+    .axis {
+      position: absolute;
+      background: #F06;
+    }
+
+    .axis-h {width: 100%;height: 2px;}
+    .axis-v {height: 100%;width: 2px;}
+
+    .corner-highlight-topleft .axis-h,
+    .corner-highlight-topright .axis-h {bottom: 0;}
+    .corner-highlight-topleft .axis-v,
+    .corner-highlight-bottomleft .axis-v {right: 0;}
+
+    /* Labels */
+    .axis:before {
+      position: absolute;
+      z-index: 2;
+      background: white;
+      color: #F06;
+      padding: 0 2px;
+      white-space: nowrap;
+    }
+    .axis-h:before {
+      content: attr(h);
+      top: -5px;
+      margin: 0 50%;
+    }
+
+    .axis-v:before {
+      content: attr(v);
+      left: -25px;
+      top: 50%;
+    }
+
+    /* Arrows */
+    .axis-h:after,
+    .axis-v:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      width: 0;
+      height: 0;
+    }
+    .corner-highlight-topleft .axis-h:after,
+    .corner-highlight-bottomleft .axis-h:after {
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid #F06;
+      top: -5px;
+    }
+    .corner-highlight-topright .axis-h:after,
+    .corner-highlight-bottomright .axis-h:after {
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 6px solid #F06;
+      top: -5px;
+      right: 0;
+    }
+    .corner-highlight-topleft .axis-v:after,
+    .corner-highlight-topright .axis-v:after {
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid #F06;
+      left: -5px;
+    }
+    .corner-highlight-bottomleft .axis-v:after,
+    .corner-highlight-bottomright .axis-v:after {
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #F06;
+      left: -5px;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="declaration"></div>
+  <div class="control topleft">
+    <div>Horizontal <input type="range" step="5" value="0" /></div>
+    <div>Vertical <input type="range" step="5" value="0" /></div>
+    <div>Lock <input type="checkbox" checked /></div>
+  </div>
+  <div class="control topright">
+    <div>Horizontal <input type="range" step="5" value="0" /></div>
+    <div>Vertical <input type="range" step="5" value="0" /></div>
+    <div>Lock <input type="checkbox" checked /></div>
+  </div>
+  <div class="control bottomright">
+    <div>Horizontal <input type="range" step="5" value="0" /></div>
+    <div>Vertical <input type="range" step="5" value="0" /></div>
+    <div>Lock <input type="checkbox" checked /></div>
+  </div>
+  <div class="control bottomleft">
+    <div>Horizontal <input type="range" step="5" value="0" /></div>
+    <div>Vertical <input type="range" step="5" value="0" /></div>
+    <div>Lock <input type="checkbox" checked /></div>
+  </div>
+  <div class="sandbox"></div>
+
+  <script>
+    const CORNERS = ["TopLeft", "TopRight", "BottomRight", "BottomLeft"];
+
+    function BorderHighlighter(node) {
+      this.node = node;
+      this.win = node.ownerDocument.defaultView;
+      this.doc = node.ownerDocument;
+
+      this._createBorderHighlight();
+      this._createCornerHighlights();
+    }
+
+    BorderHighlighter.prototype = {
+      show: function() {
+        this.update();
+        this._borderHighlight.style.display = "block";
+      },
+
+      hide: function() {
+        this._borderHighlight.style.display = "none";
+      },
+
+      destroy: function() {
+        this.hide();
+        this._borderHighlight.remove();
+        for (let corner of CORNERS) {
+          this._cornersHighlights[corner].remove();
+        }
+        this.node = this.win = this.doc = null;
+      },
+
+      update: function() {
+        this._styles = this._getStyles();
+        this._updateBorderHighlight();
+        this._updateCornerHighlights();
+
+        this.onUpdate(this._getRadiusDeclaration());
+      },
+
+      _getRadiusDeclaration: function() {
+        let h = "", v = "";
+        for (let corner of CORNERS) {
+          h += this._styles.authored[corner].h + " ";
+          v += this._styles.authored[corner].v + " ";
+        }
+
+        return h.trim() + " / " + v.trim();
+      },
+
+      onUpdate: function(declaration) {},
+
+      _getStyles: function() {
+        let computedStyles = this._getComputedStyles();
+        let authoredStyles = this._getAuthoredStyles();
+
+        let styles = {
+          authored: {},
+          computed: {}
+        };
+
+        for (let corner of CORNERS) {
+          let authored = authoredStyles["border" + corner + "Radius"];
+          let {h: ah, v: av} = this._splitHV(authored);
+          styles.authored[corner] = {
+            style: authored,
+            h: ah,
+            v: av
+          };
+
+          let computed = computedStyles["border" + corner + "Radius"];
+          let {h: ch, v: cv} = this._splitHV(computed);
+          styles.computed[corner] = {
+            style: computed,
+            h: parseInt(ch, 10),
+            v: parseInt(cv, 10)
+          };
+        }
+
+        return styles;
+      },
+
+      _splitHV: function(value) {
+        let values = value.split(" ");
+        if (values.length === 1) {
+          values.push(values[0]);
+        }
+        return {
+          h: values[0],
+          v: values[1]
+        }
+      },
+
+      _getComputedStyles: function() {
+        return this.win.getComputedStyle(this.node);
+      },
+
+      _getAuthoredStyles: function() {
+        // FIXME: For now, getting the styles from the style attribute only
+        return this.node.style;
+      },
+
+      _createBorderHighlight: function() {
+        this._borderHighlight = this.doc.createElement("div");
+        this._borderHighlight.classList.add("border-highlight");
+        this.doc.body.appendChild(this._borderHighlight);
+      },
+
+      _updateBorderHighlight: function() {
+        let rect = this.node.getBoundingClientRect();
+        this._borderHighlight.style.top = rect.top + "px";
+        this._borderHighlight.style.left = rect.left + "px";
+        this._borderHighlight.style.width = rect.width + "px";
+        this._borderHighlight.style.height = rect.height + "px";
+
+        for (let corner of CORNERS) {
+          this._borderHighlight.style["border" + corner + "Radius"] =
+            this._styles.computed[corner].style;
+        }
+      },
+
+      _createCornerHighlights: function() {
+        this._cornersHighlights = {};
+        let cornerEl;
+
+        for (let corner of CORNERS) {
+          cornerEl = this.doc.createElement("div");
+          cornerEl.classList.add("corner-highlight");
+          cornerEl.classList.add("corner-highlight-" + corner.toLowerCase());
+
+          this._borderHighlight.appendChild(cornerEl);
+
+          let hAxis = this.doc.createElement("div");
+          hAxis.classList.add("axis");
+          hAxis.classList.add("axis-h");
+          cornerEl.appendChild(hAxis);
+
+          let vAxis = this.doc.createElement("div");
+          vAxis.classList.add("axis");
+          vAxis.classList.add("axis-v");
+          cornerEl.appendChild(vAxis);
+
+          this._cornersHighlights[corner] = cornerEl;
+        }
+      },
+
+      _updateCornerHighlights: function() {
+        for (let corner of CORNERS) {
+          let computedH = this._styles.computed[corner].h + "px";
+          let authoredH = this._styles.authored[corner].h;
+
+          let computedV = this._styles.computed[corner].v + "px";
+          let authoredV = this._styles.authored[corner].v;
+
+          this._cornersHighlights[corner].style.width = computedH;
+          this._cornersHighlights[corner].style.height = computedV;
+
+          let hAxis = this._cornersHighlights[corner].querySelector(".axis-h");
+          if (computedH !== "0px") {
+            hAxis.setAttribute("h", authoredH + " (" + computedH + ")");
+            hAxis.style.display = "block";
+          } else {
+            hAxis.style.display = "none";
+          }
+
+          let vAxis = this._cornersHighlights[corner].querySelector(".axis-v");
+          if (computedV !== "0px") {
+            vAxis.setAttribute("v", authoredV + " (" + computedV + ")");
+            vAxis.style.display = "block";
+          } else {
+            vAxis.style.display = "none";
+          }
+        }
+      }
+    };
+
+    let node = document.querySelector(".sandbox");
+    let h = new BorderHighlighter(node);
+
+    for (let corner of CORNERS) {
+      (function (corner) {
+        let ranges = document.querySelectorAll(".control." + corner.toLowerCase() + " input[type=range]");
+        let lock = document.querySelector(".control." + corner.toLowerCase() + " input[type=checkbox]");
+
+        // horizontal range
+        ranges[0].addEventListener("input", function(event) {
+          let value = this.value;
+          let other = lock.checked ? value : ranges[1].value;
+          node.style["border" + corner + "Radius"] = value + "% " + other + "%";
+          ranges[1].value = other;
+          h.update();
+        }, false);
+
+        // vertical range
+        ranges[1].addEventListener("input", function(event) {
+          let value = this.value;
+          let other = lock.checked ? value : ranges[0].value;
+          node.style["border" + corner + "Radius"] = other + "% " + value + "%";
+          ranges[0].value = other;
+          h.update();
+        }, false);
+
+        // Set default value
+        node.style["border" + corner + "Radius"] = ranges[0].value + "% " + ranges[1].value + "%";
+      })(corner);
+    }
+
+    h.onUpdate = function(declaration) {
+      document.querySelector("#declaration").textContent = "{ border-radius : " + declaration + " ; }";
+    }
+    h.show();
+
+    window.addEventListener("resize", function(event) {
+      h.update();
+    }, false);
+  </script>
+</body>
+</html>
