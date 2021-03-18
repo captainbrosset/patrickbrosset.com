@@ -9,5 +9,8 @@
     "@11ty/eleventy": "^0.11.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
     "eleventy-plugin-youtube-embed": "^1.4.5"
+  },
+  "scripts": {
+    "watch": "npx @11ty/eleventy --watch"
   }
 }
