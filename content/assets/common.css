@@ -13,9 +13,9 @@ body {
 	width: 60%;
 	max-width: 1000px;
 	font-family: Rokkitt, serif;
-	font-size: 16pt;
-	line-height: 1.8;
-	color: #8F9BA8;
+	font-size: 18pt;
+	line-height: 2;
+	color: #B5BABF;
 	display: grid;
 	grid-template-areas: "header nav" "main main";
 	grid-template-columns: max-content 1fr;
@@ -39,7 +39,6 @@ body > h1 {
   margin: 0;
   justify-self: end;
   align-self: center;
-  font-size: larger;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -52,7 +51,7 @@ body > h1 {
   }
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 800px) {
   body {
     width: 80%;
   }
