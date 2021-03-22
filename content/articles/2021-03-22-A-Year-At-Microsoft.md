@@ -4,7 +4,6 @@ subtitle: articles
 pagetitle: A Year at Microsoft
 ---
 TODO: remaining permissions to get
-BrandonW
 Tony
 
 Tweet:
