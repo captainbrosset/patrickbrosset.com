@@ -31,7 +31,7 @@ Two pretty wild things happened.
 * First, I learned just one week after I interviewed at Microsoft that, yes, I was going to be part of the Mozilla layoffs 😢. Thankfully, I already knew the interviews with Microsoft had gone well, and I was going to be getting an offer. But this was cutting it pretty close!
 * Secondly, I flew to Seattle for the interviews literally days before the covid-19 outbreaks started in several places, including Seattle! Just a few days later, and I wouldn't have been able to fly at all.
 
-Anyway, I got the job 🎉!
+Anyway, I got the job 🎉
 
 ![Photo of the Internet Explorer neon sign in building 113 of the Microsoft Redmond campus](/assets/ie-neon-sign.jpg)
 
@@ -43,7 +43,7 @@ I'm not going to lie, the first week or so was a wild ride.
 
 First of all, I didn't get a laptop from Microsoft until the second week, so I had to connect to the corporate network from my personal computer which didn't get me access to everything. Secondly, all of my team, including my manager, was in Redmond, USA (and still is) while I live in France. That means I didn't have anybody to ask for help during my working hours.
 
-You can imagine how stressful this was at the beginning when all I was trying to do was being productive. I know I wasn't expected to perform from day one, people were fine with me needing time and there was a lot of training for me to do anyway. I guess it's compulsive, when you start a new job, you want to live up to the expectation you think people have of you as soon possible.
+You can imagine how stressful this was at the beginning when all I was trying to do was be productive. I know I wasn't expected to perform from day one, people were fine with me needing time and there was a lot of training for me to do anyway. I guess it's compulsive, when you start a new job, you want to live up to the expectation you think people have of you as soon possible.
 
 I am thankful to my colleagues and managers who took the time to chat with me, be friendly and teach me all sorts of internal knownledge I needed. If you're welcoming a new person on your team, take the time to answer any questions they have, even if you have a lot of work, this is the most important thing you can be doing for them right now.
 
@@ -80,7 +80,7 @@ Since then I've participated in several projects. Here's a quick list:
 
 Prior to joining Microsoft, I had been a manager for 5 years. In fact, I have been going back and forth between management and coding a couple of times already, even before Mozilla.
 
-Even if I originally wanted a management role at Microsoft, there wasn't one for me to fill at the time. Microsoft is quickly re-inventing itself when it comes to working remotely and across timezones, but it isn't ready yet to have a managers who are remote from their teams. So I came in as a senior software engineer, and that's great. I far prefer knowing what it's like to be coding in this environment before becoming a manager again maybe one day.
+Even if I originally wanted a management role at Microsoft, there wasn't one for me to fill at the time. Microsoft is quickly re-inventing itself when it comes to working remotely and across timezones, but it isn't ready yet to have managers who are remote from their teams. So I came in as a senior software engineer, and that's great. I far prefer knowing what it's like to be coding in this environment before becoming a manager again maybe one day.
 
 Overall going back to coding hasn't been as hard as I expected it to be. I've needed to flex some muscles that had atrophied a little bit lately, but I knew JavaScript and CSS so that part came back quickly. [TypeScript](https://www.typescriptlang.org/) was new to me, but I immediately liked the comfort that gave me while working in [VS Code](https://code.visualstudio.com/), and it is sufficiently similar to JavaScript that it was simple to make sense of it.
 
@@ -100,7 +100,7 @@ _Take this with a grain of salt: this is based on my own experience and may vary
   I don't think I've ever worked at a company that is more customer-focused than Microsoft. It is very reassuring to know you're working on the right features for your end users.
 
 * _No after thoughts_:\
-  Microsoft takes things like accessibility super seriously. A lot of places don't really think of this as part of the normal coding work and often forget abou ti, or just do it as a best-effort-when-we-have-time kind of basis. It's not the case here, we've got processes and tools in place to track this and work on it along with the other "normal" coding tasks, and you just don't get to ship without it.
+  Microsoft takes things like accessibility super seriously. A lot of places don't really think of this as part of the normal coding work and often forget about i, or just do it as a best-effort-when-we-have-time kind of basis. It's not the case here, we've got processes and tools in place to track this and work on it along with the other "normal" coding tasks, and you just don't get to ship without it.
 
 * _Investment in DevTools_:\
   Edge invests in its DevTools, it isn't just a thing we need to do because other browsers have it too. We're based on Chromium, so we could very well not do anything. But we do invest in it. We have our own strategy for it and dedicate a fair level of investment for it.
