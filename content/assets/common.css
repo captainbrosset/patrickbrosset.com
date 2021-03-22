@@ -135,13 +135,13 @@ pre {
   margin: 0;
   padding: 0;
   list-style: none;
+
+  display: grid;
   /* At most 2 columns in the 1000px max width */
-  column-width: calc(450px - 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
   column-gap: 2rem;
 }
 .entries > li {
-	break-inside: avoid-column;
-	page-break-inside: avoid;
 	margin: 0;
   padding: 1rem 0;
   border-radius: 3px;
