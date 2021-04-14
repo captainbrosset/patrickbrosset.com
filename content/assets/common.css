@@ -1,30 +1,53 @@
-@import url("https://fonts.googleapis.com/css?family=Rokkitt");
+:root {
+  --primary: #d13a7a;
+  --secondary: #1b6fc5;
+  --text: #041527;
+  --sub-text: #8a8a8a;
+  --code: #272822;
+  --text-on-code: white;
+  --separator: #e2eae88f;
+}
 
 * {
   box-sizing: border-box;
 }
 
 html {
-  background: #0b0b0b;
+  background: #fff;
+  background-image:
+    linear-gradient(#FFFE, #FFFE),
+    radial-gradient(circle, var(--primary), var(--primary) 40px, transparent 0),
+    radial-gradient(circle, var(--secondary), var(--secondary) 10px, transparent 0),
+    radial-gradient(circle, var(--text), var(--text) 25px, transparent 0),
+    radial-gradient(circle, var(--code), var(--code) 50px, transparent 0),
+    radial-gradient(circle, var(--primary), var(--primary) 70px, transparent 0),
+    radial-gradient(circle, var(--secondary), var(--secondary) 5px, transparent 0),
+    radial-gradient(circle, var(--text), var(--text) 33px, transparent 0),
+    radial-gradient(circle, var(--code), var(--code) 62px, transparent 0);
+  background-size: 100%, 1010px 1260px, 650px 1320px, 930px 1090px, 1620px 2140px, 740px 2840px, 347px 789px, 900px 1000px, 1999px 2000px;
+  background-position: -1390px -2710px;
 }
 
 body {
 	margin: 3rem auto;
 	width: 60%;
 	max-width: 1000px;
-	font-family: Rokkitt, serif;
-	font-size: 18pt;
+	font-family: 'Arbutus Slab', serif;
+	font-size: 17pt;
 	line-height: 2;
-	color: #B5BABF;
+	color: var(--text);
 	display: grid;
-	grid-template-areas: "header nav" "main main";
+	grid-template-areas:
+		"header nav"
+		"main   main"
+    "footer footer";
 	grid-template-columns: max-content 1fr;
 	column-gap: 1rem;
 }
 
 h1, h2, h3, h4,
 h1 a, h2 a, h3 a, h4 a {
-  color: white;
+  color: #010519;
 }
 
 body > h1 {
@@ -33,6 +56,9 @@ body > h1 {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  color: var(--primary);
+  border-radius: 3px;
+  justify-self: start;
 }
 
 .site-nav {
@@ -41,9 +67,13 @@ body > h1 {
   align-self: center;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1200px) {
   body {
-    grid-template-areas: "header" "nav" "main";
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "footer";
     grid-template-columns: 100%;
   }
   .site-nav {
@@ -65,13 +95,14 @@ body > h1 {
 }
 
 a {
-  color: rgb(5, 177, 177);
+  color: var(--primary);
   text-underline-offset: 6px;
   text-decoration-skip-ink: none;
 }
 
 h1 a {
   text-decoration: none;
+  color: var(--primary);
 }
 
 .site-nav li {
@@ -86,23 +117,31 @@ main {
   justify-self: start;
 }
 
-#home-image {
-	text-align: center;
-	margin-top: 5rem;
+footer {
+  grid-area: footer;
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+  background: var(--separator);
+  border-radius: 3px;
 }
 
-#home-image img {
-	box-shadow: 0 0 10rem -7rem rgb(142, 142, 142);
+footer a {
+  padding-left: 1rem;
+  margin-left: 1rem;
+  border-left: 1px solid var(--sub-text);
 }
 
 time {
-  color: #8a8a8a;
+  color: var(--sub-text);
   font-size: smaller;
 }
 
 /* Images in main content are full width */
 main img {
   max-width: 100%;
+  border: .5em solid var(--separator);
+  border-radius: 3px;
 }
 
 main img.thumbnail {
@@ -110,14 +149,15 @@ main img.thumbnail {
   display: block;
   margin: .5em 0 .5em .5em;
   float: right;
+  border: none;
 }
 
 /* Inline code snippets */
 code {
-  background: #272822;
-  color: white;
+  background: var(--code);
+  color: var(--text-on-code);
   padding: .3rem;
-  font-size: small;
+  font-size: smaller;
   border-radius: 2px;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   white-space: nowrap;
@@ -130,6 +170,10 @@ pre {
   white-space: normal;
 }
 
+pre[class*="language-"] {
+  font-size: .7em !important;
+}
+
 /* List of articles or demos */
 .entries {
   margin: 0;
@@ -137,17 +181,38 @@ pre {
   list-style: none;
 
   display: grid;
-  /* At most 2 columns in the 1000px max width */
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   column-gap: 2rem;
 }
+
+@media only screen and (max-width: 600px) {
+  .entries {
+    grid-template-columns: 1fr;
+  }
+}
+
 .entries > li {
 	margin: 0;
-  padding: 1rem 0;
-  border-radius: 3px;
-  clear: both;
-  overflow: auto;
+	padding: 1rem 0;
+	border-radius: 3px;
+	clear: both;
+	overflow: auto;
 }
 .entries > li time {
   display: block;
+}
+
+.entries li > a {
+  color: var(--secondary);
+}
+
+/* Demo on home page */
+main .demo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
 }

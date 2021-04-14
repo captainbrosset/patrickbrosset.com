@@ -7,7 +7,7 @@ pagetitle: 4 Weird Tricks To Become A 10x Flexbox Engineer
 
 <time datetime="2021-02-02">February 2nd, 2021</time>
 
-<div style="display:grid;">
+<div style="display:grid;column-gap:1rem;">
 <img style="height:300px;grid-row:1;place-self:end" src="/assets/flex-tools-article/flex-article-intro.png" alt="A screenshot of the various features we added to chromium to debug flexbox issues">
 <img style="height:300px;grid-row:1;place-self:start" src="https://i1.wp.com/scifiinterfaces.com/wp-content/uploads/2013/06/typing.gif?fit=545%2C295&ssl=1" alt="Gif of robot hands typing really fast on a keyboard, from the movie Ghost In The Shell">
 </div>

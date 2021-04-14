@@ -6,12 +6,14 @@ title: patrick
   <head>
     <meta charset="utf-8" />
     <title>{{ title }}{% if subtitle %} / {{ subtitle }}{% endif %}{% if pagetitle %} / {{ pagetitle }}{% endif %}</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Arbutus+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/common.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style></style>
   </head>
   <body>
-    <h1><a href="/">{{ title }}</a>{% if subtitle %} / <a href="/{{ subtitle }}">{{ subtitle }}</a>{% endif %}</h1>
+    <h1 id="top"><a href="/">{{ title }}</a></h1>
     <nav class="site-nav">
       <ul>
         <li><a href="/articles">articles</a></li>
@@ -23,7 +25,10 @@ title: patrick
       </ul>
     </nav>
     <main>
-        {{ content | safe }}
+      {{ content | safe }}
     </main>
+    {% if subtitle %}
+    <footer role="contentinfo">&copy; {% year %} Patrick Brosset<a href="#top">Back to top</a></footer>
+    {% endif %}
   </body>
 </html>

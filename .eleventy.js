@@ -17,6 +17,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(embedYouTube);
   eleventyConfig.addPlugin(tabify);
 
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
   return {
     templateFormats: [
       "md",
