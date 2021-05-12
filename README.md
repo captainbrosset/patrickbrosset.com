@@ -8,4 +8,3 @@ Articles that contain code snippets should include the following CSS:
 ```css
 <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
 ```
-
