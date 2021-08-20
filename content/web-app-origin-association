@@ -1,0 +1,10 @@
+{
+  "web_apps": [
+    {
+      "manifest": "https://captainbrosset.github.io/mytracks/manifest.json",
+      "details": {
+        "paths": ["/tracks/*"],
+      }
+    }
+  ]
+}

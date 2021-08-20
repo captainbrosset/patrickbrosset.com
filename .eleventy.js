@@ -12,6 +12,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/favicon-16x16.png");
   eleventyConfig.addPassthroughCopy("content/favicon-32x32.png");
   eleventyConfig.addPassthroughCopy("content/site.webmanifest");
+  eleventyConfig.addPassthroughCopy("content/web-app-origin-association");
+  eleventyConfig.addPassthroughCopy("content/tracks/*.gpx");
 
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(embedYouTube);
