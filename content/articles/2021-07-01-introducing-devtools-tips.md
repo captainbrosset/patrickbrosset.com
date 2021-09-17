@@ -29,6 +29,8 @@ My observation though, is that a lot of people don't really take the time to rea
 
 Short and specific articles about how to do certain things is a way for people to learn new and useful things that seems to work better.
 
+{% include in-article-ad.njk %}
+
 I've seen a lot of people share tips on their blogs, at conferences or on twitter, and it's a great way to discover new things and raise awareness about other tools you might not be using.\
 Here are a couple you might like:
 

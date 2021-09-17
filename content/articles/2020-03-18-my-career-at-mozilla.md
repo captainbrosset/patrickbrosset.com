@@ -26,6 +26,8 @@ I finally ended up as an engineering manager for a few years.
 I have been involved in pretty much all of the phases that make up the product engineering lifecycle and I have learned so much from each of them. 
 I implemented new features, fixed bugs, fixed tests, worked with other engineers, ideated on new user features, ran user tets, built prototypes, communicated with designers, QA, management, product managers, and managed amazing engineers. 
 
+{% include in-article-ad.njk %}
+
 ### The things I helped build
 
 The list below is, by no means, a list of the things I, personally, implemented. I did do some of them myself, but for a large part, they were team efforts, and I only contributed to them in some way or other (managing the team, reviewing patches, etc.).

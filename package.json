@@ -11,6 +11,6 @@
     "eleventy-plugin-youtube-embed": "^1.4.5"
   },
   "scripts": {
-    "watch": "npx @11ty/eleventy --watch"
+    "watch": "npx @11ty/eleventy --watch --serve"
   }
 }

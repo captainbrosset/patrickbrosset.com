@@ -68,7 +68,6 @@ In the example above, the angle is missing, so the white-to-red gradient goes fr
 
 ![](/assets/UXz2TNjXRLIQx0RttwA74A.png)
 
-
 And, as shown in the following 2 pictures, `to top` is equivalent to an angle of zero degrees:
 
 ![](/assets/pc3MBOxi6dwo1T0ktlyWsw.png)
@@ -97,6 +96,8 @@ Let’s recap on gradient angles:
 * 0 degrees therefore means `to top.`
 * The default value for an angle, when missing, is `to bottom`, which is the same than 180 degrees.
 * Corner keywords depend on the gradient box dimensions.
+
+{% include in-article-ad.njk %}
 
 ### The gradient line length
 

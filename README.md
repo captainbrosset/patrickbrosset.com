@@ -1,7 +1,7 @@
 This is the source code to [my personal website](https://patrickbrosset.com).
 It is built with 11ty.
 
-To run the site locally: `npm run watch` (useful when hosting the site from a local webserver, e.g. running `python -m http.server` from `_site`).
+To run the site locally: `npm run watch`.
 
 Articles that contain code snippets should include the following CSS:
 

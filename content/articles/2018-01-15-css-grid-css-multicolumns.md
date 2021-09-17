@@ -27,6 +27,8 @@ For instance, you can define a really simple multi-column layout by using the CS
 
 ![Animation of a multi column layout where the number of columns depends on the width of the container](/assets/multicol.gif)
 
+{% include in-article-ad.njk %}
+
 ### CSS Grids
 
 [CSS Grids](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) is this awesome new CSS layout system that allows web authors to organize items on a 2D grid very easily.
