@@ -3,8 +3,8 @@
   --secondary: #1b6fc5;
   --text: #041527;
   --sub-text: #8a8a8a;
-  --code: #272822;
-  --text-on-code: white;
+  --code: #dbdbdb;
+  --text-on-code: rgb(56, 56, 56);
   --separator: #e2eae88f;
 }
 
@@ -142,6 +142,13 @@ main img {
   max-width: 100%;
   border: .5em solid var(--separator);
   border-radius: 3px;
+}
+
+main img.mini {
+  max-width: 200px;
+  margin: 0 auto;
+  border: none;
+  display: block;
 }
 
 main img.thumbnail {
