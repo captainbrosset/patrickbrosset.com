@@ -292,7 +292,7 @@ The [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/Fi
 
 This API is part of the [Web Capabilities](https://www.chromium.org/teams/web-capabilities-fugu) project (aka project Fugu 🐡) which aims at giving web apps the capabilities that compiled apps normally have.
 
-The File System Access API’s browser support is limited still, but it is implemented by Chromium, which means that Microsoft Edge or Google Chrome can use it already (or other Chromium-based browsers such as Vivaldi or Brave). It is not behind a flag, and can be used right away simply by checking that the feature exists.
+The File System Access API’s browser support is limited still, but it is implemented by Chromium, which means that Microsoft Edge or Google Chrome can use it already (or other Chromium-based browsers - note that Brave, however, has the API disabled). It is not behind a flag, and can be used right away simply by checking that the feature exists.
 
 Note that other browsers ([Firefox](https://github.com/mozilla/standards-positions/issues/154) and [Safari](https://lists.webkit.org/pipermail/webkit-dev/2020-August/031362.html)) haven’t yet sent positive signals around implementing this API and discussions are still ongoing.
 
