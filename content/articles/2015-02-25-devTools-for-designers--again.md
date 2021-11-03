@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 paegtitle: DevTools for designers, again!
+tags: article
 ---
 ## DevTools for designers, again!
 

@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: A Year at Microsoft
+tags: article
 ---
 ## A Year at Microsoft 🎂
 

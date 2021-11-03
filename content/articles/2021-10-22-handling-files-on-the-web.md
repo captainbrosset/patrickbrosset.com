@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: 10 Ways to Handle Files on the Web!
+tags: article
 ---
 <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
 

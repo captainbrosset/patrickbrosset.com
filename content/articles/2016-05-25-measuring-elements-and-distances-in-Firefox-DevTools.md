@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: Measuring elements and distances in Firefox DevTools
+tags: article
 ---
 
 ## Measuring elements and distances in Firefox DevTools

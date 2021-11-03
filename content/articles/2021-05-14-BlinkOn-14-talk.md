@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: BlinkOn 14 Talk - Flexbox and Grid Tooling in Chromium
+tags: article
 ---
 ## BlinkOn 14 Talk - Flexbox and Grid Tooling in Chromium
 

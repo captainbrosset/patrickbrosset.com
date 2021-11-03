@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: Breaking-down CSS animation demos with Firefox DevTools
+tags: article
 ---
 ## Breaking-down CSS animation demos with Firefox DevTools
 

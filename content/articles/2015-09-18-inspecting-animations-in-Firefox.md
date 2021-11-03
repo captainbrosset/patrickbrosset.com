@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: Inspecting animations in Firefox
+tags: article
 ---
 
 ## Inspecting animations in Firefox

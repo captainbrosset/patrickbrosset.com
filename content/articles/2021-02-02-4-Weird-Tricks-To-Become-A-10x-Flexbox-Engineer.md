@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: 4 Weird Tricks To Become A 10x Flexbox Engineer
+tags: article
 ---
 ## 4 Weird Tricks To Become A 10x Flexbox Engineer
 

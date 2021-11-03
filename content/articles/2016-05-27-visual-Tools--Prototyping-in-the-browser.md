@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: Visual Tools — Prototyping in the browser
+tags: article
 ---
 
 ## Visual Tools — Prototyping in the browser

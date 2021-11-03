@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: Demystifying CSS alignment
+tags: article
 ---
 ## Demystifying CSS alignment
 

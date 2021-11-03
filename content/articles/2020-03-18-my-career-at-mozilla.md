@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: My career at Mozilla
+tags: article
 ---
 ## My career at Mozilla
 

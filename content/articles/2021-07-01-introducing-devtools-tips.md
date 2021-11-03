@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: Introducing DevTools Tips, for all your cross-browser DevTools tips and tricks
+tags: article
 ---
 ## Introducing DevTools Tips, for all your cross-browser DevTools tips and tricks
 

@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: Contribute to Firefox DevTools, become a better web developer
+tags: article
 ---
 
 ## Contribute to Firefox DevTools, become a better web developer

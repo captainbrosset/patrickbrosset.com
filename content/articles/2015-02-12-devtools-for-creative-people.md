@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: DevTools for creative people
+tags: article
 ---
 ## DevTools for creative people
 

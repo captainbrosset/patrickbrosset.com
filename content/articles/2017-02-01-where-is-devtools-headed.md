@@ -2,6 +2,7 @@
 layout: main-layout.njk
 subtitle: articles
 pagetitle: Where is DevTools headed?
+tags: article
 ---
 ## Where is DevTools headed?
 
