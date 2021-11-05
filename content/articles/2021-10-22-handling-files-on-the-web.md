@@ -270,7 +270,7 @@ link.setAttribute('href', url);
 link.click();
 ```
 
-Note that the link doesn’t even have to be in the DOM for the above to work. So this is a great little piece of utility code you can put in a function, and call it anytime you need to make some text content available as a file download.
+Note that the link doesn’t even have to be in the DOM for the above to work. So this is a great little piece of utility code you can put in a function, and call it anytime you need to make some text content available as a file download. Also, while you're at it, make sure you [design your downloaded file names in a way that makes sense to your users](https://robrelyea.wordpress.com/2013/01/26/designing-file-names-improving-user-experience-for-file-downloads/)!
 
 The download attribute is [supported across the board](https://caniuse.com/download).
 
