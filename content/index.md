@@ -3,7 +3,7 @@ layout: main-layout.njk
 ---
 ## Hi!
 
-My name is Patrick, I am a DevTools engineer at Microsoft working on Edge, previously at Mozilla. I have about 20 years of experience with the web. I like <a href="lab">creating</a> things with web technologies and sometimes <a href="articles">write</a> about those things here.
+My name is Patrick, I am a PM at Microsoft working on Edge, previously at Mozilla. I have about 20 years of experience with the web. I like <a href="lab">creating</a> things with web technologies and sometimes <a href="articles">write</a> about those things here.
 
 <div class="demo">
     <style>

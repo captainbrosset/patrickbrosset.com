@@ -8,6 +8,8 @@ tags: article
 
 ## 10 Ways to Handle Files on the Web!
 
+<time datetime="2021-10-22">October 22nd, 2021</time>
+
 ![Illustration showing all of the ways you can handle files on the web](/assets/file-handling/all.png)
 
 Websites usually don’t use files much. Files are usually a thing that desktop applications like working with. In fact, mobile devices also don’t usually use files, they prefer sharing data between apps directly, and putting everything in the cloud where things are just images, movies, songs, or messages with no information whatsoever as to how these are stored on the disk.

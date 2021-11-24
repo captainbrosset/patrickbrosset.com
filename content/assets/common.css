@@ -1,4 +1,5 @@
 :root {
+  --background: #fff;
   --primary: #d13a7a;
   --secondary: #1b6fc5;
   --text: #041527;
@@ -13,7 +14,7 @@
 }
 
 html {
-  background: #fff;
+  background: var(--background);
   background-image:
     linear-gradient(#FFFE, #FFFE),
     radial-gradient(circle, var(--primary), var(--primary) 40px, transparent 0),
@@ -47,7 +48,7 @@ body {
 
 h1, h2, h3, h4,
 h1 a, h2 a, h3 a, h4 a {
-  color: #010519;
+  color: var(--text);
 }
 
 body > h1 {
