@@ -6,14 +6,12 @@ title: patrick
   <head>
     <meta charset="utf-8" />
     <title>{{ title }}{% if subtitle %} / {{ subtitle }}{% endif %}{% if pagetitle %} / {{ pagetitle }}{% endif %}</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Arbutus+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/common.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="alternate" type="application/rss+xml" href="feed.xml" title="RSS 2.0">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6666679441576159" crossorigin="anonymous"></script>
   </head>
-  <body>
+  <body {% if not subtitle %} class="home"{% endif %}>
     <h1 id="top"><a href="/">{{ title }}</a></h1>
     <nav class="site-nav">
       <ul>
