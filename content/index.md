@@ -12,9 +12,9 @@ I have also written in other places like [Smashing Magazine](https://www.smashin
 <ul class="home-tiles">
   <li>
 
-https://www.youtube.com/watch?v=fhmuZatLPr8
+https://www.youtube.com/watch?v=DCWSV0J5C8A
 
-[9 DevTools tips and tricks](https://www.youtube.com/watch?v=fhmuZatLPr8)
+[A cool tip when working with a CSS-in-JS library](https://www.youtube.com/watch?v=DCWSV0J5C8A)
 
   </li>
   <li>
