@@ -30,6 +30,7 @@
       padding: 3rem;
       border-bottom: 1px solid #eee;
     }
+    
     footer {
       padding: 3rem;
     }
@@ -46,89 +47,6 @@
     <p>Make sure to use a recent Canary version of a Chromium browser, and turn on the <em>"Experimental Web Platform features"</em> flag in <strong>about:flags</strong>.</p>
     <p>Each section below contains a demo, and a summary of the limitations with the current implementation.</p>
   </header>
-
-  <div class="sample">
-    <h2>Gitpod's account switcher</h2>
-    <p>Requirements: option subtext, custom toggle button, icon next to last option.<br> Small limitation: the default button/selected-value parts were fine for this example, but if we don't replace them, then the default disclosure icon appears, and there
-      doesn't seem to be a way to style it. So we have to replace both parts to be able to do this.</p>
-    <style>
-      .gitpod {
-        width: 250px;
-      }
-      
-      .gitpod option,
-      .gitpod button {
-        font-size: 16px;
-        font-weight: 600;
-        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-        cursor: pointer;
-      }
-      
-      .gitpod button {
-        border: 0;
-        display: flex;
-        align-items: center;
-        width: max-content;
-        background: url(https://gitpod.io/static/media/CaretUpDown.7b205b53.svg) no-repeat center right;
-        padding-right: 20px;
-      }
-      
-      .gitpod popup {
-        padding: 0;
-        border-radius: 8px;
-        border: 1px solid #e7e5e4;
-        box-shadow: none;
-        margin-top: 8px;
-      }
-      
-      .gitpod option {
-        background-color: #fafaf9;
-        padding: 12px 16px;
-      }
-      
-      .gitpod option:not(:last-child) {
-        border-bottom: 1px solid #e7e5e4;
-      }
-      
-      .gitpod option:not(.action)::after {
-        content: attr(data-details);
-        display: block;
-        color: #a8a29e;
-        font-size: 14px;
-        font-weight: normal;
-      }
-      
-      .gitpod option:hover {
-        background-color: #f5f5f4;
-      }
-      
-      .gitpod option.action {
-        color: #a8a29e;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      
-      .gitpod option.action svg {
-        width: 16px;
-      }
-    </style>
-
-    <selectmenu class="gitpod">
-      <button slot="button" behavior="button">
-    <span slot="selected-value" behavior="selected-value"></span>
-  </button>
-      <popup slot="listbox" behavior="listbox">
-        <option value="Patrick Brosset" data-details="Personal Account">Patrick Brosset</option>
-        <option value="Microsoft Edge" data-details="Team Account">Microsoft Edge</option>
-        <option value="Microsoft" data-details="Organization Account">Microsoft</option>
-        <option value="new team" class="action">
-          New Team
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" class="w-3.5"><path fill="currentColor" fill-rule="evenodd" d="M7 0a1 1 0 011 1v5h5a1 1 0 110 2H8v5a1 1 0 11-2 0V8H1a1 1 0 010-2h5V1a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-        </option>
-      </popup>
-    </selectmenu>
-  </div>
 
   <div class="sample">
     <h2>Vertically aligned options (google calendar)</h2>
@@ -248,6 +166,384 @@
 
         verticalAlignPopup.style.transform = `translateY(-${delta}px)`;
       });
+    </script>
+  </div>
+
+  <div class="sample">
+    <h2>Gitpod's account switcher</h2>
+    <p>Requirements: option subtext, custom toggle button, icon next to last option.<br> Small limitation: the default button/selected-value parts were fine for this example, but if we don't replace them, then the default disclosure icon appears, and there
+      doesn't seem to be a way to style it. So we have to replace both parts to be able to do this.</p>
+    <style>
+      .gitpod {
+        width: 250px;
+      }
+      
+      .gitpod option,
+      .gitpod button {
+        font-size: 16px;
+        font-weight: 600;
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        cursor: pointer;
+      }
+      
+      .gitpod button {
+        border: 0;
+        display: flex;
+        align-items: center;
+        width: max-content;
+        background: url(https://gitpod.io/static/media/CaretUpDown.7b205b53.svg) no-repeat center right;
+        padding-right: 20px;
+      }
+      
+      .gitpod popup {
+        padding: 0;
+        border-radius: 8px;
+        border: 1px solid #e7e5e4;
+        box-shadow: none;
+        margin-top: 8px;
+      }
+      
+      .gitpod option {
+        background-color: #fafaf9;
+        padding: 12px 16px;
+      }
+      
+      .gitpod option:not(:last-child) {
+        border-bottom: 1px solid #e7e5e4;
+      }
+      
+      .gitpod option:not(.action)::after {
+        content: attr(data-details);
+        display: block;
+        color: #a8a29e;
+        font-size: 14px;
+        font-weight: normal;
+      }
+      
+      .gitpod option:hover {
+        background-color: #f5f5f4;
+      }
+      
+      .gitpod option.action {
+        color: #a8a29e;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .gitpod option.action svg {
+        width: 16px;
+      }
+    </style>
+
+    <selectmenu class="gitpod">
+      <button slot="button" behavior="button">
+    <span slot="selected-value" behavior="selected-value"></span>
+  </button>
+      <popup slot="listbox" behavior="listbox">
+        <option value="Patrick Brosset" data-details="Personal Account">Patrick Brosset</option>
+        <option value="Microsoft Edge" data-details="Team Account">Microsoft Edge</option>
+        <option value="Microsoft" data-details="Organization Account">Microsoft</option>
+        <option value="new team" class="action">
+          New Team
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" class="w-3.5"><path fill="currentColor" fill-rule="evenodd" d="M7 0a1 1 0 011 1v5h5a1 1 0 110 2H8v5a1 1 0 11-2 0V8H1a1 1 0 010-2h5V1a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+        </option>
+      </popup>
+    </selectmenu>
+  </div>
+
+  <div class="sample">
+    <h2>Scroll indicators</h2>
+    <p>Requirements: limit the max-height of the popup and provide scrolling (see <a href="https://www.modulz.app/blog/under-the-spotlight-select">Select by modulz</a>).<br>It seems like <code>max-height</code> is not supported on the popup element, a nested element is needed.</p>
+
+    <style>
+      .scrollable::part(button) {
+        padding: .5rem;
+        border: 1px solid #ccc;
+      }
+      
+      .scrollable popup {
+        width: max-content;
+        height: max-content;
+        padding: 0;
+        border: 1px solid #ccc;
+        margin-top: .5rem;
+      }
+      
+      .scrollable .scroller {
+        max-height: 40vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      
+      .scrollable .indicator {
+        padding: .5rem;
+        text-align: center;
+      }
+
+      .scrollable .indicator:hover {
+        background: #eee;
+      }
+      
+      .scrollable option {
+        padding: .5rem 1rem;
+      }
+      
+      .scrollable option:hover {
+        background: #097ff5;
+        color: white;
+      }
+    </style>
+
+    <selectmenu class="scrollable">
+      <popup slot="listbox" behavior="listbox">
+        <div class="indicator before">▲</div>
+        <div class="scroller">
+          <option value="afghanistan">Afghanistan</option>
+          <option value="albania">Albania</option>
+          <option value="algeria">Algeria</option>
+          <option value="andorra">Andorra</option>
+          <option value="angola">Angola</option>
+          <option value="antigua and barbuda">Antigua and Barbuda</option>
+          <option value="argentina">Argentina</option>
+          <option value="armenia">Armenia</option>
+          <option value="australia">Australia</option>
+          <option value="austria">Austria</option>
+          <option value="azerbaijan">Azerbaijan</option>
+          <option value="bahamas">Bahamas</option>
+          <option value="bahrain">Bahrain</option>
+          <option value="bangladesh">Bangladesh</option>
+          <option value="barbados">Barbados</option>
+          <option value="belarus">Belarus</option>
+          <option value="belgium">Belgium</option>
+          <option value="belize">Belize</option>
+          <option value="benin">Benin</option>
+          <option value="bhutan">Bhutan</option>
+          <option value="bolivia">Bolivia</option>
+          <option value="bosnia and herzegovina">Bosnia and Herzegovina</option>
+          <option value="botswana">Botswana</option>
+          <option value="brazil">Brazil</option>
+          <option value="brunei ">Brunei </option>
+          <option value="bulgaria">Bulgaria</option>
+          <option value="burkina faso">Burkina Faso</option>
+          <option value="burundi">Burundi</option>
+          <option value="côte d'ivoire">Côte d'Ivoire</option>
+          <option value="cabo verde">Cabo Verde</option>
+          <option value="cambodia">Cambodia</option>
+          <option value="cameroon">Cameroon</option>
+          <option value="canada">Canada</option>
+          <option value="central african republic">Central African Republic</option>
+          <option value="chad">Chad</option>
+          <option value="chile">Chile</option>
+          <option value="china">China</option>
+          <option value="colombia">Colombia</option>
+          <option value="comoros">Comoros</option>
+          <option value="congo (congo-brazzaville)">Congo (Congo-Brazzaville)</option>
+          <option value="costa rica">Costa Rica</option>
+          <option value="croatia">Croatia</option>
+          <option value="cuba">Cuba</option>
+          <option value="cyprus">Cyprus</option>
+          <option value="czechia (czech republic)">Czechia (Czech Republic)</option>
+          <option value="democratic republic of the congo">Democratic Republic of the Congo</option>
+          <option value="denmark">Denmark</option>
+          <option value="djibouti">Djibouti</option>
+          <option value="dominica">Dominica</option>
+          <option value="dominican republic">Dominican Republic</option>
+          <option value="ecuador">Ecuador</option>
+          <option value="egypt">Egypt</option>
+          <option value="el salvador">El Salvador</option>
+          <option value="equatorial guinea">Equatorial Guinea</option>
+          <option value="eritrea">Eritrea</option>
+          <option value="estonia">Estonia</option>
+          <option value="eswatini (fmr. " swaziland ")">Eswatini (fmr. "Swaziland")</option>
+          <option value="ethiopia">Ethiopia</option>
+          <option value="fiji">Fiji</option>
+          <option value="finland">Finland</option>
+          <option value="france">France</option>
+          <option value="gabon">Gabon</option>
+          <option value="gambia">Gambia</option>
+          <option value="georgia">Georgia</option>
+          <option value="germany">Germany</option>
+          <option value="ghana">Ghana</option>
+          <option value="greece">Greece</option>
+          <option value="grenada">Grenada</option>
+          <option value="guatemala">Guatemala</option>
+          <option value="guinea">Guinea</option>
+          <option value="guinea-bissau">Guinea-Bissau</option>
+          <option value="guyana">Guyana</option>
+          <option value="haiti">Haiti</option>
+          <option value="holy see">Holy See</option>
+          <option value="honduras">Honduras</option>
+          <option value="hungary">Hungary</option>
+          <option value="iceland">Iceland</option>
+          <option value="india">India</option>
+          <option value="indonesia">Indonesia</option>
+          <option value="iran">Iran</option>
+          <option value="iraq">Iraq</option>
+          <option value="ireland">Ireland</option>
+          <option value="israel">Israel</option>
+          <option value="italy">Italy</option>
+          <option value="jamaica">Jamaica</option>
+          <option value="japan">Japan</option>
+          <option value="jordan">Jordan</option>
+          <option value="kazakhstan">Kazakhstan</option>
+          <option value="kenya">Kenya</option>
+          <option value="kiribati">Kiribati</option>
+          <option value="kuwait">Kuwait</option>
+          <option value="kyrgyzstan">Kyrgyzstan</option>
+          <option value="laos">Laos</option>
+          <option value="latvia">Latvia</option>
+          <option value="lebanon">Lebanon</option>
+          <option value="lesotho">Lesotho</option>
+          <option value="liberia">Liberia</option>
+          <option value="libya">Libya</option>
+          <option value="liechtenstein">Liechtenstein</option>
+          <option value="lithuania">Lithuania</option>
+          <option value="luxembourg">Luxembourg</option>
+          <option value="madagascar">Madagascar</option>
+          <option value="malawi">Malawi</option>
+          <option value="malaysia">Malaysia</option>
+          <option value="maldives">Maldives</option>
+          <option value="mali">Mali</option>
+          <option value="malta">Malta</option>
+          <option value="marshall islands">Marshall Islands</option>
+          <option value="mauritania">Mauritania</option>
+          <option value="mauritius">Mauritius</option>
+          <option value="mexico">Mexico</option>
+          <option value="micronesia">Micronesia</option>
+          <option value="moldova">Moldova</option>
+          <option value="monaco">Monaco</option>
+          <option value="mongolia">Mongolia</option>
+          <option value="montenegro">Montenegro</option>
+          <option value="morocco">Morocco</option>
+          <option value="mozambique">Mozambique</option>
+          <option value="myanmar (formerly burma)">Myanmar (formerly Burma)</option>
+          <option value="namibia">Namibia</option>
+          <option value="nauru">Nauru</option>
+          <option value="nepal">Nepal</option>
+          <option value="netherlands">Netherlands</option>
+          <option value="new zealand">New Zealand</option>
+          <option value="nicaragua">Nicaragua</option>
+          <option value="niger">Niger</option>
+          <option value="nigeria">Nigeria</option>
+          <option value="north korea">North Korea</option>
+          <option value="north macedonia">North Macedonia</option>
+          <option value="norway">Norway</option>
+          <option value="oman">Oman</option>
+          <option value="pakistan">Pakistan</option>
+          <option value="palau">Palau</option>
+          <option value="palestine state">Palestine State</option>
+          <option value="panama">Panama</option>
+          <option value="papua new guinea">Papua New Guinea</option>
+          <option value="paraguay">Paraguay</option>
+          <option value="peru">Peru</option>
+          <option value="philippines">Philippines</option>
+          <option value="poland">Poland</option>
+          <option value="portugal">Portugal</option>
+          <option value="qatar">Qatar</option>
+          <option value="romania">Romania</option>
+          <option value="russia">Russia</option>
+          <option value="rwanda">Rwanda</option>
+          <option value="saint kitts and nevis">Saint Kitts and Nevis</option>
+          <option value="saint lucia">Saint Lucia</option>
+          <option value="saint vincent and the grenadines">Saint Vincent and the Grenadines</option>
+          <option value="samoa">Samoa</option>
+          <option value="san marino">San Marino</option>
+          <option value="sao tome and principe">Sao Tome and Principe</option>
+          <option value="saudi arabia">Saudi Arabia</option>
+          <option value="senegal">Senegal</option>
+          <option value="serbia">Serbia</option>
+          <option value="seychelles">Seychelles</option>
+          <option value="sierra leone">Sierra Leone</option>
+          <option value="singapore">Singapore</option>
+          <option value="slovakia">Slovakia</option>
+          <option value="slovenia">Slovenia</option>
+          <option value="solomon islands">Solomon Islands</option>
+          <option value="somalia">Somalia</option>
+          <option value="south africa">South Africa</option>
+          <option value="south korea">South Korea</option>
+          <option value="south sudan">South Sudan</option>
+          <option value="spain">Spain</option>
+          <option value="sri lanka">Sri Lanka</option>
+          <option value="sudan">Sudan</option>
+          <option value="suriname">Suriname</option>
+          <option value="sweden">Sweden</option>
+          <option value="switzerland">Switzerland</option>
+          <option value="syria">Syria</option>
+          <option value="tajikistan">Tajikistan</option>
+          <option value="tanzania">Tanzania</option>
+          <option value="thailand">Thailand</option>
+          <option value="timor-leste">Timor-Leste</option>
+          <option value="togo">Togo</option>
+          <option value="tonga">Tonga</option>
+          <option value="trinidad and tobago">Trinidad and Tobago</option>
+          <option value="tunisia">Tunisia</option>
+          <option value="turkey">Turkey</option>
+          <option value="turkmenistan">Turkmenistan</option>
+          <option value="tuvalu">Tuvalu</option>
+          <option value="uganda">Uganda</option>
+          <option value="ukraine">Ukraine</option>
+          <option value="united arab emirates">United Arab Emirates</option>
+          <option value="united kingdom">United Kingdom</option>
+          <option value="united states of america">United States of America</option>
+          <option value="uruguay">Uruguay</option>
+          <option value="uzbekistan">Uzbekistan</option>
+          <option value="vanuatu">Vanuatu</option>
+          <option value="venezuela">Venezuela</option>
+          <option value="vietnam">Vietnam</option>
+          <option value="yemen">Yemen</option>
+          <option value="zambia">Zambia</option>
+          <option value="zimbabwe">Zimbabwe</option>
+        </div>
+        <div class="indicator after">▼</div>
+      </popup>
+    </selectmenu>
+
+    <script>
+      const scrollableSelect = document.querySelector('.scrollable');
+      const scrollablePopup = scrollableSelect.querySelector('popup');
+      const scrollableScroller = scrollableSelect.querySelector('.scroller');
+
+      let scrollableDir = 0;
+      let spStart = null;
+      let spPreviousTime = null;
+
+      scrollablePopup.addEventListener('mouseover', e => {
+        const moveUp = e.target.closest('.indicator.before');
+        const moveDown = e.target.closest('.indicator.after');
+
+        scrollableDir = moveUp ? -1 : moveDown ? 1 : 0;
+        if (scrollableDir) {
+          spStart = null;
+
+        }
+      });
+
+      scrollablePopup.addEventListener('mouseout', e => {
+        const moveUp = e.target.closest('.indicator.before');
+        const moveDown = e.target.closest('.indicator.after');
+
+        if (moveDown || moveUp) {
+          scrollableDir = 0;
+        }
+      });
+
+      function scrollIfNeeded(timestamp) {
+        if (!spStart) {
+          spStart = timestamp;
+        }
+        const elapsed = timestamp - spPreviousTime;
+
+        if (scrollableDir !== 0) {
+          const amount = 0.4 * elapsed;
+          scrollableScroller.scrollTop += scrollableDir * amount;
+        }
+
+        spPreviousTime = timestamp
+        window.requestAnimationFrame(scrollIfNeeded);
+      }
+
+      window.requestAnimationFrame(scrollIfNeeded);
     </script>
   </div>
 
@@ -785,6 +1081,8 @@
       <li><a href="https://harvesthq.github.io/chosen/">Chosen jQuery plugin to work with long selects</a></li>
       <li><a href="https://material.angular.io/components/select/overview#multiple-selection">Angular multiple select</a></li>
       <li><a href="https://www.webaxe.org/accessible-custom-select-dropdowns/">Accessible Custom Select Dropdowns</a></li>
+      <li><a href="https://calendar.google.com/calendar/u/0/r/settings">Google material selects in Google Calendar</a></li>
+      <li><a href="https://www.modulz.app/blog/under-the-spotlight-select">New custom component from Radix that supports vertical positioning and scroll indicators</a></li>
     </ul>
   </footer>
 
