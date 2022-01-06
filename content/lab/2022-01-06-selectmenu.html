@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>selectmenu tests</title>
+  <style>
+    html {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 12pt;
+    }
+    
+    body {
+      margin: 0;
+    }
+    
+    .sample {
+      padding: 3rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .sample h2 {
+      margin-top: 0;
+      font-size: 1em;
+    }
+    
+    header {
+      padding: 3rem;
+      border-bottom: 1px solid #eee;
+    }
+    footer {
+      padding: 3rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1><code>&lt;selectmenu&gt;</code> tests</h1>
+    <p>For context, visit the <a href="https://open-ui.org/">open-ui</a> site.</p>
+    <p>This page contains a list of select input-style use cases that typically require custom components today. The new <code>&lt;selectmenu&gt;</code> (working name) in Chromium allows for far more customization and flexibility. The goal for this page
+      is attempt to re-create these use cases with the <code>selectmenu</code> element instead.</p>
+    <p>Make sure to use a recent Canary version of a Chromium browser, and turn on the <em>"Experimental Web Platform features"</em> flag in <strong>about:flags</strong>.</p>
+    <p>Each section below contains a demo, and a summary of the limitations with the current implementation.</p>
+  </header>
+
+  <div class="sample">
+    <h2>Gitpod's account switcher</h2>
+    <p>Requirements: option subtext, custom toggle button, icon next to last option.<br> Small limitation: the default button/selected-value parts were fine for this example, but if we don't replace them, then the default disclosure icon appears, and there
+      doesn't seem to be a way to style it. So we have to replace both parts to be able to do this.</p>
+    <style>
+      .gitpod {
+        width: 250px;
+      }
+      
+      .gitpod option,
+      .gitpod button {
+        font-size: 16px;
+        font-weight: 600;
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        cursor: pointer;
+      }
+      
+      .gitpod button {
+        border: 0;
+        display: flex;
+        align-items: center;
+        width: max-content;
+        background: url(https://gitpod.io/static/media/CaretUpDown.7b205b53.svg) no-repeat center right;
+        padding-right: 20px;
+      }
+      
+      .gitpod popup {
+        padding: 0;
+        border-radius: 8px;
+        border: 1px solid #e7e5e4;
+        box-shadow: none;
+        margin-top: 8px;
+      }
+      
+      .gitpod option {
+        background-color: #fafaf9;
+        padding: 12px 16px;
+      }
+      
+      .gitpod option:not(:last-child) {
+        border-bottom: 1px solid #e7e5e4;
+      }
+      
+      .gitpod option:not(.action)::after {
+        content: attr(data-details);
+        display: block;
+        color: #a8a29e;
+        font-size: 14px;
+        font-weight: normal;
+      }
+      
+      .gitpod option:hover {
+        background-color: #f5f5f4;
+      }
+      
+      .gitpod option.action {
+        color: #a8a29e;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .gitpod option.action svg {
+        width: 16px;
+      }
+    </style>
+
+    <selectmenu class="gitpod">
+      <button slot="button" behavior="button">
+    <span slot="selected-value" behavior="selected-value"></span>
+  </button>
+      <popup slot="listbox" behavior="listbox">
+        <option value="Patrick Brosset" data-details="Personal Account">Patrick Brosset</option>
+        <option value="Microsoft Edge" data-details="Team Account">Microsoft Edge</option>
+        <option value="Microsoft" data-details="Organization Account">Microsoft</option>
+        <option value="new team" class="action">
+          New Team
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" class="w-3.5"><path fill="currentColor" fill-rule="evenodd" d="M7 0a1 1 0 011 1v5h5a1 1 0 110 2H8v5a1 1 0 11-2 0V8H1a1 1 0 010-2h5V1a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+        </option>
+      </popup>
+    </selectmenu>
+  </div>
+
+  <div class="sample">
+    <h2>Vertically aligned options (google calendar)</h2>
+    <p>Requirements: align the popup vertically so that the selected option matches the selected-value's position, and animate opening.<br> Using JS, we can re-position the popup when it appears so that the selected option is vertically aligned with the
+      selected-value. But the browser handles cases when there isn't enough space for the popup, in which case it moves it above the button. The JS code doesn't account for this and the popup ends up too high. We either need more JS to account for this.
+      Or have a way to dis-engage the browser's auto placement.</p>
+    <style>
+      .vertical-align {
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        position: relative;
+      }
+      
+      .vertical-align::before {
+        content: "";
+        width: 0;
+        height: 0;
+        border-top: 6px solid black;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        position: absolute;
+        top: calc(50% - 3px);
+        right: 8px;
+      }
+      
+      .vertical-align button {
+        font-family: inherit;
+        font-size: inherit;
+        border-radius: 3px;
+        border: 0;
+        background: #eee;
+        padding: 8px;
+        text-align: start;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        cursor: pointer;
+        min-width: 300px;
+        background-image: linear-gradient(to right, #ddd, #ddd);
+        background-size: 0 100%;
+        background-repeat: no-repeat;
+      }
+      
+      .vertical-align:focus-within button {
+        animation: 200ms ease-out fill-button forwards;
+      }
+      
+      @keyframes fill-button {
+        to {
+          background-size: 100% 100%;
+        }
+      }
+      
+      .vertical-align button label {
+        font-size: 12px;
+        color: #5f6368;
+      }
+      
+      .vertical-align popup {
+        padding: 0;
+        border-radius: 0;
+        border: 0;
+        box-shadow: 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12), 0px 5px 5px -3px rgba(0, 0, 0, 0.2);
+      }
+      
+      .vertical-align option {
+        padding: 0 8px;
+        height: 36px;
+        line-height: 36px;
+      }
+      
+      .vertical-align option:hover {
+        background-color: #eee;
+      }
+      
+      .vertical-align popup {
+        animation: 120ms cubic-bezier(0, 0.1, 0.1, 1) 200ms 1 forwards reveal-popup;
+        opacity: 0;
+      }
+      
+      @keyframes reveal-popup {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <selectmenu class="vertical-align">
+      <button slot="button" behavior="button">
+    <label>Vegetable</label>
+    <span slot="selected-value" behavior="selected-value"></span>
+  </button>
+      <popup slot="listbox" behavior="listbox">
+        <option value="Courgette">Courgette</option>
+        <option value="Aubergine">Aubergine</option>
+        <option value="Carrot">Carrot</option>
+        <option value="Leek" selected>Leek</option>
+        <option value="Broccoli">Broccoli</option>
+        <option value="Lettuce">Lettuce</option>
+        <option value="Pumpkin">Pumpkin</option>
+        <option value="Pepper">Pepper</option>
+      </popup>
+    </selectmenu>
+    <script>
+      const verticalAlignSelect = document.querySelector('.vertical-align');
+      const verticalAlignButton = verticalAlignSelect.querySelector('button');
+      const verticalAlignPopup = verticalAlignSelect.querySelector('popup');
+
+      let optionHeight = null;
+
+      verticalAlignButton.addEventListener('click', () => {
+        if (!optionHeight) {
+          optionHeight = verticalAlignPopup.querySelector('option').offsetHeight;
+        }
+
+        const index = [...verticalAlignPopup.children].indexOf(verticalAlignSelect.selectedOption);
+        const delta = optionHeight + (index * optionHeight) - 2;
+
+        verticalAlignPopup.style.transform = `translateY(-${delta}px)`;
+      });
+    </script>
+  </div>
+
+  <div class="sample">
+    <h2>GitHub's issue filter</h2>
+    <p>Requirements: icons for some options, inline layout for some options, groups of options.<br>The new selectmenu makes it really easy to style options with different layouts (vertical list vs. horizontal buttons). The limitation here is not being able
+      to style optgroup's labels. If this was possible, we'd use this for the Sort by and Most reactions headers.
+    </p>
+
+    <style>
+      .gh-sort {
+        font-size: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+      
+      .gh-sort::part(button) {
+        color: #57606a;
+        background-color: #f6f8fa;
+        font-size: 14px;
+        padding: 20px;
+      }
+      
+      .gh-sort::part(button)::before {
+        content: "Sort";
+      }
+      
+      .gh-sort::part(selected-value) {
+        display: none;
+      }
+      
+      .gh-sort option {
+        cursor: pointer;
+      }
+      
+      .gh-sort popup {
+        border-radius: 6px;
+        border: 1px solid #d0d7de;
+        box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
+        padding: 0;
+        animation: 120ms cubic-bezier(0, 0.1, 0.1, 1) 0ms 1 normal backwards running reveal;
+        /* I want max-width here, but this is somehow not working */
+        width: 250px;
+      }
+      
+      @keyframes reveal {
+        0% {
+          transform: translateY(-16px);
+          opacity: 0;
+        }
+      }
+      
+      .gh-sort .standard option {
+        color: #24292f;
+        padding: 7px 40px;
+        border-bottom: 1px solid rgb(216, 222, 228);
+      }
+      
+      .gh-sort .standard option:hover {
+        background-color: rgba(234, 238, 242, 0.5);
+      }
+      
+      .gh-sort .standard option:checked {
+        font-weight: bold;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 16 16" version="1.1" width="16"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>');
+        background-repeat: no-repeat;
+        background-position: 16px center;
+      }
+      /* Ideally, I'd want to use an optgroup and its label attribute instead, but this doesn't allow styling. */
+      
+      .gh-sort header {
+        font-weight: bold;
+        border-bottom: 1px solid rgb(216, 222, 228);
+        cursor: default;
+        background: #f6f8fa;
+        padding: 4px 16px;
+      }
+      
+      .gh-sort .reaction {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 8px;
+      }
+      
+      .gh-sort .reaction option {
+        padding: 8px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+      }
+      
+      .gh-sort .reaction option:hover {
+        background-color: #0969da;
+      }
+      
+      .gh-sort .reaction option:checked {
+        border-color: #0969da;
+        background-color: #ddf4ff;
+      }
+      
+      .gh-sort .reaction img {
+        width: 12px;
+      }
+    </style>
+    <selectmenu class="gh-sort">
+      <popup slot="listbox" behavior="listbox">
+        <header>Sort by</header>
+        <div class="standard">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="most-commented">Most commented</option>
+          <option value="least-commented">Least commented</option>
+          <option value="recently-updated">Recently updated</option>
+          <option value="least-recently-updated">Least recently updated</option>
+        </div>
+        <header>Most reactions</header>
+        <div class="reaction">
+          <option value="thumb-up"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png"></option>
+          <option value="thumb-down"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f44e.png"></option>
+          <option value="smile"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png"></option>
+          <option value="celebration"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f389.png"></option>
+          <option value="sad"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f615.png"></option>
+          <option value="heart"><img src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png"></option>
+          <option value="ship"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png"></option>
+          <option value="looking"><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f440.png"></option>
+        </div>
+      </popup>
+    </selectmenu>
+  </div>
+
+  <div class="sample">
+    <h2>Dribbble's filter</h2>
+    <p>Requirements: custom styling and animations, icons for some options.<br>The new selectmenu makes it possible to display custom icons next to options, and fully style the button and popup to match the design. We need a way to easily display the custom
+      icons in the selected-value part though (see <a href="https://github.com/openui/open-ui/issues/435">this issue</a>).</p>
+
+    <style>
+      .dribbble-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 1rem;
+        background: #efefef69;
+        border-radius: 1rem;
+      }
+      
+      .dribbble-filters .filter {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+      }
+      
+      .dribbble-filters .filter button {
+        padding: .5rem;
+        border-radius: .3rem;
+        width: 100%;
+        text-align: left;
+        box-shadow: 0px 0px 0px 1px #e7e7e9 inset;
+        border: 0;
+        background: white;
+        color: #6e6d7a;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        cursor: pointer;
+      }
+      
+      .dribbble-filters .filter button:active {
+        transform: translate(1px, 1px);
+      }
+      
+      .dribbble-filters .filter button:hover,
+      .dribbble-filters .filter selectmenu:focus-within button {
+        color: black;
+      }
+      
+      .dribbble-filters .filter button:hover,
+      .dribbble-filters .filter selectmenu:focus-within button:not(:active) {
+        box-shadow: 0 0 0 4px rgba(234, 76, 137, 0.1);
+      }
+      
+      .dribbble-filters .filter button::after {
+        content: '';
+        width: 1rem;
+        height: 1rem;
+        background: #e7e7e9;
+        clip-path: polygon(10% 20%, 90% 20%, 50% 80%);
+        transform-origin: center;
+        transition: transform .2s ease-in-out;
+      }
+      
+      .dribbble-filters .filter selectmenu:focus-within button::after {
+        transform: scaleY(-1);
+      }
+      
+      .dribbble-filters .filter popup {
+        border-radius: .3rem;
+        border: none;
+        box-shadow: 0 0 .3rem rgba(0, 0, 0, .25);
+        padding: 0;
+        margin-top: .5rem;
+      }
+      
+      .dribbble-filters .filter option {
+        padding: .5rem;
+        color: #6e6d7a;
+        cursor: pointer;
+        padding-right: 2rem;
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+      }
+      
+      .dribbble-filters .filter option:hover {
+        background: #e7e7e9;
+      }
+      
+      .dribbble-filters .filter option:checked {
+        color: #ea4c89;
+      }
+      
+      .dribbble-filters .filter .color-type option::before {
+        content: '';
+        width: .5rem;
+        height: .5rem;
+        border-radius: 50%;
+      }
+      
+      .dribbble-filters .filter .color-type option[value="r"]::before {
+        background: red;
+      }
+      
+      .dribbble-filters .filter .color-type option[value="g"]::before {
+        background: green;
+      }
+      
+      .dribbble-filters .filter .color-type option[value="b"]::before {
+        background: blue;
+      }
+      
+      .dribbble-filters .filter .browser-type option::before {
+        content: '';
+        width: 1rem;
+        height: 1rem;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="brave"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/c4/Brave_lion.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="edge"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/1200px-Microsoft_Edge_logo_%282019%29.svg.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="chrome"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="firefox"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/1200px-Firefox_logo%2C_2019.svg.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="safari"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Safari_browser_logo.svg/1200px-Safari_browser_logo.svg.png");
+      }
+      
+      .dribbble-filters .filter .browser-type option[value="opera"]::before {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/640px-Opera_2015_icon.svg.png");
+      }
+    </style>
+    <div class="dribbble-filters">
+
+      <div class="filter" style="width:12rem;">
+        <label for="timeframe-filter">Timeframe</label>
+        <selectmenu id="timeframe-filter">
+          <div slot="button" behavior="button">
+            <button behavior="selected-value"></button>
+          </div>
+          <popup slot="listbox" behavior="listbox">
+            <option value="now" checked>Now</option>
+            <option value="week">This Past Week</option>
+            <option value="month">This Past Month</option>
+            <option value="year">This Past Year</option>
+            <option value="all">All Time</option>
+          </popup>
+        </selectmenu>
+      </div>
+
+      <div class="filter" style="width:6rem;">
+        <label for="color-filter">Color</label>
+        <selectmenu id="color-filter">
+          <div slot="button" behavior="button">
+            <button behavior="selected-value"></button>
+          </div>
+          <popup slot="listbox" behavior="listbox" class="color-type">
+            <option value="r" checked>Red</option>
+            <option value="g">Green</option>
+            <option value="b">Blue</option>
+          </popup>
+        </selectmenu>
+      </div>
+
+      <div class="filter" style="width:20rem;">
+        <label for="country-filter">Country</label>
+        <selectmenu id="country-filter">
+          <div slot="button" behavior="button">
+            <button behavior="selected-value"></button>
+          </div>
+          <popup slot="listbox" behavior="listbox">
+            <option value="afghanistan">Afghanistan</option>
+            <option value="albania">Albania</option>
+            <option value="algeria">Algeria</option>
+            <option value="andorra">Andorra</option>
+            <option value="angola">Angola</option>
+            <option value="antigua and barbuda">Antigua and Barbuda</option>
+            <option value="argentina">Argentina</option>
+            <option value="armenia">Armenia</option>
+            <option value="australia">Australia</option>
+            <option value="austria">Austria</option>
+            <option value="azerbaijan">Azerbaijan</option>
+            <option value="bahamas">Bahamas</option>
+            <option value="bahrain">Bahrain</option>
+            <option value="bangladesh">Bangladesh</option>
+            <option value="barbados">Barbados</option>
+            <option value="belarus">Belarus</option>
+            <option value="belgium">Belgium</option>
+            <option value="belize">Belize</option>
+            <option value="benin">Benin</option>
+            <option value="bhutan">Bhutan</option>
+            <option value="bolivia">Bolivia</option>
+            <option value="bosnia and herzegovina">Bosnia and Herzegovina</option>
+            <option value="botswana">Botswana</option>
+            <option value="brazil">Brazil</option>
+            <option value="brunei ">Brunei </option>
+            <option value="bulgaria">Bulgaria</option>
+            <option value="burkina faso">Burkina Faso</option>
+            <option value="burundi">Burundi</option>
+            <option value="côte d'ivoire">Côte d'Ivoire</option>
+            <option value="cabo verde">Cabo Verde</option>
+            <option value="cambodia">Cambodia</option>
+            <option value="cameroon">Cameroon</option>
+            <option value="canada">Canada</option>
+            <option value="central african republic">Central African Republic</option>
+            <option value="chad">Chad</option>
+            <option value="chile">Chile</option>
+            <option value="china">China</option>
+            <option value="colombia">Colombia</option>
+            <option value="comoros">Comoros</option>
+            <option value="congo (congo-brazzaville)">Congo (Congo-Brazzaville)</option>
+            <option value="costa rica">Costa Rica</option>
+            <option value="croatia">Croatia</option>
+            <option value="cuba">Cuba</option>
+            <option value="cyprus">Cyprus</option>
+            <option value="czechia (czech republic)">Czechia (Czech Republic)</option>
+            <option value="democratic republic of the congo">Democratic Republic of the Congo</option>
+            <option value="denmark">Denmark</option>
+            <option value="djibouti">Djibouti</option>
+            <option value="dominica">Dominica</option>
+            <option value="dominican republic">Dominican Republic</option>
+            <option value="ecuador">Ecuador</option>
+            <option value="egypt">Egypt</option>
+            <option value="el salvador">El Salvador</option>
+            <option value="equatorial guinea">Equatorial Guinea</option>
+            <option value="eritrea">Eritrea</option>
+            <option value="estonia">Estonia</option>
+            <option value="eswatini (fmr. " swaziland ")">Eswatini (fmr. "Swaziland")</option>
+            <option value="ethiopia">Ethiopia</option>
+            <option value="fiji">Fiji</option>
+            <option value="finland">Finland</option>
+            <option value="france">France</option>
+            <option value="gabon">Gabon</option>
+            <option value="gambia">Gambia</option>
+            <option value="georgia">Georgia</option>
+            <option value="germany">Germany</option>
+            <option value="ghana">Ghana</option>
+            <option value="greece">Greece</option>
+            <option value="grenada">Grenada</option>
+            <option value="guatemala">Guatemala</option>
+            <option value="guinea">Guinea</option>
+            <option value="guinea-bissau">Guinea-Bissau</option>
+            <option value="guyana">Guyana</option>
+            <option value="haiti">Haiti</option>
+            <option value="holy see">Holy See</option>
+            <option value="honduras">Honduras</option>
+            <option value="hungary">Hungary</option>
+            <option value="iceland">Iceland</option>
+            <option value="india">India</option>
+            <option value="indonesia">Indonesia</option>
+            <option value="iran">Iran</option>
+            <option value="iraq">Iraq</option>
+            <option value="ireland">Ireland</option>
+            <option value="israel">Israel</option>
+            <option value="italy">Italy</option>
+            <option value="jamaica">Jamaica</option>
+            <option value="japan">Japan</option>
+            <option value="jordan">Jordan</option>
+            <option value="kazakhstan">Kazakhstan</option>
+            <option value="kenya">Kenya</option>
+            <option value="kiribati">Kiribati</option>
+            <option value="kuwait">Kuwait</option>
+            <option value="kyrgyzstan">Kyrgyzstan</option>
+            <option value="laos">Laos</option>
+            <option value="latvia">Latvia</option>
+            <option value="lebanon">Lebanon</option>
+            <option value="lesotho">Lesotho</option>
+            <option value="liberia">Liberia</option>
+            <option value="libya">Libya</option>
+            <option value="liechtenstein">Liechtenstein</option>
+            <option value="lithuania">Lithuania</option>
+            <option value="luxembourg">Luxembourg</option>
+            <option value="madagascar">Madagascar</option>
+            <option value="malawi">Malawi</option>
+            <option value="malaysia">Malaysia</option>
+            <option value="maldives">Maldives</option>
+            <option value="mali">Mali</option>
+            <option value="malta">Malta</option>
+            <option value="marshall islands">Marshall Islands</option>
+            <option value="mauritania">Mauritania</option>
+            <option value="mauritius">Mauritius</option>
+            <option value="mexico">Mexico</option>
+            <option value="micronesia">Micronesia</option>
+            <option value="moldova">Moldova</option>
+            <option value="monaco">Monaco</option>
+            <option value="mongolia">Mongolia</option>
+            <option value="montenegro">Montenegro</option>
+            <option value="morocco">Morocco</option>
+            <option value="mozambique">Mozambique</option>
+            <option value="myanmar (formerly burma)">Myanmar (formerly Burma)</option>
+            <option value="namibia">Namibia</option>
+            <option value="nauru">Nauru</option>
+            <option value="nepal">Nepal</option>
+            <option value="netherlands">Netherlands</option>
+            <option value="new zealand">New Zealand</option>
+            <option value="nicaragua">Nicaragua</option>
+            <option value="niger">Niger</option>
+            <option value="nigeria">Nigeria</option>
+            <option value="north korea">North Korea</option>
+            <option value="north macedonia">North Macedonia</option>
+            <option value="norway">Norway</option>
+            <option value="oman">Oman</option>
+            <option value="pakistan">Pakistan</option>
+            <option value="palau">Palau</option>
+            <option value="palestine state">Palestine State</option>
+            <option value="panama">Panama</option>
+            <option value="papua new guinea">Papua New Guinea</option>
+            <option value="paraguay">Paraguay</option>
+            <option value="peru">Peru</option>
+            <option value="philippines">Philippines</option>
+            <option value="poland">Poland</option>
+            <option value="portugal">Portugal</option>
+            <option value="qatar">Qatar</option>
+            <option value="romania">Romania</option>
+            <option value="russia">Russia</option>
+            <option value="rwanda">Rwanda</option>
+            <option value="saint kitts and nevis">Saint Kitts and Nevis</option>
+            <option value="saint lucia">Saint Lucia</option>
+            <option value="saint vincent and the grenadines">Saint Vincent and the Grenadines</option>
+            <option value="samoa">Samoa</option>
+            <option value="san marino">San Marino</option>
+            <option value="sao tome and principe">Sao Tome and Principe</option>
+            <option value="saudi arabia">Saudi Arabia</option>
+            <option value="senegal">Senegal</option>
+            <option value="serbia">Serbia</option>
+            <option value="seychelles">Seychelles</option>
+            <option value="sierra leone">Sierra Leone</option>
+            <option value="singapore">Singapore</option>
+            <option value="slovakia">Slovakia</option>
+            <option value="slovenia">Slovenia</option>
+            <option value="solomon islands">Solomon Islands</option>
+            <option value="somalia">Somalia</option>
+            <option value="south africa">South Africa</option>
+            <option value="south korea">South Korea</option>
+            <option value="south sudan">South Sudan</option>
+            <option value="spain">Spain</option>
+            <option value="sri lanka">Sri Lanka</option>
+            <option value="sudan">Sudan</option>
+            <option value="suriname">Suriname</option>
+            <option value="sweden">Sweden</option>
+            <option value="switzerland">Switzerland</option>
+            <option value="syria">Syria</option>
+            <option value="tajikistan">Tajikistan</option>
+            <option value="tanzania">Tanzania</option>
+            <option value="thailand">Thailand</option>
+            <option value="timor-leste">Timor-Leste</option>
+            <option value="togo">Togo</option>
+            <option value="tonga">Tonga</option>
+            <option value="trinidad and tobago">Trinidad and Tobago</option>
+            <option value="tunisia">Tunisia</option>
+            <option value="turkey">Turkey</option>
+            <option value="turkmenistan">Turkmenistan</option>
+            <option value="tuvalu">Tuvalu</option>
+            <option value="uganda">Uganda</option>
+            <option value="ukraine">Ukraine</option>
+            <option value="united arab emirates">United Arab Emirates</option>
+            <option value="united kingdom">United Kingdom</option>
+            <option value="united states of america">United States of America</option>
+            <option value="uruguay">Uruguay</option>
+            <option value="uzbekistan">Uzbekistan</option>
+            <option value="vanuatu">Vanuatu</option>
+            <option value="venezuela">Venezuela</option>
+            <option value="vietnam">Vietnam</option>
+            <option value="yemen">Yemen</option>
+            <option value="zambia">Zambia</option>
+            <option value="zimbabwe">Zimbabwe</option>
+          </popup>
+        </selectmenu>
+      </div>
+
+      <div class="filter" style="width:8rem;">
+        <label for="browser-filter">Browser</label>
+        <selectmenu id="browser-filter">
+          <div slot="button" behavior="button">
+            <button behavior="selected-value"></button>
+          </div>
+          <popup slot="listbox" behavior="listbox" class="browser-type">
+            <option value="edge" checked>Edge</option>
+            <option value="chrome">Chrome</option>
+            <option value="firefox">Firefox</option>
+            <option value="brave">Brave</option>
+            <option value="safari">Safari</option>
+            <option value="opera">Opera</option>
+          </popup>
+        </selectmenu>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <h2>Resources</h2>
+    <ul>
+      <li>Missing tests: multi-selection as a drop-down, auto-completion in long lists.</li>
+      <li><a href="https://open-ui.org/">Open UI</a></li>
+      <li><a href="https://harvesthq.github.io/chosen/">Chosen jQuery plugin to work with long selects</a></li>
+      <li><a href="https://material.angular.io/components/select/overview#multiple-selection">Angular multiple select</a></li>
+      <li><a href="https://www.webaxe.org/accessible-custom-select-dropdowns/">Accessible Custom Select Dropdowns</a></li>
+    </ul>
+  </footer>
+
+</body>
+
+</html>
