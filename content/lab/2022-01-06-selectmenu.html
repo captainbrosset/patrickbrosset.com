@@ -50,7 +50,8 @@
 
   <div class="sample">
     <h2>Vertically aligned options (google calendar)</h2>
-    <p>Requirements: align the popup vertically so that the selected option matches the selected-value's position, and animate opening.<br> Using JS, we can re-position the popup when it appears so that the selected option is vertically aligned with the
+    <p>Requirements: align the popup vertically so that the selected option matches the selected-value's position, and animate opening.</p>
+    <p> Using JS, we can re-position the popup when it appears so that the selected option is vertically aligned with the
       selected-value. But the browser handles cases when there isn't enough space for the popup, in which case it moves it above the button. The JS code doesn't account for this and the popup ends up too high. We either need more JS to account for this.
       Or have a way to dis-engage the browser's auto placement.</p>
     <style>
@@ -170,8 +171,191 @@
   </div>
 
   <div class="sample">
+    <h2>Combobox</h2>
+    <p>Requirements: display a text field in the popup that allows to filter options.</p>
+    <p>We can't style the select based on its open state. Needed to tweak the border-radius and border-bottom. The <code>open</code> property exists, but that requires JS for something that feels like it should be doable with CSS only.</p>
+    <p>There doesn't seem to be a way to know if the popup is opened below or above the button. Same here, JS is needed.</p>
+    <p>When options get hidden, we need JS code to take them out of the arrow navigation. Tabbing through them can be done correctly with tabindex=-1 on the hidden ones. But up/down still cycles through all options, even when disabled. So I decided to remove/recreate
+      options instead.<br>Related: using both tab and up/down arrows leads to bugs, pressing down after having used tab starts again from the last position reached by the previous down key press.</p>
+
+    <style>
+      .combobox {
+        width: 300px;
+      }
+      
+      .combobox button {
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        background: #f6f4f7;
+        padding: 5px;
+        text-align: start;
+      }
+      
+      .combobox:focus-within button {
+        border-radius: 4px 4px 0 0;
+        border-bottom-color: #f6f4f7;
+      }
+      
+      .combobox popup {
+        box-shadow: none;
+        padding: 5px;
+        margin: -1px 0 0 0;
+        border-radius: 0 0 4px 4px;
+        border: 1px solid #ccc;
+        border-width: 0 1px 1px;
+        background: #f6f4f7;
+      }
+      
+      .combobox option {
+        padding: 5px;
+      }
+      
+      .combobox option:hover,
+      .combobox option:focus {
+        background: #097ff5;
+        color: white;
+        outline: 0;
+      }
+      
+      .combobox option .highlight {
+        text-decoration: underline;
+      }
+      
+      .combobox input[type="search"] {
+        width: 100%;
+        margin-bottom: 5px;
+        padding: 5px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+      }
+      
+      .combobox .options {
+        max-height: 50vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    </style>
+
+    <selectmenu class="combobox">
+      <button slot="button" behavior="button">
+        <span behavior="selected-value" hidden></span>
+        <span class="visible-value">Felids</span>
+      </button>
+      <popup slot="listbox" behavior="listbox">
+        <input type="search">
+        <div class="options" tabindex="-1">
+          <option value="Asian golden cat">Asian golden cat</option>
+          <option value="Bay cat">Bay cat</option>
+          <option value="Marbled cat">Marbled cat</option>
+          <option value="African golden cat">African golden cat</option>
+          <option value="Caracal">Caracal</option>
+          <option value="Serval">Serval</option>
+          <option value="Andean mountain cat">Andean mountain cat</option>
+          <option value="Geoffroy's cat">Geoffroy's cat</option>
+          <option value="Kodkod">Kodkod</option>
+          <option value="Margay">Margay</option>
+          <option value="Ocelot">Ocelot</option>
+          <option value="Oncilla">Oncilla</option>
+          <option value="Pampas cat">Pampas cat</option>
+          <option value="Southern tiger cat">Southern tiger cat</option>
+          <option value="Bobcat">Bobcat</option>
+          <option value="Canada lynx">Canada lynx</option>
+          <option value="Eurasian lynx">Eurasian lynx</option>
+          <option value="Iberian lynx">Iberian lynx</option>
+          <option value="Cheetah">Cheetah</option>
+          <option value="Jaguarundi">Jaguarundi</option>
+          <option value="Cougar">Cougar</option>
+          <option value="Pallas's cat">Pallas's cat</option>
+          <option value="Fishing cat">Fishing cat</option>
+          <option value="Flat-headed cat">Flat-headed cat</option>
+          <option value="Leopard cat">Leopard cat</option>
+          <option value="Rusty-spotted cat">Rusty-spotted cat</option>
+          <option value="Sunda leopard cat">Sunda leopard cat</option>
+          <option value="African wildcat">African wildcat</option>
+          <option value="Black-footed cat">Black-footed cat</option>
+          <option value="Chinese mountain cat">Chinese mountain cat</option>
+          <option value="Domestic cat">Domestic cat</option>
+          <option value="European wildcat">European wildcat</option>
+          <option value="Jungle cat">Jungle cat</option>
+          <option value="Sand cat">Sand cat</option>
+          <option value="Clouded leopard">Clouded leopard</option>
+          <option value="Sunda clouded leopard">Sunda clouded leopard</option>
+          <option value="Jaguar">Jaguar</option>
+          <option value="Leopard">Leopard</option>
+          <option value="Lion">Lion</option>
+          <option value="Snow leopard">Snow leopard</option>
+          <option value="Tiger">Tiger</option>
+        </div>
+    </selectmenu>
+
+    <script>
+      const combobox = document.querySelector('.combobox');
+      const cbPopup = document.querySelector('popup');
+      const cbInput = combobox.querySelector('input[type="search"]');
+      const cbOptionsContainer = combobox.querySelector('.options');
+      const cbOptionList = [...combobox.querySelectorAll('option')].map(option => option.textContent);
+      const cbValue = combobox.querySelector('.visible-value');
+
+      combobox.addEventListener('click', () => {
+        cbInput.focus();
+      });
+
+      cbInput.addEventListener('input', () => {
+        cbOptionsContainer.innerHTML = '';
+        let matchingOptions = 0;
+        cbOptionList.forEach(text => {
+          const index = text.toLowerCase().indexOf(cbInput.value.toLowerCase());
+          if (index !== -1) {
+            const optionElement = document.createElement('option');
+            optionElement.setAttribute('value', text);
+
+            const label = document.createElement('span');
+            label.appendChild(document.createTextNode(text.substring(0, index)));
+
+            const highlight = document.createElement('span');
+            highlight.classList.add('highlight');
+            highlight.textContent = text.slice(index, index + cbInput.value.length);
+            label.appendChild(highlight);
+
+            label.appendChild(document.createTextNode(text.substring(index + cbInput.value.length)));
+
+            optionElement.appendChild(label);
+            cbOptionsContainer.appendChild(optionElement);
+
+            matchingOptions++;
+          }
+        });
+
+        if (!matchingOptions) {
+          const optionElement = document.createElement('option');
+          optionElement.textContent = 'No matching options';
+          cbOptionsContainer.appendChild(optionElement);
+        }
+      });
+
+      combobox.addEventListener('change', () => {
+        cbValue.textContent = combobox.value;
+      });
+
+      cbPopup.addEventListener('keydown', e => {
+        e.preventDefault();
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          cbOptionList[cbOptionList.indexOf(e.target) + 1].focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          cbOptionList[cbOptionList.indexOf(e.target) - 1].focus();
+        }
+      });
+    </script>
+  </div>
+
+  <div class="sample">
     <h2>Gitpod's account switcher</h2>
-    <p>Requirements: option subtext, custom toggle button, icon next to last option.<br> Small limitation: the default button/selected-value parts were fine for this example, but if we don't replace them, then the default disclosure icon appears, and there
+    <p>Requirements: option subtext, custom toggle button, icon next to last option.</p>
+    <p>Small limitation: the default button/selected-value parts were fine for this example, but if we don't replace them, then the default disclosure icon appears, and there
       doesn't seem to be a way to style it. So we have to replace both parts to be able to do this.</p>
     <style>
       .gitpod {
@@ -254,7 +438,9 @@
 
   <div class="sample">
     <h2>Scroll indicators</h2>
-    <p>Requirements: limit the max-height of the popup and provide scrolling (see <a href="https://www.modulz.app/blog/under-the-spotlight-select">Select by modulz</a>).<br>It seems like <code>max-height</code> is not supported on the popup element, a nested element is needed.</p>
+    <p>Requirements: limit the max-height of the popup and provide scrolling (see <a href="https://www.modulz.app/blog/under-the-spotlight-select">Select by modulz</a>).</p>
+    <p>It seems like <code>max-height</code> is not supported on the popup element, a nested
+      element is needed.</p>
 
     <style>
       .scrollable::part(button) {
@@ -280,7 +466,7 @@
         padding: .5rem;
         text-align: center;
       }
-
+      
       .scrollable .indicator:hover {
         background: #eee;
       }
@@ -549,7 +735,8 @@
 
   <div class="sample">
     <h2>GitHub's issue filter</h2>
-    <p>Requirements: icons for some options, inline layout for some options, groups of options.<br>The new selectmenu makes it really easy to style options with different layouts (vertical list vs. horizontal buttons). The limitation here is not being able
+    <p>Requirements: icons for some options, inline layout for some options, groups of options.</p>
+    <p>The new selectmenu makes it really easy to style options with different layouts (vertical list vs. horizontal buttons). The limitation here is not being able
       to style optgroup's labels. If this was possible, we'd use this for the Sort by and Most reactions headers.
     </p>
 
@@ -674,7 +861,8 @@
 
   <div class="sample">
     <h2>Dribbble's filter</h2>
-    <p>Requirements: custom styling and animations, icons for some options.<br>The new selectmenu makes it possible to display custom icons next to options, and fully style the button and popup to match the design. We need a way to easily display the custom
+    <p>Requirements: custom styling and animations, icons for some options.</p>
+    <p>The new selectmenu makes it possible to display custom icons next to options, and fully style the button and popup to match the design. We need a way to easily display the custom
       icons in the selected-value part though (see <a href="https://github.com/openui/open-ui/issues/435">this issue</a>).</p>
 
     <style>
@@ -1083,6 +1271,7 @@
       <li><a href="https://www.webaxe.org/accessible-custom-select-dropdowns/">Accessible Custom Select Dropdowns</a></li>
       <li><a href="https://calendar.google.com/calendar/u/0/r/settings">Google material selects in Google Calendar</a></li>
       <li><a href="https://www.modulz.app/blog/under-the-spotlight-select">New custom component from Radix that supports vertical positioning and scroll indicators</a></li>
+      <li><a href="http://iescratch-web/users/daniec/selectMenuElement/bugbash/split-button.html">Dan's split button sample</a></li>
     </ul>
   </footer>
 
