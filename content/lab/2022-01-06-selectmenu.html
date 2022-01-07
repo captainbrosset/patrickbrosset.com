@@ -51,9 +51,8 @@
   <div class="sample">
     <h2>Vertically aligned options (google calendar)</h2>
     <p>Requirements: align the popup vertically so that the selected option matches the selected-value's position, and animate opening.</p>
-    <p> Using JS, we can re-position the popup when it appears so that the selected option is vertically aligned with the
-      selected-value. But the browser handles cases when there isn't enough space for the popup, in which case it moves it above the button. The JS code doesn't account for this and the popup ends up too high. We either need more JS to account for this.
-      Or have a way to dis-engage the browser's auto placement.</p>
+    <p> Using JS, we can re-position the popup when it appears so that the selected option is vertically aligned with the selected-value. But the browser handles cases when there isn't enough space for the popup, in which case it moves it above the button.
+      The JS code doesn't account for this and the popup ends up too high. We either need more JS to account for this. Or have a way to dis-engage the browser's auto placement.</p>
     <style>
       .vertical-align {
         font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -353,10 +352,196 @@
   </div>
 
   <div class="sample">
+    <h2>Multi-select</h2>
+    <p>Requirements: Allow selecting multiple options from the list, displaying them in the button. This is currently out of scope for the <code>selectmenu</code> work, but adding a bit of JS to do this would at least have the a11y benefits.</p>
+    <p>No big limitations here. JS and CSS allow to achieve this pretty easily. It would be good to be able to leave the popup open though.</p>
+
+    <style>
+      .multiselect [slot="button"] {
+        background-color: rgb(255, 255, 255);
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(217, 217, 217);
+        border-radius: 2px;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+        width: 300px;
+        min-height: 32px;
+      }
+      
+      .multiselect:focus-within [slot="button"] {
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        border-right-width: 1px !important;
+        border-color: #40a9ff;
+        outline: 0px;
+      }
+      
+      .multiselect .selected-values {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+        margin: 0;
+        padding: 4px;
+        list-style: none;
+      }
+      
+      .multiselect .selected-values li {
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        max-width: 100%;
+        height: 24px;
+        line-height: 22px;
+        cursor: default;
+        user-select: none;
+        margin-inline-end: 4px;
+        padding-inline-start: 8px;
+        padding-inline-end: 4px;
+        flex: 0 0 auto;
+        background: rgb(245, 245, 245);
+        border: 1px solid rgb(240, 240, 240);
+        border-radius: 2px;
+      }
+      
+      .multiselect .selected-values .label {
+        margin-right: 4px;
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      
+      .multiselect .selected-values .remove {
+        color: rgba(0, 0, 0, 0.45);
+        font-size: 10px;
+        cursor: pointer;
+      }
+      
+      .multiselect option {
+        position: relative;
+        display: flex;
+        min-height: 22px;
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        cursor: pointer;
+        padding: 5px 12px;
+        transition: background 0.3s ease 0s;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .multiselect option[selected] {
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: 600;
+        background-color: #e6f7ff;
+      }
+      
+      .multiselect option[selected]::after {
+        content: url('data:image/svg+xml;utf8,<svg viewBox="64 64 896 896" xmlns="http://www.w3.org/2000/svg" height="12" version="1.1" width="12"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 00-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>');
+      }
+    </style>
+
+    <selectmenu class="multiselect">
+      <div slot="button" behavior="button">
+        <ul class="selected-values"></ul>
+      </div>
+      <option value="Broccolini">Broccolini</option>
+      <option value="Pancetta">Pancetta</option>
+      <option value="Potato">Potato</option>
+      <option value="Sausage">Sausage</option>
+      <option value="Gorgonzola">Gorgonzola</option>
+      <option value="Mushroom">Mushroom</option>
+      <option value="Black olives">Black olives</option>
+      <option value="Anchovies">Anchovies</option>
+      <option value="Capers">Capers</option>
+      <option value="Radicchio">Radicchio</option>
+      <option value="Eggplant">Eggplant</option>
+      <option value="Capsicum">Capsicum</option>
+      <option value="Garlic">Garlic</option>
+      <option value="Onions">Onions</option>
+    </selectmenu>
+
+    <script>
+      const multiselect = document.querySelector('.multiselect');
+      const multiSelectedValuesContainer = multiselect.querySelector('.selected-values');
+      let multiValues = [];
+
+      multiselect.addEventListener('click', e => {
+        const option = e.target.closest('option');
+        if (!option) return;
+
+        const newValue = option.value;
+        if (multiValues.includes(newValue)) {
+          multiRemove(newValue);
+        } else {
+          multiAdd(newValue);
+        }
+      });
+
+      multiselect.addEventListener('click', e => {
+        const removeIcon = e.target.closest('.remove');
+        const selectedValue = e.target.closest('.selected-values li');
+        if (!removeIcon) return;
+
+        e.stopPropagation();
+
+        multiRemove(selectedValue.textContent);
+      }, true);
+
+      function multiAdd(value) {
+        multiValues.push(value);
+
+        multiRefreshSelectedValues();
+        multiRefreshOptions();
+      }
+
+      function multiRemove(toRemove) {
+        multiValues = multiValues.filter(value => value !== toRemove);
+
+        multiRefreshSelectedValues();
+        multiRefreshOptions();
+      }
+
+      function multiRefreshSelectedValues() {
+        multiSelectedValuesContainer.innerHTML = '';
+
+        multiValues.forEach(value => {
+          const label = document.createElement('span');
+          label.classList.add('label');
+          label.textContent = value;
+
+          const remove = document.createElement('span');
+          remove.classList.add('remove');
+          remove.innerHTML = '<svg viewBox="64 64 896 896" focusable="false" data-icon="close" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 00203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>';
+
+          const li = document.createElement('li');
+          li.appendChild(label);
+          li.appendChild(remove);
+
+          multiSelectedValuesContainer.appendChild(li);
+        });
+      }
+
+      function multiRefreshOptions() {
+        const options = multiselect.querySelectorAll('option');
+        options.forEach(option => {
+          if (multiValues.includes(option.value)) {
+            option.setAttribute('selected', '');
+          } else {
+            option.removeAttribute('selected');
+          }
+        });
+      }
+    </script>
+  </div>
+
+  <div class="sample">
     <h2>Gitpod's account switcher</h2>
     <p>Requirements: option subtext, custom toggle button, icon next to last option.</p>
-    <p>Small limitation: the default button/selected-value parts were fine for this example, but if we don't replace them, then the default disclosure icon appears, and there
-      doesn't seem to be a way to style it. So we have to replace both parts to be able to do this.</p>
+    <p>Small limitation: the default button/selected-value parts were fine for this example, but if we don't replace them, then the default disclosure icon appears, and there doesn't seem to be a way to style it. So we have to replace both parts to be able
+      to do this.</p>
     <style>
       .gitpod {
         width: 250px;
@@ -439,8 +624,7 @@
   <div class="sample">
     <h2>Scroll indicators</h2>
     <p>Requirements: limit the max-height of the popup and provide scrolling (see <a href="https://www.modulz.app/blog/under-the-spotlight-select">Select by modulz</a>).</p>
-    <p>It seems like <code>max-height</code> is not supported on the popup element, a nested
-      element is needed.</p>
+    <p>It seems like <code>max-height</code> is not supported on the popup element, a nested element is needed.</p>
 
     <style>
       .scrollable::part(button) {
@@ -736,8 +920,8 @@
   <div class="sample">
     <h2>GitHub's issue filter</h2>
     <p>Requirements: icons for some options, inline layout for some options, groups of options.</p>
-    <p>The new selectmenu makes it really easy to style options with different layouts (vertical list vs. horizontal buttons). The limitation here is not being able
-      to style optgroup's labels. If this was possible, we'd use this for the Sort by and Most reactions headers.
+    <p>The new selectmenu makes it really easy to style options with different layouts (vertical list vs. horizontal buttons). The limitation here is not being able to style optgroup's labels. If this was possible, we'd use this for the Sort by and Most
+      reactions headers.
     </p>
 
     <style>
@@ -862,8 +1046,7 @@
   <div class="sample">
     <h2>Dribbble's filter</h2>
     <p>Requirements: custom styling and animations, icons for some options.</p>
-    <p>The new selectmenu makes it possible to display custom icons next to options, and fully style the button and popup to match the design. We need a way to easily display the custom
-      icons in the selected-value part though (see <a href="https://github.com/openui/open-ui/issues/435">this issue</a>).</p>
+    <p>The new selectmenu makes it possible to display custom icons next to options, and fully style the button and popup to match the design. We need a way to easily display the custom icons in the selected-value part though (see <a href="https://github.com/openui/open-ui/issues/435">this issue</a>).</p>
 
     <style>
       .dribbble-filters {
