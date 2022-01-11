@@ -1444,6 +1444,297 @@
     </div>
   </div>
 
+  <div class="sample">
+    <h2>Word's color select</h2>
+    <p>Requirements: Mixing a grid of colors and a list of action items. Displaying a split button (click the A to set the color, click the arrow to open the drop-down).</p>
+    <p>No problems with the implementation here. Selectmenu makes this easy.</p>
+
+    <style>
+      .word-toolbar {
+        background: #fafafa;
+        align-items: center;
+        padding: 10px;
+        display: flex;
+        gap: 10px;
+
+        --initial-font-color: #ffc000;
+        --initial-background-color: #2f5496;
+      }
+
+      .word-toolbar .sample-text {
+        padding: 5px;
+        border-radius: 5px;
+        color: var(--initial-font-color);
+        background: var(--initial-background-color);
+      }
+      
+      .word-color [slot="button"] {
+        display: flex;
+        gap: 1px;
+        height: 35px;
+        border: .5px solid transparent;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      
+      .word-color [slot="button"]:hover {
+        border-color: #c7c7c7;
+        background: #c7c7c7;
+      }
+      
+      .word-color button {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        background: #fafafa;
+      }
+      
+      .word-color button:hover {
+        background: white;
+      }
+      
+      .word-color .apply-button {
+        aspect-ratio: 1;
+        border: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .word-color .open-button {
+        width: 15px;
+      }
+      
+      .word-color .apply-button::before {
+        content: "A";
+        font-size: 15px;
+      }
+
+      .word-color.background-color .apply-button::before {
+        content: "";
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAASCAYAAAC5DOVpAAABqElEQVQ4T2NkIAC6ujr/b9iwnkFcXJyhurqGwcTElBGXFpwSIA2rVq38P2FCP0NAQCDDpUsXGb5+/cqwfv1G8gybMmXy/2XLljIcO3aCEZlNsstev34tWViY/+zVq1cMu3btId8wZIOampoZLCwsGSdNmvh/xYrlYFcS7TJsBoE0Ixt2//W3ZdMP3I/8/OMPg4WSIEO8tRzYAhRbcBmEblheQ9//hTeYGT5yK4AdGWMhw7Ak1ZgRbhg+g9ANA7ly7YaNDBfE/OEGHq20gbiMkEHohp04cfx/XV0tw88//+AGtgRqMDASYxB6gMMMExMTY/hjksyw4vIXhkwHBQZ4lANjjKGvrx9vIgYZimxQf/9EqeUXPz/LW34ZYhhIQX197f/du3czODs7MzQ3t+I0EN0gUVHR55suPP/vN/kUwjBiDMRmENz7yRv/L0wyRE0auFyI1yCgiVLFO/8frbBdjuEldAMJGQRyXebii/+nx+oj0hlyjMEMBEXKlSuXGUCxBgpsUBhhy0qgHKEoyhWFM7BhBiopKeE1CNlwvEkBVOyEh0fgdBG6KwF34T4AD1LH3wAAAABJRU5ErkJggg==");
+        width: 19px;
+        height: 18px;
+        background-position: center;
+      }
+      
+      .word-color .apply-button::after {
+        content: "";
+        background-color: var(--selected-color);
+        width: 20px;
+        height: 4px;
+      }
+      
+      .word-color .open-button::before {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 5px;
+        border: 2px solid black;
+        border-width: 0 2px 2px 0;
+        transform: translateX(4px) rotate(45deg);
+      }
+      
+      .word-color popup {
+        padding: 0;
+        border: 1px solid #ddd;
+      }
+      
+      .word-color .section {
+        display: block;
+        padding: 5px;
+        border-top: 1px solid #ddd;
+      }
+      
+      .word-color .action {
+        padding: 5px 10px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      
+      .word-color .section:first-child {
+        border-top: 0;
+      }
+      
+      .word-color .theme::before,
+      .word-color .standard::before {
+        margin: 5px 5px 10px 5px;
+        display: block;
+        font-weight: bold;
+      }
+      
+      .word-color .theme::before {
+        content: "Theme Colors";
+      }
+      
+      .word-color .standard::before {
+        content: "Standard Colors";
+      }
+      
+      .word-color .theme .color-grid {
+        display: grid;
+        grid-template-columns: repeat(10, 20px);
+        grid-template-rows: 30px repeat(5, 20px);
+        column-gap: 5px;
+      }
+      
+      .word-color .standard .color-grid {
+        display: grid;
+        grid-template-columns: repeat(10, 20px);
+        grid-template-rows: 20px;
+        column-gap: 5px;
+      }
+      
+      .word-color .color-grid option {
+        width: 20px;
+        padding: 0;
+        aspect-ratio: 1;
+      }
+      
+      .word-color .color-grid option:hover {
+        box-shadow: inset 0 0 0 1px orange, inset 0 0 0 2px white;
+      }
+      
+      .word-color .action:hover {
+        background: #d9e3f1;
+      }
+      
+      .word-color .action[value="none"]::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        aspect-ratio: 1;
+        background: #e6eefa;
+        border: 1px solid #a3bde3;
+      }
+      
+      .word-color .action[value="more"]::before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        aspect-ratio: 1;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADoUlEQVRIS51WW0gUURj+58XAS9SDGnRBLcmXVajMTfBBRykjLxSmq6DiJS1ZNy1Bd10j19X1ktewNddl9UHXglBTsnTxQUhJ88H1YUNF6UKiSEEq5Ms0/5E9NbujLs3DcObMf77vv/+HgQMem832a2zsnefCwgJYrfNU0sfHBwICzkJYWBhERbFB3t7en/aDYcR+bGxsnG9ra7GNj4+T3/7+/iCRBIO7uzv5Xl1dheXlJeDlwMPDA+LjEyAlRSZK5EQwPPyaa2lphu3tbTwELBsNgYGBogrOzX2EkZFhsFgsgFapVOUQGnpZgCn46O83E3A/Pz9eWL0vsCPb5OQktLY2E4sUivuQnJxCceliYmKCU6nKiDvq6hqA96uT1l3z/WQvOzjZ6R+Cl5Q8IO7TamsgMjKSYJMX+jw1NcWGoPX1T/YFN82/JMCZwUkHkiBZb6+ZxIQQ1NbquMHBAWhsbIILFy4SkIdvv8CA7SckBh2DhqunAbV3JPjxIh+2p43gIc2C47f15BzGpbi4CKKjo6GysophUPuEhDgby7KgVj+ipp9rsdL1kkJC1o4u+lrsRmVONe7StUbzmATeaDRtMUZjF2cwdEJnZ5cgqI4WiKWRmAUot7i4CLm52ZCTkwsMbw63tvYdTKYe0VT8383MzHTw8joKTEwMy0mlUoF77KCoicUyTgosNva6aPBRdrenmxxxS88QuGl6ehqY8HAphwWVn39XoGwPf4h3H93Dii0tVUJERIRADsF/d5vI3pGMTEqi1z8Ds7nP2QJMMb2+nQRJKr0CZWXKoM3NzVk+cJ7r6+ug0VTRTLNrfyBBW1sr19fXy7cElu8rnjA19Z5UJAYoKyubFqK9VrAn6XS1TlaIuchqte4VGpIMDQ2S/oNay2Qyp56Ccnl5d7g9+aeHxj4p6RaEhITsEbjyzMx84BSKQtIA7fGabbLCZ8s3OMOehEtFe7WCD/YmtVoFSqXKdYK0NBm3tbUF7e16mk2vboxS0JvD1+i6oOAe7+Z1GBgYYlyywN5lNRqtIIvELBgdfcPHqIZ2VZcIEhPjOV/fE4f6HvuQWl1Opl1Hx/O/3fSwGOxXK/+ew6LUajWws7ODbYdON5ctkEgkotVuD6pOV034qqtrBBnoEkFFRTmH89mxIaLWZnMvKUocVM3NrU5z2SUCvF3I5QWe2JNwRqMb8JaxsrJCh75cXiiK5RIBmo51YDAY6PUFKxqvLXFx8QdeW/4AWJ23TtYVND4AAAAASUVORK5CYII=");
+        background-size: contain;
+      }
+    </style>
+
+    <div class="word-toolbar">
+      <selectmenu class="word-color font-color" style="--selected-color:var(--initial-font-color);" title="Font color">
+        <div slot="button">
+          <button class="apply-button"></button>
+          <button behavior="button" class="open-button"></button>
+        </div>
+        <popup slot="listbox" behavior="listbox">
+          <div class="section theme">
+            <div class="color-grid"></div>
+          </div>
+          <div class="section standard">
+            <div class="color-grid"></div>
+          </div>
+          <option class="action" value="none">No Color</option>
+          <option class="action" value="more">More Colors...</option>
+        </popup>
+      </selectmenu>
+
+      <selectmenu class="word-color background-color" style="--selected-color:var(--initial-background-color);" title="Shading">
+        <div slot="button">
+          <button class="apply-button"></button>
+          <button behavior="button" class="open-button"></button>
+        </div>
+        <popup slot="listbox" behavior="listbox">
+          <div class="section theme">
+            <div class="color-grid"></div>
+          </div>
+          <div class="section standard">
+            <div class="color-grid"></div>
+          </div>
+          <option class="action" value="none">No Color</option>
+          <option class="action" value="more">More Colors...</option>
+        </popup>
+      </selectmenu>
+
+      <span class="sample-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+    </div>
+
+    <script>
+      const fcSelect = document.querySelector('.font-color');
+      const fcThemeGrid = fcSelect.querySelector('.theme .color-grid');
+      const fcStandardGrid = fcSelect.querySelector('.standard .color-grid');
+
+      const bcSelect = document.querySelector('.background-color');
+      const bcThemeGrid = bcSelect.querySelector('.theme .color-grid');
+      const bcStandardGrid = bcSelect.querySelector('.standard .color-grid');
+
+      const wordSampleText = document.querySelector('.sample-text');
+
+      const themeColors = [
+        ['#ffffff', '#f2f2f2', '#d8d8d8', '#bfbfbf', '#a5a5a5', '#7f7f7f'],
+        ['#000000', '#7f7f7f', '#595959', '#3f3f3f', '#262626', '#0c0c0c'],
+        ['#e7e6e6', '#d0cece', '#aeabab', '#757070', '#3a3838', '#171616'],
+        ['#44546a', '#d6dce4', '#adb9ca', '#8496b0', '#323f4f', '#222a35'],
+        ['#4472c4', '#d9e2f3', '#b4c6e7', '#8eaadb', '#2f5496', '#1f3864'],
+        ['#ed7d31', '#fbe5d5', '#f7cbac', '#f4b183', '#c55a11', '#833c0b'],
+        ['#a5a5a5', '#ededed', '#dbdbdb', '#c9c9c9', '#7b7b7b', '#525252'],
+        ['#ffc000', '#fff2cc', '#fee599', '#ffd965', '#bf9000', '#7f6000'],
+        ['#5b9bd5', '#deebf6', '#bdd7ee', '#9cc3e5', '#2e75b5', '#1e4e79'],
+        ['#70ad47', '#e2efd9', '#c5e0b3', '#a8d08d', '#538135', '#375623']
+      ];
+
+      const standardColors = [
+        '#c00000',
+        '#ff0000',
+        '#ffc000',
+        '#ffff00',
+        '#92d050',
+        '#00b050',
+        '#00b0f0',
+        '#0070c0',
+        '#002060',
+        '#7030a0'
+      ];
+
+      function genColors(parentTheme, parentStandard) {
+        for (let i = 0; i < themeColors[0].length; i++) {
+          for (const row of themeColors) {
+            const color = row[i];
+            const option = document.createElement('option');
+            option.value = color;
+            option.style.backgroundColor = color;
+
+            parentTheme.appendChild(option);
+          }
+        }
+
+        for (const color of standardColors) {
+          const option = document.createElement('option');
+          option.value = color;
+          option.style.backgroundColor = color;
+
+          parentStandard.appendChild(option);
+        }
+      }
+
+      genColors(fcThemeGrid, fcStandardGrid);
+      genColors(bcThemeGrid, bcStandardGrid);
+
+      fcSelect.addEventListener('change', () => {
+        const color = fcSelect.value.startsWith('#') ? fcSelect.value : 'transparent';
+        fcSelect.style.setProperty('--selected-color', color);
+        wordSampleText.style.color = color;
+      });
+
+      bcSelect.addEventListener('change', () => {
+        const color = bcSelect.value.startsWith('#') ? bcSelect.value : 'transparent';
+        bcSelect.style.setProperty('--selected-color', color);
+        wordSampleText.style.backgroundColor = color;
+      });
+    </script>
+  </div>
+
   <footer>
     <h2>Resources</h2>
     <ul>
