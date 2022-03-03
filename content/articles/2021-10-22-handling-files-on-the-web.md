@@ -297,7 +297,8 @@ This API is part of the [Web Capabilities](https://www.chromium.org/teams/web-ca
 
 The File System Access API’s browser support is limited still, but it is implemented by Chromium, which means that Microsoft Edge or Google Chrome can use it already (or other Chromium-based browsers - note that Brave, however, has the API disabled). It is not behind a flag, and can be used right away simply by checking that the feature exists.
 
-Note that other browsers ([Firefox](https://github.com/mozilla/standards-positions/issues/154) and [Safari](https://lists.webkit.org/pipermail/webkit-dev/2020-August/031362.html)) haven’t yet sent positive signals around implementing this API and discussions are still ongoing.
+Note that [Firefox](https://github.com/mozilla/standards-positions/issues/154) hans't yet sent positive signals around implementing this API and discussions are still ongoing.
+Safari, however, [started implementing the API](https://webkit.org/blog/12257/the-file-system-access-api-with-origin-private-file-system/) (based on an origin-private file system for now though).
 
 <div id="opening-a-file"></div>
 
