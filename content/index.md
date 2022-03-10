@@ -11,11 +11,12 @@ I have also written in other places like [Smashing Magazine](https://www.smashin
 
 <ul class="home-tiles">
   <li>
-
-https://www.youtube.com/watch?v=DCWSV0J5C8A
-
-[A cool tip when working with a CSS-in-JS library](https://www.youtube.com/watch?v=DCWSV0J5C8A)
-
+    <img src="/assets/selectmenu.png" alt="Screenshot of one of the selectmenu demos" class="thumbnail">
+    <p><a href="https://css-tricks.com/the-selectmenu-element/">Say Hello to selectmenu, a Fully Style-able select Element</a></p>
+  </li>
+  <li>
+    <img src="/assets/highlight-demo.png" alt="A screenshot of the demo shown in this article" class="thumbnail">
+    <p><a href="https://css-tricks.com/css-custom-highlight-api-early-loo/">CSS Custom Highlight API: The Future of Highlighting Text Ranges on the Web</a></p>
   </li>
   <li>
     <img src="/assets/file-handling/all.png" alt="Illustrations of the many types of web file handling" class="thumbnail">
@@ -24,9 +25,5 @@ https://www.youtube.com/watch?v=DCWSV0J5C8A
   <li>
     <img src="https://devtoolstips.org/assets/logo.png" alt="The DevTools Tips website logo" class="thumbnail">
     <p><a href="https://devtoolstips.org">devtoolstips.org: useful cross-browser tips and tricks</a></p>
-  </li>
-  <li>
-    <img src="https://i0.wp.com/alistapart.com/wp-content/uploads/2021/12/WindowControlsOverlay.png?w=600&ssl=1" alt="The A List Apart article illustration" class="thumbnail">
-    <p><a href="https://alistapart.com/article/breaking-out-of-the-box/">With Progressive Web Apps blurring the lines between apps and websites, let's think outside the box with the new Window Controls Overlay feature.</a></p>
   </li>
 </ul>
