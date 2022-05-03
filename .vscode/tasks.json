@@ -1,0 +1,68 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"group": {
+				"kind": "build"
+			},
+			"problemMatcher": [],
+			"label": "npm: build",
+		},
+		{
+			"type": "npm",
+			"script": "watch",
+			"isBackground": true,
+			"group": {
+				"kind": "build"
+			},
+			"problemMatcher": {
+				"owner": "11ty",
+				"pattern": {
+					"regexp": "Problem writing Eleventy templates"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^Watching…",
+					"endsPattern": "^Copied [0-9]+ files / Wrote [0-9]+ files in"
+				}
+			},
+			"label": "npm: watch",
+		},
+		{
+			"type": "npm",
+			"script": "serve",
+			"isBackground": true,
+			"group": {
+				"kind": "build"
+			},
+			"problemMatcher": {
+				"owner": "11ty",
+				"pattern": {
+					"regexp": "Problem writing Eleventy templates"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^Watching…",
+					"endsPattern": "^Copied [0-9]+ files / Wrote [0-9]+ files in"
+				}
+			},
+			"label": "npm: serve",
+		},
+		{
+			"label": "Terminate All Tasks",
+			"command": "echo ${input:terminate}",
+			"type": "shell",
+			"problemMatcher": []
+		}
+	],
+	"inputs": [
+		{
+			"id": "terminate",
+			"type": "command",
+			"command": "workbench.action.tasks.terminate",
+			"args": "terminateAll"
+		}
+	]
+}
