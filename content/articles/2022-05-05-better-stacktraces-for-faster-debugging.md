@@ -8,6 +8,8 @@ tags: article
 
 ## Better error stacktraces for faster debugging
 
+<time datetime="2022-05-05">May 5th, 2022</time>
+
 ### The problem
 
 People debug their code in different ways. People will tell you that stepping debuggers and breakpoints are better, more powerful, ways to find the root cause of a problem. But let's face it, most of us just console.log our ways out of it, and it's fine!
