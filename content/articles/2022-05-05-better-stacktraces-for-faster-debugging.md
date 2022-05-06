@@ -12,7 +12,7 @@ tags: article
 
 ### The problem
 
-People debug their code in different ways. People will tell you that stepping debuggers and breakpoints are better, more powerful, ways to find the root cause of a problem. But let's face it, most of us just console.log our ways out of it, and it's fine!
+Web devs debug their code in different ways. Some people will tell you that stepping debuggers and breakpoints are better, more powerful, ways to find the root cause of a problem. But let's face it, most of us just console.log our way out of it, and it's fine!
 
 I've been on the fence myself, I started my career with alert() debugging, and these days I do a mix of using breakpoints and just writing logs in the my code. Sometimes, when I remember this feature even exists, I use [logpoints](https://devtoolstips.org/tips/en/use-logpoints/) too, and this saves me a trip to my editor and shame when I realize I committed a leftover `console.log()`.
 
@@ -123,18 +123,18 @@ start (test.html:81), args '[]'
 
 In this trace, not only do we have the same information we have in normal error stack traces (i.e. the fact that `highlightItem` failed because the provided element was undefined), but we also see preceding calls and their return values.
 
-We can clearly see that `getAllItems` returns a list that contains one undefined item, but we can track this undefined item all the way down to `getMiscEl`, and that's our root cause!
+We can clearly see that `getAllItems` returns a list that contains one undefined item, but we can also track this undefined item all the way down to `getMiscEl`, and that's our root cause!
 
-No need to hunt for places to put breakpoints and console.logs, we get to the bottom of it .
+No more need to hunt for places to put breakpoints and console.logs in, we can zero in on our root cause much quicker.
 
-This is nothing more than a trace. Tracing debugging is already a thing, but unfortunately not often used in our JavaScript ecosystem. I vaguely remember Firefox having a tracing debugging back in the days, but it got removed.
+This is nothing more than a trace. Tracing debugging is already a thing, but unfortunately not often used in our JavaScript ecosystem. I vaguely remember Firefox having a tracing debugging feature back in the days, but it got removed at some point.
 
-The Performance profiler in Chromium browsers comes close, it record the entire execution of the program and provides a nice visualization of it, but it's not possible to get the arguments or return values.
+The Performance profiler in Chromium browsers comes close, it records the entire execution of a program and provides a nice visualization of it, but it's not possible to get the arguments or return values.
 
 ![Screenshot of part of a performance profile in Edge's Performance tool, showing a visual trace of the program execution](/assets/performance-profile.png)
 
-I don't think we should (re-)introduce tracing debuggers, but I do think we should mix traces and error stacks together when errors are logged to the console by the JavaScript engine. We should only do this when DevTools was already opened and perhaps behind an option to avoid slowing down execution. We should also perhaps only capture traces in a circular buffer fashion, where older data gets erased by newer one.
+I'm not saying we should introduce (or rather re-introduce) tracing debuggers, but I do think we should mix traces and error stacks together when errors are logged to the console by the JavaScript engine. Because tracing has performance impacts on the engine, we should only do this if DevTools was already opened before. Perhaps we should even only do it when an option is turned on. And I don't think we should trace everything (like the Performance tool does) but instead only capture the most recent traces since those are likely to contain our root cause anyway.
 
-The Console is one of the most used tools for JavaScript frontend developers, I don't think teaching every one about breakpoints is the way to go, we've tried it already. Let's give every one better error messages and context that help go right to the root cause of a problem.
+The Console is one of the most used tools by JavaScript frontend developers. Teaching everyone about breakpoints isn't necessarily the way to go, we've tried it and not only does it not seem to work but it's not the best debugging experience either. I believe there are other ways in which we can improve the JavaScript debugging experience that doesn't rely on making people feel dumb for not using a real debugger.
 
-And, sure, what I'm proposing here would not always help, but hey, if it helps in even 50% of cases, I think it's a huge win.
+Sure, what I'm proposing here might not always be THE way, and it may not always be helpful. But hey, if it helps in even 50% of cases, I think it's a huge win for everyone.
