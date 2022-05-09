@@ -97,7 +97,7 @@ In fact, this stack trace is what the DevTools in your browser use to display er
 
 Because JavaScript engines are finely tuned machines that are trying to go as fast as possible, not all function calls are recorded, and only a minimal amount of information about them is recorded: there is no information about arguments and returned values.
 
-Moreover, and this is crucial here, the engine only cares about the functions that correspond to the current call stack. In our case, `highlightItem` failed, and we only get information about what called it: `forEach`, and before that `start`. We have no information whatsoever about the fact that `getAllItems` was called before. That call worked fine and returned, it's long been poped from the stack.
+Moreover, and this is crucial here, the engine only cares about the functions that correspond to the current call stack. In our case, `highlightItem` failed, and we only get information about what called it: `forEach`, and before that `start`. We have no information whatsoever about the fact that `getAllItems` was called before. That call worked fine and returned, it's long been popped from the stack.
 
 ### Tracing instead?
 
