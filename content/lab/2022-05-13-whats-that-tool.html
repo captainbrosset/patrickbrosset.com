@@ -401,24 +401,35 @@
         }
       }
 
-      function encodeAttempt(panel) {
-        return panel;
-      }
-
       function isAttemptCorrect(panel) {
-        return panels[currentBrowser].includes(encodeAttempt(panel));
+        // Trim and lowercase.
+        panel = panel.trim().toLowerCase();
+
+        // Try as is, but also plural if there's no ending "s", and singular if there is.
+        const plural = panel.endsWith("s") ? panel : panel + "s";
+        const singular = panel.endsWith("s") ? panel.slice(0, -1) : panel;
+
+        const attempts = [...new Set([panel, plural, singular])];
+
+        // Check if any of the attempts are in the list of panels.
+        for (const attempt of attempts) {
+          if (panels[currentBrowser].includes(attempt)) {
+            return { isCorrect: true, realName: attempt };
+          }
+        }
+
+        return { isCorrect: false };
       }
 
       input.addEventListener("keyup", (e) => {
-        const str = input.value.trim().toLowerCase();
-
-        if (!str || !currentBrowser) {
+        if (!currentBrowser) {
           return;
         }
 
         if (e.key === "Enter") {
-          if (isAttemptCorrect(str) && !alreadyFound.includes(str)) {
-            markPanelAsFound(str);
+          const { isCorrect, realName } = isAttemptCorrect(input.value);
+          if (isCorrect && !alreadyFound.includes(realName)) {
+            markPanelAsFound(realName);
           }
           input.value = "";
         }
