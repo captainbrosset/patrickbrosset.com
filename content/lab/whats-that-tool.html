@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>What's That Tool!</title>
+    <style>
+      body {
+        text-align: center;
+        font-size: 15pt;
+        font-family: sans-serif;
+        line-height: 1.5;
+        margin: 2rem auto;
+        padding: 0 2rem;
+        max-width: 600px;
+        background: #2c373e;
+        color: white;
+      }
+
+      *:focus-visible {
+        outline: 2px solid #f89700;
+      }
+
+      ul,
+      li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        aspect-ratio: 1;
+        max-width: 200px;
+        margin: 0 auto;
+        background: url(/assets/whatsthattool-logo.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: transparent;
+      }
+
+      p {
+        margin: 1rem 0 2rem 0;
+      }
+
+      .browsers {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin: 0 auto;
+      }
+
+      .browsers button {
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        color: transparent;
+        border: 0;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        flex: 1;
+        max-width: 50px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+      }
+
+      .browsers button:active {
+        transform: scale(0.9);
+        outline: 2px solid #f89700;
+      }
+
+      #chrome-start {
+        background-image: url(/assets/chrome-logo.png);
+      }
+      #firefox-start {
+        background-image: url(/assets/firefox-logo.png);
+      }
+      #edge-start {
+        background-image: url(/assets/edge-logo-2.png);
+      }
+      #safari-start {
+        background-image: url(/assets/safari-logo.png);
+      }
+
+      .browsers button:hover {
+        cursor: pointer;
+      }
+
+      #input {
+        display: none;
+        width: 100%;
+        box-sizing: border-box;
+        border: 2px solid #999;
+        border-radius: 4px;
+        padding: 0.5rem;
+        margin: 2rem 0;
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      .found-panels,
+      .all-panels {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 2rem 0;
+      }
+
+      .found-panels li,
+      .all-panels li {
+        text-transform: uppercase;
+        padding: 0.5rem;
+        background: #4d4e5c;
+        color: white;
+        border-radius: 4px;
+      }
+
+      .results {
+        display: none;
+      }
+
+      .results span {
+        font-weight: bold;
+        background: #4d4e5c;
+        padding: 0.5rem;
+        border-radius: 50%;
+        display: inline-block;
+        min-width: 1.8rem;
+      }
+
+      dialog {
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 1rem 0 #000d;
+        border: 0;
+        max-width: 80vw;
+      }
+
+      dialog h2 {
+        margin: 0;
+      }
+
+      dialog .all-panels {
+        max-height: 50vh;
+        overflow-y: auto;
+      }
+
+      dialog p {
+        margin: 0 1rem;
+      }
+
+      dialog p.highlight {
+        font-weight: bold;
+        background: #fff6c5;
+        font-size: larger;
+        margin: 0 auto;
+        padding: 0.5rem;
+        border-radius: 4px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>What's That Tool!</h1>
+    <p>
+      How many DevTools panels can you name?<br />
+      Choose a browser to start guessing!
+    </p>
+    <div class="browsers">
+      <button id="chrome-start">Chrome</button>
+      <button id="firefox-start">Firefox</button>
+      <button id="safari-start">Safari</button>
+      <button id="edge-start">Edge</button>
+    </div>
+
+    <input type="text" id="input" placeholder="Type and press enter..." />
+
+    <div class="results">
+      You found <span class="found">0</span> panels!
+      <span class="remaining">0</span> more to go!
+      <span class="time-left"></span> seconds left...
+      <ul class="found-panels"></ul>
+    </div>
+
+    <dialog>
+      <h2>Congratulations!</h2>
+      <p>
+        You named <span class="found"></span>
+        <span class="browser"></span> DevTools panels in
+        <span class="time"></span> seconds!<br />
+        There were <span class="remaining"></span> more! Here is the full list:
+      </p>
+      <ul class="all-panels"></ul>
+      <p class="highlight">
+        Learn more about these tools here:
+        <a href="http://devtoolstips.org/tips/en/discover-all-tools/"
+          >Discover all tools</a
+        >
+      </p>
+    </dialog>
+
+    <script>
+      const panels = {
+        firefox: [
+          "accessibility",
+          "application",
+          "console",
+          "debugger",
+          "dom",
+          "inspector",
+          "memory",
+          "network",
+          "performance",
+          "storage",
+          "style editor",
+        ],
+        chrome: [
+          "animations",
+          "application",
+          "changes",
+          "console",
+          "coverage",
+          "css overview",
+          "developer resources",
+          "elements",
+          "issues",
+          "javascript profiler",
+          "layers",
+          "lighthouse",
+          "media",
+          "memory",
+          "memory inspector",
+          "network",
+          "network conditions",
+          "network request blocking",
+          "performance",
+          "performance insights",
+          "performance monitor",
+          "protocol monitor",
+          "quick source",
+          "recorder",
+          "rendering",
+          "search",
+          "security",
+          "sensors",
+          "sources",
+          "web audio",
+          "webauthn",
+          "what's new",
+        ],
+        edge: [
+          "3d view",
+          "animations",
+          "application",
+          "changes",
+          "console",
+          "coverage",
+          "css overview",
+          "detached elements",
+          "developer resources",
+          "elements",
+          "issues",
+          "javascript profiler",
+          "layers",
+          "lighthouse",
+          "media",
+          "memory",
+          "memory inspector",
+          "network",
+          "network conditions",
+          "network console",
+          "network request blocking",
+          "performance",
+          "performance monitor",
+          "protocol monitor",
+          "quick source",
+          "rendering",
+          "search",
+          "security",
+          "sensors",
+          "source maps monitor",
+          "sources",
+          "webaudio",
+          "webauthn",
+          "welcome",
+        ],
+        safari: [
+          "elements",
+          "console",
+          "sources",
+          "network",
+          "timelines",
+          "storage",
+          "graphics",
+          "layers",
+          "audit",
+        ],
+      };
+
+      const MAX_TIME = 60 * 1000; // 60 seconds
+
+      const firefoxStartBtn = document.querySelector("#firefox-start");
+      const chromeStartBtn = document.querySelector("#chrome-start");
+      const safariStartBtn = document.querySelector("#safari-start");
+      const edgeStartBtn = document.querySelector("#edge-start");
+
+      const input = document.getElementById("input");
+      const results = document.querySelector(".results");
+      const foundPanelsList = results.querySelector(".found-panels");
+      const foundCounter = results.querySelector(".found");
+      const remainingCounter = results.querySelector(".remaining");
+      const timeLeftLabel = results.querySelector(".time-left");
+
+      const dialog = document.querySelector("dialog");
+      const dialogFoundCounter = dialog.querySelector(".found");
+      const dialogBrowser = dialog.querySelector(".browser");
+      const dialogTime = dialog.querySelector(".time");
+      const dialogRemainingCount = dialog.querySelector(".remaining");
+      const dialogPanelsList = dialog.querySelector(".all-panels");
+
+      firefoxStartBtn.addEventListener("click", () => startGame("firefox"));
+      chromeStartBtn.addEventListener("click", () => startGame("chrome"));
+      safariStartBtn.addEventListener("click", () => startGame("safari"));
+      edgeStartBtn.addEventListener("click", () => startGame("edge"));
+
+      let currentBrowser = "";
+      let alreadyFound = [];
+      let timeCounter = null;
+      let startTime = 0;
+
+      function startGame(browser) {
+        currentBrowser = browser;
+        alreadyFound = [];
+
+        foundPanelsList.innerHTML = "";
+        remainingCounter.innerHTML = panels[browser].length;
+        foundCounter.innerHTML = 0;
+        input.value = "";
+
+        results.style.display = "block";
+        input.style.display = "block";
+
+        input.focus();
+
+        startCountingTime();
+      }
+
+      function startCountingTime() {
+        startTime = Date.now();
+
+        timeCounter = setInterval(() => {
+          const timeLeft = Math.max(MAX_TIME - (Date.now() - startTime), 0);
+          // Format time left as a number of seconds.
+          const timeLeftFormatted = Math.floor(timeLeft / 1000);
+          timeLeftLabel.innerHTML = timeLeftFormatted;
+
+          if (timeLeft <= 0) {
+            endGame();
+          }
+        }, 500);
+      }
+
+      function endGame() {
+        clearInterval(timeCounter);
+
+        dialogFoundCounter.innerHTML = alreadyFound.length;
+        dialogBrowser.innerHTML = currentBrowser;
+        dialogTime.innerHTML = Math.floor(MAX_TIME / 1000);
+        dialogRemainingCount.innerHTML =
+          panels[currentBrowser].length - alreadyFound.length;
+
+        for (const panel of panels[currentBrowser]) {
+          const li = document.createElement("li");
+          li.innerHTML = panel;
+          dialogPanelsList.appendChild(li);
+        }
+
+        dialog.showModal();
+
+        currentBrowser = "";
+        alreadyFound = [];
+        timeCounter = null;
+        startTime = 0;
+      }
+
+      function markPanelAsFound(panel) {
+        alreadyFound.push(panel);
+
+        const foundLi = document.createElement("li");
+        foundLi.textContent = panel;
+        foundPanelsList.appendChild(foundLi);
+
+        foundCounter.innerHTML = parseInt(foundCounter.innerHTML) + 1;
+        remainingCounter.innerHTML = parseInt(remainingCounter.innerHTML) - 1;
+
+        if (remainingCounter.innerHTML === "0") {
+          endGame();
+        }
+      }
+
+      function encodeAttempt(panel) {
+        return panel;
+      }
+
+      function isAttemptCorrect(panel) {
+        return panels[currentBrowser].includes(encodeAttempt(panel));
+      }
+
+      input.addEventListener("keyup", (e) => {
+        const str = input.value.trim().toLowerCase();
+
+        if (!str || !currentBrowser) {
+          return;
+        }
+
+        if (e.key === "Enter") {
+          if (isAttemptCorrect(str) && !alreadyFound.includes(str)) {
+            markPanelAsFound(str);
+          }
+          input.value = "";
+        }
+      });
+
+      console.log(
+        "%c Looking for something? Come on, be fair!",
+        "font-size: 2em; color: #ff0000;"
+      );
+    </script>
+  </body>
+</html>
