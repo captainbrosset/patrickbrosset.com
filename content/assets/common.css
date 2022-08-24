@@ -1,12 +1,12 @@
 :root {
-  --background: #1a1a1a;
-  --primary: #e91579;
-  --secondary: #00dfab;
-  --text: #ffffff;
-  --sub-text: #8a8a8a;
-  --code: #000000;
-  --text-on-code: rgb(196 196 196);
-  --separator: #262626;
+	--background: #fff;
+	--primary: #215b9a;
+	--secondary: #177e61;
+	--text: #000;
+	--sub-text: #676767;
+	--code: #000000;
+	--text-on-code: rgb(196 196 196);
+	--separator: #efefef;
 }
 
 * {
@@ -19,7 +19,7 @@ html {
 
 body {
 	margin: 3rem auto;
-	width: 60%;
+	width: 70%;
 	max-width: 1000px;
 	font-family: Tahoma, sans-serif;
 	font-size: 14pt;
@@ -85,7 +85,7 @@ body > h1 a:hover {
   place-self: end;
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 860px) {
   body {
     grid-template-areas:
       "header"
@@ -99,9 +99,10 @@ body > h1 a:hover {
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 750px) {
   body {
-    width: 80%;
+    width: 90%;
+    row-gap: 1rem;
   }
 }
 
