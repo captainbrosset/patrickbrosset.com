@@ -192,6 +192,7 @@ main img.thumbnail {
   object-fit: cover;
   object-position: top;
   box-shadow: -.5rem -0.5rem 0 0.5rem var(--background), .5rem -0.5rem 0 0.5rem var(--background), 0 0.5rem 0.4rem -0.2rem #0007;
+  background: black;
 }
 
 .home-tiles img.thumbnail {
