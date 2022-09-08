@@ -290,3 +290,18 @@ main .demo {
   z-index: -1;
   overflow: hidden;
 }
+
+blockquote {
+  background: var(--separator);
+  padding: 1rem;
+  border-radius: 3px;
+  font-size: 1rem;
+}
+
+blockquote > p:first-child {
+  margin-top: 0;
+}
+
+blockquote > p:last-child {
+  margin-bottom: 0;
+}
