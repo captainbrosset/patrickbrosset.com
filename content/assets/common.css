@@ -1,11 +1,11 @@
 :root {
 	--background: #fff;
-	--primary: #215b9a;
-	--secondary: #177e61;
+	--primary: #000;
+	--secondary: #0f4058;
 	--text: #000;
 	--sub-text: #676767;
 	--code: #000000;
-	--text-on-code: rgb(196 196 196);
+	--text-on-code: rgb(242, 156, 229);
 	--separator: #efefef;
 }
 
@@ -20,10 +20,10 @@ html {
 body {
 	margin: 3rem auto;
 	width: 70%;
-	max-width: 1000px;
+	max-width: 800px;
 	font-family: Tahoma, sans-serif;
-	font-size: 14pt;
-	line-height: 2;
+	font-size: 15pt;
+	line-height: 1.7;
 	color: var(--text);
 	display: grid;
 	grid-template-areas:
@@ -53,39 +53,16 @@ hr {
 
 body > h1 {
   margin: 0;
-  align-self: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  border-radius: 3px;
-  justify-self: start;
-}
-
-body > h1 a {
-  color: transparent;
-  display: block;
-  height: 100%;
-  background: linear-gradient(to right, var(--primary), var(--secondary));
-  -webkit-mask-image: url(/assets/name.png);
-  -webkit-mask-size: contain;
-  -webkit-mask-position: -5px center;
-  -webkit-mask-repeat: no-repeat;
-  background-position-x: left;
-  background-size: 200% 100%;
-  transition: background-position-x .2s linear;
-}
-
-body > h1 a:hover {
-  color: transparent;
-  background-position-x: right;
+  place-self: center;
+  font-weight: normal;
 }
 
 .site-nav {
   margin: 0;
-  place-self: end;
+  place-self: center end;
 }
 
-@media only screen and (max-width: 860px) {
+@media only screen and (max-width: 900px) {
   body {
     grid-template-areas:
       "header"
@@ -95,7 +72,7 @@ body > h1 a:hover {
     grid-template-columns: 100%;
   }
   .site-nav {
-    justify-self: start;
+    justify-self: center;
   }
 }
 
@@ -190,9 +167,6 @@ main img.thumbnail {
   width: 100%;
   aspect-ratio: 2;
   object-fit: cover;
-  object-position: top;
-  box-shadow: -.5rem -0.5rem 0 0.5rem var(--background), .5rem -0.5rem 0 0.5rem var(--background), 0 0.5rem 0.4rem -0.2rem #0007;
-  background: black;
 }
 
 .home-tiles img.thumbnail {
