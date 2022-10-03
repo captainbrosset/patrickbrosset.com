@@ -216,9 +216,10 @@ kbd {
 }
 
 .entries > li, .home-tiles > li {
-	margin: 0;
+  margin: 0;
   display: grid;
   grid-template-rows: min-content min-content 1fr min-content;
+  overflow: hidden;
 }
 
 .home-tiles > li {
