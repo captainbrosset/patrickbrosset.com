@@ -182,8 +182,16 @@ pre {
 }
 
 pre[class*="language-"] {
-  font-size: .7em !important;
+  font-size: .8em !important;
   background-color: vaR(--code) !important;
+}
+
+kbd {
+	background: var(--separator);
+	font-size: smaller;
+	padding: .25rem;
+	border-radius: .25rem;
+	border: outset;
 }
 
 /* List of articles or demos */
