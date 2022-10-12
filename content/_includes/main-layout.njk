@@ -23,9 +23,11 @@ title: patrick
     <meta name="twitter:site" content="@patrickbrosset">
     <meta property="og:site_name" content="Patrick Brosset">
     <meta name="twitter:card" content="summary">
+
+    <script src="/assets/theme-switcher.js"></script>
   </head>
   <body {% if not subtitle %} class="home"{% endif %}>
-    <h1 id="top"><a href="/">{{ title }}</a></h1>
+    <h1><a href="/">{{ title }}</a></h1>
     <nav class="site-nav">
       <ul>
         <li><a href="/articles">articles</a></li>
@@ -40,8 +42,23 @@ title: patrick
     <main>
       {{ content | safe }}
     </main>
-    {% if subtitle %}
-    <footer role="contentinfo">&copy; {% year %} Patrick Brosset<a href="#top">Back to top</a></footer>
-    {% endif %}
+    <footer role="contentinfo">
+      &copy; {% year %} Patrick Brosset
+      <a href="#top">Back to top</a>
+      <div class="theme-switcher">
+        <span class="theme-option">
+          <input type="radio" id="theme-option-dark" name="theme-option-input" value="dark">
+          <label for="theme-option-dark">Dark</label>
+        </span>
+        <span class="theme-option">
+          <input type="radio" id="theme-option-light" name="theme-option-input" value="light">
+          <label for="theme-option-light">Light</label>
+        </span>
+        <span class="theme-option">
+          <input type="radio" id="theme-option-auto" name="theme-option-input" value="auto" checked>
+          <label for="theme-option-auto">Auto</label>
+        </span>
+      </div>
+    </footer>
   </body>
 </html>
