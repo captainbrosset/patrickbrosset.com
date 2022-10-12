@@ -280,6 +280,10 @@ kbd {
   overflow: hidden;
 }
 
+.entries > li > * {
+  background-color: var(--background);
+}
+
 .entries > li.ad {
   background: none;
 }
@@ -292,7 +296,7 @@ kbd {
 .entries li > a {
   color: var(--secondary);
   grid-row: 3;
-  margin: .5rem 0;
+  padding: .5rem 0;
 }
 
 .entries li > a:hover {
