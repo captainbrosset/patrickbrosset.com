@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body {
+    display: grid;
+    place-items: center;
+    padding: 10rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 10%;
+    color: #904d2e;
+    background: currentColor;
+  }
+  .eye {
+    width: 100%;
+    aspect-ratio: 2;
+    background-repeat: no-repeat;
+    background-image:
+      /* Lids */
+      radial-gradient(
+        closest-side,
+        transparent 0 80%,
+        #0009 90%,
+        #643520 90% 100%,
+        currentColor 0
+      ),
+      /* Reflection */
+      radial-gradient(circle at 37% 17%, #fff9 0 8%, transparent 0),
+      /* Pupil and iris */
+      radial-gradient(
+        circle farthest-side at 50% 20%,
+        black 0 20%,
+        rgb(56, 145, 224) 20%,
+        rgb(30, 94, 172) 40%,
+        black 40% 42%,
+        transparent 0
+      ),
+      /* Sclera */
+      radial-gradient(
+        closest-side,
+        white, white
+      );
+    animation: blink 5s infinite;
+  }
+
+  @keyframes blink {
+    95% { aspect-ratio: 2; }
+    98% { aspect-ratio: 500; }
+    100% { aspect-ratio: 2; }
+  }
+</style>
+<div class="eye"></div>
+<div class="eye"></div>
