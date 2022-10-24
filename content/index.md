@@ -10,6 +10,12 @@ I have about 20 years of experience with web technologies, and have been working
 
 <ul class="entries">
   <li>
+    <img src="/assets/radial-gradient/ray-stops.png" alt="Screenshot of a radial-gradient" class="thumbnail">
+    <a href="2022-10-24-do-you-really-understand-CSS-radial-gradients">Do you really understand CSS radial gradients?</a>
+    <time datetime="2022-10-24">October 24th, 2022</time>
+    <p>An in-depth look at how radial-gradients really work in CSS. With this article, you will finally understand what the syntax means and will be able to create great gradients without the guess work.</p>
+  </li>
+  <li>
     <img src="https://raw.githubusercontent.com/MicrosoftEdge/Demos/main/pwamp/screenshot-playlist.png" alt="A screenshot the PWAmp music playing app, which is used in this article" class="thumbnail">
     <a href="/articles/2022-10-06-building-desktop-apps-without-native-code">Building desktop apps without native code</a>
     <time datetime="2022-10-06">October 6th, 2022</time>
@@ -26,11 +32,5 @@ I have about 20 years of experience with web technologies, and have been working
     <a href="https://blogs.windows.com/msedgedev/2022/09/27/closing-pixel-gap-native-web-window-controls-overlay/" class="external">Closing a 30 pixel gap between native and web</a>
     <time datetime="2022-09-27">September 27th, 2022</time>
     <p>Progressive Web Apps can now customize the app window and title bar area using the new Window Controls Overlay API, for a more familiar experience on desktop devices. Learn more on the Edge blog.</p>
-  </li>
-  <li>
-    <img src="/assets/pwa-logo.png" alt="The PWA logo" class="thumbnail">
-    <a href="/articles/2022-09-08-state-of-pwa">An informal state of PWA, 2022</a>
-    <time datetime="2022-09-08">September 8th, 2022</time>
-    <p>I ran a little Twitter survey to learn more about what the current blockers were when building PWAs. This article shows what the answers were.</p>
   </li>
 </ul>
