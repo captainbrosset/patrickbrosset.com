@@ -242,7 +242,8 @@ code {
   font-size: smaller;
   border-radius: 2px;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  white-space: nowrap;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 pre {
