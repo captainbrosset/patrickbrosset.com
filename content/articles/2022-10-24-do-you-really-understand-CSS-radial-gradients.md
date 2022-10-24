@@ -16,7 +16,7 @@ To learn how to use the `radial-gradient` CSS function, I attempted to draw a pa
 
 <iframe src="/lab/2022-10-21-eyes/index.html" style="width:100%;aspect-ratio:2;border:2px solid var(--separator);"></iframe>
 
-Sure, this isn't the best drawing of human eyes you've ever seen, but it did help me understand a lot more about how radial gradients worked and, with this article, my hope is that you too can learn a thing or too about them.
+Sure, this isn't the best drawing of human eyes you've ever seen (plus, it doesn't render properly in Safari), but it did help me understand a lot more about how radial gradients worked and, with this article, my hope is that you too can learn a thing or too about them.
 
 ### High-level syntax description
 
@@ -473,6 +473,8 @@ background-position:
 50% 40px,
 50% 200px;
 "></div>
+
+_Note: this last one doesn't work on Safari, if you know why, let me know 😀_. 
 
 While these are purely decorative examples, and unlikely to be useful on real websites, CSS gradients, both radial, [linear](/articles/2015-03-27-do-you-really-understand-CSS-linear-gradients/), and [conic](https://developer.mozilla.org/docs/Web/CSS/gradient/conic-gradient), offer a lot of flexibility when it comes to drawing details in the background of elements without having to add more elements to your document.
 
