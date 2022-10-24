@@ -11,7 +11,7 @@ I have about 20 years of experience with web technologies, and have been working
 <ul class="entries">
   <li>
     <img src="/assets/radial-gradient/ray-stops.png" alt="Screenshot of a radial-gradient" class="thumbnail">
-    <a href="2022-10-24-do-you-really-understand-CSS-radial-gradients">Do you really understand CSS radial gradients?</a>
+    <a href="/articles/2022-10-24-do-you-really-understand-CSS-radial-gradients">Do you really understand CSS radial gradients?</a>
     <time datetime="2022-10-24">October 24th, 2022</time>
     <p>An in-depth look at how radial-gradients really work in CSS. With this article, you will finally understand what the syntax means and will be able to create great gradients without the guess work.</p>
   </li>
