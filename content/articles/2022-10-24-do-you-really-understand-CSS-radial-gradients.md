@@ -400,6 +400,8 @@ This can be useful to create a much more subtle gradient. Here, because the two 
 
 ![Subtle blue to red gradient, where we see mostly purple](/assets/radial-gradient/out-of-range.png)
 
+<div id="browser-support"></div>
+
 ### Browser support
 
 Last but not least, let's take a quick look at [browser support](https://developer.mozilla.org/docs/Web/CSS/gradient/radial-gradient#browser_compatibility) for the `radial-gradient` CSS function:
