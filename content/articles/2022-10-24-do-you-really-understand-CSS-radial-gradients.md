@@ -16,7 +16,7 @@ To learn how to use the `radial-gradient` CSS function, I attempted to draw a pa
 
 <iframe src="/lab/2022-10-21-eyes/index.html" style="width:100%;aspect-ratio:2;border:2px solid var(--separator);"></iframe>
 
-Sure, this isn't the best drawing of human eyes you've ever seen (plus, it doesn't render properly in Safari), but it did help me understand a lot more about how radial gradients worked and, with this article, my hope is that you too can learn a thing or two about them.
+Sure, this isn't the best drawing of human eyes you've ever seen (plus, it doesn't render properly in Safari, see why in the [browser support section](#browser-support)), but it did help me understand a lot more about how radial gradients worked and, with this article, my hope is that you too can learn a thing or two about them.
 
 ### High-level syntax description
 
@@ -400,6 +400,16 @@ This can be useful to create a much more subtle gradient. Here, because the two 
 
 ![Subtle blue to red gradient, where we see mostly purple](/assets/radial-gradient/out-of-range.png)
 
+### Browser support
+
+Last but not least, let's take a quick look at [browser support](https://developer.mozilla.org/docs/Web/CSS/gradient/radial-gradient#browser_compatibility) for the `radial-gradient` CSS function:
+
+![A copy of the MDN browser compat table for radial-gradient](/assets/radial-gradient/support.png)
+
+Overall, the function is very well supported across browsers, with the notable exception of the `at` keyword for positioning the ending shape in the gradient box in Safari.
+
+If you really need to use this syntax on Safari, then you're only way is to use the `background-position` property to move the gradient to the right place.
+
 ---
 
 And with this, that's it! We've seen the different parts that make a radial gradient. I hope you now understand the `radial-gradient` function better. I know I do. I can now more comfortably use this function and be pretty certain of the result before I even see it, which is great.
@@ -474,7 +484,7 @@ background-position:
 50% 200px;
 "></div>
 
-_Note: this last one doesn't work on Safari, if you know why, let me know 😀_. 
+_Note: this last one doesn't work on Safari, see [browser support](#browser-support)_. 
 
 While these are purely decorative examples, and unlikely to be useful on real websites, CSS gradients, both radial, [linear](/articles/2015-03-27-do-you-really-understand-CSS-linear-gradients/), and [conic](https://developer.mozilla.org/docs/Web/CSS/gradient/conic-gradient), offer a lot of flexibility when it comes to drawing details in the background of elements without having to add more elements to your document.
 
