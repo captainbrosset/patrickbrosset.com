@@ -16,7 +16,7 @@ To learn how to use the `radial-gradient` CSS function, I attempted to draw a pa
 
 <iframe src="/lab/2022-10-21-eyes/index.html" style="width:100%;aspect-ratio:2;border:2px solid var(--separator);"></iframe>
 
-Sure, this isn't the best drawing of human eyes you've ever seen (plus, it doesn't render properly in Safari), but it did help me understand a lot more about how radial gradients worked and, with this article, my hope is that you too can learn a thing or too about them.
+Sure, this isn't the best drawing of human eyes you've ever seen (plus, it doesn't render properly in Safari), but it did help me understand a lot more about how radial gradients worked and, with this article, my hope is that you too can learn a thing or two about them.
 
 ### High-level syntax description
 
