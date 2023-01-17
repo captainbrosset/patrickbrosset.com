@@ -11,13 +11,13 @@ I have about 20 years of experience with web technologies, and have been working
 <ul class="entries">
   <li>
     <img src="/assets/storage.jpg" alt="Container boxes in a harbor" class="thumbnail">
-    <a href="2023-01-17-web-storage">(Almost) everything about storing data on the web</a>
+    <a href="/articles/2023-01-17-web-storage">(Almost) everything about storing data on the web</a>
     <time datetime="2023-01-17">January 17th, 2023</time>
     <p>Does your app or site need to store data on the client? Not sure what to use? Not sure how much you can store? For this article, I researched the various options and rules implemented in browsers for dealing with storage.</p>
   </li>
   <li>
     <img src="/assets/pwa-logo.png" alt="The PWA logo" class="thumbnail">
-    <a href="2023-01-16-whats-a-pwa">What's a Progressive Web App exactly?</a>
+    <a href="/articles/2023-01-16-whats-a-pwa">What's a Progressive Web App exactly?</a>
     <time datetime="2023-01-16">January 16th, 2023</time>
     <p>The most common way that I hear people refer to Progressive Web App is: <em>it's just a website with a manifest file and a service worker</em>. In this article, let me propose another definition.</p>
   </li>
