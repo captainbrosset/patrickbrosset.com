@@ -14,19 +14,21 @@ Although there is technical truth to this, I don't like this definition very muc
 
 To me, **a PWA is an application that you build by using web technologies.** It's an app you write using HTML, CSS, and JavaScript, and that can be installed on all devices, from just one codebase.
 
-Even though a PWA is written in the same languages used to build websites, it has access to features that are normally reserved to "native" apps. A PWA also adapts to the capabilities of each device it's installed on.
+Even though a PWA is written in the same languages used to build websites, it has access to features that are normally reserved to "native" apps. Now, a PWA doesn't need to use these features, as long as it meets the install criteria (which, today, are: https, service worker, and web app manifest), then it's a PWA. But these native-like features can make a PWA feel a lot more natural to users and better integrated in the operating system it's installed on.
 
 Finally, a PWA can also run inside web browsers, just like websites.
 
 ### Is PWA just a website?
 
-No it's not! It's built like a website though, and it can run in a web browser. This ability to run like a website gives a PWA several advantages over other traditional ways to build apps:
+It's built like a website, and it can run in a web browser just like any other websites. In fact, this ability to run like a website gives a PWA several advantages over other traditional ways to build apps:
 
 * It can be indexed by search engines, which means people can find the app by just googling it.
 * You can give someone else the link to a PWA, which they can use to access it without even installing it first.
 * The PWA's ability to adapt to any screen size, orientation, input method, etc. is part of its DNA. After all, it's built like a website, and websites can be used on all devices.
 * It runs using the HTTPS protocol, which guarantees that communications between the app and the servers it uses are secure.
 * To update your PWA, you deploy new files to a web server.
+
+But it's also more than a website. See below.
 
 ### Is PWA a real app?
 
