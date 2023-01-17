@@ -10,6 +10,18 @@ I have about 20 years of experience with web technologies, and have been working
 
 <ul class="entries">
   <li>
+    <img src="/assets/storage.jpg" alt="Container boxes in a harbor" class="thumbnail">
+    <a href="2023-01-17-web-storage">(Almost) everything about storing data on the web</a>
+    <time datetime="2023-01-17">January 17th, 2023</time>
+    <p>Does your app or site need to store data on the client? Not sure what to use? Not sure how much you can store? For this article, I researched the various options and rules implemented in browsers for dealing with storage.</p>
+  </li>
+  <li>
+    <img src="/assets/pwa-logo.png" alt="The PWA logo" class="thumbnail">
+    <a href="2023-01-16-whats-a-pwa">What's a Progressive Web App exactly?</a>
+    <time datetime="2023-01-16">January 16th, 2023</time>
+    <p>The most common way that I hear people refer to Progressive Web App is: <em>it's just a website with a manifest file and a service worker</em>. In this article, let me propose another definition.</p>
+  </li>
+  <li>
     <img src="/assets/radial-gradient/ray-stops.png" alt="Screenshot of a radial-gradient" class="thumbnail">
     <a href="/articles/2022-10-24-do-you-really-understand-CSS-radial-gradients">Do you really understand CSS radial gradients?</a>
     <time datetime="2022-10-24">October 24th, 2022</time>
@@ -20,17 +32,5 @@ I have about 20 years of experience with web technologies, and have been working
     <a href="/articles/2022-10-06-building-desktop-apps-without-native-code">Building desktop apps without native code</a>
     <time datetime="2022-10-06">October 6th, 2022</time>
     <p>What makes a web and a desktop app different? Do we really need to learn C++ to implement a real desktop app? How far can we go with just the web? Read more to find out!</p>
-  </li>
-  <li>
-    <img src="/assets/bad-web-dx.jpg" alt="Me, doing a face, in front of my computer where a bunch of code is written" class="thumbnail">
-    <a href="/articles/2022-09-29-is-web-dx-so-terrible">Is the developer experience of the Web so terrible?</a>
-    <time datetime="2022-09-29">September 29th, 2022</time>
-    <p>What is it with the web that people find so awful that they keep inventing new frameworks every year?</p>
-  </li>
-  <li>
-    <img src="https://blogs.windows.com/wp-content/uploads/prod/sites/33/2022/09/Picture2.png" alt="An illustration of a web app window, showing that PWAs can display content over the entire surface area of the window." class="thumbnail">
-    <a href="https://blogs.windows.com/msedgedev/2022/09/27/closing-pixel-gap-native-web-window-controls-overlay/" class="external">Closing a 30 pixel gap between native and web</a>
-    <time datetime="2022-09-27">September 27th, 2022</time>
-    <p>Progressive Web Apps can now customize the app window and title bar area using the new Window Controls Overlay API, for a more familiar experience on desktop devices. Learn more on the Edge blog.</p>
   </li>
 </ul>
