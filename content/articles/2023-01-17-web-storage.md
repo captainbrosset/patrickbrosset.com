@@ -6,7 +6,7 @@ tags: article
 ---
 ## (Almost) everything about storing data on the web
 
-<time datetime="2023-01-17">January 17th, 2023</time>
+<time datetime="2023-01-17">January 17th, 2023 (last update: February 1st, 2023)</time>
 
 ![Container boxes in a harbor](/assets/storage.jpg)
 
@@ -115,6 +115,8 @@ The above is only the theory from the spec though. How much of it is implemented
 
 ### How much do I get?
 
+As said earlier, an origin can store up to 5MB of local storage and 5MB of session storage. Other storage options are managed by the Quota Manager, and the rest of this section will focus on those only.
+
 Browsers are free to do whatever they want here. How much they give you has changed over the years, and will probably keep changing.
 
 It's also very hard to find up to date information about this. The [information on MDN](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Browser_storage_limits_and_eviction_criteria) doesn't seem up to date or correct (I filed an [issue](https://github.com/mdn/content/issues/23557) about it). The most up to date reference on this topic is [this web.dev article](https://web.dev/storage-for-the-web/).
@@ -148,6 +150,8 @@ In one of my tests, I was able to fill the entire disk space on the device befor
 In another test, I was able to reach the 60% limit before filling up the disk. Here again, a JavaScript error is raised, and the origin is prevented from storing any more data.
 
 Now, imagine a mobile device with a 64GB drive. In theory, an origin could store up to 38GB (60%). Now the operating system might use 10GB, and imagine that other apps and files use 40GB. This leaves your origin 14GB of actual quota, which is huge, even for a media app that stores audio or video files.
+
+Note that when using the incognito or private mode in a Chromium-based browser, the quota is different (usually much lower), and the data disappears when the private browser window is closed.
 
 #### Firefox
 
@@ -195,13 +199,28 @@ So keep this in mind, and design your app accordingly.
 
 ### How does eviction work?
 
-I wish I could say. My plan is to keep on researching and update this article once I know more about this. But, right now, I don't know enough to write about this.
+The logic is, again, browser-specific, and can be pretty complicated quickly. This section is not complete yet, and I will keep updating it as I find more information.
 
-My understanding is that the logic is browser-specific, and can be pretty complicated.
+#### Safari
 
-In one of my tests, using Chromium, I filled up the entire device, and when I came back to browser a few minutes later, the origin's data I had created to fill up the device has been deleted. Safari also evicts data from origins that haven't been used in the last seven days, as said before.
+Safari seems to evict data from origins that haven't been used in the last seven days
 
-But beyond this, more research is needed to understand the mechanics of how eviction works.
+#### Chromium
+
+In Chromium, when a device is low on storage space, the browser starts evicting data for the origins that were least recently accessed.
+
+As said previously, the browser is willing to use up to 80% of the total disk space overall (even if each origin is granted 60% of the total disk space maximum).
+
+When a user visits many different sites and apps, and if each of these origins use a little bit of their quota, there will come a point at which the browser exceeds its 80% overall limit.
+
+At this point, Chromium will evict the origin-stored data for the least recently accessed origin, and will continue doing so until it's back under its overall limit. In doing so, it will also skip the origins that have been marked as persistent.
+
+<!--  
+Questions:
+- What if the device has lots of data and the 80% overall limit can't be reached anyway. If only 50% of the total disk space can be used, does the same LRU eviction mechanism happens?
+- What happens when there isn't anything that the browser can evict, when everything is permanent?
+- What if the browser is under its 80% limit, and each origin is also under its 60% limit, but the disk gets filled with other things. Does the browser proactively evict data for the user to regain space? If the browser isn't running, probably not. But if you launch the browser then, the pool is smaller now, does eviction happens then?
+ -->
 
 ---
 
