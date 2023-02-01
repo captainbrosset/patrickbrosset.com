@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>debug.css - The simple CSS debugging utility</title>
+    <style>
+      body {
+        font-family: system-ui;
+        font-size: 1.5em;
+        padding: 3rem;
+        max-width: 40rem;
+        margin: 0 auto;
+        line-height: 1.8;
+        --color: rgb(167, 12, 12);
+      }
+
+      header {
+        border-block-end: 2px solid var(--color);
+        margin-block-end: 3rem;
+        padding-block-end: 3rem;
+      }
+
+      *,
+      debug_coral_2px {
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      code {
+        white-space: nowrap;
+      }
+
+      code,
+      pre {
+        background: var(--color);
+        color: white;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+      }
+
+      footer {
+        margin-block-start: 3rem;
+        padding-block-start: 3rem;
+        border-block-start: 2px solid var(--color);
+        text-align: center;
+      }
+
+      a {
+        color: var(--color);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>debug.css - The simple CSS debugging utility</h1>
+    </header>
+    <main>
+      <p>
+        <strong>debug.css</strong> is a little script you add to your webpage
+        that makes it possible to highlight and debug any element from your own
+        CSS code.
+      </p>
+
+      <p>
+        Just add <code>debug</code> to any rule's selector, and the matching
+        elements get a red border.
+      </p>
+
+      <pre>
+  main .content-wrapper .item<strong>, debug</strong> {
+    display: flex;
+    width: 4rem;
+    max-width: 10%;
+  }</pre>
+
+      <p>
+        Don't want red? Use <code>debug_blue</code> instead, or any other valid
+        color!
+      </p>
+
+      <p>
+        Want a different line width? Use <code>debug_blue_2px</code> instead, or any other valid width!
+      </p>
+
+      <p>
+        This very webpage uses <strong>debug.css</strong>. All elements on the
+        page are highlighted thanks to this simple rule:
+        <code>*, debug_coral_2px {}</code>
+      </p>
+
+      <h2>Why debug.css?</h2>
+
+      <p>I'm sure you type <code>outline: 1px solid red;</code> a lot</p>
+
+      <p>
+        This little snippet of CSS code (and others just like it) is immensely
+        useful to millions of web developers every day because of its ease of
+        use.<br />
+        Sure, you can use DevTools to inspect elements and see where they are,
+        and you probably should. But quickly adding a red border, outline, or
+        background color to an element <em>while</em> you're writing CSS is
+        great too. It's like using <code>console.log()</code> in JavaScript even
+        if there are more powerful ways to debug with DevTools. Sometimes it's
+        just simpler!
+      </p>
+
+      <p>
+        But <code>outline: 1px solid red;</code> is 23 characters long, and a
+        typo is so easy to make! When you spend your entire day working on CSS,
+        this can quickly become frustrating.
+      </p>
+
+      <p>
+        The idea for <strong>debug.css</strong> came from
+        <a href="https://mas.to/@patrickbrosset/109785690102638962"
+          >this discussion on Mastodon</a
+        >.
+      </p>
+
+      <h2>How to use debug.css</h2>
+
+      <ol>
+        <li>
+          Insert the
+          <a href="debug.css.js">debug.css.js script</a> in your
+          own webpage.<br>
+          Use <code>&lt;script src="debug.css.js" defer&gt;&lt;/script&gt;</code> to avoid blocking the rendering of your page.
+        </li>
+        <li>
+          Add the <code>debug</code>, or <code>debug_pink</code> (or any other color) selector to any rule.<br>
+          For example this: <code>header { ... }</code>.<br>
+          Becomes this: <code>header, debug { ... }</code>.
+        </li>
+        <li>
+          Reload your page as you normally would.
+        </li>
+      </ol>
+    </main>
+    <footer>
+      <p>Patrick Brosset - 2023</p>
+    </footer>
+    <script src="debug.css.js" defer></script>
+  </body>
+</html>
