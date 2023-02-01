@@ -17,6 +17,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/.well-known");
   eleventyConfig.addPassthroughCopy("content/tracks/*.gpx");
   eleventyConfig.addPassthroughCopy("content/ads.txt");
+  eleventyConfig.addPassthroughCopy("content/lab/debug-css/debug.css.js");
 
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(embedYouTube);
