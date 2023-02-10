@@ -169,7 +169,7 @@ Yes, and no.
 
 You can use the [Storage Manager API](https://developer.mozilla.org/docs/Web/API/StorageManager) via the `navigator.storage` object to discover how much your origin currently uses, and how much more it can use.
 
-To do this, use `navigator.storage.estimate()` (which returns a Promise). This particular method is not yet implemented in Safari unfortunately (while the rest of the Storage Manager API is). Edit: The `estimate` method is coming soon to Safari account to the [Safari Technology Preview 163 release note](https://webkit.org/blog/13839/release-notes-for-safari-technology-preview-163/).
+To do this, use `navigator.storage.estimate()` (which returns a Promise). This particular method is not yet implemented in Safari unfortunately (while the rest of the Storage Manager API is). Edit: The `estimate` method is coming soon to Safari according to the [Safari Technology Preview 163 release note](https://webkit.org/blog/13839/release-notes-for-safari-technology-preview-163/).
 
 It's very important to note that the `estimate` method will **not give you the real amount of available storage**. It will tell you what your origin's quota is, and how much of it you've already used, but it won't tell you how much data your origin can really store, which might be less than the defined quota since there may be other things on the device too. This is for security reasons, to avoid fingerprinting.
 
