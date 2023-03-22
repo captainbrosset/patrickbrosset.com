@@ -6,9 +6,21 @@ tags: article
 ---
 ## (Almost) everything about storing data on the web
 
-<time datetime="2023-01-17">January 17th, 2023 (last update: February 10th, 2023)</time>
+<time datetime="2023-01-17">January 17th, 2023 (last update: March 22nd, 2023)</time>
 
 ![Container boxes in a harbor](/assets/storage.jpg)
+
+<div style="padding:.5rem 1rem;background:var(--text-on-code);color:var(--code);">
+
+**⚠️ MDN now has more up-to-date information on this ⚠️**
+
+After releasing this blog post, I started working on a big project to update the storage quota and eviction documentation on MDN too. I worked with browser engineers directly to make sure that the documentation was as correct and current as it could be.
+
+This new documentation is now available ➡️ [Storage quotas and eviction criteria](https://developer.mozilla.org/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria).
+
+I'll try my best to keep this blog post up to date, but you should probably go to MDN now instead.
+
+</div>
 
 Imagine you're building a web application and you want to store some data locally on the user's device. This could be because this data is only needed on the client-side, or it could be because you want to offer some kind of offline access to the your app's content.
 
@@ -39,7 +51,7 @@ There are others too, but these are the main I can think of. Each have their own
 
 #### Web Storage ([docs](https://developer.mozilla.org/docs/Web/API/Web_Storage_API))
 
-Web Storage is simple and well supported, but should only be used for very simple needs. They can only hold strings, and are limited to 5MB each. They're also synchronous, and can't be used in workers.
+Web Storage is simple and well supported, but should only be used for very simple needs. They can only hold strings, and are limited to 5MiB each. They're also synchronous, and can't be used in workers.
 
 Being synchronous means that any data access will block the main thread of your app, potentially making it slow to respond.
 
@@ -115,11 +127,14 @@ The above is only the theory from the spec though. How much of it is implemented
 
 ### How much do I get?
 
-As said earlier, an origin can store up to 5MB of local storage and 5MB of session storage. Other storage options are managed by the Quota Manager, and the rest of this section will focus on those only.
+As said earlier, an origin can store up to 5MiB of local storage and 5MiB of session storage. Other storage options are managed by the Quota Manager, and the rest of this section will focus on those only.
 
 Browsers are free to do whatever they want here. How much they give you has changed over the years, and will probably keep changing.
 
-It's also very hard to find up to date information about this. The [information on MDN](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Browser_storage_limits_and_eviction_criteria) doesn't seem up to date or correct (I filed an [issue](https://github.com/mdn/content/issues/23557) about it). The most up to date reference on this topic is [this web.dev article](https://web.dev/storage-for-the-web/).
+It's also pretty hard to find up to date information about this. Here are two useful resources:
+
+* [Storage quotas and eviction criteria](https://developer.mozilla.org/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria) on MDN (which I wrote after releasing this blog post).
+* [Storage for the web](https://web.dev/storage-for-the-web/) on web.dev.
 
 Below is what I found by reading docs, asking people, and experimenting on my own devices and virtual machines (with [this simple test app](https://chivalrous-attractive-dosa.glitch.me/)).
 
@@ -127,41 +142,41 @@ It's fair to say that an origin can store quite a lot of data on a device these 
 
 #### Safari
 
-Safari lets your origin store 1GB of data. After that limit is reached, it requests the user to approve the additional storage space. For example, if the app tries to store 100MB above that limit, Safari asks the user for permission. If the storage needs continue increasing, Safari keeps on asking the user for permission.
+Safari lets your origin store 1GiB of data. After that limit is reached, it requests the user to approve the additional storage space. For example, if the app tries to store 100MiB above that limit, Safari asks the user for permission. If the storage needs continue increasing, Safari keeps on asking the user for permission.
 
 I am not sure how much Safari will let the origin store at a maximum, or whether there is a maximum at all. While testing, I was able to just continue allowing the app to store more and more data and my device eventually filled up. In the end, a JavaScript error was raised in the app, and the code couldn't store any more data.
 
-This 1GB quota is already quite comfortable for many app use cases. If your app has very specific storage needs, like storing big media files, then the fact that Safari lets you store even more as long as the user approves it is nice.
+This 1GiB quota is already quite comfortable for many app use cases. If your app has very specific storage needs, like storing big media files, then the fact that Safari lets you store even more as long as the user approves it is nice.
 
-Note, however, that the WebView version of Safari (which other browsers must use on iOS devices), and other browsers that use WebKit (like the GNOME Web browser), seem to just stop at 1GB and don't ask the user for more storage space. When this hard limit is reached, a JavaScript error is thrown in the code that attempted to store more data.
+Note, however, that the WebView version of Safari (which other browsers must use on iOS devices), and other browsers that use WebKit (like the GNOME Web browser), seem to just stop at 1GiB and don't ask the user for more storage space. When this hard limit is reached, a JavaScript error is thrown in the code that attempted to store more data.
 
 #### Chromium
 
 I say Chromium here, because that's what I tested ([downloaded here](https://download-chromium.appspot.com/)). I believe Chrome and Edge (which are both based on Chromium) do have the same storage rules as what's in Chromium, but really, any Chromium-based browser is free to deviate from those rules (although that's probably unlikely).
 
-Chromium can use up to 80% of the total disk space for storage. However, out of this 80%, Chromium is willing to dedicate at most 75% to a single origin. Now, 75% times 80% is 60%. So each origin, in Chromium, can, in theory, use up to 60% of the total disk space.
+Chromium can use up to 80% of the device total disk size for storage. However, out of this 80%, Chromium is willing to dedicate at most 75% to a single origin. 75% times 80% is 60%. So each origin, in Chromium, can, in theory, use up to 60% of the total disk size.
 
-This doesn't mean an origin can actually use the entire 60%. This percentage is calculated based on the **total disk space** of the device.
+This doesn't mean an origin can actually use the entire 60%. This percentage is calculated based on the **total disk size** of the device.
 
-For example, if your device has a 20GB hard drive, then Chromium will theoretically let an origin use up to 12GB (20GB * 60% = 12GB) of storage space. This might not actually be possible. The operating system and other files also stored on the device might use more than 8GB, therefore leaving less than the 12GB quota Chromium says your origin can use.
+For example, if your device has a 20GiB hard drive, then Chromium will theoretically let an origin use up to 12GiB (20GiB * 60% = 12GiB) of storage space. This might not actually be possible. The operating system and other files also stored on the device might use more than 8GiB, therefore leaving less than the 12GiB quota Chromium says your origin can use.
 
 In one of my tests, I was able to fill the entire disk space on the device before reaching the 60% limit. When this happens, a JavaScript error is raised, and the origin just can't store any more.
 
 In another test, I was able to reach the 60% limit before filling up the disk. Here again, a JavaScript error is raised, and the origin is prevented from storing any more data.
 
-Now, imagine a mobile device with a 64GB drive. In theory, an origin could store up to 38GB (60%). Now the operating system might use 10GB, and imagine that other apps and files use 40GB. This leaves your origin 14GB of actual quota, which is huge, even for a media app that stores audio or video files.
+Now, imagine a mobile device with a 64GiB drive. In theory, an origin could store up to 38GiB (60%). Now the operating system might use 10GiB, and imagine that other apps and files use 40GiB. This leaves your origin 14GiB of actual quota, which is huge, even for a media app that stores audio or video files.
 
 Note that when using the incognito or private mode in a Chromium-based browser, the quota is different (usually much lower), and the data disappears when the private browser window is closed.
 
 #### Firefox
 
-Firefox will let your origin store up to 10% of the total disk space by default.
+Firefox will let your origin store up to 10% of the total disk size by default, capped at 10GiB (which Firefox actually applies to all origins that are under the same [eTLD+1](https://developer.mozilla.org/en-US/docs/Glossary/eTLD) group).
 
-Obviously, 10% is a lot less than the 60% Chromium allows. But even if the device the app runs on has a 64GB drive (which isn't that much by today's standards) that means your app could store up to 6GB of data which should be enough even for media-type apps.
+Obviously, 10% is a lot less than the 60% Chromium allows. But even if the device the app runs on has a 64GiB drive (which isn't that much by today's standards) that means your app could store up to 6GiB of data which should be enough even for media-type apps.
 
 Once the origin reaches the maximum storage space Firefox allows, an error is thrown, and the origin can't store any more data.
 
-Note that 10% is only the default however, your origin will be allowed to store up to 50% of the total disk space if your app asks for _persistent_ storage space. More on persistent vs. temporary storage later in this article, but what's important to note is that all origins start as temporary storage by default.
+Note that 10% is only the default however, your origin will be allowed to store up to 50% of the total disk size (this time capped at 8TiB) if your app asks for and is granted _persistent_ storage space. More on persistent vs. temporary storage later in this article, but what's important to note is that all origins start as temporary storage by default.
 
 ### Can I check how much is left?
 
@@ -185,13 +200,13 @@ It means that if there isn't enough space left on the device, the browser can st
 
 The way the browser does this is, again, specific to its implementation. It's very likely to start removing the data from origins that haven't been used by the user for a long time first. In fact, Safari does this preemptively and deletes the content stored by origins that haven't been used for seven days.
 
-If the device your webapp runs on has plenty of space, there's not much to worry about. For example, think of a laptop with a 500GB hard drive that still has 250GB free. In this situation, even if your data is considered temporary there really isn't a reason to worry about it being evicted, except on Safari if your app isn't used for weeks at a time.
+If the device your webapp runs on has plenty of space, there's not much to worry about. For example, think of a laptop with a 500GiB hard drive that still has 250GiB free. In this situation, even if your data is considered temporary there really isn't a reason to worry about it being evicted, except on Safari if your app isn't used for weeks at a time.
 
 If your app really needs to store data without which it just can't function, or if this data is important to your users and there's nowhere else to save it, you can ask for the data to be persisted for real.
 
-Use the `navigator.storage.persist()` function to request permission to use persistent storage. This promise-based API is supported in all browsers, and will request the user permission.
+Use the `navigator.storage.persist()` function to request permission to use persistent storage. This is a promise-based function that's supported in all browsers. In Firefox, it will request the user permission, however on Chromium-based browsers and on Safari, the browser automatically grants or denies the request.
 
-Once your data is considered persistent, the browser can no longer evict it silently, and only the user can do it on purpose via the browser UI.
+Once your origin is granted persistent storage, the browser can no longer evict it silently, and only the user can do it on purpose via the browser UI.
 
 You should think twice before making your data persistent. Do you really want to be responsible for filling up your users' devices? Does your feature really need this? If you're building a media app that stores big files for offline support, then your code should deal with the fact that stored files can disappear. As a user, I actually think it's nice that the browser deletes stored files automatically for me when my device is full.
 
@@ -203,7 +218,7 @@ The logic is, again, browser-specific, and can be pretty complicated quickly. Th
 
 #### Safari
 
-Safari seems to evict data from origins that haven't been used in the last seven days
+Safari seems to evict data from origins that haven't been used in the last seven days.
 
 #### Chromium
 
