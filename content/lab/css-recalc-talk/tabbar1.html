@@ -1,0 +1,88 @@
+<style>
+  .tabbar {
+    display: flex;
+    flex-direction: column;
+  }
+  .tabbar ul,
+  .tabbar li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .tabbar .tabs {
+    display: flex;
+  }
+  .tabbar .tab {
+    border: 2px solid;
+    background: white;
+    padding: 0.5rem 1rem;
+    transform: translateY(2px);
+    cursor: default;
+  }
+  .tabbar .tab:not(:first-child) {
+    border-inline-start: 0;
+  }
+  .tabbar .tab:first-child {
+    border-start-start-radius: 0.5rem;
+  }
+  .tabbar .tab:last-child {
+    border-start-end-radius: 0.5rem;
+  }
+  .tabbar .tab[data-selected] {
+    border-block-end-color: white;
+  }
+  .tabbar .panels {
+    border: 2px solid;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 1rem;
+  }
+  .tabbar .panel:not([data-selected]) {
+    display: none;
+  }
+</style>
+<div class="tabbar" style="width: 500px; height: 400px">
+  <ul class="tabs">
+    <li class="tab">Tab 1</li>
+    <li class="tab">Tab 2</li>
+    <li class="tab">Tab 3</li>
+    <li class="tab">Tab 4</li>
+  </ul>
+  <ul class="panels">
+    <li class="panel">Panel 1</li>
+    <li class="panel">Panel 2</li>
+    <li class="panel">Panel 3</li>
+    <li class="panel">Panel 4</li>
+  </ul>
+</div>
+<script>
+  const tabbar = document.querySelector(".tabbar");
+  const tabs = tabbar.querySelector(".tabs");
+  const panels = tabbar.querySelector(".panels");
+
+  function selectTab(tabEl) {
+    const selectedTab = tabs.querySelector("[data-selected]");
+    if (selectedTab) {
+      selectedTab.removeAttribute("data-selected");
+    }
+    tabEl.setAttribute("data-selected", "");
+  }
+
+  function selectPanel(panelEl) {
+    const selectedPanel = panels.querySelector("[data-selected]");
+    if (selectedPanel) {
+      selectedPanel.removeAttribute("data-selected");
+    }
+    panelEl.setAttribute("data-selected", "");
+  }
+
+  selectTab(tabs.children[0]);
+  selectPanel(panels.children[0]);
+
+  tabs.addEventListener("click", (event) => {
+    const tab = event.target;
+    if (tab.classList.contains("tab")) {
+      selectTab(tab);
+      selectPanel(panels.children[Array.from(tabs.children).indexOf(tab)]);
+    }
+  });
+</script>
