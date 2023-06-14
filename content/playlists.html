@@ -1,0 +1,149 @@
+---js
+{
+  totalTracks: function(playlists) {
+    return playlists.reduce((acc, cur) => acc + cur.items.filter(i => i.track).length, 0);
+  }
+}
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mix Tapes</title>
+  <style>
+    :root {
+      --main-background: black;
+      --main-text: white;
+      --track-text-color: black;
+    }
+    html {
+      font-size: 1rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    body {
+      margin: 1rem;
+      overflow-x: hidden;
+      background: var(--main-background);
+      color: var(--main-text);
+    }
+    h1, h2 {
+      margin: 1rem 0;
+      text-align: center;
+    }
+    ul, li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    iframe {
+      position: sticky;
+      bottom: 1rem;
+      z-index: 1;
+      border-radius: 1rem;
+      transition: all .25s ease-in-out;
+      box-shadow: 0 0 1rem 0 #0000;
+      background: transparent;
+    }
+    iframe.playing {
+      box-shadow: 0 0 1rem 0 #0005;
+      background: #555;
+    }
+    .tracks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      /* gap: .2rem; */
+      font-size: .7rem;
+      color: var(--track-text-color);
+    }
+    @property --index {
+      syntax: "<integer>";
+      inherits: false;
+    }
+    @property --count {
+      syntax: "<integer>";
+      inherits: false;
+    }
+    .track {
+      display: grid;
+      aspect-ratio: 1;
+      place-items: center;
+      position: sticky;
+      top: 0;
+    }
+    .track button {
+      background-color: aliceblue;
+      padding: .5rem;
+      margin: 0;
+      border: none;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: .5rem;
+      --indexed-color: calc(255 * var(--index) / var(--count));
+      background-color: hsl(var(--indexed-color), 100%, 70%);
+      border-radius: 50%;
+      cursor: pointer;
+      --len: 50;
+      --scaled: calc((sin((var(--index) / var(--len)) * pi) + 3) / 4);
+      --w: calc(100% * var(--scaled));
+      width: var(--w);
+      height: var(--w);
+      box-shadow:
+        0 0 0 1rem hsl(var(--indexed-color), 100%, 70%), 
+        0 0 9rem calc(1rem / (var(--scaled) * 2)) hsl(var(--indexed-color), 100%, 40%);
+    }
+    .track div {
+      text-align: center;
+    }
+    /* .track:nth-child(2n) { rotate: 15deg; } */
+    .track:nth-child(2n + 1) { position: sticky; }
+    .track .name {
+      font-weight: bold;
+      font-size: .9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mix Tapes</h1>
+  {% set count = totalTracks(playlists.playlists) %}
+  <ul class="playlists" style="--count:{{ count }}">
+  {% set i = 0 %}
+  {%- for playlist in playlists.playlists -%}
+    <li class="playlist">
+      <h2>{{ playlist.name }}</h2>
+      <ul class="tracks">
+      {%- for item in playlist.items -%}
+        {%- if item.track -%}
+        {% set i = i+1 %}
+        <li class="track" style="--index:{{ i }}">
+          <button data-track-uri="{{ item.track.trackUri }}">
+            <div class="name">{{ item.track.trackName | truncate(20, true, "...") }}</div>
+            <div class="artist">{{ item.track.artistName | truncate(20, true, "...") }}</div>
+          </button>
+        </li>
+        {%- endif -%}
+      {%- endfor -%}
+      </ul>
+    </li>
+  {%- endfor -%}
+  </ul>
+  <iframe src="" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <script>
+    const spotifyPlayer = document.querySelector("iframe");
+
+    addEventListener("click", e => {
+      const playBtn = e.target.closest("button[data-track-uri]");
+      if (playBtn) {
+        spotifyPlayer.classList.toggle("playing", true);
+        const trackUri = playBtn.dataset.trackUri;
+        const link = trackUri.replace("spotify:track:", "https://open.spotify.com/embed/track/");
+        spotifyPlayer.src = link;    
+      }
+    });
+  </script>
+</body>
+</html>
