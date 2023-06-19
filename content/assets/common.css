@@ -13,12 +13,12 @@
 [data-theme=dark] {
   color-scheme: dark;
 	--background: #000;
-	--primary: #fff;
-	--secondary: #97d0ed;
-	--text: #fff;
-	--sub-text: #e0e0e0;
+	--primary: #00eeff;
+	--secondary: #ff00b7;
+	--text: #04ff6d;
+	--sub-text: #ffe300;
 	--code: #191b2d;
-	--text-on-code: rgb(242, 156, 229);
+	--text-on-code: rgb(255, 254, 212);
 	--separator: #3e3e3e;
 }
 
@@ -68,8 +68,8 @@ body {
 	margin: 3rem auto;
 	width: 70%;
 	max-width: 800px;
-	font-family: system-ui, sans-serif;
-	font-size: 15pt;
+	font-family: monospace, system-ui, sans-serif;
+	font-size: 1.5rem;
 	line-height: 1.7;
 	color: var(--text);
 	display: grid;
@@ -102,7 +102,6 @@ hr {
 body > h1 {
   margin: 0;
   place-self: center;
-  font-weight: normal;
 }
 
 body > h1 a {
@@ -275,7 +274,8 @@ kbd {
 .entries > li {
   margin: 0;
   display: grid;
-  grid-template-rows: 1fr min-content min-content min-content;
+  grid-template-rows: 200px min-content min-content min-content;
+  gap: .5rem;
   overflow: hidden;
 }
 
@@ -295,7 +295,6 @@ kbd {
 .entries li > a {
   color: var(--secondary);
   grid-row: 3;
-  padding: .5rem 0;
 }
 
 .entries li > a:hover {
@@ -311,14 +310,14 @@ kbd {
 
 .entries li > p {
   margin: 0;
-  font-size: 1.1rem;
+  /* font-size: 1.1rem; */
 }
 
 blockquote {
   background: var(--separator);
   padding: 1rem;
   border-radius: 3px;
-  font-size: 1rem;
+  /* font-size: 1rem; */
 }
 
 blockquote > p:first-child {
