@@ -34,7 +34,9 @@ This led to [the creation](https://hacks.mozilla.org/2018/01/introducing-the-mdn
 
 In 2020, Mozilla unfortunately had to go through a pretty big round of [layoffs](https://blog.mozilla.org/mozilla/readying-for-the-future-at-mozilla/). The MDN team, in particular, was hit pretty hard. At this point, the MDN team was the one responsible not only for maintaining the website infrastructure, but also for writing a lot of the content, and managing the active community of volunteer doc contributors. The layoffs was a big blow to the project.
 
-### Enters Open Web Docs
+Today, Mozilla has a small team of writers and engineers who write content and maintain the website's infrastructure.
+
+### Enter Open Web Docs
 
 High-quality documentation for the web platform is **critically important** so, with a bunch of really talented technical writers now out of a job, and so many devs out there who relied on MDN for their day to day jobs, it was clear that something had to be done.
 
@@ -46,7 +48,11 @@ OWD is composed of a small team of technical writers (4 full-time employees and 
 
 So how can OWD do this work? The organization needs to pay those 4,5 people for their work. And to do this, because it's a non-profit organization, it relies on donations! It's funded by a mix of corporate sponsors, Google and Microsoft being the two biggest, and a bunch of individual contributors.
 
+---
+
 **And that's where you come in! If you use MDN on a regular basis, and would find it considerably harder to do your job without it, then consider financially [supporting OWD](https://opencollective.com/open-web-docs). You can become a backer for as little as $5 per month.**
+
+---
 
 It's simple, without money, OWD can't employ technical writers to continue making MDN as great as it is. Sure, OWD isn't the only contributor to MDN. Mozilla has a team of writers too, other companies contribute docs, and there are a lot of volunteers. But if you haven't done so yet, do take a look at the [2022 impact report](https://openwebdocs.org/content/reports/2022/). This should give you perspective on how much work OWD does, and how negatively impacted MDN would be if OWD didn't exist. On top of this, OWD isn't just a big part of MDN, it's also a vendor-neutral part of it. When Microsoft, Google, Mozilla, or Apple write their own docs on MDN, they always come with their own lens and biases.
 
