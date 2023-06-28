@@ -1,0 +1,11 @@
+<li>
+  {% if post.data.external %}
+  <a href="{{ post.data.external }}" class="thumbnail"><img src="{{ post.data.thumbnail }}" alt="{% if post.data.altText %}{{ post.data.altText }}{% else %}Article thumbnail for illustration only{% endif %}"></a>
+  <a href="{{ post.data.external }}" class="external">{{ post.data.title }}</a>
+  {% else %}
+  <a href="{{ post.url }}" class="thumbnail"><img src="{{ post.data.thumbnail }}" alt="{% if post.data.altText %}{{ post.data.altText }}{% else %}Article thumbnail for illustration only{% endif %}"></a>
+  <a href="{{ post.url }}">{{ post.data.title }}</a>
+  {% endif %}
+  <time datetime="{{ post.date | dateTime }}">{{ post.date | formattedDateTime }}</time>
+  <p>{{ post.data.excerpt }}</p>
+</li>

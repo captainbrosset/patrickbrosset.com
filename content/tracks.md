@@ -1,6 +1,6 @@
 ---
 layout: main-layout.njk
-subtitle: tracks
+title: Tracks
 ---
 ## My GPS tracks
 

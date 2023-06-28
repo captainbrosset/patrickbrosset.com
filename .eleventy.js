@@ -27,6 +27,30 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
+  eleventyConfig.addFilter("dateTime", function(date) {
+    date = new Date(date);
+    // Format as YYY-MM-DD
+    return date.toISOString().split("T")[0];
+  });
+  eleventyConfig.addFilter("formattedDateTime", function(date) {
+    date = new Date(date);
+    // Format as Month DDth, YYYY
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  });
+  eleventyConfig.addFilter("superSlug", function(value) {
+    return value.toLowerCase()
+                .replace(/\(/g, "")
+                .replace(/\)/g, "")
+                .replace(/#/g, "")
+                .replace(/:/g, "")
+                .replace(/!/g, "")
+                .replace(/'/g, "");
+  });
+
   return {
     templateFormats: [
       "md",

@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
 	--background: #fff;
-	--primary: #000;
-	--secondary: #0f4058;
+  --primary: #007284;
+  --secondary: #dc8804;
 	--text: #000;
 	--sub-text: #676767;
 	--code: #000000;
@@ -26,12 +26,12 @@
   :root:not([data-theme=light]) {
     color-scheme: dark;
     --background: #000;
-    --primary: #fff;
-    --secondary: #97d0ed;
-    --text: #fff;
-    --sub-text: #e0e0e0;
+    --primary: #00eeff;
+    --secondary: #ff00b7;
+    --text: #04ff6d;
+    --sub-text: #ffe300;
     --code: #191b2d;
-    --text-on-code: rgb(242, 156, 229);
+    --text-on-code: rgb(255, 254, 212);
     --separator: #3e3e3e;
   }
 }
@@ -67,8 +67,8 @@ html {
 body {
 	margin: 3rem auto;
 	width: 70%;
-	max-width: 800px;
-	font-family: monospace, system-ui, sans-serif;
+	max-width: 1000px;
+	font-family: system-ui, sans-serif;
 	font-size: 1.5rem;
 	line-height: 1.7;
 	color: var(--text);
@@ -92,6 +92,10 @@ h1 a, h2 a, h3 a, h4 a {
   font-weight: normal;
 }
 
+h2 {
+  margin-block-start: 0;
+}
+
 hr {
   background: var(--separator);
   border: 0;
@@ -102,9 +106,11 @@ hr {
 body > h1 {
   margin: 0;
   place-self: center;
+  line-height: 1;
 }
 
-body > h1 a {
+body > h1 a,
+body > h1 a:hover {
   text-decoration: none;
 }
 
@@ -142,13 +148,67 @@ a {
 }
 
 a:hover {
+  text-decoration-line: underline;
   color: var(--secondary);
+}
+
+a.thumbnail {
+  text-decoration: none;
+}
+
+@supports (color: color-mix(in srgb, red 10%, black 20%)) {
+  @property --offset {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+  @property --thickness {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+  a {
+    --dimmed-color: color-mix(in srgb, currentColor 30%, var(--background) 100%);
+    --offset: 0;
+    --thickness: .5rem;
+    text-decoration: underline;
+    text-decoration-color: var(--dimmed-color);
+    text-decoration-thickness: var(--thickness);
+    text-underline-offset: var(--offset);
+    transition: --offset .1s ease-in-out, --thickness .1s ease-in-out;
+  }
+  a:hover {
+    --offset: -1em;
+    --thickness: calc(1em + .5rem);
+    text-decoration-color: var(--dimmed-color);
+  }
+  a.thumbnail {
+    text-decoration: none;
+  }
 }
 
 a.external::after {
 	content: ' [External]';
 	font-size: 0.8rem;
 	color: var(--sub-text);
+}
+a.external[href*="css-tricks.com"]::after {
+  content: ' [CSS-Tricks]';
+}
+a.external[href*="smashingmagazine.com"]::after {
+  content: ' [Smashing Magazine]';
+}
+a.external[href*="blogs.windows.com/msedgedev"]::after {
+  content: ' [Microsoft Edge Blog]';
+}
+a.external[href*="alistapart.com"]::after {
+  content: ' [A List Apart]';
+}
+a.external[href*="web.dev"]::after {
+  content: ' [web.dev]';
+}
+a.external[href*="hacks.mozilla.org"]::after {
+  content: ' [Mozilla Hacks]';
 }
 
 main {
@@ -168,19 +228,15 @@ footer {
   border-radius: 3px;
 }
 
-footer a {
-  padding-left: 1rem;
-  margin-left: 1rem;
-  border-left: 1px solid var(--sub-text);
+footer > *:not(:last-child)::after {
+  content: " | ";
+  color: var(--sub-text);
 }
 
 /* Theme switcher */
 
 .theme-switcher {
   display: inline-flex;
-  padding-left: 1rem;
-  margin-left: 1rem;
-  border-left: 1px solid var(--sub-text);
 }
 
 .theme-switcher input {
@@ -215,9 +271,10 @@ main img.mini {
   display: block;
 }
 
-main img.thumbnail {
+main .thumbnail img {
   border: none;
   width: 100%;
+  height: 100%;
   aspect-ratio: 2;
   object-fit: cover;
 }
@@ -297,11 +354,7 @@ kbd {
   grid-row: 3;
 }
 
-.entries li > a:hover {
-  text-decoration: underline;
-}
-
-.entries li > img {
+.entries li > .thumbnail {
   grid-row: 1;
   width: 100%;
   height: 100%;

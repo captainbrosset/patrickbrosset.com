@@ -1,0 +1,14 @@
+---
+permalink: "articles/{{ date | date: '%Y-%m-%d' }}-{{ title | slug | superSlug }}/index.html"
+---
+{% include "header.njk" %}
+  <h2>{{ title }}</h2>
+  <p><time datetime="{{ date | dateTime }}">{{ date | formattedDateTime }}</time></p>
+  <p><img src="{{ thumbnail }}" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}"></p>
+  {% if external %}
+    {{ excerpt }}
+    <p><a href="{{ external }}" rel="external">Read the article at {{ external }}</a></p>
+  {% else %}
+    {{ content | safe }}
+  {% endif %}
+{% include "footer.njk" %}

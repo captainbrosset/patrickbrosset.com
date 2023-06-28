@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% if title %}{{ title }} - {% endif %}Patrick</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="RSS 2.0">
+    <link href="/assets/pixel-me-256.png" rel="apple-touch-icon" sizes="256x256">
+    <link href="/assets/pixel-me-32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="/assets/pixel-me-16.png" rel="icon" sizes="16x16" type="image/png">
+    <meta content="#ffffff" name="theme-color">
+    <meta name="view-transition" content="same-origin" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/common.css" />
+    {% if hasCode %}
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    {% endif %}
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6666679441576159" crossorigin="anonymous"></script>
+    
+    <meta property="og:title" content="{% if title %}{{ title }} - {% endif %}Patrick">
+    <meta property="og:url" content="https://patrickbrosset.com{{ page.url }}">
+    <meta property="og:image" content="https://patrickbrosset.com/assets/pixel-me-512.png">
+    <meta property="og:description" content="{% if title %}A blog post by Patrick Brosset: {{ title }}{% else %}Patrick Brosset's personal website{% endif %}">
+    <meta name="twitter:site" content="@patrickbrosset">
+    <meta property="og:site_name" content="Patrick Brosset">
+    <meta name="twitter:card" content="summary">
+
+    <script src="/assets/theme-switcher.js"></script>
+  </head>
+  <body {% if not title %} class="home"{% endif %}>
+    <h1><a href="/">Patrick</a></h1>
+    <nav class="site-nav">
+      <ul>
+        <li><a href="/articles">articles</a></li>
+        <li><a href="/talks">talks</a></li>
+        <li><a href="/lab">lab</a></li>
+        <li><a href="/resume">resume</a></li>
+        <li><a href="https://twitter.com/patrickbrosset">twitter</a></li>
+        <li><a rel="me" href="https://mas.to/@patrickbrosset">mastodon</a></li>
+        <li><a href="https://github.com/captainbrosset/">github</a></li>
+        <li><a href="https://www.youtube.com/c/PatrickBrosset">youtube</a></li>
+      </ul>
+    </nav>
+    <main>
