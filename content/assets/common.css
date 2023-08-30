@@ -264,6 +264,10 @@ main img {
   border-radius: 3px;
 }
 
+main .no-border img {
+  border: 0;
+}
+
 main img.mini {
   max-width: 200px;
   margin: 0 auto;
