@@ -3,7 +3,7 @@ layout: article.njk
 title: Please take full window screenshots in product documentation
 tags: article
 date: 2023-08-30
-excerpt: "Why full window screenshots are way better than cropped ones"
+excerpt: "Why full window screenshots are way better than cropped ones, and how to take good screenshots to communicate effectively about your app"
 thumbnail: "/assets/full-window.png"
 altText: "A browser window screenshot"
 ---
@@ -50,7 +50,7 @@ If your screenshot is supposed to be seen by other people, it's best to remove a
 * Switching back to your OS's default theme, if that theme impacts the app.
 * Switching back to the app's default theme, if the app also supports its own themes.
 * Disabling all plugins or extensions which may impact the app (e.g. browser extensions which add icons into the toolbar).
-* Turn off any app setting you might have changed from the default. Many app expose user settings to customize their toolbar for example.
+* Turn off any app setting you might have changed from the default. Many apps expose user settings to customize their toolbar for example.
 
 Generally, you want to make the app look as close to its default state as possible, and as uncluttered as possible.
 
