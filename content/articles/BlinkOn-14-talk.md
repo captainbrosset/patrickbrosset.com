@@ -17,5 +17,3 @@ This week, for [BlinkOn 14](https://www.chromium.org/events/blinkon-14), I gave 
 Here's the talk, hope you like it!
 
 https://www.youtube.com/watch?v=D5x1Fa-Atew
-
-{% include in-article-ad.njk %}

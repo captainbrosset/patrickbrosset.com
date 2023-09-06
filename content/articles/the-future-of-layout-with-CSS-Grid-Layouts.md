@@ -21,8 +21,6 @@ In essence, a grid is a set of invisible vertical and horizontal lines that the 
 The goal of a grid is to serve as a base for placing the various pieces of content and to make sure these pieces are aligned and spaced out evenly.
 A grid, even if not visible, provides the viewer with a way to navigate content visually.
 
-{% include in-article-ad.njk %}
-
 ### So what has CSS got to do with it?
 
 CSS is getting a set of entirely new properties that, when used together, allow you to define grids for your web content to go onto.

@@ -96,8 +96,6 @@ Let’s recap on gradient angles:
 * The default value for an angle, when missing, is `to bottom`, which is the same than 180 degrees.
 * Corner keywords depend on the gradient box dimensions.
 
-{% include in-article-ad.njk %}
-
 ### The gradient line length
 
 Before we can take a look at how color stops are distributed along the gradient line we need to explain one thing.

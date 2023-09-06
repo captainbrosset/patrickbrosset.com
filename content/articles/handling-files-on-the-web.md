@@ -41,8 +41,6 @@ Because this article is long, here's a table of content to jump to specific sect
   * [Sharing with other apps](#sharing-with-other-apps)
   * [Accepting shared files](#accepting-shared-files)
 
-{% include in-article-ad.njk %}
-
 <div id="relevant-interfaces"></div>
 
 ### Relevant interfaces
@@ -277,8 +275,6 @@ The download attribute is [supported across the board](https://caniuse.com/downl
 [Link to the source code](https://github.com/captainbrosset/file-handling-demo/blob/main/src/client/export/anchor-download.ts).
 
 ![Screenshot of the demo app showing the download button and the browser's download popup](/assets/file-handling/download-file-demo.png)
-
-{% include in-article-ad.njk %}
 
 <div id="full-file-system-access"></div>
 
@@ -583,5 +579,3 @@ Links to the source code: [manifest](https://github.com/captainbrosset/file-hand
 <hr>
 
 And, that’s it! We’ve reviewed all of the current ways that web sites and apps can work with files today. There are many so it can be a bit confusing. Hopefully this article was useful in understanding the differences and which of these ways might be best suited for you.
-
-{% include in-article-ad.njk %}

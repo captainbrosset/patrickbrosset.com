@@ -21,8 +21,6 @@ The context here is essentially the W3C specification called [CSS Box Alignment]
 I’ve been reading this spec over the past few days, and I thought I’d write about it.
 (On that note, reading specs and trying to explain them to people is a really good exercise you can try if you want to make sense of CSS and really understand what's going on rather than trying stuff out until they work).
 
-{% include in-article-ad.njk %}
-
 ### Justify or align?
 
 You probably have come across these names if you have used Flexbox before. Indeed, they are the first part of CSS property names like `justify-content` and `align-items`.

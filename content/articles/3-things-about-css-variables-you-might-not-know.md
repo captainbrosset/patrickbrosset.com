@@ -16,8 +16,6 @@ In this article, I'll talk about 3 things that I think a lot of people might now
 * how fallback values work,
 * and how browser DevTools can help you.
 
-{% include in-article-ad.njk %}
-
 ### Undefined variables
 
 There are several reasons why you may be trying to use an undefined variable in a `var()` function. We'll look at a few in a minute. But before we do that, it's important to know that when this happens, CSS falls back on its feet.\

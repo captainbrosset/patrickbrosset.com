@@ -32,8 +32,6 @@ This source code contains a line feed after the DOCTYPE and a bunch of space cha
 
 Unlike a word processing application, the browser seems to completely ignore white spaces (most of the time at least).
 
-{% include in-article-ad.njk %}
-
 ### How does CSS process white spaces?
 
 If most white space characters are ignored, not all of them are. In the previous example the space between Hello and World! still exists when the page is rendered in a browser. So there must be something in the browser engine that decides which white space characters are useful and which aren’t.

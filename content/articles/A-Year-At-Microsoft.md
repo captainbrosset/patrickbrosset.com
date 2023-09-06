@@ -17,8 +17,6 @@ _(spoiler alert: things are great!)_
 
 At the end of 2019, I had been at Mozilla for 6 years and I realized I was ready for my next job. I was looking to switch teams inside Mozilla, but also looking around for other jobs. So, in January of 2020, when [the first wave of layoffs](https://blog.mozilla.org/blog/2020/01/15/readying-for-the-future-at-mozilla/) was announced, it made me double down on my effort to switch.
 
-{% include in-article-ad.njk %}
-
 I remember our All Hands meeting in Berlin in January 2020 as a very sad one. It took place a couple of weeks after we all found out about the layoffs.\
 Of course it was, as always, very nice to see everybody face to face and spend some quality team time, but it was also sad to have to say goodbye to colleagues and friends, and several of us (including myself) didn't yet know whether they would be part of the layoffs. Indeed, France has a very complicated and slow process in this case, and us Mozilla France employees didn't know if our roles were going to be eliminated or not at that point, and not for another month.
 

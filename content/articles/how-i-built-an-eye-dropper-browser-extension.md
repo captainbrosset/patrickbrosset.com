@@ -136,8 +136,6 @@ I used an `async` function here again to make dealing with this asynchronous cod
 
 The second part is using the Clipboard API. In my case, I need to write to the clipboard, so I used the `navigator.clipboard.writeText` function ([documented here](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText)), but there are [other methods](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard#methods) to read too.
 
-{% include in-article-ad.njk %}
-
-<hr>
+---
 
 In terms of code, that's about it. The extension does only one thing, and it relies on APIs to do the heavy lifting, so its code is pretty short. I hope the extension helps you! Let me know on [the GitHub repo](https://github.com/captainbrosset/eye-dropper-ext) if it does, or if you have bugs.

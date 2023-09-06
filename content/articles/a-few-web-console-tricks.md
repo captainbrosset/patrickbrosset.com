@@ -18,8 +18,6 @@ Note that there are many resources online already about tips and tricks with dev
 * rather than being a complete and overwhelming reference to all the features, it's a small subset of the things some people agreed were the most useful to them, and
 * it's not just a list of the built-in commands, but also some code snippets that you may find useful.
 
-{% include in-article-ad.njk %}
-
 ### $ and friends
 
 `$` and its friends are probably the most used tricks in the console. It pays off to know some of them as they can really help you get more out the tools.

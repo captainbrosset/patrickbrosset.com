@@ -13,8 +13,6 @@ If so, these tricks are for you!
 
 Maybe you’re not going to become a [10x engineer](https://twitter.com/mike_conley/status/1149845391153737728) like I promised. I do promise, however, that you’ll get more confident when authoring and debugging flexbox layouts in DevTools.
 
-{% include in-article-ad.njk %}
-
 ### Authoring vs. Debugging
 
 I believe DevTools sits in a unique position between our authoring and debugging workflows.
