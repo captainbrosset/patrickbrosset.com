@@ -27,6 +27,7 @@
     <email>{{ metadata.author.email }}</email>
   </author>
   {%- for post in collections.article %}
+  {% if not post.data.draft %}
   {% set absolutePostUrl %}{{ post.url | url | absoluteUrl(metadata.url) }}{% endset %}
   <entry>
     <title>{{ post.data.title }}</title>
@@ -41,5 +42,6 @@
       {% endif %}
     </content>
   </entry>
+  {% endif %}
   {%- endfor %}
 </feed>
