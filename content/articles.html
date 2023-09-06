@@ -4,6 +4,8 @@ title: Articles
 ---
 <ul class="entries">
   {% for post in collections.article | reverse %}
-    {% include "one-article-in-loop.njk" %}
+    {% if not post.data.draft %}
+      {% include "one-article-in-loop.njk" %}
+    {% endif %}
   {% endfor %}
 </ul>

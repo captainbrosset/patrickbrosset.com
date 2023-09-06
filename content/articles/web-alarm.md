@@ -6,6 +6,7 @@ date: 2023-09-05
 excerpt: ""
 thumbnail: ""
 altText: ""
+draft: true
 ---
 
 background processing.

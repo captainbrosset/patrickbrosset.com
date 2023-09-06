@@ -10,9 +10,13 @@ I like <a href="lab">creating</a> web things and sometimes <a href="articles">wr
 <h3>Latest articles</h3>
 
 <ul class="entries">
+  {% set count = 0 %}
   {% for post in collections.article | reverse %}
-    {% if loop.index0 < 4 %}
-      {% include "one-article-in-loop.njk" %}
+    {% if count < 4 %}
+      {% if not post.data.draft %}
+        {% include "one-article-in-loop.njk" %}
+        {% set count = count + 1 %}
+      {% endif %}
     {% endif %}
   {% endfor %}
 </ul>
