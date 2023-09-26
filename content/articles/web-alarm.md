@@ -23,3 +23,6 @@ service worker? can you keep it alive? can you wake it up? how often?
 What about web workers? Do they stay alive when app in background? Or when the app is closeD?
 
 https://bugs.chromium.org/p/chromium/issues/detail?id=889077
+
+
+service worker waitUntil timeout after 5 minutes on chromium desktop apparently. Test in other places.

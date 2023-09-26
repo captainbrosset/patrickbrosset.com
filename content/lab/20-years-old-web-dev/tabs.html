@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<style>
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 1rem;
+        margin: 1rem;
+        background-color: #595252;
+        color: white;
+    }
+
+    h1,
+    h2 {
+        margin: 1rem 0;
+    }
+
+    .demo {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .demo .demo-code {
+        grid-row: 2;
+        display: block;
+        white-space: pre;
+        background: #eee;
+        max-height: 30vh;
+        overflow: auto;
+    }
+</style>
+<h1>Tabs</h1>
+<h2>20 years ago</h2>
+<div class="demo">
+    <style class="demo-code">
+        /* Cons:
+        - Extreme zoom shows pixels
+        - Doesn't support theming
+        - Need everything to be pixel-sizes
+        - Requires 3 elements instead of 1
+        - Any layout change requires re-creating images
+        - Custom user fonts likely to break the tab */
+
+        .tab-old {
+            /* Pixel-perfect layout. */
+            height: 32px;
+            /* Using an image for the left side. */
+            /* Non-transparent background of the tab, blends in with the background of the page. */
+            /* Means the page background can't be changed. */
+            background: url(menu_tab_left.gif) no-repeat top left;
+            /* Width of the image */
+            padding-left: 14px;
+        }
+
+        .tab-old a {
+            display: block;
+            /* Make the width of the tab adapt to the text. */
+            float: left;
+            /* Make the link the same height as the container. */
+            height: 32px;
+            /* Using an image for the right side. */
+            background: url(menu_tab_right.gif) no-repeat top right;
+            /* Width of the image */
+            padding-right: 14px;
+            text-decoration: none;
+            color: white;
+            /* Pixel size font to make sure this works with the image size. */
+            /* At the time, browser zoom didn't zoom everything, just the font-size. */
+            font-size: 12px;
+        }
+
+        .tab-old a b {
+            display: block;
+            /* Make the center element as high as its container with height+padding */
+            /* Using the padding to push the text down. */
+            height: 21px;
+            padding-top: 11px;
+            /* Using a repeating image for the tab background. */
+            background: url(menu_tab_middle.gif) repeat-x top left;
+            cursor: pointer;
+        }
+    </style>
+    <div class="tab-old">
+        <a href="#">
+            <b>An old tab</b>
+        </a>
+    </div>
+</div>
+<h2>Now</h2>
+<div class="demo">
+    <style class="demo-code">
+        .tab-new {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            padding: .5rem;
+            background-color: #c61111;
+            border-radius: .25rem .25rem 0 0;
+            width: max-content;
+        }
+    </style>
+    <a class="tab-new" href="#">A new tab</a>
+</div>
