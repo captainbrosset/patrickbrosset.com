@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>kaleidoscope</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+    }
+
+    body {
+      display: grid;
+      place-content: center;
+    }
+
+    body.dropping::before {
+      content: "DROP IMAGE HERE";
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+      color: white;
+      font-weight: bold;
+      font-family: system-ui;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: -.5vw .5vw 1vw #000d;
+      font-size: 5vw;
+      pointer-events: none;
+    }
+
+    #kaleidoscope {
+      --image: url("https://www.thephotoargus.com/wp-content/uploads/2015/05/Beautiful-Flowers04.jpg");
+      --size: 500px;
+      --angle: 30deg;
+      --position: 0px -100px;
+
+      width: 80vmin;
+      height: 80vmin;
+      overflow: hidden;
+      border-radius: 50%;
+
+      position: relative;
+
+      pointer-events: none;
+    }
+
+    #kaleidoscope .blade {
+      background-image: var(--image);
+      background-size: var(--size);
+      background-repeat: no-repeat;
+      background-position: var(--position);
+      width: 100%;
+      height: 100%;
+
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      clip-path: polygon(0 0, 100% 0, 100% calc(tan(var(--angle)) * 100%), 0 0);
+
+      transform-origin: 0 0;
+    }
+
+    #kaleidoscope .blade:nth-child(3),
+    #kaleidoscope .blade:nth-child(4) {
+      rotate: calc(2 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(5),
+    #kaleidoscope .blade:nth-child(6) {
+      rotate: calc(4 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(7),
+    #kaleidoscope .blade:nth-child(8) {
+      rotate: calc(6 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(9),
+    #kaleidoscope .blade:nth-child(10) {
+      rotate: calc(8 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(11),
+    #kaleidoscope .blade:nth-child(12) {
+      rotate: calc(10 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(13),
+    #kaleidoscope .blade:nth-child(14) {
+      rotate: calc(12 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(15),
+    #kaleidoscope .blade:nth-child(16) {
+      rotate: calc(14 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(17),
+    #kaleidoscope .blade:nth-child(18) {
+      rotate: calc(16 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(19),
+    #kaleidoscope .blade:nth-child(20) {
+      rotate: calc(18 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(21),
+    #kaleidoscope .blade:nth-child(22) {
+      rotate: calc(20 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(23),
+    #kaleidoscope .blade:nth-child(24) {
+      rotate: calc(22 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(25),
+    #kaleidoscope .blade:nth-child(26) {
+      rotate: calc(24 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(27),
+    #kaleidoscope .blade:nth-child(28) {
+      rotate: calc(26 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(29),
+    #kaleidoscope .blade:nth-child(30) {
+      rotate: calc(28 * var(--angle));
+    }
+
+    #kaleidoscope .blade:nth-child(2n) {
+      scale: 1 -1;
+    }
+
+    #controls {
+      font-size: 0.8rem;
+      font-family: system-ui;
+      position: absolute;
+      opacity: 0.3;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      background: black;
+      border: 2px solid #666;
+      color: white;
+      border-radius: 10px;
+      transition: opacity 0.3s;
+    }
+
+    #controls:hover {
+      opacity: .9;
+    }
+
+    #controls label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #controls input {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="kaleidoscope">
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+  </div>
+
+  <div id="controls">
+    <label>Image size
+      <input type="range" min="10" max="500" value="300" oninput="setSize(this.value + 'px')">
+    </label>
+    <label>Image position
+      <input type="range" min="0" max="500" value="0" oninput="setPosition(this.value)">
+    </label>
+    <label>Number of blades
+      <input type="range" min="8" max="30" value="12" step="2" oninput="setBladeNb(this.value)">
+    </label>
+  </div>
+  <script>
+    function setBladeNb(nb) {
+      const angle = 360 / nb;
+      document.getElementById("kaleidoscope").style.setProperty("--angle", angle + "deg");
+
+      // recreate the right nb of blade divs.
+      const kaleidoscope = document.getElementById("kaleidoscope");
+      while (kaleidoscope.firstChild) {
+        kaleidoscope.removeChild(kaleidoscope.firstChild);
+      }
+      for (let i = 0; i < nb; i++) {
+        const blade = document.createElement("div");
+        blade.classList.add("blade");
+        kaleidoscope.appendChild(blade);
+      }
+    }
+
+    function setPosition(position) {
+      document.getElementById("kaleidoscope").style.setProperty("--position", `0px -${position}px`);
+    }
+
+    function setSize(size) {
+      document.getElementById("kaleidoscope").style.setProperty("--size", size);
+    }
+
+    // On drop of an image file, set the image as the background image of the kaleidoscope
+    document.addEventListener("drop", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      var file = event.dataTransfer.files[0];
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        document.getElementById("kaleidoscope").style.setProperty("--image", "url(" + event.target.result + ")");
+      };
+      reader.readAsDataURL(file);
+
+      document.body.classList.toggle("dropping", false);
+    });
+
+    document.addEventListener("dragover", function (event) {
+      event.preventDefault();
+      document.body.classList.toggle("dropping", true);
+    });
+
+    document.addEventListener("dragleave", function (event) {
+      event.preventDefault();
+      document.body.classList.toggle("dropping", false);
+    });
+  </script>
+</body>
+
+</html>
