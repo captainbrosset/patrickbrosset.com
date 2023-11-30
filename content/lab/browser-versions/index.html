@@ -38,8 +38,15 @@
 
     .browser-types {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
       gap: 1rem;
+    }
+
+    .browser-types:empty::before {
+      content: "Loading data, please wait...";
+      display: block;
+      text-align: center;
+      padding: 1rem;
     }
 
     .browser-types>li {
@@ -54,7 +61,7 @@
       margin-block-end: 1rem;
       background-repeat: no-repeat;
       background-position: 0 100%;
-      background-image: url(separator.png);
+      background-image: url(/assets/browser-versions/separator.png);
       background-size: 100% .5rem;
     }
 
@@ -66,52 +73,52 @@
     .browser h3 {
       padding-inline-start: 2.5rem;
       background-repeat: no-repeat;
-      background-position: 0 50%;
-      background-size: contain;
+      background-position: 0 0;
+      background-size: 1.4em;
     }
 
     .browser.chrome h3,
     .browser.chrome_android h3 {
-      background-image: url(./chrome.png);
+      background-image: url(/assets/browser-versions/chrome.png);
     }
 
     .browser.firefox h3,
     .browser.firefox_android h3 {
-      background-image: url(./firefox.png);
+      background-image: url(/assets/browser-versions/firefox.png);
     }
 
     .browser.edge h3 {
-      background-image: url(./edge.png);
+      background-image: url(/assets/browser-versions/edge.png);
     }
 
     .browser.opera h3,
     .browser.opera_android h3 {
-      background-image: url(./opera.png);
+      background-image: url(/assets/browser-versions/opera.png);
     }
 
     .browser.safari h3,
     .browser.safari_ios h3 {
-      background-image: url(./safari.png);
+      background-image: url(/assets/browser-versions/safari.png);
     }
 
     .browser.deno h3 {
-      background-image: url(./deno.png);
+      background-image: url(/assets/browser-versions/deno.png);
     }
 
     .browser.nodejs h3 {
-      background-image: url(./node.png);
+      background-image: url(/assets/browser-versions/node.png);
     }
 
     .browser.oculus h3 {
-      background-image: url(./quest.png);
+      background-image: url(/assets/browser-versions/quest.png);
     }
 
     .browser.samsunginternet_android h3 {
-      background-image: url(./samsung.png);
+      background-image: url(/assets/browser-versions/samsung.png);
     }
 
     .browser.webview_android h3 {
-      background-image: url(./webview.png);
+      background-image: url(/assets/browser-versions/webview.png);
     }
 
     .release {
@@ -124,6 +131,10 @@
     .release.current {
       background: aliceblue;
       font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
     }
   </style>
 </head>
