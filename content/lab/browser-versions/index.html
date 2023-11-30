@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser versions</title>
+  <style>
+    body {
+      font-family: comic sans ms, sans-serif;
+      font-size: 1.1rem;
+      margin: 1rem;
+      background-color: aliceblue;
+    }
+
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      text-transform: capitalize;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    main {
+      margin: 1rem 0;
+    }
+
+    .browser-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+      gap: 1rem;
+    }
+
+    .browser-types>li {
+      padding: 1rem;
+      border-radius: 1rem;
+      background: white;
+    }
+
+    h2 {
+      text-align: center;
+      padding-block-end: 1rem;
+      margin-block-end: 1rem;
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-image: url(separator.png);
+      background-size: 100% .5rem;
+    }
+
+    ul.browsers {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .browser h3 {
+      padding-inline-start: 2.5rem;
+      background-repeat: no-repeat;
+      background-position: 0 50%;
+      background-size: contain;
+    }
+
+    .browser.chrome h3,
+    .browser.chrome_android h3 {
+      background-image: url(chrome.png);
+    }
+
+    .browser.firefox h3,
+    .browser.firefox_android h3 {
+      background-image: url(firefox.png);
+    }
+
+    .browser.edge h3 {
+      background-image: url(edge.png);
+    }
+
+    .browser.opera h3,
+    .browser.opera_android h3 {
+      background-image: url(opera.png);
+    }
+
+    .browser.safari h3,
+    .browser.safari_ios h3 {
+      background-image: url(safari.png);
+    }
+
+    .browser.deno h3 {
+      background-image: url(deno.png);
+    }
+
+    .browser.nodejs h3 {
+      background-image: url(node.png);
+    }
+
+    .browser.oculus h3 {
+      background-image: url(quest.png);
+    }
+
+    .browser.samsunginternet_android h3 {
+      background-image: url(samsung.png);
+    }
+
+    .browser.webview_android h3 {
+      background-image: url(webview.png);
+    }
+
+    .release {
+      padding: .5rem;
+      background: #f9f9f9;
+      margin: 1rem 0;
+      border-radius: 1rem;
+    }
+
+    .release.current {
+      background: aliceblue;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Browser versions</h1>
+  </header>
+  <main>
+    <ul class="browser-types"></ul>
+  </main>
+  <footer>
+    <p>Created by <a href="https://patrickbrosset.com">Patrick Brosset</a>.</p>
+    <p>Browser data provided by the <a href="https://github.com/mdn/browser-compat-data">MDN browser-compat-data
+        project</a>.</p>
+  </footer>
+
+  <script>
+    const browserTypesEl = document.querySelector(".browser-types");
+
+    const DATA_FILES = [
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/chrome.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/firefox.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/edge.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/opera.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/safari.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/chrome_android.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/firefox_android.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/opera_android.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/safari_ios.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/samsunginternet_android.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/deno.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/nodejs.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/oculus.json",
+      "https://raw.githubusercontent.com/mdn/browser-compat-data/main/browsers/webview_android.json"
+    ];
+
+    async function fetchOne(url) {
+      const response = await fetch(url);
+      return await response.json();
+    }
+
+    async function fetchAll() {
+      const results = await Promise.all(DATA_FILES.map(fetchOne));
+      const data = {};
+
+      for (const result of results) {
+        const key = Object.keys(result.browsers)[0];
+        data[key] = result.browsers[key];
+      }
+
+      return data;
+    }
+
+    function getBrowserType(type) {
+      let typeEl = browserTypesEl.querySelector(`.${type}`);
+
+      if (!typeEl) {
+        typeEl = document.createElement("li");
+        typeEl.classList.add(type);
+        browserTypesEl.append(typeEl);
+
+        const titleEl = document.createElement("h2");
+        titleEl.textContent = type;
+        typeEl.append(titleEl);
+
+        const browsersEl = document.createElement("ul");
+        browsersEl.classList.add("browsers");
+        typeEl.append(browsersEl);
+      }
+
+      return typeEl;
+    }
+
+    function getRelevantVersions(browser) {
+      const versions = [];
+
+      for (const version in browser.releases) {
+        const release = browser.releases[version];
+
+        if (release.status === "current" || release.status === "beta" || release.status === "nightly") {
+          versions.push({ version, release });
+        }
+      }
+
+      return versions;
+    }
+
+    function getBrowserEntry(id, browser) {
+      const browserEl = document.createElement("li");
+      browserEl.classList.add("browser");
+      browserEl.classList.add(id);
+
+      const nameEl = document.createElement("h3");
+      nameEl.textContent = browser.name;
+      browserEl.append(nameEl);
+
+      const versions = getRelevantVersions(browser);
+
+      for (const { version, release } of versions) {
+        const versionEl = document.createElement("div");
+        versionEl.classList.add("release");
+        versionEl.classList.add(release.status);
+
+        if (release.status === "current") {
+          versionEl.innerHTML = `<span class="version">${version}</span> (released on ${release.release_date})`;
+        } else {
+          versionEl.innerHTML = `<span class="version">${version}</span> (${release.status}, to be released on ${release.release_date})`;
+        }
+
+        browserEl.append(versionEl);
+      }
+
+      return browserEl;
+    }
+
+    function renderData(data) {
+      for (const browser in data) {
+        const parentEl = getBrowserType(data[browser].type);
+        const browserEl = getBrowserEntry(browser, data[browser]);
+
+        parentEl.querySelector(".browsers").append(browserEl);
+      }
+    }
+
+    fetchAll().then(data => renderData(data));
+  </script>
+</body>
+
+</html>
