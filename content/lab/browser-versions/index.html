@@ -240,10 +240,12 @@
         versionEl.classList.add("release");
         versionEl.classList.add(release.status);
 
+        const date = release.release_date || "<em>unknown date</em>";
+
         if (release.status === "current") {
-          versionEl.innerHTML = `<span class="version">${version}</span> (released on ${release.release_date})`;
+          versionEl.innerHTML = `<span class="version">${version}</span> (released on ${date})`;
         } else {
-          versionEl.innerHTML = `<span class="version">${version}</span> (${release.status}, to be released on ${release.release_date})`;
+          versionEl.innerHTML = `<span class="version">${version}</span> (${release.status}, to be released on ${date})`;
         }
 
         browserEl.append(versionEl);
