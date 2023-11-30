@@ -12,6 +12,7 @@
       font-size: 1.1rem;
       margin: 1rem;
       background-color: aliceblue;
+      text-align: center;
     }
 
     ul,
@@ -28,10 +29,6 @@
       text-transform: capitalize;
     }
 
-    h1 {
-      text-align: center;
-    }
-
     main {
       margin: 1rem 0;
     }
@@ -45,7 +42,6 @@
     .browser-types:empty::before {
       content: "Loading data, please wait...";
       display: block;
-      text-align: center;
       padding: 1rem;
     }
 
@@ -53,12 +49,12 @@
       padding: 1rem;
       border-radius: 1rem;
       background: white;
+      align-self: start;
     }
 
     h2 {
-      text-align: center;
       padding-block-end: 1rem;
-      margin-block-end: 1rem;
+      margin-block-end: 2rem;
       background-repeat: no-repeat;
       background-position: 0 100%;
       background-image: url(/assets/browser-versions/separator.png);
@@ -67,7 +63,7 @@
 
     ul.browsers {
       display: grid;
-      gap: 1rem;
+      gap: 2rem;
     }
 
     .browser h3 {
@@ -123,14 +119,19 @@
 
     .release {
       padding: .5rem;
-      background: #f9f9f9;
       margin: 1rem 0;
       border-radius: 1rem;
+      font-size: .9rem;
     }
 
     .release.current {
       background: aliceblue;
       font-weight: bold;
+    }
+
+    .version {
+      display: block;
+      font-size: 1.2rem;
     }
 
     footer {
