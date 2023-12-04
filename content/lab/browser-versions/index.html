@@ -241,11 +241,14 @@
         versionEl.classList.add(release.status);
 
         const date = release.release_date || "<em>unknown date</em>";
+        const note = release.release_notes;
+
+        const versionHTML = note ? `<a href="${note}">${version}</a>` : version;
 
         if (release.status === "current") {
-          versionEl.innerHTML = `<span class="version">${version}</span> (released on ${date})`;
+          versionEl.innerHTML = `<span class="version">${versionHTML}</span> (released on ${date})`;
         } else {
-          versionEl.innerHTML = `<span class="version">${version}</span> (${release.status}, to be released on ${date})`;
+          versionEl.innerHTML = `<span class="version">${versionHTML}</span> (${release.status}, to be released on ${date})`;
         }
 
         browserEl.append(versionEl);
