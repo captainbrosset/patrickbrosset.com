@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    display: grid;
+    place-items: center;
+  }
+
+  .puzzle {
+    grid-area: 1 / 1;
+    display: grid;
+    width: 90vmin;
+    box-shadow: 0 0 1vmin 0 #0003;
+    background: #bdbdbd;
+  }
+
+  .piece {
+    position: relative;
+    aspect-ratio: 1;
+    --mask-url: url(#mask--1-1-11);
+  }
+
+  .piece::before {
+    content: '';
+    position: absolute;
+    inset: -15%;
+    z-index: 1;
+    background-image: var(--image-src);
+    background-position: var(--image-position);
+    background-repeat: no-repeat;
+    background-size: calc(90vmin + 12%);
+    mask: var(--mask-url);
+  }
+
+  svg {
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  .target {
+    box-shadow: 0 0 1px 0px #0004;
+  }
+</style>
+
+<div class="puzzle"></div>
+
+<script>
+  const puzzleEl = document.querySelector('.puzzle');
+
+  // Create a SVG element that will hold all the possible piece masks.
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const defsEl = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  svg.append(defsEl);
+
+  // Loop over all possible combinations and create a mask for each.
+  for (const top of [-1, 0, 1]) {
+    for (const right of [-1, 0, 1]) {
+      for (const bottom of [-1, 0, 1]) {
+        for (const left of [-1, 0, 1]) {
+          // Create the mask element for this piece shape.
+          const maskEl = document.createElementNS('http://www.w3.org/2000/svg', 'mask');
+          maskEl.setAttribute('id', `mask-${top}${right}${bottom}${left}`);
+          maskEl.setAttribute('maskContentUnits', 'objectBoundingBox');
+
+          // First create an inset square for the piece body.
+          // This will be white so the image shows there.
+          const pieceBody = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          pieceBody.setAttribute('x', '0.125');
+          pieceBody.setAttribute('y', '0.125');
+          pieceBody.setAttribute('width', '0.75');
+          pieceBody.setAttribute('height', '0.75');
+          pieceBody.setAttribute('fill', 'white');
+          maskEl.append(pieceBody);
+
+          // Then, for each side, if there's a bump or a hole, create a circle
+          // in the moddel of the side, and either fill it with black or with white.
+          if (top !== 0) {
+            const topCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            topCircle.setAttribute('cx', '0.5');
+            topCircle.setAttribute('cy', '0.125');
+            topCircle.setAttribute('r', '0.125');
+            topCircle.setAttribute('fill', top === 1 ? 'white' : 'black');
+            maskEl.append(topCircle);
+          }
+
+          if (right !== 0) {
+            const rightCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            rightCircle.setAttribute('cx', '0.875');
+            rightCircle.setAttribute('cy', '0.5');
+            rightCircle.setAttribute('r', '0.125');
+            rightCircle.setAttribute('fill', right === 1 ? 'white' : 'black');
+            maskEl.append(rightCircle);
+          }
+
+          if (bottom !== 0) {
+            const bottomCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            bottomCircle.setAttribute('cx', '0.5');
+            bottomCircle.setAttribute('cy', '0.875');
+            bottomCircle.setAttribute('r', '0.125');
+            bottomCircle.setAttribute('fill', bottom === 1 ? 'white' : 'black');
+            maskEl.append(bottomCircle);
+          }
+
+          if (left !== 0) {
+            const leftCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            leftCircle.setAttribute('cx', '0.125');
+            leftCircle.setAttribute('cy', '0.5');
+            leftCircle.setAttribute('r', '0.125');
+            leftCircle.setAttribute('fill', left === 1 ? 'white' : 'black');
+            maskEl.append(leftCircle);
+          }
+
+          defsEl.append(maskEl);
+        }
+      }
+    }
+  }
+
+  document.body.append(svg);
+
+  function createPieces(W, H) {
+    puzzleEl.style.gridTemplateRows = `repeat(${H}, 1fr)`;
+    puzzleEl.style.gridTemplateColumns = `repeat(${W}, 1fr)`;
+    puzzleEl.style.aspectRatio = `${W}/${H}`;
+
+    const pieces = [];
+
+    for (let rowIndex = 0; rowIndex < H; rowIndex++) {
+      for (let colIndex = 0; colIndex < W; colIndex++) {
+        // Random bump on all sides.
+        let topSide = Math.random() < 0.5 ? 1 : -1;
+        let rightSide = Math.random() < 0.5 ? 1 : -1;
+        let bottomSide = Math.random() < 0.5 ? 1 : -1;
+        let leftSide = Math.random() < 0.5 ? 1 : -1;
+
+        // Check if this piece has a neighbor on the top.
+        if (rowIndex > 0) {
+          const topPiece = pieces[(rowIndex - 1) * W + colIndex];
+          topSide = -topPiece.bottomSide;
+        }
+
+        // Check if this piece has a neighbor on the left.
+        if (colIndex > 0) {
+          const leftPiece = pieces[rowIndex * W + colIndex - 1];
+          leftSide = -leftPiece.rightSide;
+        }
+
+        // Exceptions for side pieces.
+
+        // Top row.
+        if (rowIndex === 0) {
+          topSide = 0;
+        }
+
+        // Bottom row.
+        if (rowIndex === H - 1) {
+          bottomSide = 0;
+        }
+
+        // Left column.
+        if (colIndex === 0) {
+          leftSide = 0;
+        }
+
+        // Right column.
+        if (colIndex === W - 1) {
+          rightSide = 0;
+        }
+
+        // Create a target for the piece to go onto.
+        const target = document.createElement('div');
+        target.id = `target-${rowIndex}-${colIndex}`;
+        target.classList.add('target');
+        target.style.gridRow = `${rowIndex + 1} / span 1`;
+        target.style.gridColumn = `${colIndex + 1} / span 1`;
+        puzzleEl.appendChild(target);
+
+        // Create the piece DOM.
+        const piece = document.createElement('div');
+        piece.id = `piece-${rowIndex}-${colIndex}`;
+        piece.classList.add('piece');
+        const xPos = colIndex * 90 / W;
+        const yPos = rowIndex * 90 / W;
+        piece.style.gridRow = `${rowIndex + 1} / span 1`;
+        piece.style.gridColumn = `${colIndex + 1} / span 1`;
+        piece.style.width = `${90 / W}vmin`;
+        piece.style.setProperty('--image-position', `-${xPos}vmin -${yPos}vmin`);
+        piece.style.setProperty('--mask-url', `url(#mask-${topSide}${rightSide}${bottomSide}${leftSide})`);
+        puzzleEl.appendChild(piece);
+
+        pieces.push({
+          piece,
+          topSide,
+          rightSide,
+          bottomSide,
+          leftSide,
+        });
+      }
+    }
+
+    return pieces;
+  }
+
+  function scatterPieces(pieces) {
+    for (const piece of pieces) {
+      const x = Math.random() * 90;
+      const y = Math.random() * 10;
+      
+      piece.piece.style.position = 'absolute';
+      piece.piece.style.left = `${x}vmin`;
+      piece.piece.style.top = `${y}vmin`;
+    }
+  }
+
+  function makePiecesMoveable(pieces) {
+    for (const piece of pieces) {
+      const el = piece.piece;
+
+      function drag(e) {
+        const x = e.clientX || e.touches[0].clientX;
+        const y = e.clientY || e.touches[0].clientY;
+
+        el.style.left = `${x - el.offsetWidth / 2}px`;
+        el.style.top = `${y - el.offsetHeight / 2}px`;
+      }
+
+      function startDrag(e) {
+        el.style.zIndex = 2;
+
+        if (e.type === 'mousedown') {
+          document.addEventListener('mousemove', drag);
+        } else {
+          document.addEventListener('touchmove', drag);
+        }
+      }
+
+      function endDrag(e) {
+        if (e.type === 'mouseup') {
+          document.removeEventListener('mousemove', drag);
+        } else {
+          document.removeEventListener('touchmove', drag);
+        }
+
+        el.style.pointerEvents = 'none';
+        let target = null;
+        try {
+          target = document.elementFromPoint(e.clientX || e.changedTouches[0].clientX, e.clientY || e.changedTouches[0].clientY);
+        } catch (e) {}
+        el.style.pointerEvents = 'revert';
+        
+        if (target && target.id === el.id.replace('piece', 'target')) {
+          el.style.position = 'relative';
+          el.style.left = 'unset';
+          el.style.top = 'unset';
+
+          el.removeEventListener('mousedown', startDrag);
+          el.removeEventListener('touchstart', startDrag);
+        } else {
+          el.style.zIndex = 'unset';
+        }
+      }
+
+      // Make the element draggable.
+      el.addEventListener('mousedown', startDrag);
+      el.addEventListener('touchstart', startDrag);
+
+      // Make the element snap to the target when dropped.
+      el.addEventListener('mouseup', endDrag);
+      el.addEventListener('touchend', endDrag);
+    }
+  }
+
+  async function loadImage(url) {
+    const image = new Image();
+
+    const onLoad = new Promise((resolve, reject) => {
+      image.onload = resolve;
+      image.onerror = reject;
+    });
+
+    image.src = url;
+    await onLoad;
+
+    return image;
+  }
+
+  async function reset(imageUrl, difficulty = 1) {
+    puzzleEl.innerHTML = '';
+
+    const imgEl = await loadImage(imageUrl);
+
+    puzzleEl.style.setProperty('--image-src', `url(${imageUrl})`);
+
+    const W = 10 * difficulty;
+    const imageRatio = imgEl.naturalWidth / imgEl.naturalHeight;
+    const H = Math.floor(W / imageRatio);
+
+    const pieces = createPieces(W, H);
+    scatterPieces(pieces);
+    makePiecesMoveable(pieces);
+  }
+
+  // The puzzle image.
+  // reset('https://patrickbrosset.com/photos/savigny-le-sec-2017-2021/arbres-2-1200.jpg', 1);
+  // reset('https://patrickbrosset.com/assets/owd.png', 2);
+  reset('https://patrickbrosset.com/photos/savigny-le-sec-2017-2021/champs-6.jpg');
+</script>
