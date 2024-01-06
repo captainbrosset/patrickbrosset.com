@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>looper</title>
+  <style>
+    body {
+      font-family: system-ui;
+      font-size: 1rem;
+      padding: 1rem;
+    }
+
+    input,
+    button {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    .tracks {
+      display: grid;
+      gap: .5rem;
+      grid-template-columns: repeat(auto-fill, 12rem);
+    }
+
+    .track {
+      padding: 1rem;
+      border: 2px solid black;
+      border-radius: .5rem;
+      display: grid;
+      gap: 1rem;
+      justify-items: center;
+      counter-increment: track-nb;
+      background-image: linear-gradient(to right, red 100%, transparent 0);
+      background-repeat: no-repeat;
+      background-size: 0 1rem;
+      background-position: left bottom;
+    }
+
+    .track::before {
+      content: counter(track-nb);
+      border-radius: 50%;
+      background: red;
+      width: 2rem;
+      height: 2rem;
+      color: white;
+      font-weight: bold;
+      display: grid;
+      place-content: center;
+    }
+
+    .track .clear,
+    .track .mute {
+      background: aliceblue;
+      padding: .5rem;
+      border: 2px solid #0003;
+    }
+
+    .track .mute {
+      width: min-content;
+    }
+
+    .track .record {
+      color: #39a0b8;
+      border-radius: 50%;
+      width: 10rem;
+      aspect-ratio: 1;
+      font-size: 2rem;
+      background-image: radial-gradient(#9fc8ec 0 50%, black 50% calc(50% + 1px), transparent 0), repeating-conic-gradient(#0003 0 1deg, transparent 1deg 15deg);
+      border: 1px solid black;
+    }
+
+    .track .gain {
+      rotate: -90deg;
+      width: 7rem;
+      height: 7rem;
+    }
+
+    .track.is-recording .record {
+      background-color: #ff8e8e;
+    }
+
+    .track.has-buffer .record {
+      background-color: #1cff6f;
+    }
+
+    /* .track::before {
+      content: "🔊";
+      place-self: center;
+    }
+
+    .track.muted::before {
+      content: "🔇";
+    } */
+
+    .track.master {
+      background-color: #b4bed2;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>looper</h1>
+
+  <p>
+    <button id="start">Start the looper</button>
+  </p>
+
+  <p>
+    <button id="add-track" hidden>Add track</button>
+    <button id="mute-all" hidden>Mute all</button>
+    <button id="clear-all" hidden>Clear all</button>
+  </p>
+
+  <div class="tracks"></div>
+
+  <script>
+    const startLooperButton = document.querySelector("#start");
+    const muteAllButton = document.querySelector("#mute-all");
+    const addTrackButton = document.querySelector("#add-track");
+    const clearAllButton = document.querySelector("#clear-all");
+    const tracksEl = document.querySelector(".tracks");
+
+    let audioContext = null;
+    let micRecorder = null;
+    let tracks = [];
+    let isAllMuted = false;
+    const initTrackNb = 3;
+    let masterTrack = null;
+
+    class Track {
+      constructor(parentEl, micRecorder, masterTrack) {
+        this.parentEl = parentEl;
+        this.micRecorder = micRecorder;
+        this.isMaster = !masterTrack;
+        this.masterTrack = masterTrack;
+
+        this.createDom();
+        this.parentEl.appendChild(this.el);
+        this.el.classList.toggle("master", this.isMaster);
+
+        this.buffer = null;
+        this.state = 0;
+        this.isMuted = false;
+        this.playAnimation = null;
+        this.recordStartTime = 0;
+        this.gainValue = 1;
+
+        this.scheduledNodes = [];
+
+        this.muteButton.addEventListener("click", () => {
+          this.toggleMute();
+        });
+
+        if (this.isMaster) {
+          this.clearButton.setAttribute("disabled", true);
+        } else {
+          this.clearButton.addEventListener("click", () => {
+            this.clear();
+          });
+        }
+
+        this.recordButton.addEventListener("click", () => {
+          this.handleStartStopRecord();
+        });
+
+        this.gainRangeEl.addEventListener("input", () => {
+          this.gainValue = parseFloat(this.gainRangeEl.value);
+
+          if (this.gainValue === 0) {
+            this.mute();
+          } else {
+            this.unmute();
+          }
+        });
+      }
+
+      createDom() {
+        this.el = document.createElement("section");
+        this.el.classList.add("track");
+
+        this.muteButton = document.createElement("button");
+        this.muteButton.classList.add("mute");
+        this.muteButton.textContent = "🔊";
+        this.el.appendChild(this.muteButton);
+
+        this.gainRangeEl = document.createElement("input");
+        this.gainRangeEl.classList.add("gain");
+        this.gainRangeEl.type = "range";
+        this.gainRangeEl.min = 0;
+        this.gainRangeEl.max = 1;
+        this.gainRangeEl.step = 0.01;
+        this.gainRangeEl.value = 1;
+        this.el.appendChild(this.gainRangeEl);
+
+        this.recordButton = document.createElement("button");
+        this.recordButton.classList.add("record");
+        this.recordButton.textContent = "⏺️/▶️";
+        this.el.appendChild(this.recordButton);
+
+        this.clearButton = document.createElement("button");
+        this.clearButton.classList.add("clear");
+        this.clearButton.textContent = "Clear";
+        this.el.appendChild(this.clearButton);
+      }
+
+      toggleMute() {
+        if (this.isMuted) {
+          this.unmute();
+        } else {
+          this.mute();
+        }
+      }
+
+      mute() {
+        this.scheduledNodes.forEach(({ gainNode }) => {
+          gainNode.gain.value = 0;
+        });
+        this.muteButton.textContent = "🔇";
+
+        this.isMuted = true;
+        this.el.classList.add("muted");
+
+        this.gainRangeEl.value = 0;
+      }
+
+      unmute() {
+        // If we're unmuting but our last gain value was 0,
+        // go back to 1.
+        if (this.gainValue === 0) {
+          this.gainValue = 1;
+        }
+
+        if (this.gainValue < 0.33) {
+          this.muteButton.textContent = "🔈";
+        } else if (this.gainValue < 0.66) {
+          this.muteButton.textContent = "🔉";
+        } else {
+          this.muteButton.textContent = "🔊";
+        }
+
+        this.isMuted = false;
+        this.el.classList.remove("muted");
+
+        this.gainRangeEl.value = this.gainValue;
+        this.scheduledNodes.forEach(({ gainNode }) => {
+          gainNode.gain.value = this.gainValue;
+        });
+      }
+
+      clear() {
+        this.unmute();
+
+        this.state = 0;
+        this.buffer = null;
+        this.el.classList.remove("has-buffer");
+        this.gainRangeEl.value = 1;
+
+        if (this.playAnimation) {
+          this.playAnimation.cancel();
+          this.playAnimation = null;
+        }
+
+        for (const { audioNode, gainNode } of this.scheduledNodes) {
+          audioNode.stop();
+          audioNode.disconnect();
+          gainNode.disconnect();
+        }
+      }
+
+      handleStartStopRecord() {
+        if (!this.state) {
+          this.state = 1;
+          this.micRecorder.onBufferReady = buffer => {
+            this.el.classList.add("has-buffer");
+            this.el.classList.remove("is-recording");
+            this.buffer = buffer;
+            this._go();
+          };
+          this.recordStartTime = audioContext.currentTime;
+          this.micRecorder.startRecording();
+          this.el.classList.add("is-recording");
+        } else if (this.state === 1) {
+          this.micRecorder.stopRecording();
+          this.state = 2;
+        } else if (this.state === 2) {
+          this.clear();
+          this.handleStartStopRecord();
+        }
+      }
+
+      _go() {
+        if (!this.buffer) {
+          return;
+        }
+
+        const masterDuration = this.isMaster
+          ? this.buffer.duration
+          : this.masterTrack.buffer.duration;
+
+        const now = audioContext.currentTime;
+
+        // 200 is large enough that we shouldn't need
+        // to worry about it. It will schedule audio nodes
+        // for the coming 200*masterDuration seconds.
+        // Better way would be to keep scheduling again in the
+        // future, with a setTimeout or something else.
+        for (let i = 0; i < 200; i++) {
+          const when = this.isMaster
+            ? now + i * masterDuration
+            : this.recordStartTime + i * masterDuration;
+
+          if (when < now) {
+            continue;
+          }
+
+          this.refreshAudioNodes();
+          this.scheduleNext(when);
+        }
+
+        this.animateTrackPlayHead();
+      }
+
+      refreshAudioNodes() {
+        const audioNode = audioContext.createBufferSource();
+        audioNode.buffer = this.buffer;
+
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = this.isMuted ? 0 : this.gainValue;
+        audioNode.connect(gainNode);
+
+        gainNode.connect(audioContext.destination);
+
+        this.scheduledNodes.push({ audioNode, gainNode });
+      }
+
+      scheduleNext(when) {
+        this.scheduledNodes[this.scheduledNodes.length - 1].audioNode.start(when);
+      }
+
+      animateTrackPlayHead() {
+        if (this.playAnimation) {
+          return;
+        }
+
+        const duration = this.isMaster ? this.buffer.duration : this.masterTrack.buffer.duration;
+
+        this.playAnimation = this.el.animate([
+          { backgroundSize: "0 1rem" },
+          { backgroundSize: "100% 1rem" },
+        ], {
+          duration: duration * 1000,
+          iterations: Infinity
+        });
+      }
+    }
+
+    class MicRecorder {
+      constructor() {
+        this.stream = null;
+        this.mediaRecorder = null;
+        this.isRecording = false;
+        this.recordedChunks = [];
+      }
+
+      async setup() {
+        this.stream = await navigator.mediaDevices.getUserMedia({
+          video: false,
+          audio: {
+            echoCancellation: false,
+            autoGainControl: false,
+            noiseSuppression: false,
+            latency: 0
+          }
+        });
+      }
+
+      // Call this to start recording.
+      startRecording() {
+        if (this.isRecording) {
+          return;
+        }
+
+        this.mediaRecorder = new MediaRecorder(this.stream);
+
+        this.mediaRecorder.ondataavailable = e => {
+          this.recordedChunks.push(e.data);
+        };
+
+        this.mediaRecorder.onstart = e => { };
+
+        this.mediaRecorder.onstop = async e => {
+          const blob = new Blob(this.recordedChunks, { type: "audio/mp4" });
+          const arrayBuffer = await blob.arrayBuffer();
+          const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+          this.onBufferReady(audioBuffer);
+        };
+
+        this.recordedChunks = [];
+        this.isRecording = true;
+        this.mediaRecorder.start();
+      }
+
+      // Call this to stop recording.
+      stopRecording() {
+        if (!this.isRecording) {
+          return;
+        }
+
+        this.isRecording = false;
+        this.mediaRecorder.stop();
+      }
+
+      // Override this to get the newly recorded buffer.
+      onBufferReady() { }
+    }
+
+    function clearAll() {
+      tracks.forEach(track => {
+        track.unmute();
+        track.clear();
+      });
+    }
+
+    function muteAll() {
+      isAllMuted = !isAllMuted;
+
+      tracks.forEach(track => {
+        if (isAllMuted) {
+          track.mute();
+          muteAllButton.textContent = "Unmute all";
+        } else {
+          track.unmute();
+          muteAllButton.textContent = "Mute all";
+        }
+      });
+    }
+
+    function addTrack() {
+      const track = new Track(tracksEl, micRecorder, masterTrack);
+      tracks.push(track);
+    }
+
+    async function start() {
+      clearAll();
+      tracksEl.innerHTML = "";
+      tracks = [];
+      masterTrack = null;
+
+      muteAllButton.hidden = false;
+      addTrackButton.hidden = false;
+      clearAllButton.hidden = false;
+
+      // Create the audio context.
+      if (!audioContext) {
+        audioContext = new AudioContext();
+      }
+
+      // Initialize the mic recorder.
+      if (!micRecorder) {
+        micRecorder = new MicRecorder();
+        await micRecorder.setup();
+      }
+
+      // Create the master track.
+      masterTrack = new Track(tracksEl, micRecorder);
+      tracks.push(masterTrack);
+
+      // Create some more tracks.
+      for (let i = 0; i < initTrackNb; i++) {
+        addTrack();
+      }
+    }
+
+    clearAllButton.addEventListener("click", clearAll);
+    muteAllButton.addEventListener("click", muteAll);
+    addTrackButton.addEventListener("click", addTrack);
+    startLooperButton.addEventListener('click', start);
+    // start();
+  </script>
+</body>
+
+</html>
