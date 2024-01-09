@@ -35,6 +35,14 @@
       padding: .5rem;
     }
 
+    button:hover {
+      border-color: black;
+    }
+
+    button:active {
+      box-shadow: 0 0 0 2px black;
+    }
+
     #looper {
       min-width: 12rem;
     }
@@ -67,25 +75,19 @@
       grid-template-columns: repeat(3, 1fr);
       justify-items: center;
       counter-increment: track-nb;
-      background-color: white;
+      background-color: #e5fff1;
+    }
+
+    .track.master {
+      background-color: #fdc7ff;
     }
 
     .track::before {
       content: counter(track-nb);
-      border-radius: 50%;
-      background: aliceblue;
       font-weight: bold;
       display: grid;
       place-content: center;
       grid-column: 2;
-      border: 2px solid #0003;
-      width: min-content;
-      padding: .5rem;
-      aspect-ratio: 1;
-    }
-
-    .track.has-buffer::before {
-      background: #00ff25;
     }
 
     .track .clear,
@@ -115,9 +117,9 @@
       font-size: 2rem;
       background-image:
         radial-gradient(#9fc8ec 0 50%, black 50% calc(50% + 2px), transparent 0),
-        repeating-conic-gradient(#0003 0 2deg, transparent 2deg 15deg),
+        repeating-conic-gradient(#0002 0 2deg, transparent 2deg 15deg),
         conic-gradient(#0003 0 var(--angle), transparent 0);
-      border: 2px solid black;
+      border: 2px solid #9fc8ec;
       grid-column: span 3;
       animation-name: playing-track;
       animation-timing-function: linear;
@@ -141,6 +143,43 @@
       width: 7rem;
       height: 7rem;
       grid-column: span 3;
+      -webkit-appearance: none;
+      background: transparent;
+    }
+
+    .track .gain::-webkit-slider-runnable-track {
+      background:
+        repeating-linear-gradient(to left, black 0 2px, transparent 2px 10%),
+        linear-gradient(to left, transparent calc(100% - 2px), black 0),
+        linear-gradient(to bottom, transparent 0 calc(50% - 1px), black calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px) 100%);
+      height: .5rem;
+    }
+
+    .track .gain::-moz-range-track {
+      background:
+        repeating-linear-gradient(to left, black 0 2px, transparent 2px 10%),
+        linear-gradient(to left, transparent calc(100% - 2px), black 0),
+        linear-gradient(to bottom, transparent 0 calc(50% - 1px), black calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px) 100%);
+      height: .5rem;
+    }
+
+    .track .gain::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 1rem;
+      height: 2rem;
+      border-radius: 100vh;
+      background: #333;
+      border: 0;
+      translate: 0 -.75rem;
+    }
+
+    .track .gain::-moz-range-thumb {
+      -webkit-appearance: none;
+      width: 1rem;
+      height: 2rem;
+      border-radius: 100vh;
+      background: #333;
+      border: 0;
     }
 
     .track.is-recording .record {
@@ -150,17 +189,13 @@
     .track.has-buffer .record {
       background-color: #00ff25;
     }
-
-    .track.master {
-      background-color: #b4bed2;
-    }
   </style>
 </head>
 
 <body>
   <header>
     <h1>Looper</h1>
-    <p>A simple multi-track audio looper by <a href="https://patrickbrosset.com">Patrick Brosset</a>.</p>
+    <p>A multi-track audio looper by <a href="https://patrickbrosset.com">Patrick Brosset</a>.</p>
   </header>
   <main id="looper">
     <div class="buttons">
@@ -175,6 +210,11 @@
 
 
   <script>
+    // Make it possible to play and record at the same time on iOS.
+    if (navigator.audioSession) {
+      navigator.audioSession.type = "play-and-record";
+    }
+
     const startLooperButton = document.querySelector("#start");
     const muteAllButton = document.querySelector("#mute-all");
     const addTrackButton = document.querySelector("#add-track");
