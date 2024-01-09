@@ -10,6 +10,16 @@
       font-family: system-ui;
       font-size: 1rem;
       padding: 1rem;
+      margin: 0;
+    }
+
+    h1,
+    p {
+      margin: 0;
+    }
+
+    header {
+      margin-block-end: 1rem;
     }
 
     input,
@@ -18,10 +28,47 @@
       font-size: inherit;
     }
 
+    button {
+      border: 2px solid #0003;
+      background: aliceblue;
+      padding: .5rem;
+    }
+
+    #add-track {
+      aspect-ratio: 1;
+      place-self: center;
+      border-radius: 50%;
+      background: aliceblue;
+      padding: .5rem;
+      border: 2px solid #000;
+    }
+
+    #looper {
+      border: 2px solid black;
+      border-radius: 1rem;
+      padding: 1rem;
+      background: #eee;
+      box-shadow: 0 0 1rem 0 #0005;
+      min-width: 12rem;
+    }
+
+    .buttons {
+      display: grid;
+      gap: 1rem;
+      grid-auto-flow: column;
+      justify-content: center;
+      margin-block-end: 1rem;
+    }
+
+    .buttons button {
+      border-radius: .25rem;
+    }
+
     .tracks {
       display: grid;
       gap: .5rem;
       grid-template-columns: repeat(auto-fill, 12rem);
+      justify-content: center;
     }
 
     .track {
@@ -29,36 +76,46 @@
       border: 2px solid black;
       border-radius: .5rem;
       display: grid;
-      gap: 1rem;
+      gap: .5rem;
+      grid-template-columns: repeat(3, 1fr);
       justify-items: center;
       counter-increment: track-nb;
       background-image: linear-gradient(to right, red 100%, transparent 0);
       background-repeat: no-repeat;
       background-size: 0 1rem;
       background-position: left bottom;
+      background-color: white;
     }
 
     .track::before {
       content: counter(track-nb);
       border-radius: 50%;
-      background: red;
-      width: 2rem;
-      height: 2rem;
-      color: white;
+      background: aliceblue;
       font-weight: bold;
       display: grid;
       place-content: center;
+      grid-column: 2;
+      border: 2px solid #0003;
+      width: min-content;
+      padding: .5rem;
+      aspect-ratio: 1;
+    }
+
+    .track.has-buffer::before {
+      background: #00ff25;
     }
 
     .track .clear,
     .track .mute {
-      background: aliceblue;
       padding: .5rem;
-      border: 2px solid #0003;
+      border-radius: 50%;
+      aspect-ratio: 1;
     }
 
     .track .mute {
       width: min-content;
+      grid-column: 1;
+      grid-row: 1;
     }
 
     .track .record {
@@ -67,32 +124,25 @@
       width: 10rem;
       aspect-ratio: 1;
       font-size: 2rem;
-      background-image: radial-gradient(#9fc8ec 0 50%, black 50% calc(50% + 1px), transparent 0), repeating-conic-gradient(#0003 0 1deg, transparent 1deg 15deg);
-      border: 1px solid black;
+      background-image: radial-gradient(#9fc8ec 0 50%, black 50% calc(50% + 2px), transparent 0), repeating-conic-gradient(#0003 0 2deg, transparent 2deg 15deg);
+      border: 2px solid black;
+      grid-column: span 3;
     }
 
     .track .gain {
       rotate: -90deg;
       width: 7rem;
       height: 7rem;
+      grid-column: span 3;
     }
 
     .track.is-recording .record {
-      background-color: #ff8e8e;
+      background-color: rgb(237, 66, 66);
     }
 
     .track.has-buffer .record {
-      background-color: #1cff6f;
+      background-color: #00ff25;
     }
-
-    /* .track::before {
-      content: "🔊";
-      place-self: center;
-    }
-
-    .track.muted::before {
-      content: "🔇";
-    } */
 
     .track.master {
       background-color: #b4bed2;
@@ -101,19 +151,21 @@
 </head>
 
 <body>
-  <h1>looper</h1>
+  <header>
+    <h1>Looper</h1>
+    <p>A simple multi-track audio looper by <a href="https://patrickbrosset.com">Patrick Brosset</a>.</p>
+  </header>
+  <main id="looper">
+    <div class="buttons">
+      <button id="start" title="Start the looper">Start</button>
+      <button id="mute-all" title="Mute all tracks" hidden>🔇</button>
+      <button id="clear-all" title="Clear all tracks" hidden>🗑️</button>
+    </div>
+    <div class="tracks">
+      <button id="add-track" hidden title="Add a new track">➕</button>
+    </div>
+  </main>
 
-  <p>
-    <button id="start">Start the looper</button>
-  </p>
-
-  <p>
-    <button id="add-track" hidden>Add track</button>
-    <button id="mute-all" hidden>Mute all</button>
-    <button id="clear-all" hidden>Clear all</button>
-  </p>
-
-  <div class="tracks"></div>
 
   <script>
     const startLooperButton = document.querySelector("#start");
@@ -121,6 +173,15 @@
     const addTrackButton = document.querySelector("#add-track");
     const clearAllButton = document.querySelector("#clear-all");
     const tracksEl = document.querySelector(".tracks");
+
+    const DEFAULT_GAIN_VALUE = 0.5;
+
+    // How many nodes to schedule at once per track.
+    // When a track's buffer is ready, we schedule a bunch
+    // of nodes in the future to avoid scheduling on a less
+    // ideal time.
+    // But only schedule a few at a time to avoid blocking.
+    const AUDIO_NODE_BATCH_NUMBER = 50;
 
     let audioContext = null;
     let micRecorder = null;
@@ -137,7 +198,7 @@
         this.masterTrack = masterTrack;
 
         this.createDom();
-        this.parentEl.appendChild(this.el);
+        this.parentEl.insertBefore(this.el, addTrackButton);
         this.el.classList.toggle("master", this.isMaster);
 
         this.buffer = null;
@@ -145,7 +206,8 @@
         this.isMuted = false;
         this.playAnimation = null;
         this.recordStartTime = 0;
-        this.gainValue = 1;
+        this.gainValue = DEFAULT_GAIN_VALUE;
+        this.nodeCreationInterval = null;
 
         this.scheduledNodes = [];
 
@@ -182,8 +244,15 @@
 
         this.muteButton = document.createElement("button");
         this.muteButton.classList.add("mute");
-        this.muteButton.textContent = "🔊";
+        this.muteButton.textContent = "🔉";
+        this.muteButton.title = "Mute/Unmute";
         this.el.appendChild(this.muteButton);
+
+        this.clearButton = document.createElement("button");
+        this.clearButton.classList.add("clear");
+        this.clearButton.textContent = "🗑️";
+        this.clearButton.title = "Clear track";
+        this.el.appendChild(this.clearButton);
 
         this.gainRangeEl = document.createElement("input");
         this.gainRangeEl.classList.add("gain");
@@ -191,18 +260,14 @@
         this.gainRangeEl.min = 0;
         this.gainRangeEl.max = 1;
         this.gainRangeEl.step = 0.01;
-        this.gainRangeEl.value = 1;
+        this.gainRangeEl.value = DEFAULT_GAIN_VALUE;
         this.el.appendChild(this.gainRangeEl);
 
         this.recordButton = document.createElement("button");
         this.recordButton.classList.add("record");
         this.recordButton.textContent = "⏺️/▶️";
+        this.recordButton.title = "Record/Play";
         this.el.appendChild(this.recordButton);
-
-        this.clearButton = document.createElement("button");
-        this.clearButton.classList.add("clear");
-        this.clearButton.textContent = "Clear";
-        this.el.appendChild(this.clearButton);
       }
 
       toggleMute() {
@@ -229,7 +294,7 @@
         // If we're unmuting but our last gain value was 0,
         // go back to 1.
         if (this.gainValue === 0) {
-          this.gainValue = 1;
+          this.gainValue = DEFAULT_GAIN_VALUE;
         }
 
         if (this.gainValue < 0.33) {
@@ -252,17 +317,23 @@
       clear() {
         this.unmute();
 
+        clearInterval(this.nodeCreationInterval);
         this.state = 0;
         this.buffer = null;
         this.el.classList.remove("has-buffer");
-        this.gainRangeEl.value = 1;
+        this.gainRangeEl.value = DEFAULT_GAIN_VALUE;
 
         if (this.playAnimation) {
           this.playAnimation.cancel();
           this.playAnimation = null;
         }
+        
+        this.deleteNodes(this.scheduledNodes);
+        this.scheduledNodes = [];
+      }
 
-        for (const { audioNode, gainNode } of this.scheduledNodes) {
+      deleteNodes(nodes) {
+        for (const { audioNode, gainNode } of nodes) {
           audioNode.stop();
           audioNode.disconnect();
           gainNode.disconnect();
@@ -271,16 +342,26 @@
 
       handleStartStopRecord() {
         if (!this.state) {
+          // Set the record start time right when the record
+          // button is pressed. This is so that we can schedule
+          // the audio nodes in the future at exactly the right
+          // time.
+          this.recordStartTime = audioContext.currentTime;
           this.state = 1;
+
           this.micRecorder.onBufferReady = buffer => {
             this.el.classList.add("has-buffer");
             this.el.classList.remove("is-recording");
+            if (!this.isMaster) {
+              this.clearButton.removeAttribute("disabled");
+            }
             this.buffer = buffer;
             this._go();
           };
-          this.recordStartTime = audioContext.currentTime;
+
           this.micRecorder.startRecording();
           this.el.classList.add("is-recording");
+          this.clearButton.setAttribute("disabled", true);
         } else if (this.state === 1) {
           this.micRecorder.stopRecording();
           this.state = 2;
@@ -300,24 +381,34 @@
           : this.masterTrack.buffer.duration;
 
         const now = audioContext.currentTime;
+        let lastIndex = 0;
 
-        // 200 is large enough that we shouldn't need
-        // to worry about it. It will schedule audio nodes
-        // for the coming 200*masterDuration seconds.
-        // Better way would be to keep scheduling again in the
-        // future, with a setTimeout or something else.
-        for (let i = 0; i < 200; i++) {
-          const when = this.isMaster
-            ? now + i * masterDuration
-            : this.recordStartTime + i * masterDuration;
+        const scheduleABatchOfNodes = () => {
+          for (let i = 0; i < AUDIO_NODE_BATCH_NUMBER; i++) {
+            const index = lastIndex + i;
 
-          if (when < now) {
-            continue;
+            const when = this.isMaster
+              ? now + index * masterDuration
+              : this.recordStartTime + index * masterDuration;
+
+            if (when < now) {
+              continue;
+            }
+
+            this.refreshAudioNodes();
+            this.scheduleNext(when);
           }
-
-          this.refreshAudioNodes();
-          this.scheduleNext(when);
+          
+          if (lastIndex > AUDIO_NODE_BATCH_NUMBER) {
+            this.deleteNodes(this.scheduledNodes.splice(0, AUDIO_NODE_BATCH_NUMBER));
+          }
+          
+          lastIndex += AUDIO_NODE_BATCH_NUMBER;
         }
+        scheduleABatchOfNodes();
+        // Schedule new batches of nodes when we get close to the
+        // end of the current batch.
+        this.nodeCreationInterval = setInterval(scheduleABatchOfNodes, (AUDIO_NODE_BATCH_NUMBER - 1) * masterDuration * 1000);
 
         this.animateTrackPlayHead();
       }
@@ -429,10 +520,10 @@
       tracks.forEach(track => {
         if (isAllMuted) {
           track.mute();
-          muteAllButton.textContent = "Unmute all";
+          muteAllButton.textContent = "🔈";
         } else {
           track.unmute();
-          muteAllButton.textContent = "Mute all";
+          muteAllButton.textContent = "🔇";
         }
       });
     }
@@ -444,13 +535,10 @@
 
     async function start() {
       clearAll();
-      tracksEl.innerHTML = "";
       tracks = [];
       masterTrack = null;
 
-      muteAllButton.hidden = false;
-      addTrackButton.hidden = false;
-      clearAllButton.hidden = false;
+      tracksEl.querySelectorAll(".track").forEach(trackEl => trackEl.remove());
 
       // Create the audio context.
       if (!audioContext) {
@@ -471,13 +559,19 @@
       for (let i = 0; i < initTrackNb; i++) {
         addTrack();
       }
+
+      // Show the main buttons.
+      muteAllButton.hidden = false;
+      addTrackButton.hidden = false;
+      clearAllButton.hidden = false;
+
+      startLooperButton.textContent = "Restart";
     }
 
     clearAllButton.addEventListener("click", clearAll);
     muteAllButton.addEventListener("click", muteAll);
     addTrackButton.addEventListener("click", addTrack);
     startLooperButton.addEventListener('click', start);
-    // start();
   </script>
 </body>
 
