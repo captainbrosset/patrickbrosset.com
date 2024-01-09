@@ -20,6 +20,7 @@
 
     header {
       margin-block-end: 1rem;
+      text-align: center;
     }
 
     input,
@@ -34,21 +35,7 @@
       padding: .5rem;
     }
 
-    #add-track {
-      aspect-ratio: 1;
-      place-self: center;
-      border-radius: 50%;
-      background: aliceblue;
-      padding: .5rem;
-      border: 2px solid #000;
-    }
-
     #looper {
-      border: 2px solid black;
-      border-radius: 1rem;
-      padding: 1rem;
-      background: #eee;
-      box-shadow: 0 0 1rem 0 #0005;
       min-width: 12rem;
     }
 
@@ -67,7 +54,7 @@
     .tracks {
       display: grid;
       gap: .5rem;
-      grid-template-columns: repeat(auto-fill, 12rem);
+      grid-template-columns: repeat(auto-fit, 12rem);
       justify-content: center;
     }
 
@@ -80,10 +67,6 @@
       grid-template-columns: repeat(3, 1fr);
       justify-items: center;
       counter-increment: track-nb;
-      background-image: linear-gradient(to right, red 100%, transparent 0);
-      background-repeat: no-repeat;
-      background-size: 0 1rem;
-      background-position: left bottom;
       background-color: white;
     }
 
@@ -118,15 +101,39 @@
       grid-row: 1;
     }
 
+    @property --angle {
+      syntax: "<angle>";
+      inherits: false;
+      initial-value: 0deg;
+    }
+
     .track .record {
       color: #39a0b8;
       border-radius: 50%;
       width: 10rem;
       aspect-ratio: 1;
       font-size: 2rem;
-      background-image: radial-gradient(#9fc8ec 0 50%, black 50% calc(50% + 2px), transparent 0), repeating-conic-gradient(#0003 0 2deg, transparent 2deg 15deg);
+      background-image:
+        radial-gradient(#9fc8ec 0 50%, black 50% calc(50% + 2px), transparent 0),
+        repeating-conic-gradient(#0003 0 2deg, transparent 2deg 15deg),
+        conic-gradient(#0003 0 var(--angle), transparent 0);
       border: 2px solid black;
       grid-column: span 3;
+      animation-name: playing-track;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-play-state: paused;
+      animation-duration: 0s;
+    }
+
+    @keyframes playing-track {
+      from {
+        --angle: 0deg;
+      }
+
+      to {
+        --angle: 360deg;
+      }
     }
 
     .track .gain {
@@ -160,9 +167,9 @@
       <button id="start" title="Start the looper">Start</button>
       <button id="mute-all" title="Mute all tracks" hidden>🔇</button>
       <button id="clear-all" title="Clear all tracks" hidden>🗑️</button>
+      <button id="add-track" title="Add a new track" hidden>➕</button>
     </div>
     <div class="tracks">
-      <button id="add-track" hidden title="Add a new track">➕</button>
     </div>
   </main>
 
@@ -198,13 +205,12 @@
         this.masterTrack = masterTrack;
 
         this.createDom();
-        this.parentEl.insertBefore(this.el, addTrackButton);
+        this.parentEl.appendChild(this.el);
         this.el.classList.toggle("master", this.isMaster);
 
         this.buffer = null;
         this.state = 0;
         this.isMuted = false;
-        this.playAnimation = null;
         this.recordStartTime = 0;
         this.gainValue = DEFAULT_GAIN_VALUE;
         this.nodeCreationInterval = null;
@@ -224,6 +230,11 @@
         }
 
         this.recordButton.addEventListener("click", () => {
+          if (!this.isMaster && !this.masterTrack.buffer) {
+            alert("Record the master track first");
+            return;
+          }
+
           this.handleStartStopRecord();
         });
 
@@ -291,8 +302,6 @@
       }
 
       unmute() {
-        // If we're unmuting but our last gain value was 0,
-        // go back to 1.
         if (this.gainValue === 0) {
           this.gainValue = DEFAULT_GAIN_VALUE;
         }
@@ -323,11 +332,9 @@
         this.el.classList.remove("has-buffer");
         this.gainRangeEl.value = DEFAULT_GAIN_VALUE;
 
-        if (this.playAnimation) {
-          this.playAnimation.cancel();
-          this.playAnimation = null;
-        }
-        
+        this.recordButton.style.animationPlayState = "paused";
+        this.recordButton.style.animationDuration = "0s";
+
         this.deleteNodes(this.scheduledNodes);
         this.scheduledNodes = [];
       }
@@ -395,25 +402,26 @@
               continue;
             }
 
-            this.refreshAudioNodes();
-            this.scheduleNext(when);
+            this.createNewAudioNodes();
+            this.scheduledNodes[this.scheduledNodes.length - 1].audioNode.start(when);
           }
-          
+
           if (lastIndex > AUDIO_NODE_BATCH_NUMBER) {
             this.deleteNodes(this.scheduledNodes.splice(0, AUDIO_NODE_BATCH_NUMBER));
           }
-          
+
           lastIndex += AUDIO_NODE_BATCH_NUMBER;
         }
         scheduleABatchOfNodes();
         // Schedule new batches of nodes when we get close to the
         // end of the current batch.
-        this.nodeCreationInterval = setInterval(scheduleABatchOfNodes, (AUDIO_NODE_BATCH_NUMBER - 1) * masterDuration * 1000);
+        this.nodeCreationInterval = setInterval(scheduleABatchOfNodes,
+          (AUDIO_NODE_BATCH_NUMBER - 1) * masterDuration * 1000);
 
-        this.animateTrackPlayHead();
+        this.animatePlay();
       }
 
-      refreshAudioNodes() {
+      createNewAudioNodes() {
         const audioNode = audioContext.createBufferSource();
         audioNode.buffer = this.buffer;
 
@@ -426,24 +434,11 @@
         this.scheduledNodes.push({ audioNode, gainNode });
       }
 
-      scheduleNext(when) {
-        this.scheduledNodes[this.scheduledNodes.length - 1].audioNode.start(when);
-      }
-
-      animateTrackPlayHead() {
-        if (this.playAnimation) {
-          return;
-        }
-
+      animatePlay() {
         const duration = this.isMaster ? this.buffer.duration : this.masterTrack.buffer.duration;
 
-        this.playAnimation = this.el.animate([
-          { backgroundSize: "0 1rem" },
-          { backgroundSize: "100% 1rem" },
-        ], {
-          duration: duration * 1000,
-          iterations: Infinity
-        });
+        this.recordButton.style.animationPlayState = "running";
+        this.recordButton.style.animationDuration = `${duration}s`;
       }
     }
 
@@ -538,7 +533,7 @@
       tracks = [];
       masterTrack = null;
 
-      tracksEl.querySelectorAll(".track").forEach(trackEl => trackEl.remove());
+      tracksEl.innerHTML = "";
 
       // Create the audio context.
       if (!audioContext) {
