@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- TODO
+  RE-DESIGN, INSPIRATION: https://teenage.engineering/products/ep-133
+  Add an audio recorder to record entire songs (MediaRecorder plugged in on the output node).
+  Add some track effects.
+  Add a way to name tracks, when you have a lot, it's hard to remember which is the beat, etc.
+  Add a blinking LED per track to show when it starts. And a progress bar to show the sample duration.
+  Add a screen to each track that shows the animation, the start time, the duration, etc. 
+  Add fullscreen mode.
+  USe visualizer node to show track activity.
+  Remove offset arrows, replace by a sync now button that just restarts the track at that new start time.
+-->
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>looper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --button-size: 4rem;
+    }
+
+    html,
     body {
-      font-family: system-ui;
-      font-size: 1rem;
-      padding: 1rem;
       margin: 0;
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .wrapper {
+      background: rgb(157, 157, 157);
+      background-image: url(https://media.istockphoto.com/id/957053842/vector/noise-pattern-seamless-grunge-texture-white-paper-vector.jpg?s=612x612&w=0&k=20&c=Lw_aDEQiLqsAXkqXp5M710I5wpAQKv2Z8icbzOjVljY=);
+      min-height: 100%;
+      display: grid;
+      grid-template-rows: min-content;
     }
 
     h1,
@@ -19,32 +51,39 @@
     }
 
     header {
-      margin-block-end: 1rem;
-      text-align: center;
+      background: rgba(237, 237, 237, 0.933);
+      padding: 1rem;
+      box-shadow: 0 0 0.25rem 0.25rem #0000006e;
+    }
+
+    header h1 {
+      font-weight: normal;
+    }
+
+    header a {
+      color: rgb(210, 88, 2);
+      text-decoration: none;
+    }
+
+    header a:hover {
+      text-decoration: underline;
+    }
+
+    header p {
+      margin-block-start: 2rem;
     }
 
     input,
     button {
       font-family: inherit;
       font-size: inherit;
-    }
-
-    button {
-      border: 2px solid #0003;
-      background: aliceblue;
-      padding: .5rem;
-    }
-
-    button:hover {
-      border-color: black;
-    }
-
-    button:active {
-      box-shadow: 0 0 0 2px black;
+      text-transform: uppercase;
     }
 
     #looper {
       min-width: 12rem;
+      padding: 1rem;
+      background: rgba(132, 132, 132, 0.85);
     }
 
     .buttons {
@@ -55,130 +94,181 @@
       margin-block-end: 1rem;
     }
 
-    .buttons button {
+    button {
+      border: 0;
+      padding: 0;
+      background: black;
+      aspect-ratio: 1;
+      width: var(--button-size);
+      position: relative;
+      font-size: .7rem;
+      text-align: start;
+    }
+
+
+    button::before {
+      content: "";
+      position: absolute;
+      inset: .1rem;
+      background: #333;
       border-radius: .25rem;
+      aspect-ratio: 1;
+      box-shadow: inset .05rem .05rem .1rem 0 #fffe, inset -.05rem -.05rem .1rem 0 #0009, .25rem .25rem .5rem .1rem #0006;
+    }
+
+    button.small,
+    button.small::before {
+      aspect-ratio: 2;
+    }
+
+    button.record::before {
+      background-color: #d25802;
+    }
+
+    button.clear::before {
+      background-color: #7e0000;
+    }
+
+    button span {
+      color: white;
+      position: absolute;
+      inset: .25rem .5rem;
+      text-shadow: -1px -1px 0 #0000006e;
+    }
+
+
+    button:active::before,
+    button.active::before {
+      scale: .999;
+      transform-origin: center;
+      box-shadow: inset .25rem .25rem .5rem #000c, inset .05rem .05rem .1rem 0 #fffe, inset -.05rem -.05rem .1rem 0 #0009, .25rem .25rem .5rem 0rem #0006;
+    }
+
+    button:active span,
+    button.active span {
+      scale: .999;
     }
 
     .tracks {
-      display: grid;
+      display: flex;
+      flex-wrap: wrap;
       gap: .5rem;
-      grid-template-columns: repeat(auto-fit, 12rem);
       justify-content: center;
     }
 
     .track {
-      padding: 1rem;
-      border: 2px solid black;
-      border-radius: .5rem;
+      padding: .125rem;
       display: grid;
-      gap: .5rem;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, var(--button-size));
+      grid-template-rows: repeat(2, var(--button-size)) var(--button-size) repeat(2, calc(var(--button-size) / 2));
+      grid-template-areas:
+        "screen screen screen screen"
+        "screen screen screen screen"
+        "rec    mute   gain   ."
+        "sync   plus  gain   clear"
+        "sync minus gain clear";
       justify-items: center;
       counter-increment: track-nb;
-      background-color: #e5fff1;
-    }
-
-    .track.master {
-      background-color: #fdc7ff;
-    }
-
-    .track::before {
-      content: counter(track-nb);
-      font-weight: bold;
-      display: grid;
-      place-content: center;
-      grid-column: 2;
-    }
-
-    .track .clear,
-    .track .mute {
-      padding: .5rem;
-      border-radius: 50%;
-      aspect-ratio: 1;
-    }
-
-    .track .mute {
-      width: min-content;
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    @property --angle {
-      syntax: "<angle>";
-      inherits: false;
-      initial-value: 0deg;
+      background: #eee4;
+      box-shadow: inset .125rem .125rem .1rem 0 #0004;
     }
 
     .track .record {
-      color: #39a0b8;
-      border-radius: 50%;
-      width: 10rem;
-      aspect-ratio: 1;
-      font-size: 2rem;
-      background-image:
-        radial-gradient(#9fc8ec 0 50%, black 50% calc(50% + 2px), transparent 0),
-        repeating-conic-gradient(#0002 0 2deg, transparent 2deg 15deg),
-        conic-gradient(#0003 0 var(--angle), transparent 0);
-      border: 2px solid #9fc8ec;
-      grid-column: span 3;
-      animation-name: playing-track;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      animation-play-state: paused;
-      animation-duration: 0s;
+      grid-area: rec;
     }
 
-    @keyframes playing-track {
-      from {
-        --angle: 0deg;
-      }
+    .track .sync {
+      grid-area: sync;
+    }
 
-      to {
-        --angle: 360deg;
-      }
+    .track .offset-plus {
+      grid-area: plus;
+    }
+
+    .track .offset-minus {
+      grid-area: minus;
+    }
+
+    .track .screen {
+      grid-area: screen;
+      background: #171717;
+      width: 100%;
+      background-image: linear-gradient(to bottom, transparent, #171717 50%), linear-gradient(to bottom right, transparent, #fff1 40%, transparent 0);
+      color: #ffffff;
+      font-size: .6rem;
+      padding: .5rem;
+      box-sizing: border-box;
+    }
+
+    .track .mute {
+      grid-area: mute;
+    }
+
+    .track .clear {
+      grid-area: clear;
+    }
+
+    .track .gain {
+      grid-area: gain;
+    }
+
+    .track .screen .track-name::before {
+      content: "track: " counter(track-nb);
+    }
+
+    .track.master .screen .track-name::before {
+      content: "track: master";
+    }
+
+    .has-buffer .track-status {
+      font-weight: bold;
     }
 
     .track .gain {
       rotate: -90deg;
-      width: 7rem;
-      height: 7rem;
-      grid-column: span 3;
       -webkit-appearance: none;
       background: transparent;
+      background-image: linear-gradient(to right, #fff4 0 .05rem, #8c8c8c .05rem .2rem, transparent 0);
+      background-size: .125rem 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      place-self: center;
+      height: 6rem;
+      width: 7rem;
     }
 
     .track .gain::-webkit-slider-runnable-track {
-      background:
-        repeating-linear-gradient(to left, black 0 2px, transparent 2px 10%),
-        linear-gradient(to left, transparent calc(100% - 2px), black 0),
-        linear-gradient(to bottom, transparent 0 calc(50% - 1px), black calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px) 100%);
+      background: rgb(34, 29, 29);
+      border-radius: 100vw;
       height: .5rem;
-    }
-
-    .track .gain::-moz-range-track {
-      background:
-        repeating-linear-gradient(to left, black 0 2px, transparent 2px 10%),
-        linear-gradient(to left, transparent calc(100% - 2px), black 0),
-        linear-gradient(to bottom, transparent 0 calc(50% - 1px), black calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px) 100%);
-      height: .5rem;
+      box-shadow: inset -.125rem .125rem .25rem 0 black, -1px 1px .125rem 0 #fffa;
     }
 
     .track .gain::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 1rem;
-      height: 2rem;
-      border-radius: 100vh;
-      background: #333;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background: #8c8c8c;
+      box-shadow: inset -.05rem .05rem .1rem 0 #fffe, inset .05rem -.05rem .1rem 0 #0009, -.25rem .25rem .5rem .1rem #0006;
       border: 0;
-      translate: 0 -.75rem;
+      translate: 0 -.65rem;
+    }
+
+    .track .gain::-moz-range-track {
+      background: rgb(34, 29, 29);
+      border-radius: 100vw;
+      height: .5rem;
+      box-shadow: inset -.125rem .125rem .25rem 0 black, -1px 1px .125rem 0 #fffa;
     }
 
     .track .gain::-moz-range-thumb {
       -webkit-appearance: none;
-      width: 1rem;
-      height: 2rem;
-      border-radius: 100vh;
-      background: #333;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background: #8c8c8c;
+      box-shadow: inset -.05rem .05rem .1rem 0 #fffe, inset .05rem -.05rem .1rem 0 #0009, -.25rem .25rem .5rem .1rem #0006;
       border: 0;
     }
 
@@ -193,23 +283,30 @@
 </head>
 
 <body>
-  <header>
-    <h1>Looper</h1>
-    <p>A multi-track audio looper by <a href="https://patrickbrosset.com">Patrick Brosset</a>.</p>
-  </header>
-  <main id="looper">
-    <div class="buttons">
-      <button id="start" title="Start the looper">Start</button>
-      <button id="mute-all" title="Mute all tracks" hidden>🔇</button>
-      <button id="clear-all" title="Clear all tracks" hidden>🗑️</button>
-      <button id="add-track" title="Add a new track" hidden>➕</button>
-    </div>
-    <div class="tracks">
-    </div>
-  </main>
+  <div class="wrapper">
+    <header>
+      <h1>Looper</h1>
+      <a href="https://patrickbrosset.com">Patrick Brosset</a>
+      <p>multi-track audio looper</p>
+    </header>
+    <main id="looper">
+      <div class="buttons">
+        <button id="start" title="Start the looper"><span>Start</span></button>
+        <button id="mute-all" title="Mute all tracks" hidden><span>mute all</span></button>
+        <button id="clear-all" title="Clear all tracks" hidden><span>clear all</span></button>
+        <button id="add-track" title="Add a new track" hidden><span>add</span></button>
+      </div>
+      <div class="tracks">
+      </div>
+    </main>
+  </div>
 
 
   <script>
+    function formatTime(time) {
+      return Math.round(time * 10) / 10;
+    }
+
     // Make it possible to play and record at the same time on iOS.
     if (navigator.audioSession) {
       navigator.audioSession.type = "play-and-record";
@@ -245,6 +342,7 @@
         this.masterTrack = masterTrack;
 
         this.createDom();
+
         this.parentEl.appendChild(this.el);
         this.el.classList.toggle("master", this.isMaster);
 
@@ -254,10 +352,13 @@
         this.recordStartTime = 0;
         this.gainValue = DEFAULT_GAIN_VALUE;
         this.nodeCreationInterval = null;
+        this.playEntireBufferBeforeRepeat = true;
+        this.offset = 0;
 
         this.scheduledNodes = [];
 
         this.muteButton.addEventListener("click", () => {
+          this.muteButton.classList.toggle("active", !this.isMuted);
           this.toggleMute();
         });
 
@@ -287,23 +388,91 @@
             this.unmute();
           }
         });
+
+        this.syncButton.addEventListener("click", () => {
+          this.playEntireBufferBeforeRepeat = !this.playEntireBufferBeforeRepeat;
+          this.syncButton.classList.toggle("active", !this.playEntireBufferBeforeRepeat);
+          this.syncButton.title = "Let track play until the end before restarting";
+          this.syncButton.innerHTML = this.playEntireBufferBeforeRepeat ? "<span>sync</span>" : "<span>unsync</span>";
+          this._go();
+        });
+
+        this.offsetPlusButton.addEventListener("click", () => {
+          this.offset += 100;
+          this.screenOffset.textContent = `offset: ${this.offset} ms`;
+          this._go();
+        });
+
+        this.offsetMinusButton.addEventListener("click", () => {
+          this.offset -= 100;
+          this.screenOffset.textContent = `offset: ${this.offset} ms`;
+          this._go();
+        });
       }
 
       createDom() {
         this.el = document.createElement("section");
         this.el.classList.add("track");
 
+        this.recordButton = document.createElement("button");
+        this.recordButton.classList.add("record");
+        this.recordButton.title = "Record";
+        this.recordButton.innerHTML = "<span>record</span>";
+        this.el.appendChild(this.recordButton);
+
+        this.syncButton = document.createElement("button");
+        this.syncButton.classList.add("sync");
+        this.syncButton.title = "Start when master track starts";
+        this.syncButton.innerHTML = "<span>sync</span>";
+        this.el.appendChild(this.syncButton);
+
+        this.offsetPlusButton = document.createElement("button");
+        this.offsetPlusButton.classList.add("offset-plus");
+        this.offsetPlusButton.classList.add("small");
+        this.offsetPlusButton.title = "Offset track by 100ms";
+        this.offsetPlusButton.innerHTML = "<span>△</span>";
+        this.el.appendChild(this.offsetPlusButton);
+
+        this.offsetMinusButton = document.createElement("button");
+        this.offsetMinusButton.classList.add("offset-minus");
+        this.offsetMinusButton.classList.add("small");
+        this.offsetMinusButton.title = "Offset track by -100ms";
+        this.offsetMinusButton.innerHTML = "<span>▽</span>";
+        this.el.appendChild(this.offsetMinusButton);
+
+        this.screenEl = document.createElement("div");
+        this.screenEl.classList.add("screen");
+        this.el.appendChild(this.screenEl);
+
+        const screenName = document.createElement("div");
+        screenName.classList.add("track-name");
+        this.screenEl.appendChild(screenName);
+
+        this.screenStatus = document.createElement("div");
+        this.screenStatus.classList.add("track-status");
+        this.screenStatus.textContent = "status: ready";
+        this.screenEl.appendChild(this.screenStatus);
+
+        this.screenStartTime = document.createElement("div");
+        this.screenStartTime.classList.add("track-start-time");
+        this.screenStartTime.textContent = "start: -";
+        this.screenEl.appendChild(this.screenStartTime);
+
+        this.screenDuration = document.createElement("div");
+        this.screenDuration.classList.add("track-duration");
+        this.screenDuration.textContent = "time: -";
+        this.screenEl.appendChild(this.screenDuration);
+
+        this.screenOffset = document.createElement("div");
+        this.screenOffset.classList.add("track-offset");
+        this.screenOffset.textContent = "offset: 0ms";
+        this.screenEl.appendChild(this.screenOffset);
+
         this.muteButton = document.createElement("button");
         this.muteButton.classList.add("mute");
-        this.muteButton.textContent = "🔉";
         this.muteButton.title = "Mute/Unmute";
+        this.muteButton.innerHTML = "<span>mute</span>";
         this.el.appendChild(this.muteButton);
-
-        this.clearButton = document.createElement("button");
-        this.clearButton.classList.add("clear");
-        this.clearButton.textContent = "🗑️";
-        this.clearButton.title = "Clear track";
-        this.el.appendChild(this.clearButton);
 
         this.gainRangeEl = document.createElement("input");
         this.gainRangeEl.classList.add("gain");
@@ -314,11 +483,11 @@
         this.gainRangeEl.value = DEFAULT_GAIN_VALUE;
         this.el.appendChild(this.gainRangeEl);
 
-        this.recordButton = document.createElement("button");
-        this.recordButton.classList.add("record");
-        this.recordButton.textContent = "⏺️/▶️";
-        this.recordButton.title = "Record/Play";
-        this.el.appendChild(this.recordButton);
+        this.clearButton = document.createElement("button");
+        this.clearButton.classList.add("clear");
+        this.clearButton.title = "Clear track";
+        this.clearButton.innerHTML = "<span>clear</span>";
+        this.el.appendChild(this.clearButton);
       }
 
       toggleMute() {
@@ -333,7 +502,7 @@
         this.scheduledNodes.forEach(({ gainNode }) => {
           gainNode.gain.value = 0;
         });
-        this.muteButton.textContent = "🔇";
+        this.muteButton.innerHTML = "<span>unmute</span>";
 
         this.isMuted = true;
         this.el.classList.add("muted");
@@ -346,13 +515,7 @@
           this.gainValue = DEFAULT_GAIN_VALUE;
         }
 
-        if (this.gainValue < 0.33) {
-          this.muteButton.textContent = "🔈";
-        } else if (this.gainValue < 0.66) {
-          this.muteButton.textContent = "🔉";
-        } else {
-          this.muteButton.textContent = "🔊";
-        }
+        this.muteButton.innerHTML = "<span>mute</span>";
 
         this.isMuted = false;
         this.el.classList.remove("muted");
@@ -377,6 +540,10 @@
 
         this.deleteNodes(this.scheduledNodes);
         this.scheduledNodes = [];
+
+        this.screenStatus.textContent = "status: ready";
+        this.screenStartTime.textContent = "start: -";
+        this.screenDuration.textContent = "time: -";
       }
 
       deleteNodes(nodes) {
@@ -399,6 +566,7 @@
           this.micRecorder.onBufferReady = buffer => {
             this.el.classList.add("has-buffer");
             this.el.classList.remove("is-recording");
+            this.screenStatus.textContent = "status: playing";
             if (!this.isMaster) {
               this.clearButton.removeAttribute("disabled");
             }
@@ -408,6 +576,7 @@
 
           this.micRecorder.startRecording();
           this.el.classList.add("is-recording");
+          this.screenStatus.textContent = "status: recording...";
           this.clearButton.setAttribute("disabled", true);
         } else if (this.state === 1) {
           this.micRecorder.stopRecording();
@@ -423,9 +592,28 @@
           return;
         }
 
+        // If this is the master track, _go can't be called again.
+        // The master track just runs forever and can't be changed.
+        if (this.isMaster && this.nodeCreationInterval) {
+          return;
+        }
+
+        // If _go is called again, make sure the interval and scheduled nodes have been cleared first.
+        clearInterval(this.nodeCreationInterval);
+        this.deleteNodes(this.scheduledNodes);
+        this.scheduledNodes = [];
+
         const masterDuration = this.isMaster
           ? this.buffer.duration
           : this.masterTrack.buffer.duration;
+
+        const duration = this.playEntireBufferBeforeRepeat
+          ? Math.ceil(this.buffer.duration / masterDuration) * masterDuration
+          : masterDuration;
+
+        this.screenDuration.textContent = this.isMaster
+          ? `time: ${formatTime(duration)} s`
+          : `time: ${formatTime(duration)} s (${Math.round(duration / masterDuration)} ⨉ master)`;
 
         const now = audioContext.currentTime;
         let lastIndex = 0;
@@ -434,16 +622,26 @@
           for (let i = 0; i < AUDIO_NODE_BATCH_NUMBER; i++) {
             const index = lastIndex + i;
 
+            // If this isn't the master track, we will schedule the node
+            // to start at increments of its duration after its start time.
+            // But if the track was restarted (after an offset or a sync change),
+            // then we need to define a new start time based on how much time has
+            // passed.
+            const startTime = this.recordStartTime;
+            const iterations = (now - startTime) / duration;
+            const newStartTime = startTime + iterations * duration;
+            this.screenStartTime.textContent = `start: ${formatTime(newStartTime)} s`;
+
             const when = this.isMaster
-              ? now + index * masterDuration
-              : this.recordStartTime + index * masterDuration;
+              ? now + index * duration
+              : newStartTime + index * duration;
 
             if (when < now) {
               continue;
             }
 
             this.createNewAudioNodes();
-            this.scheduledNodes[this.scheduledNodes.length - 1].audioNode.start(when);
+            this.scheduledNodes[this.scheduledNodes.length - 1].audioNode.start(when + this.offset / 1000);
           }
 
           if (lastIndex > AUDIO_NODE_BATCH_NUMBER) {
@@ -452,13 +650,13 @@
 
           lastIndex += AUDIO_NODE_BATCH_NUMBER;
         }
+
         scheduleABatchOfNodes();
+
         // Schedule new batches of nodes when we get close to the
         // end of the current batch.
         this.nodeCreationInterval = setInterval(scheduleABatchOfNodes,
-          (AUDIO_NODE_BATCH_NUMBER - 1) * masterDuration * 1000);
-
-        this.animatePlay();
+          (AUDIO_NODE_BATCH_NUMBER - 1) * duration * 1000);
       }
 
       createNewAudioNodes() {
@@ -472,13 +670,6 @@
         gainNode.connect(audioContext.destination);
 
         this.scheduledNodes.push({ audioNode, gainNode });
-      }
-
-      animatePlay() {
-        const duration = this.isMaster ? this.buffer.duration : this.masterTrack.buffer.duration;
-
-        this.recordButton.style.animationPlayState = "running";
-        this.recordButton.style.animationDuration = `${duration}s`;
       }
     }
 
@@ -555,10 +746,10 @@
       tracks.forEach(track => {
         if (isAllMuted) {
           track.mute();
-          muteAllButton.textContent = "🔈";
+          muteAllButton.innerHTML = "<span>unmute all</span>";
         } else {
           track.unmute();
-          muteAllButton.textContent = "🔇";
+          muteAllButton.innerHTML = "<span>mute all</span>";
         }
       });
     }
@@ -600,7 +791,7 @@
       addTrackButton.hidden = false;
       clearAllButton.hidden = false;
 
-      startLooperButton.textContent = "Restart";
+      startLooperButton.innerHTML = "<span>Restart</span>";
     }
 
     clearAllButton.addEventListener("click", clearAll);
