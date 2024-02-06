@@ -6,17 +6,3 @@ layout: main-layout.njk
 <p>I am a PM on the Edge Developer Experience team at Microsoft, and previously worked at Mozilla.<br>
 I have about 20 years of experience with web technologies, and have been working on browsers for the past 10 years.
 I like <a href="lab">creating</a> web things and sometimes <a href="articles">write</a> and <a href="talks">talk</a> about those things.</p>
-
-<h3>Latest articles</h3>
-
-<ul class="entries">
-  {% set count = 0 %}
-  {% for post in collections.article | reverse %}
-    {% if count < 4 %}
-      {% if not post.data.draft %}
-        {% include "one-article-in-loop.njk" %}
-        {% set count = count + 1 %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-</ul>
