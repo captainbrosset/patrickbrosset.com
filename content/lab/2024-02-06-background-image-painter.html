@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>background image painter</title>
+  <style>
+    .canvas {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /*# sourceURL=style.css */
+  </style>
+</head>
+
+<body>
+  <div class="canvas"></div>
+  <script>
+    const canvas = document.querySelector('.canvas');
+    let isDrawing = false;
+    const throttleDelay = 20;
+    const penSize = 20;
+
+    // We collect the points that the user draws.
+    // The mousemove event is throttled, so the space
+    // between points will depend on that.
+    const points = [];
+
+    function throttle(func, delay) {
+      let lastCall = 0;
+      return function (...args) {
+        const now = new Date().getTime();
+        if (now - lastCall < delay) {
+          return;
+        }
+        lastCall = now;
+        return func(...args);
+      };
+    }
+
+    function addPoint(event) {
+      // Get the x/y coordinates of the point, relative
+      // to the canvas, so in %.
+      const x = event.clientX / window.innerWidth * 100;
+      const y = event.clientY / window.innerHeight * 100;
+
+      points.push({ x, y });
+    }
+
+    canvas.addEventListener('mousedown', (event) => {
+      isDrawing = true;
+      addPoint(event);
+    });
+
+    canvas.addEventListener('mousemove', throttle((event) => {
+      if (!isDrawing) {
+        return;
+      }
+
+      addPoint(event);
+    }, throttleDelay));
+
+    canvas.addEventListener('mouseup', () => {
+      isDrawing = false;
+    });
+
+    function render() {
+      requestAnimationFrame(render);
+
+      const images = [];
+      let hue = 0;
+      for (const {x, y} of points) {
+        // Create a color with the hsl() function.
+        const color = `hsl(${hue}, 100%, 50%)`;
+        hue = (hue + 1) % 360;
+        images.push(`radial-gradient(circle at ${x}% ${y}%, ${color} ${penSize}px, transparent 0)`);
+      }
+
+      canvas.style.backgroundImage = images.reverse().join(",");
+    }
+    render();
+
+    //# sourceURL=script.js
+  </script>
+</body>
+
+</html>
