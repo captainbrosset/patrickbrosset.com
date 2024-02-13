@@ -173,7 +173,12 @@ a.thumbnail {
 main {
   grid-area: main;
   width: 100%;
+  overflow: auto;
   justify-self: start;
+}
+
+main h1 {
+  font-weight: normal;
 }
 
 /* Home page */
@@ -357,7 +362,8 @@ kbd {
 }
 
 .entries .thumbnail {
-  position: relative;
+	position: relative;
+	inset-inline-end: 0.6rem;
 }
 
 .entries .thumbnail::after {
@@ -415,6 +421,8 @@ kbd {
     grid-column: 1;
     grid-row: 1;
     justify-self: start;
+    inset-inline-start: 0.5rem;
+    inset-inline-end: 0;
   }
 
   .entries .thumbnail img {
@@ -443,4 +451,11 @@ blockquote > p:first-child {
 
 blockquote > p:last-child {
   margin-bottom: 0;
+}
+
+hr {
+	background: var(--separator);
+	height: 3px;
+	border: 0;
+	border-radius: 100vw;
 }
