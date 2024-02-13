@@ -1,7 +1,8 @@
 :root {
   color-scheme: light;
   --background: #fff;
-  --primary: #005461;
+  --primary: #d016a2;
+  --secondary: #13be9c;
   --text: #000;
   --sub-text: #676767;
   --code: #000000;
@@ -9,24 +10,14 @@
   --separator: #efefef;
 }
 
-[data-theme="dark"] {
-  color-scheme: dark;
-  --background: #000;
-  --primary: #00eeff;
-  --text: white;
-  --sub-text: #ffe300;
-  --code: #191b2d;
-  --text-on-code: rgb(255, 254, 212);
-  --separator: #3e3e3e;
-}
-
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --background: #000;
     --primary: #00eeff;
+    --secondary: #f03bd5;
     --text: white;
-    --sub-text: #ffe300;
+    --sub-text: #9af3fc;
     --code: #191b2d;
     --text-on-code: rgb(255, 254, 212);
     --separator: #3e3e3e;
@@ -51,7 +42,7 @@ body {
   width: 70%;
   max-width: 1000px;
   font-family: system-ui, sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   line-height: 1.7;
   color: var(--text);
   display: grid;
@@ -66,7 +57,6 @@ body {
 
 /* Links */
 
-
 a {
   color: var(--primary);
   text-decoration: none;
@@ -74,27 +64,57 @@ a {
   position: relative;
 }
 
+a:hover {
+  color: var(--secondary);
+}
+
 a::before {
   content: "";
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-image: url(/assets/underline.png);
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: 100% 0.25rem;
+  height: .25rem;
+  background: currentColor;
+  border-radius: 100vw;
+  transition: all .1s ease-in-out;
 }
 
-[data-theme="dark"] a::before {
-  filter: invert(1);
+a:hover::before {
+  height: .5rem;
+  translate: 0 .5rem;
+}
+
+a.external::after {
+  content: " (external link)";
+  font-weight: normal;
+  font-size: 0.8rem;
+  color: var(--sub-text);
+}
+a.external[href*="css-tricks.com"]::after {
+  content: " (on CSS-Tricks)";
+}
+a.external[href*="smashingmagazine.com"]::after {
+  content: " (on Smashing Magazine)";
+}
+a.external[href*="blogs.windows.com/msedgedev"]::after {
+  content: " (on the Microsoft Edge Blog)";
+}
+a.external[href*="alistapart.com"]::after {
+  content: " (on A List Apart)";
+}
+a.external[href*="web.dev"]::after {
+  content: " (on web.dev)";
+}
+a.external[href*="hacks.mozilla.org"]::after {
+  content: " (on Mozilla Hacks)";
 }
 
 /* Header */
 
 header {
   grid-area: header;
+  margin-block-end: 2rem;
 }
 
 header a {
@@ -102,7 +122,6 @@ header a {
   height: 3rem;
   background-image: url(/assets/patrick.png);
   background-size: contain;
-  background-position: center;
   background-repeat: no-repeat;
   color: transparent;
   font-size: 0;
@@ -112,8 +131,10 @@ header a::before {
   display: none;
 }
 
-[data-theme="dark"] header a {
-  filter: invert(1);
+@media (prefers-color-scheme: dark) {
+  header a {
+    filter: invert(1);
+  }
 }
 
 body > h1 a,
@@ -121,24 +142,18 @@ body > h1 a:hover {
   text-decoration: none;
 }
 
+/* Site navigation */
+
 .site-nav {
   margin: 0;
-  place-self: center end;
-  justify-self: center;
-}
-
-@media only screen and (max-width: 750px) {
-  body {
-    width: 90%;
-    row-gap: 1rem;
-  }
+  place-self: center start;
+  text-transform: uppercase;
 }
 
 .site-nav ul {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .site-nav ul,
@@ -146,40 +161,25 @@ body > h1 a:hover {
   padding: 0;
   margin: 0;
   list-style-type: none;
+  line-height: 1;
 }
 
 a.thumbnail {
   text-decoration: none;
 }
 
-a.external::after {
-  content: " [External]";
-  font-size: 0.8rem;
-  color: var(--sub-text);
-}
-a.external[href*="css-tricks.com"]::after {
-  content: " [CSS-Tricks]";
-}
-a.external[href*="smashingmagazine.com"]::after {
-  content: " [Smashing Magazine]";
-}
-a.external[href*="blogs.windows.com/msedgedev"]::after {
-  content: " [Microsoft Edge Blog]";
-}
-a.external[href*="alistapart.com"]::after {
-  content: " [A List Apart]";
-}
-a.external[href*="web.dev"]::after {
-  content: " [web.dev]";
-}
-a.external[href*="hacks.mozilla.org"]::after {
-  content: " [Mozilla Hacks]";
-}
+/* Main */
 
 main {
   grid-area: main;
   width: 100%;
   justify-self: start;
+}
+
+/* Home page */
+
+.home h2 {
+  font-weight: normal;
 }
 
 /* Social links */
@@ -197,6 +197,7 @@ main {
 
 .social-links ul {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
   align-items: center;
@@ -220,18 +221,10 @@ main {
   display: none;
 }
 
-[data-theme="dark"] .social-links a {
-  filter: invert(1);
-}
-
-.social-links a:hover {
-  background-color: var(--background);
-  filter: invert(1);
-}
-
-[data-theme="dark"] .social-links a:hover {
-  background-color: var(--text);
-  filter: invert(0);
+@media (prefers-color-scheme: dark) {
+  .social-links a {
+    filter: invert(1);
+  }
 }
 
 .social-links .instagram {
@@ -262,43 +255,7 @@ footer > *:not(:last-child)::after {
   color: var(--sub-text);
 }
 
-/* Separators */
-
-hr,
-.social-links::before {
-  content: "";
-  display: block;
-  height: 1rem;
-  background-image: url(/assets/drawn-separator.png);
-  background-repeat: no-repeat;
-  background-position: center top;
-  margin-block-end: 2rem;
-  background-size: contain;
-}
-
-[data-theme="dark"] hr,
-[data-theme="dark"] .social-links::before {
-  filter: invert(1);
-}
-
-/* Theme switcher */
-
-.theme-switcher {
-  display: inline-flex;
-}
-
-.theme-switcher input {
-  display: none;
-}
-
-.theme-switcher .theme-option:hover {
-  background-color: var(--text);
-  color: var(--background);
-}
-
-.theme-switcher label {
-  padding: 0 0.25rem;
-}
+/* Time */
 
 time {
   color: var(--sub-text);
@@ -323,12 +280,15 @@ main img.mini {
   display: block;
 }
 
-main .thumbnail img {
-  border: none;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 2;
-  object-fit: cover;
+img.icon {
+  border: 0;
+  height: 1em;
+}
+
+@media (prefers-color-scheme: dark) {
+  img.icon {
+    filter: invert(1);
+  }
 }
 
 /* Inline code snippets */
@@ -365,35 +325,71 @@ kbd {
 
 /* List of articles or demos */
 .entries {
-  margin: 0;
+  margin: 2rem 0;
   padding: 0;
   list-style: none;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-}
-
-@media only screen and (max-width: 600px) {
-  .entries {
-    grid-template-columns: 1fr;
-  }
 }
 
 .entries > li {
   margin: 0;
   display: grid;
-  grid-template-rows: 200px min-content min-content min-content;
-  gap: 0.5rem;
-  overflow: hidden;
+  grid-template-columns: 1fr 200px;
+  grid-template-rows: min-content min-content 1fr;
+  gap: 1rem;
+  column-gap: 2rem;
 }
 
-.entries > li > * {
-  background-color: var(--background);
+.entries > li .thumbnail {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  place-self: center;
 }
 
-.entries > li.ad {
-  background: none;
+.entries .thumbnail img {
+	border: none;
+	width: 100%;
+	border-radius: 50%;
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+.entries .thumbnail {
+  position: relative;
+}
+
+.entries .thumbnail::after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-image: url(/assets/circle.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	scale: 1.1;
+  opacity: .3;
+}
+
+@media (prefers-color-scheme: dark) {
+  .entries .thumbnail::after {
+    filter: invert(1);
+  }
+}
+
+.entries > li a:not(.thumbnail) {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: 1.3;
+}
+
+.entries > li a::before {
+  display: none;
 }
 
 .entries > li time {
@@ -401,28 +397,44 @@ kbd {
   font-size: 0.9rem;
 }
 
-.entries li > a {
-  color: var(--primary);
-  grid-row: 3;
-}
-
-.entries li > .thumbnail {
-  grid-row: 1;
-  width: 100%;
-  height: 100%;
-  border: 1px solid var(--separator);
-}
-
 .entries li > p {
   margin: 0;
-  /* font-size: 1.1rem; */
+}
+
+@media (max-width: 600px) {
+  .entries {
+    grid-template-columns: 1fr;
+  }
+
+  .entries > li {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content min-content 1fr;
+  }
+
+  .entries > li .thumbnail {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+  }
+
+  .entries .thumbnail img {
+    width: 10rem;
+  }
+
+  .entries > li a:not(.thumbnail) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .entries > li time {
+    grid-row: 3;
+  }
 }
 
 blockquote {
   background: var(--separator);
   padding: 1rem;
   border-radius: 3px;
-  /* font-size: 1rem; */
 }
 
 blockquote > p:first-child {
