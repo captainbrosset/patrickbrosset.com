@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<style>
+  body {
+    font-family: system-ui;
+    font-size: 1rem;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    display: grid;
+    place-content: center;
+    background: var(--result-color);
+  }
+
+  select,
+  option,
+  input {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .color-mix {
+    width: clamp(200px, 75vw, 1000px);
+    display: grid;
+    gap: 2rem;
+  }
+
+  .color-mix>*:not(.colors) {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .colors {
+    display: grid;
+    grid-template-columns: 1fr 20% 1fr;
+    container-type: inline-size;
+  }
+
+  .input-color,
+  output {
+    width: 50cqw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+
+  .input-color {
+    background-color: var(--color);
+    color: hsl(from var(--color) 0 0 cos(1.5 * l));
+    display: grid;
+    gap: 1cqw;
+    place-content: center;
+    place-items: center;
+    text-align: center;
+    font-size: 2.5cqw;
+    box-sizing: border-box;
+    grid-row: 1;
+    font-weight: bold;
+  }
+
+  .input-color:nth-child(1) {
+    grid-column: 1 / span 2;
+    justify-self: end;
+    padding-inline-end: 20cqw;
+
+  }
+
+  .input-color:nth-child(2) {
+    grid-column: 2 / span 2;
+    padding-inline-start: 20cqw;
+  }
+
+  input[type="color"] {
+    width: 5cqw;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: 0 0 0 0.2cqw white, 0 0 0 0.3cqw black;
+    height: 5cqw;
+}
+
+  input[type="color"]::-webkit-color-swatch {
+    border: 0;
+    border-radius: 50%;
+  }
+
+  output {
+    background: var(--result-color);
+    clip-path: circle(50% at -10% 50%);
+    grid-row: 1;
+    grid-column: 2;
+    overflow: hidden;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  h1,
+  label,
+  p {
+    color: var(--result-color);
+    filter: invert(1) grayscale(1) brightness(1.3) contrast(9000);
+    mix-blend-mode: luminosity;
+    opacity: 0.95;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .input-color label {
+    color: var(--color);
+  }
+</style>
+
+<form class="color-mix">
+
+  <h1>CSS COLOR-MIX</h1>
+
+  <div class="colors">
+    <div class="input-color">
+      <label for="color-1" title="Click to change the color">Color 1</label>
+      <input type="color" id="color-1" value="#c8ff00">
+    </div>
+
+    <div class="input-color">
+      <label for="color-2" title="Click to change the color">Color 2</label>
+      <input type="color" id="color-2" value="#0c3a64">
+    </div>
+
+    <output for="color-space hue-interpolation-method color-1 p-1 color-2 p-2"></output>
+  </div>
+
+  <div class="color-space">
+    <label for="color-space">Color space</label>
+    <select name="color-space" id="color-space">
+      <optgroup label="Rectangular color spaces">
+        <option value="srgb">srgb</option>
+        <option value="srgb-linear">srgb-linear</option>
+        <option value="display-p3">display-p3</option>
+        <option value="a98-rgb">a98-rgb</option>
+        <option value="prophoto-rgb">prophoto-rgb</option>
+        <option value="rec2020">rec2020</option>
+        <option value="lab">lab</option>
+        <option value="oklab">oklab</option>
+        <option value="xyz">xyz</option>
+        <option value="xyz-d50">xyz-d50</option>
+        <option value="xyz-d65">xyz-d65</option>
+      </optgroup>
+      <optgroup label="Polar color spaces">
+        <option value="hsl" selected>hsl</option>
+        <option value="hwb">hwb</option>
+        <option value="lch">lch</option>
+        <option value="oklch">oklch</option>
+      </optgroup>
+    </select>
+
+    <span class="polar" hidden>
+      <label for="hue-interpolation-method">Hue interpolation method</label>
+      <select name="hue-interpolation-method" id="hue-interpolation-method">
+        <option value="shorter hue">shorter hue</option>
+        <option value="longer hue" selected>longer hue</option>
+        <option value="increasing hue">increasing hue</option>
+        <option value="decreasing hue">decreasing hue</option>
+      </select>
+    </span>
+  </div>
+
+
+  <p>To learn more, read <a href="https://developer.mozilla.org/docs/Web/CSS/color_value/color-mix">the
+      <code>color-mix()</code> documentation on MDN</a>.</p>
+</form>
+
+<script>
+  const form = document.querySelector('.color-mix');
+
+  const colorSpaceSelect = document.querySelector('#color-space');
+  const extraPolarParams = document.querySelector('.polar');
+  const hueInterpolationMethod = document.querySelector('#hue-interpolation-method');
+
+  const color1 = document.querySelector('#color-1');
+  const color2 = document.querySelector('#color-2');
+
+  const inputColor1 = document.querySelector('.input-color:nth-child(1)');
+  const inputColor2 = document.querySelector('.input-color:nth-child(2)');
+  const colorMixOutput = document.querySelector('output');
+
+  function isPolarColorSpace(colorSpace) {
+    return ['hsl', 'hwb', 'lch', 'oklch'].includes(colorSpace);
+  }
+
+  colorSpaceSelect.addEventListener('change', () => {
+    const isPolar = isPolarColorSpace(colorSpaceSelect.value);
+    extraPolarParams.hidden = !isPolar;
+  });
+
+  function refresh() {
+    const isPolar = isPolarColorSpace(colorSpaceSelect.value);
+    extraPolarParams.hidden = !isPolar;
+
+    const mix = isPolar
+      ? `color-mix(in ${colorSpaceSelect.value} ${hueInterpolationMethod.value}, ${color1.value}, ${color2.value})`
+      : `color-mix(in ${colorSpaceSelect.value}, ${color1.value}, ${color2.value})`;
+
+    inputColor1.setAttribute("style", `--color: ${color1.value};`);
+    inputColor2.setAttribute("style", `--color: ${color2.value};`);
+    document.body.setAttribute("style", `--result-color: ${mix};`);
+  }
+
+  form.addEventListener('input', refresh);
+  refresh();
+</script>
