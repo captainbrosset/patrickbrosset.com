@@ -607,13 +607,18 @@
           ? this.buffer.duration
           : this.masterTrack.buffer.duration;
 
+        const nbOfMasterDurationIterations = Math.ceil(this.buffer.duration / masterDuration);
+        // Snap the nb of iterations to [1, 2, 4, 8, 16, 32, 64, etc.] so that the track
+        // repeats at a regular interval.
+        const snappedNbOfMasterDurationIterations = Math.pow(2, Math.round(Math.log2(nbOfMasterDurationIterations)));
+
         const duration = this.playEntireBufferBeforeRepeat
-          ? Math.ceil(this.buffer.duration / masterDuration) * masterDuration
+          ? snappedNbOfMasterDurationIterations * masterDuration
           : masterDuration;
 
         this.screenDuration.textContent = this.isMaster
           ? `time: ${formatTime(duration)} s`
-          : `time: ${formatTime(duration)} s (${Math.round(duration / masterDuration)} ⨉ master)`;
+          : `time: ${formatTime(duration)} s (${snappedNbOfMasterDurationIterations} ⨉ master)`;
 
         const now = audioContext.currentTime;
         let lastIndex = 0;
