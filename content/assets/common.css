@@ -52,7 +52,12 @@ body {
     "main"
     "socials"
     "footer";
-  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 90%;
+  }
 }
 
 /* Links */
@@ -64,6 +69,7 @@ a {
 	position: relative;
 	text-decoration-thickness: .25rem;
 	text-underline-offset: .25rem;
+  text-decoration-skip-ink: none;
   transition: all .1s ease-in-out;
 }
 
@@ -74,8 +80,8 @@ a:hover {
 a.external::after {
   content: " (external link)";
   font-weight: normal;
-  font-size: 0.8rem;
-  color: var(--sub-text);
+  font-size: 0.9em;
+  font-style: italic;
 }
 a.external[href*="css-tricks.com"]::after {
   content: " (on CSS-Tricks)";
@@ -136,18 +142,39 @@ body > h1 a:hover {
   text-transform: uppercase;
 }
 
-.site-nav ul {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+@media (max-width: 600px) {
+  .site-nav {
+    font-size: 0.8em;
+  }
 }
 
-.site-nav ul,
-.site-nav li {
+.site-nav ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
+  display: flex;
+}
+
+.site-nav li {
+  padding: 0;
+  border: 1px solid var(--primary);
+  border-radius: .5rem .5rem 0 0;
+  overflow: hidden;
+  border-width: 1px 1px 0 1px;
+  margin: 0;
+  list-style-type: none;
   line-height: 1;
+}
+
+.site-nav li a {
+  padding: .5rem;
+  display: block;
+  text-decoration: none;
+}
+
+.site-nav li a:hover, .site-nav li[aria-current="page"] a {
+  background: var(--primary);
+  color: var(--background);
 }
 
 a.thumbnail {
@@ -159,24 +186,31 @@ a.thumbnail {
 main {
   grid-area: main;
   width: 100%;
-  overflow: auto;
   justify-self: start;
+  border: 1px solid var(--primary);
+  overflow: auto;
 }
 
-main h1 {
-  font-weight: normal;
+/* Pages that are not listings */
+
+main:not(:has(.entries)) {
+  padding: 2rem;
 }
 
-/* Home page */
-
-.home h2 {
+main:not(:has(.entries)) h1 {
   font-weight: normal;
+  margin-block-start: 0;
+}
+
+main:not(:has(.entries)) p:last-child {
+  margin-block-end: 0;
 }
 
 /* Social links */
 
 .social-links {
   grid-area: socials;
+  margin: 2rem 0;
 }
 
 .social-links ul,
@@ -255,8 +289,11 @@ time {
 
 /* Images in main content are full width */
 main img {
-  max-width: 100%;
-  border: 0.5em solid var(--separator);
+  width: 100%;
+  max-height: 40vh;
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
   border-radius: 3px;
 }
 
@@ -272,6 +309,7 @@ main img.mini {
 }
 
 img.icon {
+  all: unset;
   border: 0;
   height: 1em;
 }
@@ -315,61 +353,39 @@ kbd {
 }
 
 /* List of articles or demos */
+
 .entries {
-  margin: 2rem 0;
+  margin: 0;
   padding: 0;
   list-style: none;
-
   display: grid;
-  gap: 2rem;
+  gap: 1px;
+  background: var(--primary);
 }
 
 .entries > li {
+  background: var(--background);
   margin: 0;
   display: grid;
-  grid-template-columns: 1fr 200px;
-  grid-template-rows: min-content min-content 1fr;
   gap: 1rem;
-  column-gap: 2rem;
+  grid-template-columns: 1fr 30%;
+  grid-template-rows: min-content min-content 1fr;
+  padding: 1rem;
 }
 
 .entries > li .thumbnail {
   grid-column: 2;
   grid-row: 1 / span 3;
-  place-self: center;
+  place-self: stretch;
 }
 
 .entries .thumbnail img {
 	border: none;
 	width: 100%;
-	border-radius: 50%;
-	aspect-ratio: 1;
-	object-fit: cover;
-}
-
-.entries .thumbnail {
-	position: relative;
-	inset-inline-end: 0.6rem;
-}
-
-.entries .thumbnail::after {
-	content: "";
-	width: 100%;
 	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-image: url(/assets/circle.png);
-	background-size: 100%;
-	background-repeat: no-repeat;
-	scale: 1.1;
-  opacity: .3;
-}
-
-@media (prefers-color-scheme: dark) {
-  .entries .thumbnail::after {
-    filter: invert(1);
-  }
+	aspect-ratio: 1;
+	object-fit: contain;
+  object-position: center;
 }
 
 .entries > li a:not(.thumbnail) {
@@ -378,10 +394,6 @@ kbd {
   font-weight: bold;
   font-size: 1.1em;
   line-height: 1.3;
-}
-
-.entries > li a::before {
-  display: none;
 }
 
 .entries > li time {
@@ -393,7 +405,7 @@ kbd {
   margin: 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .entries {
     grid-template-columns: 1fr;
   }
@@ -406,13 +418,12 @@ kbd {
   .entries > li .thumbnail {
     grid-column: 1;
     grid-row: 1;
-    justify-self: start;
     inset-inline-start: 0.5rem;
     inset-inline-end: 0;
   }
 
   .entries .thumbnail img {
-    width: 10rem;
+    max-height: 20vh;
   }
 
   .entries > li a:not(.thumbnail) {

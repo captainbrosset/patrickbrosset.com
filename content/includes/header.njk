@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{% if title %}{{ title }} - {% endif %}Patrick</title>
+    <title>Patrick {% if title %} - {{ title }}{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="RSS 2.0">
     <link href="/assets/pixel-me-256.png" rel="apple-touch-icon" sizes="256x256">
@@ -16,7 +16,7 @@
     <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
     {% endif %}
 
-    <meta property="og:title" content="{% if title %}{{ title }} - {% endif %}Patrick">
+    <meta property="og:title" content="Patrick {% if title %} - {{ title }}{% endif %}">
     <meta property="og:url" content="https://patrickbrosset.com{{ page.url }}">
     <meta property="og:image" content="https://patrickbrosset.com/assets/pixel-me-512.png">
     <meta property="og:description" content="{% if title %}A blog post by Patrick Brosset: {{ title }}{% else %}Patrick Brosset's personal website{% endif %}">
@@ -28,10 +28,10 @@
     <header><a href="/">Patrick</a></header>
     <nav class="site-nav">
       <ul>
-        <li><a href="/">home</a></li>
-        <li><a href="/articles">articles</a></li>
-        <li><a href="/talks">talks</a></li>
-        <li><a href="/lab">lab</a></li>
+        <li{% if page.url === "/" %} aria-current="page"{% endif %}><a href="/">home</a></li>
+        <li{% if page.url === "/articles/" %} aria-current="page"{% endif %}><a href="/articles">articles</a></li>
+        <li{% if page.url === "/talks/" %} aria-current="page"{% endif %}><a href="/talks">talks</a></li>
+        <li{% if page.url === "/lab/" %} aria-current="page"{% endif %}><a href="/lab">lab</a></li>
         <li><a href="/resume">resume</a></li>
       </ul>
     </nav>

@@ -2,8 +2,8 @@
 permalink: "articles/{{ date | date: '%Y-%m-%d' }}-{{ title | slug | superSlug }}/index.html"
 ---
 {% include "header.njk" %}
+  <time datetime="{{ date | dateTime }}">Published on {{ date | formattedDateTime }}</time>
   <h1>{{ title }}</h1>
-  <p><time datetime="{{ date | dateTime }}">{{ date | formattedDateTime }}</time></p>
   <p><img src="{{ thumbnail }}" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}"></p>
   {% if external %}
     {{ excerpt }}
