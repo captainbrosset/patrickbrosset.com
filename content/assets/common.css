@@ -34,7 +34,13 @@
 }
 
 html {
-  background: var(--background);
+  background: color-mix(in srgb, var(--primary), white 90%);
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: color-mix(in srgb, var(--primary), black 90%);
+  }
 }
 
 body {
@@ -117,6 +123,7 @@ header a {
   background-repeat: no-repeat;
   color: transparent;
   font-size: 0;
+  mix-blend-mode: multiply;
 }
 
 header a::before {
@@ -126,6 +133,7 @@ header a::before {
 @media (prefers-color-scheme: dark) {
   header a {
     filter: invert(1);
+    mix-blend-mode: lighten;
   }
 }
 
@@ -164,6 +172,7 @@ body > h1 a:hover {
   margin: 0;
   list-style-type: none;
   line-height: 1;
+  background: var(--background);
 }
 
 .site-nav li a {
@@ -189,6 +198,7 @@ main {
   justify-self: start;
   border: 1px solid var(--primary);
   overflow: auto;
+  background: var(--background);
 }
 
 /* Pages that are not listings */
@@ -240,6 +250,7 @@ main:not(:has(.entries)) p:last-child {
   font-size: 0;
   text-decoration: none;
   border-radius: 0.25rem;
+  mix-blend-mode: multiply;
 }
 
 .social-links a::before {
@@ -249,6 +260,7 @@ main:not(:has(.entries)) p:last-child {
 @media (prefers-color-scheme: dark) {
   .social-links a {
     filter: invert(1);
+    mix-blend-mode: lighten;
   }
 }
 
