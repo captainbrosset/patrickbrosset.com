@@ -321,6 +321,7 @@ img.icon {
 }
 
 /* Inline code snippets */
+
 code {
   background: var(--code);
   color: var(--text-on-code);
@@ -330,6 +331,12 @@ code {
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
+}
+
+a code {
+  background: none;
+  color: var(--primary);
+  padding: 0;
 }
 
 pre {
