@@ -287,9 +287,17 @@ footer {
   text-align: center;
 }
 
-footer > *:not(:last-child)::after {
-  content: " | ";
-  color: var(--sub-text);
+.w3c-badges {
+  text-align: start;
+  margin-block-start: 1rem;
+}
+
+.w3c-badge {
+  --width: 6rem;
+  --background: var(--primary);
+  --text: var(--text);
+  --checkmark: var(--secondary);
+  margin: 0 .5rem;
 }
 
 /* Time */
