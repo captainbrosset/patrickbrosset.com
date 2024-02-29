@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W3C Badge custom element demo</title>
+  <style>
+    html {
+      font-size: 1rem;
+      font-family: system-ui;
+    }
+    w3c-badge {
+      margin: 2rem;
+    }
+    [language="XHTML"][version="1.0"] {
+      --width: 5rem;
+    }
+    [language="HTML"][version="5.0"] {
+      --background: red;
+      --checkmark: green;
+      --width: 20rem;
+    }
+    [language="CSS"][version="3.0"] {
+      --background: rgb(255, 0, 242);
+      --checkmark: rgb(0, 157, 255);
+      --width: 10rem;
+    }
+    [language="CSS"][version="Level 4"] {
+      --background: rgb(0, 0, 0);
+      --text: white;
+      --checkmark: rgb(4, 255, 21);
+      --width: 100px;
+    }
+    [language="XML"][version="1.1"] {
+      --background: #b2cde0;
+      --checkmark: #005a9c;
+      --width: 84px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>W3C badge custom element demo</h1>
+  <p>The following badges are based on custom HTML elements that use HTML and CSS to render the badge content. You can use the custom element on your webpage and customize the text content and colors to your liking.</p>
+  <p>See <a href="/assets/w3c-badge.js">the source code for instructions</a>.</p>
+
+  <w3c-badge language="XHTML" version="1.0"></w3c-badge>
+  <w3c-badge language="HTML" version="5.0"></w3c-badge>
+  <w3c-badge language="CSS" version="3.0"></w3c-badge>
+  <w3c-badge language="CSS" version="Level 4"></w3c-badge>
+  <w3c-badge language="MathML" version="2.0"></w3c-badge>
+  <w3c-badge language="SVG" version="1.2"></w3c-badge>
+  <w3c-badge language="XML" version="1.1"></w3c-badge>
+
+  <script type="module" src="/assets/w3c-badge.js"></script>
+</body>
+
+</html>
