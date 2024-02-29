@@ -288,11 +288,11 @@ footer {
 }
 
 .w3c-badges {
-  text-align: start;
   margin-block-start: 1rem;
 }
 
-.w3c-badge {
+w3c-badge {
+  text-align: start;
   --width: 6rem;
   --background: var(--primary);
   --text: var(--text);
