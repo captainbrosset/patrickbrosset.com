@@ -46,17 +46,23 @@
 
     li > * {
       padding: .5rem;
-      place-self: center start;
     }
 
     li.browser::before {
       content: "";
       background-repeat: no-repeat;
-      background-position: center;
+      background-position: center 1rem;
       background-size: contain;
       flex: 0 0 1rem;
       mix-blend-mode: multiply;
       margin-inline-end: 1rem;
+    }
+
+    details p {
+      margin: 0;
+      padding: .5rem;
+      background: #0002;
+      border-radius: .25rem;
     }
 
     li.browser.safari::before {background-image: url("/assets/browser-versions/safari.png");}
@@ -89,9 +95,32 @@
       li.innerHTML = `
         <a href="${implData.details.mdn_url}" target="_blank" class="mdn">${description}</a>
         <span>Missing in ${implData.browser}</span>
-        <span>Bug <a href="${implData.url}" target="_blank">${implData.url}</a></span>`;
+        <span>
+          <details>
+            <summary>Request it!</summary>
+            ${getInstructions(implData.browser, implData.url)}
+          </details>
+        </span>`;
 
       ul.appendChild(li);
+    }
+
+    function getInstructions(browser, bugUrl) {
+      if (browser.includes("firefox")) {
+        return `<p>
+          Go to this bug <a href="${bugUrl}" target="_blank">${bugUrl}</a>, sign in with your Bugzilla or GitHub account, expand the <strong>Details</strong> section, and then click the <strong>Vote</strong> button.
+        </p>`;
+      } else if (bugUrl.includes("crbug")) {
+        return `<p>
+          Go to this bug <a href="${bugUrl}" target="_blank">${bugUrl}</a>, sign in with your Google account, and click the <strong>+1</strong> button near the bug title at the top of the page.
+        </p>`;
+      } else if (browser.includes("safari")) {
+        return `<p>
+          Go to this bug <a href="${bugUrl}" target="_blank">${bugUrl}</a>, sign in with a WebKit Bugzilla ccount, and post a comment to explain your use case that requires this feature.
+        </p>`;
+      } else {
+        return `<p>Comment or vote on this bug <a href="${bugUrl}" target="_blank">${bugUrl}</a> to request this feature.</p>`;
+      }
     }
   </script>
 </body>
