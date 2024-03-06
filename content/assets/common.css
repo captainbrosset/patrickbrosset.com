@@ -287,17 +287,20 @@ footer {
   text-align: center;
 }
 
-.w3c-badges {
+.footer-badges {
   margin-block-start: 2rem;
+}
+
+.footer-badges > * {
+  margin: 0 .5rem;
 }
 
 w3c-badge {
   text-align: start;
-  --width: 6rem;
+  --width: 5.7rem;
   --background: var(--primary);
   --text: var(--text);
   --checkmark: var(--secondary);
-  margin: 0 .5rem;
 }
 
 /* Time */
