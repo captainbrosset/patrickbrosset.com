@@ -26,6 +26,7 @@ The first thing we need to do is to add the `elementtiming` HTML attribute to th
 
 On my site, I have pages that display lists of posts. Each post is represented by a card containing a title, some preview text, and an image. I want to track the load time of the image, so I'll add the `elementtiming` attribute to the `img` element:
 
+{% raw %}
 ```html
 <ul class="tips">
 {%- for post in posts -%}
@@ -39,8 +40,9 @@ On my site, I have pages that display lists of posts. Each post is represented b
 {%- endfor -%}
 </ul>
 ```
+{% endraw %}
 
-The important part in the above code snippet is the `elementtiming` attribute. The rest is an [Eleventy](https://www.11ty.dev/) template I use on my website to generate the list of posts.
+The important part in the above code snippet is the `elementtiming` attribute on the `img` tag. The pieces that start with `{%` or `{{` are from the template language I use with my [Eleventy](https://www.11ty.dev/) website to generate the list of posts.
 
 ## Step 2 - Set up a PerformanceObserver
 
