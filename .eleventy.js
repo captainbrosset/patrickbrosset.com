@@ -51,6 +51,18 @@ module.exports = function(eleventyConfig) {
                 .replace(/'/g, "");
   });
 
+  eleventyConfig.addTransform("link-article-images", function (content) {
+    if (this.inputPath.includes("/articles/")) {
+      // Replace images with linked images.
+      content = content.replace(
+        /<img src="([^"]+)" alt="([^"]+)">/g,
+        '<a href="$1" target="_blank" rel="noopener noreferrer"><img src="$1" alt="$2" title="[Click to open image] $2"/></a>'
+      );
+    }
+
+    return content;
+  });
+
   return {
     templateFormats: [
       "md",

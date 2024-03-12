@@ -6,7 +6,8 @@
   --text: #000;
   --sub-text: #676767;
   --code: #000000;
-  --text-on-code: rgb(242, 156, 229);
+  --inline-code: #d016a211;
+  --text-on-inline-code: #372f36;
   --separator: #efefef;
 }
 
@@ -19,7 +20,8 @@
     --text: white;
     --sub-text: #9af3fc;
     --code: #191b2d;
-    --text-on-code: rgb(255, 254, 212);
+    --inline-code: #191b2d;
+    --text-on-inline-code: rgb(255, 254, 212);
     --separator: #3e3e3e;
   }
 }
@@ -345,10 +347,9 @@ img.icon {
 /* Inline code snippets */
 
 code {
-  background: var(--code);
-  color: var(--text-on-code);
+  background: var(--inline-code);
+  color: var(--text-on-inline-code);
   padding: 0.3rem;
-  font-size: smaller;
   border-radius: 2px;
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   -webkit-box-decoration-break: clone;
@@ -370,7 +371,7 @@ pre {
 
 pre[class*="language-"] {
   font-size: 0.8em !important;
-  background-color: vaR(--code) !important;
+  background-color: var(--code) !important;
 }
 
 kbd {
