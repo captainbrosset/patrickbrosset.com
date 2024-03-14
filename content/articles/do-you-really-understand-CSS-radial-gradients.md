@@ -8,7 +8,7 @@ excerpt: "An in-depth look at how radial-gradients really work in CSS. With this
 thumbnail: "/assets/radial-gradient/ray-stops.png"
 altText: "A radial-gradient, with concentric circles highlighted on top, to show how things works"
 ---
-Seven years ago, I taught myself all about [CSS linear gradients](/articles/2015-03-27-do-you-really-understand-CSS-linear-gradients) and, ever since, I've been meaning to learn more about how radial gradients worked as well. It took me a long time to find an excuse to dig deeper into the logic behind it but I'm very thankful I did.
+Seven years ago, I taught myself all about [CSS linear gradients](/articles/2015-03-27-do-you-really-understand-css-linear-gradients) and, ever since, I've been meaning to learn more about how radial gradients worked as well. It took me a long time to find an excuse to dig deeper into the logic behind it but I'm very thankful I did.
 
 To learn how to use the `radial-gradient` CSS function, I attempted to draw a pair or eyes, only with CSS, just one element par eye, and only using radial gradients. Here is the result (it's an iframe, so go ahead and use DevTools to see how it works if you want).
 
@@ -224,7 +224,7 @@ That's where the gradient ray comes in.
 
 The colors defined in the color stops value are placed on the gradient ray, starting at the center point, and extending infinitely to the right.
 
-This ray is similar to the **gradient line** in [linear gradients](/articles/2015-03-27-do-you-really-understand-CSS-linear-gradients/).
+This ray is similar to the **gradient line** in [linear gradients](/articles/2015-03-27-do-you-really-understand-css-linear-gradients/).
 
 Let's take the following example:
 
@@ -486,6 +486,6 @@ background-position:
 
 _Note: this last one doesn't work on Safari, see [browser support](#browser-support)_. 
 
-While these are purely decorative examples, and unlikely to be useful on real websites, CSS gradients, both radial, [linear](/articles/2015-03-27-do-you-really-understand-CSS-linear-gradients/), and [conic](https://developer.mozilla.org/docs/Web/CSS/gradient/conic-gradient), offer a lot of flexibility when it comes to drawing details in the background of elements without having to add more elements to your document.
+While these are purely decorative examples, and unlikely to be useful on real websites, CSS gradients, both radial, [linear](/articles/2015-03-27-do-you-really-understand-css-linear-gradients/), and [conic](https://developer.mozilla.org/docs/Web/CSS/gradient/conic-gradient), offer a lot of flexibility when it comes to drawing details in the background of elements without having to add more elements to your document.
 
 I hope this article helped you. Drop me a note on [Twitter](https://twitter.com/patrickbrosset) if you liked it!
