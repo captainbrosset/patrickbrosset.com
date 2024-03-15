@@ -4,7 +4,7 @@ title: DevTools interop
 tags: article
 date: 2022-05-10
 excerpt: "DevTools can play a big role in users' adoption of new and existing web platform features. In this article, I argue that browser vendors should get together and align forces with efforts like Interop 2022 to bring a common set of tools across browsers that help adoption."
-thumbnail: "https://web-dev.imgix.net/image/RYmV5NPuMZRoF3PVwIXTUpdYeQ23/xv75zUKa4jUR2xGMZ7Xb.jpg?auto=format&w=500"
+thumbnail: "/assets/brick-wall.jpg"
 altText: "A brick wall"
 ---
 As the [MDN Web Developer Assessment (Web DNA) surveys](https://insights.developer.mozilla.org/) showed, the number one frustration web developers have is due to incompatibilities of the web platform between browser. New features don't usually get implemented at the same time in all browsers, and existing features are not supported in exactly the same in all browsers. This makes it often really hard for developers to know exactly what is safe to use and whether they'll have an easy time using a particular feature across their target browsers.
