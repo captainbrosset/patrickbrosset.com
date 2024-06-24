@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<style>
+  div {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-family: system-ui;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: env(safe-area-inset-top, 0);
+    bottom: env(safe-area-inset-bottom, 0);
+    left: env(safe-area-inset-left, 0);
+    right: env(safe-area-inset-right, 0);
+    background: red;
+  }
+</style>
+<div>
+</div>
+<script>
+  const el = document.querySelector("div");
+  const s = getComputedStyle(el);
+  el.innerHTML = `safe-area-inset-top: ${s.top};<br>safe-area-inset-right: ${s.right};<br>safe-area-inset-bottom: ${s.bottom};<br>safe-area-inset-left: ${s.left};`;
+</script>
