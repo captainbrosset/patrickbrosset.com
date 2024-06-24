@@ -19,6 +19,8 @@
 </div>
 <script>
   const el = document.querySelector("div");
-  const s = getComputedStyle(el);
-  el.innerHTML = `safe-area-inset-top: ${s.top};<br>safe-area-inset-right: ${s.right};<br>safe-area-inset-bottom: ${s.bottom};<br>safe-area-inset-left: ${s.left};`;
+  setInterval(() => {
+    const s = getComputedStyle(el);
+    el.innerHTML = `safe-area-inset-top: ${s.top};<br>safe-area-inset-right: ${s.right};<br>safe-area-inset-bottom: ${s.bottom};<br>safe-area-inset-left: ${s.left};`;
+  }, 1000);
 </script>
