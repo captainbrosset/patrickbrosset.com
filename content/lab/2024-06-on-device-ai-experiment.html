@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<style>
+  html {
+    font-size: 1rem;
+    font-family: system-ui;
+  }
+
+  body {
+    margin: 2rem;
+  }
+
+  .sandbox>* {
+    display: block;
+    margin: 1rem 0;
+    width: 100%;
+    padding: .5rem;
+    box-sizing: border-box;
+  }
+
+  .sandbox #prompt-output {
+    height: 20rem;
+  }
+
+  #sentiment-input.neutral {
+    color: gray;
+    box-shadow: 0 0 0 2px gray;
+    outline-color: gray;
+  }
+  
+  #sentiment-input.positive {
+    color: green;
+    box-shadow: 0 0 0 2px green;
+    outline-color: green;
+  }
+  
+  #sentiment-input.negative {
+    color: red;
+    box-shadow: 0 0 0 2px red;
+    outline-color: red;
+  }
+</style>
+
+<h1>Accessing the on-device browser SLM from the web</h1>
+<p>This only works in Chrome Canary and requires you to enable the <strong>Prompt API for Gemini Nano</strong> flag and
+  to set the <strong>Enables optimization guide on device</strong> flag to <strong>Enabled
+    BypassPerfRequirement</strong>.</p>
+<p>With these flags correctly set, Chrome Canary will download the Gemini Nano model and make it available to web pages
+  via a prompt API. The following demo shows a simple usage of the prompt API.</p>
+
+<h2>Prompt example</h2>
+
+<div class="sandbox">
+  <input id="prompt-input" type="text" placeholder="Type something..." />
+  <textarea id="prompt-output"></textarea>
+</div>
+
+<script>
+  if (!window.ai) {
+    const notice = document.createElement("p");
+    notice.textContent = "The on-device AI API is not available.";
+  } else {
+    const input = document.getElementById("prompt-input");
+    const output = document.getElementById("prompt-output");
+
+    class Prompter {
+      constructor() {
+        this._session = null;
+      }
+
+      async init() {
+        this._session = await window.ai.createTextSession();
+      }
+
+      async prompt(input) {
+        const result = await this._session.prompt(input);
+        return result;
+      }
+    }
+
+    const prompter = new Prompter();
+    prompter.init().then(() => {
+      input.addEventListener("input", async () => {
+        const result = await prompter.prompt(input.value);
+        output.textContent = result;
+      });
+    });
+  }
+</script>
+
+<h2>Sentiment analysis example</h2>
+
+<div class="sandbox">
+  <input id="sentiment-input" type="text" placeholder="Type something..." />
+  <p id="sentiment-output"></p>
+</div>
+
+<script>
+  if (!window.ai) {
+    const notice = document.createElement("p");
+    notice.textContent = "The on-device AI API is not available.";
+  } else {
+    const input = document.getElementById("sentiment-input");
+
+    class SentimentAnalyzer {
+      constructor() {
+        this._session = null;
+      }
+
+      async init() {
+        this._session = await window.ai.createTextSession();
+      }
+
+      async analyze(text) {
+        const prompt = [
+          "Classify the text into neutral, negative or positive.",
+          "Only respond with the neutral, negative, or positive sentiment. Do not include any other text.",
+          "Text: This movie is definitely one of my favorite movies of its kind. The interaction between respectable and morally strong characters is an ode to chivalry and the honor code amongst thieves and policemen.",
+          "Sentiment: positive",
+          "Text: I loved this movie so much! It was amazing!",
+          "Sentiment: positive",
+          "Text: The book was interesting, but slightly too long",
+          "Sentiment: neutral",
+          `Text: ${text}`,
+          "Sentiment: "
+        ];
+
+        const result = await this._session.prompt(prompt);
+        return result;
+      }
+    }
+
+    const analyzer = new SentimentAnalyzer();
+    analyzer.init().then(() => {
+      input.addEventListener("input", async () => {
+        const result = await analyzer.analyze(input.value);
+        input.className = result;
+      });
+    });
+  }
+</script>
+
+<h2>Product review rating example</h2>
+
+<div class="sandbox">
+  <input id="rating-input" type="text" placeholder="Type something..." />
+  <div id="rating-output"></div>
+</div>
+
+<script>
+  if (!window.ai) {
+    const notice = document.createElement("p");
+    notice.textContent = "The on-device AI API is not available.";
+  } else {
+    const input = document.getElementById("rating-input");
+    const output = document.getElementById("rating-output");
+
+    class RatingAnalyzer {
+      constructor() {
+        this._session = null;
+      }
+
+      async init() {
+        this._session = await window.ai.createTextSession();
+      }
+
+      async analyze(text) {
+        const prompt = [
+          "Rate the product review from 1 to 5.",
+          "Only respond with a number between 1 and 5. Do not include any other text.",
+          "Text: This product is amazing! I love it!",
+          "Rating: 5",
+          "Text: This product is okay.",
+          "Rating: 3",
+          "Text: This product is terrible.",
+          "Rating: 1",
+          `Text: ${text}`,
+          "Rating: "
+        ];
+
+        const result = await this._session.prompt(prompt);
+        return result;
+      }
+    }
+
+    const ratingAnalyzer = new RatingAnalyzer();
+    ratingAnalyzer.init().then(() => {
+      input.addEventListener("input", async () => {
+        const result = await ratingAnalyzer.analyze(input.value);
+        // Convert result to a number.
+        const rating = parseInt(result, 10);
+        // If the rating is not a number.
+        if (isNaN(rating)) {
+          output.textContent = "Invalid rating";
+          return;
+        } else {
+          // create a star rating by adding the appropriate number of star emojis
+          output.textContent = "Rating: " + "⭐".repeat(rating);
+        }
+      });
+    });
+  }
+</script>
+
+<h2>Translate example</h2>
+
+<div class="sandbox">
+  <input id="translate-input" type="text" placeholder="Type something..." />
+  <select name="lang" id="lang">
+    <option value="french">French</option>
+    <option value="german">German</option>
+    <option value="spanish">Spanish</option>
+    <option value="korean">Korean</option>
+    <option value="chinese">Chinese</option>
+    <option value="russian">Russian</option>
+  </select>
+  <p id="translate-output"></p>
+</div>
+
+<script>
+  if (!window.ai) {
+    const notice = document.createElement("p");
+    notice.textContent = "The on-device AI API is not available.";
+  } else {
+    const input = document.getElementById("translate-input");
+    const lang = document.getElementById("lang");
+    const output = document.getElementById("translate-output");
+
+    class Translator {
+      constructor() {
+        this._session = null;
+      }
+
+      async init() {
+        this._session = await window.ai.createTextSession();
+      }
+
+      async translate(text, lang) {
+        const prompt = [
+          `Translate the following string into ${lang}: ${text}.`,
+          "Translation: "
+        ];
+
+        const result = await this._session.prompt(prompt);
+        return result;
+      }
+    }
+
+    const translator = new Translator();
+    translator.init().then(() => {
+      input.addEventListener("input", async () => {
+        const result = await translator.translate(input.value, lang.value);
+        output.textContent = result;
+      });
+    });
+  }
+</script>
