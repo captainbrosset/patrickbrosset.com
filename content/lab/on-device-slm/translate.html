@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<style>
+  html {
+    font-size: 2rem;
+    font-family: system-ui;
+  }
+
+  body {
+    margin: 2rem;
+  }
+
+  button,
+  input,
+  textarea {
+    font-family: inherit;
+    font-size: inherit
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    gap: 1rem;
+  }
+
+  .form-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+
+  .form-row button {
+    grid-column: 2;
+  }
+
+  .form-row input,
+  .form-row textarea,
+  .form-row label {
+    padding: .25rem;
+  }
+
+  .form-row textarea {
+    height: 6rem;
+  }
+
+  .form-row .validation {
+    grid-column: 2;
+    background: rgb(248, 224, 224);
+    font-size: .8rem;
+  }
+
+  .form-row .validation:not(:empty) {
+    padding: .25rem;
+    margin: .25rem;
+  }
+</style>
+
+<form action="#" method="GET">
+  <div class="form-row">
+    <label for="firstname">Firstname</label>
+    <input type="text" id="firstname" name="firstname">
+  </div>
+  <div class="form-row">
+    <label for="lastname">Lastname</label>
+    <input type="text" id="lastname" name="lastname">
+  </div>
+  <div class="form-row">
+    <label for="comment">Comment</label>
+    <textarea id="comment" name="comment"></textarea>
+    <div class="validation"></div>
+  </div>
+  <div class="form-row">
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+<script>
+  const debounce = (callback, wait) => {
+    let timeoutId = null;
+    return (...args) => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => {
+        callback(...args);
+      }, wait);
+    };
+  }
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+
+  const comment = document.getElementById("comment");
+
+  let aiSession = null;
+  async function initAISession() {
+    if (!aiSession) {
+      aiSession = await window.ai.createTextSession();
+    }
+    return aiSession;
+  }
+
+  async function translate(text, from, to) {
+    const session = await initAISession();
+    const result = await session.prompt(
+      `Translate the text provided between the [FROM_START] and [FROM_END] tags from ${from} to ${to}
+Provide the translation between [TO_START] and [TO_END] tags.
+
+[FROM_START]
+${text}
+[FROM_END]
+
+[TO_START]
+`);
+
+    const responseEndIndex = result.indexOf("[TO_END]");
+    if (responseEndIndex == -1) {
+      console.log("Could not find the [TO_END] tag");
+      return null;
+    }
+
+    return result.substring(0, responseEndIndex).trim();
+  }
+
+  async function detectLanguage(comment) {
+    const session = await initAISession();
+    const result = await session.prompt(
+      `Analyze the text provided between the [TEXT_START] and [TEXT_END] tags and detect which language it is written in.
+Provide the detected language between [TEXT_LANGUAGE_START] and [TEXT_LANGUAGE_END] tags.
+Only provide the name of the language, and then stop responding.
+
+[TEXT_START]
+${comment}
+[TEXT_END]
+
+[TEXT_LANGUAGE_START]`);
+
+
+    const responseEndIndex = result.indexOf("[TEXT_LANGUAGE_END]");
+    if (responseEndIndex == -1) {
+      console.log("Could not find the [TEXT_LANGUAGE_END] tag");
+      return null;
+    }
+
+    return result.substring(0, responseEndIndex).trim().toLowerCase();
+  }
+
+  if (!window.ai) {
+    output.value = "The on-device AI API is not available.";
+  } else {
+    addEventListener("click", async e => {
+      const translateButton = e.target.closest("#translate");
+      if (translateButton) {
+        const from = translateButton.dataset.from;
+        const to = translateButton.dataset.to;
+        const translation = await translate(comment.value, from, to);
+        if (translation) {
+          comment.value = translation;
+          const validation = document.querySelector(".validation");
+          validation.innerHTML = "";
+        } else {
+          console.log("Translation failed");
+        }
+      }
+    });
+
+    comment.addEventListener("input", debounce(async () => {
+      const lang = await detectLanguage(comment.value);
+      if (lang) {
+        const validation = document.querySelector(".validation");
+        if (lang !== "english") {
+          validation.innerHTML = `We detected that this comment was written in ${lang}. Would you like us to translate it into English?<br><button id="translate" data-from="${lang}" data-to="English">Translate</button>`;
+        }
+      }
+    }, 500));
+  }
+</script>

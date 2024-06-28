@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<style>
+  html {
+    font-size: 2rem;
+    font-family: system-ui;
+  }
+
+  body {
+    margin: 2rem;
+  }
+
+  button,
+  input,
+  textarea {
+    font-family: inherit;
+    font-size: inherit
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    gap: 1rem;
+  }
+
+  .form-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+
+  .form-row button {
+    grid-column: 2;
+  }
+
+  .form-row input,
+  .form-row textarea,
+  .form-row label {
+    padding: .25rem;
+  }
+
+  .form-row textarea {
+    height: 6rem;
+  }
+
+  .form-row .validation {
+    grid-column: 2;
+    background: rgb(248, 224, 224);
+    font-size: .8rem;
+  }
+
+  .form-row .validation:not(:empty) {
+    padding: .25rem;
+    margin: .25rem;
+  }
+</style>
+
+<form action="#" method="GET">
+  <div class="form-row">
+    <label for="firstname">Firstname</label>
+    <input type="text" id="firstname" name="firstname" required>
+  </div>
+  <div class="form-row">
+    <label for="lastname">Lastname</label>
+    <input type="text" id="lastname" name="lastname" required>
+  </div>
+  <div class="form-row">
+    <label for="comment">Comment</label>
+    <textarea id="comment" name="comment" required></textarea>
+    <div class="validation"></div>
+  </div>
+  <div class="form-row">
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+<script>
+  const debounce = (callback, wait) => {
+    let timeoutId = null;
+    return (...args) => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => {
+        callback(...args);
+      }, wait);
+    };
+  }
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+
+  const comment = document.getElementById("comment");
+
+  let aiSession = null;
+  async function initAISession() {
+    if (!aiSession) {
+      aiSession = await window.ai.createTextSession();
+    }
+    return aiSession;
+  }
+
+  async function checkForCoCViolations(comment) {
+    const session = await initAISession();
+    const result = await session.prompt(
+      `Here is our Code of Conduct for user-submitted comments on the site:
+
+[CODE_OF_CONDUCT_START]
+This code of conduct outlines expectations for participation in our community. We are committed to providing a welcoming and inspiring community for all. People violating this code of conduct may be banned from the community.
+- Examples of behavior that contributes to a positive environment for our community include:
+  - Demonstrating empathy and kindness toward other people
+  - Being respectful of differing opinions, viewpoints, and experiences
+  - Giving and gracefully accepting constructive feedback
+  - Accepting responsibility and apologizing to those affected by our mistakes, and learning from the experience
+  - Focusing on what is best not just for us as individuals, but for the overall community
+- Examples of unacceptable behavior include:
+  - The use of swear words, or other language which could reasonably be considered offensive
+  - The use of sexualized language or imagery, and sexual attention or advances of any kind
+  - Trolling, insulting or derogatory comments, and personal or political attacks
+  - Public or private harassment
+  - Disruptive behavior
+  - Publishing others' private information, such as a physical or email address, without their explicit permission
+  - Other conduct which could reasonably be considered inappropriate in a professional setting
+[CODE_OF_CONDUCT_END]
+
+Here is the comment a user submitted:
+
+[COMMENT_START]
+${comment}
+[COMMENT_END]
+
+Analyze the comment and decide if it is clearly acceptable or clearly unacceptable.
+
+- If the comment is clearly acceptable, respond [OK].
+- If the comment is clearly unacceptable, respond with [KO] and provide a summary of the issue(s).
+- It you are not sure, respond with [KO] and list the parts of the comment that might be problematic.
+- Address the person who submitted the comment directly, by using "you", "your", etc. and provide constructive feedback.
+
+Your response (please wrap it in [RESPONSE_START] and [RESPONSE_END] tags):
+
+[RESPONSE_START]
+`
+    );
+
+    return result;
+  }
+
+  if (!window.ai) {
+    output.value = "The on-device AI API is not available.";
+  } else {
+    comment.addEventListener("input", debounce(async () => {
+      let result = await checkForCoCViolations(comment.value);
+
+      // Cut after the [RESPONSE_END] tag.
+      const responseEndIndex = result.indexOf("[RESPONSE_END]");
+      if (responseEndIndex == -1) {
+        console.log("Could not find the [RESPONSE_END] tag");
+        return;
+      }
+
+      result = result.substring(0, responseEndIndex);
+      
+      if (result.includes("[KO]")) {
+        console.log("[KO]");
+        const validation = result
+          .replace("[KO]", "")
+          .replace("**Summary of the issue(s):**", "")
+          .replace("**Summary:**", "")
+          .replace("\n-", "<br>")
+          .replace(/\*\*[^\*]+\*\*/g, "<strong>$&</strong>")
+          .trim();
+
+        comment.nextElementSibling.innerHTML = validation;
+      } else {
+        console.log("[OK]");
+        comment.nextElementSibling.innerHTML = "";
+      }
+    }, 500));
+  }
+</script>

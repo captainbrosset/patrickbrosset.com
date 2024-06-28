@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<style>
+  html {
+    font-size: 1rem;
+    font-family: system-ui;
+  }
+
+  body {
+    margin: 2rem;
+  }
+
+  .sandbox>* {
+    display: block;
+    margin: 1rem 0;
+    width: 100%;
+    padding: .5rem;
+    box-sizing: border-box;
+  }
+
+  .sandbox textarea {
+    height: 10rem;
+  }
+</style>
+
+<h1>Accessing the on-device browser SLM from the web</h1>
+<p>This only works in Chrome Canary and requires you to enable the <strong>Prompt API for Gemini Nano</strong> flag and
+  to set the <strong>Enables optimization guide on device</strong> flag to <strong>Enabled
+    BypassPerfRequirement</strong>.</p>
+<p>With these flags correctly set, Chrome Canary will download the SLM and make it available to web pages
+  via a prompt API. The following demo shows a simple usage of the prompt API.</p>
+
+<div class="sandbox">
+  <textarea id="prompt-input"></textarea>
+  <button id="generate">Generate</button>
+  <textarea id="prompt-output"></textarea>
+</div>
+
+<script>
+  const input = document.getElementById("prompt-input");
+  const output = document.getElementById("prompt-output");
+  const button = document.getElementById("generate");
+
+  if (!window.ai) {
+    output.value = "The on-device AI API is not available.";
+  } else {
+    async function main() {
+      const session = await window.ai.createTextSession();
+
+      button.addEventListener("click", async () => {
+        output.value = "";
+        const result = session.promptStreaming(input.value);
+        
+        for await (const chunk of result) {
+          output.value = chunk;
+        }
+      });
+    }
+
+    main();
+  }
+</script>
