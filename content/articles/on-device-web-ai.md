@@ -21,7 +21,7 @@ There's nothing very new here, and many apps, and devices already come with AI m
 
 * Firefox announced [experimenting with local alt-text generation](https://hacks.mozilla.org/2024/05/experimenting-with-local-alt-text-generation-in-firefox-nightly/).
 * Brave announced the ability to [bring your own model](https://brave.com/blog/byom-nightly/).
-* But also, web developers can also already make use of models on web pages by using [WebNN](https://webmachinelearning.github.io/webnn-intro/). This has also been possible for some time with WebGL and WebGPU too.
+* But also, web developers can already make use of models on web pages by using [WebNN](https://webmachinelearning.github.io/webnn-intro/). This has also been possible for some time with WebGL and WebGPU too.
 
 When it comes to web developers getting access to AI models, it still comes at the price of downloading your own models, and using frameworks such as ONNX web runtime to run them. What if there was a simpler way?
 
@@ -68,7 +68,7 @@ What do you think? I'm personally reassured by this part of the explainer docume
 
 > Even more so than many other behind-a-flag APIs, the prompt API is an experiment, designed to help us understand web developers' use cases to inform a roadmap of purpose-built APIs.
 
-Imagine being able to call `summarize(text)` or `translate(text, "en-us", "fr-fr")` from your webpage.
+Purpose-built APIs could be very useful to web developers, and would come with far fewer risks attached. Imagine being able to call `summarize(text)` or `translate(text, "en-us", "fr-fr")` from your webpage.
 
 ## Feedback
 
