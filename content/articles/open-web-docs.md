@@ -8,7 +8,14 @@ excerpt: "You may have not heard of OWD. But if you're a web developer and use M
 thumbnail: "/assets/owd.png"
 altText: "The OWD logo"
 ---
-**tl;dr: [Open Web Docs](https://openwebdocs.org/) is awesome. It's one of the biggest contributors to [MDN Web Docs](https://developer.mozilla.org/). If you use MDN on a regular basis, consider [supporting OWD](https://opencollective.com/open-web-docs) (💵) so they can continue doing the work that makes all of our web dev jobs easier.**
+**tl;dr: [Open Web Docs](https://openwebdocs.org/) is awesome. It's one of the biggest contributors to [MDN Web Docs](https://developer.mozilla.org/). If you use MDN on a regular basis, consider [sponsoring OWD](https://openwebdocs.org/sponsors/) (💵) so they can continue doing the work that makes all of our web dev jobs easier. You can also easily donate via GitHub:**
+
+<iframe
+  src="https://github.com/sponsors/openwebdocs/card"
+  title="Sponsor openwebdocs"
+  frameborder="0"
+  style="width:300px;height:300px;display:block;margin:0 auto;"
+></iframe>
 
 If you're a web developer you have most likely heard and used the [MDN Web Docs](https://developer.mozilla.org/en-US/) website. Heck, even if you don't call yourself a web dev, but still write some web code every now and then, you've probably used it.
 
@@ -98,7 +105,7 @@ Here are a few ways you can inform your company about OWD and try to convince th
 
 * Tell them how much you use MDN content through the website and other tools you use daily. Show the impact these resources have on your teams and show usage numbers.
 * Show them this blog post.
-* Show them the OWD [2021](https://openwebdocs.org/content/reports/2021/) and [2022](https://openwebdocs.org/content/reports/2022/) impact reports to clarify to what extent OWD contributes to these resources.
+* Show them the OWD [2021](https://openwebdocs.org/content/reports/2021/), [2022](https://openwebdocs.org/content/reports/2022/), and [2023](https://openwebdocs.org/content/reports/2023/) impact reports to clarify to what extent OWD contributes to these resources.
 * Show them the [OWD membership](https://openwebdocs.org/membership/) page, which contains details about the various sponsorship levels and the benefits that come with them. As a Gold sponsor, for example, your company would get its logo on the website, and a seat on the OWD Steering Committee to discuss with the OWD community and help shape the future of web documentation.
 
 You can get in touch with OWD by using the **Contact** button on the [Open Collective page](https://opencollective.com/open-web-docs).
