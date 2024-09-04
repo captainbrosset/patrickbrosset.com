@@ -7,7 +7,7 @@ excerpt: "What's available on the web platform today? What became available with
 thumbnail: "/assets/web-release-notes.png"
 altText: "A drawing of a loudspeaker with the text What's New on the Web on it."
 ---
-tl;dr: the [WebDX Community Group](https://www.w3.org/community/webdx/) is working hard on cataloging the features of the web platform, and mapping them to their availability in browsers, which is making it possible to create a release note for the web platform. Check out our work in progress [web platform release release notes](https://web-platform-dx.github.io/web-features-explorer/release-notes/).
+tl;dr: the [WebDX Community Group](https://www.w3.org/community/webdx/) is working hard on cataloging the features of the web platform, and mapping them to their availability in browsers, which is making it possible to create a release note for the web platform. Check out our work in progress [web platform release notes](https://web-platform-dx.github.io/web-features-explorer/release-notes/).
 
 ---
 
