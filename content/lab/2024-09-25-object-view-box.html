@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<title>object-view-box</title>
+
+<style>
+  body {
+    font-family: system-ui;
+    font-size: 1rem;
+  }
+</style>
+
+<h1>CSS object-view-box</h1>
+<p>The <code>object-view-box</code> CSS property allows developers to define a <em>view box</em> over an element,
+  effectively making it possible to pan/crop/zoom over an element's content.
+  This is very useful to display certain parts of images for example. While developers can employ workarounds such as
+  using a
+  <code>&lt;div&gt;</code>, displaying the image by using the <code>background-image</code> CSS property, and then
+  positioning and cropping the image with the <code>background-position</code> and <code>background-size</code> CSS
+  properties, the code is more complicated, and it makes the image purely decorative and inaccessible.
+</p>
+
+<p>The example below displays an image with an inset view box that's used to only show a portion of the image:</p>
+
+<style style="display:block;white-space:pre;font-family:monospace;padding:1rem;background:black;color:white;">
+img {
+  display: block;
+  width: 50%;
+  margin: 1rem auto;
+  object-view-box: inset(40% 20% 20% 40%);
+}
+</style>
+
+<img
+  src="https://images.unsplash.com/photo-1611604548018-d56bbd85d681?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+  alt="Lego toys">
