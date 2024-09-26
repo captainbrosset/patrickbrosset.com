@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<style>
+  body {
+    font-size: 2rem;
+    font-family: system-ui;
+    margin: 2rem;
+  }
+</style>
+
+<button id="request">Enable notifications</button>
+<button id="notify">Send a notification</button>
+<label>Tag <input id="tag" type="text" value="default-tag"></label>
+
+<script>
+  const requestButton = document.getElementById('request');
+  const notifyButton = document.getElementById('notify');
+  const tagInput = document.getElementById('tag');
+
+  requestButton.addEventListener('click', async () => {
+    if (!('Notification' in window)) {
+      console.error('This browser does not support notifications');
+      return;
+    }
+
+    if (Notification.permission === 'granted') {
+      console.log('Notifications already granted');
+      return;
+    }
+
+    const permission = await Notification.requestPermission();
+    console.log('Permission:', permission);
+  });
+
+  notifyButton.addEventListener('click', () => {
+    if (Notification.permission !== 'granted') {
+      console.error('Notifications not granted');
+      return;
+    }
+
+    new Notification('Hello world!', {
+      body: 'This is a notification',
+      icon: '/assets/patrick.png',
+      tag: tagInput.value,
+    });
+  });
+</script>
