@@ -8,12 +8,14 @@
 </style>
 
 <button id="request">Enable notifications</button>
-<button id="notify">Send a notification</button>
+<button id="notify">Send one notification</button>
+<button id="mass-notify">Send multiple notifications</button>
 <label>Tag <input id="tag" type="text" value="default-tag"></label>
 
 <script>
   const requestButton = document.getElementById('request');
   const notifyButton = document.getElementById('notify');
+  const massNotifyButton = document.getElementById('mass-notify');
   const tagInput = document.getElementById('tag');
 
   requestButton.addEventListener('click', async () => {
@@ -42,5 +44,22 @@
       icon: '/assets/patrick.png',
       tag: tagInput.value,
     });
+  });
+
+  massNotifyButton.addEventListener('click', () => {
+    if (Notification.permission !== 'granted') {
+      console.error('Notifications not granted');
+      return;
+    }
+
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => {
+        new Notification(`Hello world ${i}!`, {
+          body: `This is notification ${i}`,
+          icon: '/assets/patrick.png',
+          tag: tagInput.value,
+        });
+      }, i * 200);
+    }
   });
 </script>
