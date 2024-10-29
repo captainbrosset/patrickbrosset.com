@@ -17,14 +17,18 @@
 <button id="mass-notify">Send multiple notifications</button>
 <label>Tag <input id="tag" type="text" value="default-tag"></label>
 <button id="get-max-actions">Get max actions</button>
+<button id="send-from-sw">Send one notification from service worker</button>
 
 <script>
+  navigator.serviceWorker.register("/assets/notification-lab-sw.js");
+
   const requestButton = document.getElementById('request');
   const notifyButton = document.getElementById('notify');
   const massNotifyButton = document.getElementById('mass-notify');
   const tagInput = document.getElementById('tag');
   const getMaxActionsButton = document.getElementById('get-max-actions');
   const permissionLabel = document.getElementById('permission');
+  const sendFromSWButton = document.getElementById('send-from-sw');
 
   requestButton.addEventListener('click', async () => {
     if (!('Notification' in window)) {
@@ -75,5 +79,15 @@
 
   getMaxActionsButton.addEventListener('click', () => {
     alert('Max actions:', Notification.maxActions);
+  });
+
+  sendFromSWButton.addEventListener('click', () => {
+    navigator.serviceWorker.ready.then(registration => {
+      registration.showNotification('Hello from service worker!', {
+        body: 'This is a notification from the service worker',
+        icon: '/assets/patrick.png',
+        tag: tagInput.value,
+      });
+    });
   });
 </script>
