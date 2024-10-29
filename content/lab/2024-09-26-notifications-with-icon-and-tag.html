@@ -12,6 +12,7 @@
 </style>
 
 <button id="request">Enable notifications</button>
+<span id="permission"></span>
 <button id="notify">Send one notification</button>
 <button id="mass-notify">Send multiple notifications</button>
 <label>Tag <input id="tag" type="text" value="default-tag"></label>
@@ -23,12 +24,15 @@
   const massNotifyButton = document.getElementById('mass-notify');
   const tagInput = document.getElementById('tag');
   const getMaxActionsButton = document.getElementById('get-max-actions');
+  const permissionLabel = document.getElementById('permission');
 
   requestButton.addEventListener('click', async () => {
     if (!('Notification' in window)) {
       console.error('This browser does not support notifications');
       return;
     }
+
+    permissionLabel.textContent = Notification.permission;
 
     if (Notification.permission === 'granted') {
       console.log('Notifications already granted');
