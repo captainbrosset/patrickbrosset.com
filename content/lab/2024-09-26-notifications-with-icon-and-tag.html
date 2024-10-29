@@ -15,12 +15,14 @@
 <button id="notify">Send one notification</button>
 <button id="mass-notify">Send multiple notifications</button>
 <label>Tag <input id="tag" type="text" value="default-tag"></label>
+<button id="get-max-actions">Get max actions</button>
 
 <script>
   const requestButton = document.getElementById('request');
   const notifyButton = document.getElementById('notify');
   const massNotifyButton = document.getElementById('mass-notify');
   const tagInput = document.getElementById('tag');
+  const getMaxActionsButton = document.getElementById('get-max-actions');
 
   requestButton.addEventListener('click', async () => {
     if (!('Notification' in window)) {
@@ -65,5 +67,9 @@
         });
       }, i * 200);
     }
+  });
+
+  getMaxActionsButton.addEventListener('click', () => {
+    alert('Max actions:', Notification.maxActions);
   });
 </script>
