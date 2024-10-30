@@ -4,10 +4,12 @@ const tabify = require("./tabify.js");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const embedTwitter = require("eleventy-plugin-embed-twitter");
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/assets");
   eleventyConfig.addPassthroughCopy("content/lab/notification-lab-sw.js");
-  eleventyConfig.addPassthroughCopy("content/lab/notification-lab-manifest.json");
+  eleventyConfig.addPassthroughCopy(
+    "content/lab/notification-lab-manifest.json"
+  );
   eleventyConfig.addPassthroughCopy("content/robots.txt");
   eleventyConfig.addPassthroughCopy("content/android-chrome-192x192.png");
   eleventyConfig.addPassthroughCopy("content/android-chrome-512x512.png");
@@ -29,28 +31,31 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
-  eleventyConfig.addFilter("dateTime", function(date) {
+  eleventyConfig.addFilter("dateTime", function (date) {
     date = new Date(date);
     // Format as YYY-MM-DD
     return date.toISOString().split("T")[0];
   });
-  eleventyConfig.addFilter("formattedDateTime", function(date) {
+  
+  eleventyConfig.addFilter("formattedDateTime", function (date) {
     date = new Date(date);
     // Format as Month DDth, YYYY
     return date.toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
-      day: "numeric"
+      day: "numeric",
     });
   });
-  eleventyConfig.addFilter("superSlug", function(value) {
-    return value.toLowerCase()
-                .replace(/\(/g, "")
-                .replace(/\)/g, "")
-                .replace(/#/g, "")
-                .replace(/:/g, "")
-                .replace(/!/g, "")
-                .replace(/'/g, "");
+
+  eleventyConfig.addFilter("superSlug", function (value) {
+    return value
+      .toLowerCase()
+      .replace(/\(/g, "")
+      .replace(/\)/g, "")
+      .replace(/#/g, "")
+      .replace(/:/g, "")
+      .replace(/!/g, "")
+      .replace(/'/g, "");
   });
 
   eleventyConfig.addTransform("link-article-images", function (content) {
@@ -66,12 +71,7 @@ module.exports = function(eleventyConfig) {
   });
 
   return {
-    templateFormats: [
-      "md",
-      "njk",
-      "html",
-      "liquid",
-    ],
+    templateFormats: ["md", "njk", "html", "liquid"],
 
     markdownTemplateEngine: "liquid",
     htmlTemplateEngine: "njk",
@@ -81,7 +81,7 @@ module.exports = function(eleventyConfig) {
       input: "content",
       includes: "includes",
       data: "data",
-      output: "_site"
-    }
+      output: "_site",
+    },
   };
 };
