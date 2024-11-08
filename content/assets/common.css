@@ -14,7 +14,7 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --background: #000;
-    --primary: #c8ce0e;
+    --primary: rgb(60, 255, 208);
     --text: white;
     --sub-text: #6a6c1d;
     --code: #191b2d;
@@ -237,8 +237,11 @@ main:not(:has(.entries)) p:last-child {
 .social-links .instagram {
   background-image: url(/assets/icons/instagram.png);
 }
-.social-links .x {
-  background-image: url(/assets/icons/x.png);
+.social-links .bluesky {
+  background-image: url(/assets/icons/bluesky.png);
+}
+.social-links .linkedin {
+  background-image: url(/assets/icons/linkedin.png);
 }
 .social-links .youtube {
   background-image: url(/assets/icons/youtube.png);
