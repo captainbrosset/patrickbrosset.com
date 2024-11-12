@@ -71,7 +71,7 @@ The top response here is absolutely no surprise: **browser support**. It's not a
 
 But, the comments also contain an interesting key take away here related to design tools. This one resonates with some of what I heard at [SmashingConf](/articles/2024-10-15-smashing-conference-nyc-2024/) earlier this year. Designers are seeing that CSS has gotten so many features that let you be creative on the web, but also that let you design specifically **for** the web, that they're feeling held back by their design tools that don't "speak" CSS. This tells me that traditional graphic design and CSS are growing further apart and that there's room for CSS-first design tools.
 
-One final take aware on this question is related to complexity, where some people mentioned that CSS was getting very complex to use.
+One final take away on this question is related to complexity, where some people mentioned that CSS was getting very complex to use.
 
 ### Conclusion
 
