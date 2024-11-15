@@ -3,7 +3,7 @@ layout: article.njk
 title: State of CSS and State of HTML 2024
 tags: article
 date: 2024-11-08
-excerpt: "The results of State of CSS 2024 are available, and some preliminary results for State of HTML 2024 are too. In this blog post, I  my combined analysis of both."
+excerpt: "The results of State of CSS 2024 are available, and some preliminary results for State of HTML 2024 are too. In this article, I share  my combined analysis of both."
 thumbnail: "/assets/stateofs24.png"
 altText: "An combined abstract rendering of the state of css and html survey logos"
 ---
