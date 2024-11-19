@@ -10,7 +10,7 @@ hasCode: true
 draft: true
 ---
 
-Querying large amounts of data in [IndexedDB](https://developer.mozilla.org/docs/Web/API/IndexedDB_API) can sometimes be slow. In this article, let's look at [a proposal](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/IndexedDbGetAllEntries/explainer.md) from the Microsoft Edge team to improve the performance **and** ergonomics of reading IndexedDB data.
+Reading large amounts of data in [IndexedDB](https://developer.mozilla.org/docs/Web/API/IndexedDB_API) can be slow at times. In this article, let's look at [a proposal](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/IndexedDbGetAllEntries/explainer.md) from the Microsoft Edge team that improves the performance **and** ergonomics of reading IndexedDB data.
 
 ---
 
@@ -147,6 +147,8 @@ async function readInBatches(db, count, direction) {
 ```
 
 ## Trying it out
+
+To see more code, check out [this demo I made](https://github.com/MicrosoftEdge/Demos/tree/main/idb-getallrecords), which you can also [run live](https://microsoftedge.github.io/Demos/idb-getallrecords/).
 
 A prototype of the `getAllRecords` method is now available in Chromium, which means you can try it out for yourself in Chrome Canary or Edge Canary (to make sure you have the version that has the feature).
 
