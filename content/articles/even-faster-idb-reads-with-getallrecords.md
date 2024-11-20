@@ -7,7 +7,6 @@ excerpt: "Reading a lot of data from IndexedDB can be slow. Reading the data in 
 thumbnail: "/assets/idb.png"
 altText: "An abstract illustration of a database server with circles of light around it"
 hasCode: true
-draft: true
 ---
 
 Reading large amounts of data in [IndexedDB](https://developer.mozilla.org/docs/Web/API/IndexedDB_API) can be slow at times. In this article, let's look at [a proposal](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/IndexedDbGetAllEntries/explainer.md) from the Microsoft Edge team that improves the performance **and** ergonomics of reading IndexedDB data.
@@ -98,7 +97,7 @@ async function readReverse(db) {
 
 Again, doing the above can be slow if you have a lot of data.
 
-## Introducing getAllRecords
+## Introducing getAllRecords()
 
 The `getAllRecords` method of an `IDBObjectStore` (and `IDBIndex`) is a [proposal](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/IndexedDbGetAllEntries/explainer.md) from the Microsoft Edge team that aims to address the limitations discussed above. It does so by:
 
@@ -146,7 +145,13 @@ async function readInBatches(db, count, direction) {
 }
 ```
 
-## Trying it out
+The code above uses the proposed `getAllRecords()` method on an `IDBObjectStore` object. The method accepts a `query` argument, just like `getAll` or `getAllKeys`, which you can use to read in batches. The method also accepts a `count` and `direction` argument, which you can use to set how many records you want to read, and in which order.
+
+The method returns a list of `IDBRecord` objects, which contain both the `value` and `key` of the record (note that it also returns the `primaryKey`, which in this case is equal to `key`).
+
+The method can also be used on an `IDBIndex` object, in the same way, but in this case `key` provides the index key while `primaryKey` provides the primary key.
+
+## Try it out
 
 To see more code, check out [this demo I made](https://github.com/MicrosoftEdge/Demos/tree/main/idb-getallrecords), which you can also [run live](https://microsoftedge.github.io/Demos/idb-getallrecords/).
 
@@ -164,3 +169,7 @@ If this is something that you could benefit from, please try it out and consider
 
 * **Read the proposal**: [IndexedDB: getAllRecords](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/IndexedDbGetAllEntries/explainer.md).
 * **Leave feedback**: [Review existing issues](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/) or [open a new issue](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new/choose).
+
+---
+
+Thank you to [Steve Becker](https://github.com/SteveBeckerMSFT) for reviewing this article.
