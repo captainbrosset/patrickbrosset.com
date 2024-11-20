@@ -450,3 +450,19 @@ hr {
 	border: 0;
 	border-radius: 100vw;
 }
+
+table {
+  font-size: 1rem;
+  margin: 2rem 0;
+  border-collapse: collapse;
+}
+
+table td, table th {
+  border: 1px solid var(--sub-text);
+  padding: .25rem;
+  text-align: start;
+}
+
+table tr:nth-child(2n) {
+	background: var(--separator);
+}
