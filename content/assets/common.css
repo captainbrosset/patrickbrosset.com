@@ -143,12 +143,8 @@ body > h1 a:hover {
   display: inline;
 }
 
-.site-nav li a {
-  padding: .5rem 0;
-}
-
-.site-nav li a:hover, .site-nav li[aria-current="page"] a {
-  color: var(--text);
+.site-nav li a:hover {
+  box-shadow: 0 0 0 .25rem var(--primary);
 }
 
 a.thumbnail {
