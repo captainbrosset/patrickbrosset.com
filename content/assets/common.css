@@ -1,22 +1,23 @@
 :root {
   color-scheme: light;
+  --margin: 3rem;
   --background: #fff;
-  --primary: #19a577;
+  --primary: black;
   --text: #000;
-  --sub-text: #676767;
+  --sub-text: #737373;
   --code: #000000;
-  --inline-code: #0edc7c34;
+  --inline-code: #c172d733;
   --text-on-inline-code: #372f36;
-  --separator: #efefef;
+  --separator: #f3e2f7;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --background: #000;
-    --primary: rgb(60, 255, 208);
+    --primary: white;
     --text: white;
-    --sub-text: #6a6c1d;
+    --sub-text: #7a7a7a;
     --code: #191b2d;
     --inline-code: #191b2d;
     --text-on-inline-code: rgb(255, 254, 212);
@@ -35,22 +36,18 @@
 
 html {
   background: var(--background);
+  background-image: radial-gradient(circle, var(--separator) 1.1px, transparent 0);
+  background-size: var(--margin) var(--margin);
+  background-repeat: repeat;
 }
 
 body {
-  margin: 2rem;
-  max-width: 1200px;
+  margin: calc(2 * var(--margin));
+  max-width: 1000px;
   font-family: system-ui, sans-serif;
-  font-size: 1.3rem;
-  line-height: 1.8;
+  font-size: calc(0.5 * var(--margin));
+  line-height: var(--margin);
   color: var(--text);
-  display: grid;
-  grid-template-areas:
-    "header"
-    "nav"
-    "main"
-    "socials"
-    "footer";
 }
 
 /* Links */
@@ -63,11 +60,12 @@ a {
 	text-decoration-thickness: .25rem;
 	text-underline-offset: .25rem;
   text-decoration-skip-ink: none;
-  transition: all .1s ease-in-out;
 }
 
 a:hover {
-	text-decoration-thickness: .5rem;
+	color: var(--background);
+  background: var(--text);
+  text-decoration: none;
 }
 
 a.external::after {
@@ -98,7 +96,6 @@ a.external[href*="hacks.mozilla.org"]::after {
 /* Header */
 
 header {
-  grid-area: header;
   margin-block-end: 2rem;
 }
 
@@ -123,8 +120,12 @@ body > h1 a:hover {
 }
 
 @media (max-width: 600px) {
-  .site-nav {
-    font-size: 0.8em;
+  :root {
+    --margin: 2.5rem;
+  }
+
+  body {
+    margin: var(--margin);
   }
 }
 
@@ -132,30 +133,21 @@ body > h1 a:hover {
   padding: 0;
   margin: 0;
   list-style-type: none;
-  display: flex;
-  gap: 2px;
 }
 
 .site-nav li {
   padding: 0;
-  overflow: hidden;
-  margin: 0;
+  margin: 0 .5rem 0 0;
   list-style-type: none;
   line-height: 1;
-  border-block-end: 2px solid var(--primary);
+  display: inline;
 }
 
 .site-nav li a {
-  background: var(--primary);
-  color: var(--background);
-  transition: .25s ease-in-out;
-  padding: .5rem;
-  display: block;
-  text-decoration: none;
+  padding: .5rem 0;
 }
 
 .site-nav li a:hover, .site-nav li[aria-current="page"] a {
-  background: var(--background);
   color: var(--text);
 }
 
@@ -166,32 +158,18 @@ a.thumbnail {
 /* Main */
 
 main {
-  grid-area: main;
-  overflow: auto;
-  margin: 2rem 0;
+  margin: var(--margin) 0;
 }
 
-main:has(.entries) {
-  margin: 0;
-}
-
-/* Pages that are not listings */
-
-
-main:not(:has(.entries)) h1 {
+main h1 {
   font-weight: normal;
   margin-block-start: 0;
-}
-
-main:not(:has(.entries)) p:last-child {
-  margin-block-end: 0;
 }
 
 /* Social links */
 
 .social-links {
-  grid-area: socials;
-  margin: 0 0 2rem 0;
+  margin: var(--margin) 0;
 }
 
 .social-links ul,
@@ -221,6 +199,11 @@ main:not(:has(.entries)) p:last-child {
   text-decoration: none;
   border-radius: 0.25rem;
   mix-blend-mode: multiply;
+}
+
+.social-links a:hover {
+  color: transparent;
+  background-color: transparent;
 }
 
 .social-links a::before {
@@ -255,10 +238,6 @@ main:not(:has(.entries)) p:last-child {
 
 /* Footer */
 
-footer {
-  grid-area: footer;
-}
-
 .footer-badges {
   margin-block-start: 2rem;
 }
@@ -275,24 +254,31 @@ w3c-badge {
   --checkmark: var(--text);
 }
 
-/* Time */
+/* Time and article author */
 
-time {
+.author-date, time {
   color: var(--sub-text);
   font-size: smaller;
+}
+
+.author-date a {
+  color: var(--sib-text);
+}
+
+.author-date a:hover {
+  color: var(--background);
 }
 
 /* Images in main content are full width */
 main img {
   width: 100%;
-  max-height: 40svh;
+  max-height: 30rem;
   object-fit: contain;
   object-position: left;
-  border-radius: 3px;
 }
 
-main .no-border img {
-  border: 0;
+a:has(img):hover {
+  background-color: transparent;
 }
 
 main img.mini {
@@ -326,10 +312,8 @@ code {
   box-decoration-break: clone;
 }
 
-a code {
-  background: none;
-  color: var(--primary);
-  padding: 0;
+a:hover code {
+  color: var(--background);
 }
 
 pre {
@@ -380,7 +364,7 @@ kbd {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
-  object-position: center;
+  object-position: start;
 }
 
 .entries > li a:not(.thumbnail) {
@@ -391,7 +375,7 @@ kbd {
 }
 
 .entries > li time {
-  grid-row: 2;
+  grid-row: 3;
   font-size: 0.9rem;
 }
 

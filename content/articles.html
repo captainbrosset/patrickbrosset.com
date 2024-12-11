@@ -2,6 +2,7 @@
 layout: main-layout.njk
 title: Articles
 ---
+<h1>Articles</h1>
 <ul class="entries">
   {% for post in collections.article | reverse %}
     {% if not post.data.draft %}

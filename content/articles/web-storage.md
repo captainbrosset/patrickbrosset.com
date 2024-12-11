@@ -8,7 +8,7 @@ excerpt: "Does your app or site need to store data on the client? Not sure what 
 thumbnail: "/assets/storage.jpg"
 altText: "Container boxes in a harbor"
 ---
-<div style="padding:.5rem 1rem;background:var(--text-on-code);color:var(--code);">
+<div style="padding:.5rem 1rem;background:var(--separator);">
 
 **⚠️ MDN now has more up-to-date information on this ⚠️**
 
