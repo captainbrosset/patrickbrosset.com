@@ -4,23 +4,27 @@ permalink: "articles/{{ date | date: '%Y-%m-%d' }}-{{ title | slug | superSlug }
 
 {% include "header-article.njk" %}
 
-<p class="article-illustration">
-  <img src="{{ thumbnail }}" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}">
-</p>
+<article>
 
-<h1>{{ title }}</h1>
+  <p class="article-illustration">
+    <img src="{{ thumbnail }}" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}">
+  </p>
 
-<p class="author-date">
-  <a href="/">Patrick Brosset</a>
-  -
-  <time datetime="{{ date | dateTime }}">{{ date | formattedDateTime }}</time>
-</p>
+  <h1>{{ title }}</h1>
 
-{% if external %}
-  {{ excerpt }}
-  <p><a href="{{ external }}" rel="external">Read the article at {{ external }}</a></p>
-{% else %}
-  {{ content | safe }}
-{% endif %}
+  <p class="author-date">
+    <a href="/">Patrick Brosset</a>
+    -
+    <time datetime="{{ date | dateTime }}">{{ date | formattedDateTime }}</time>
+  </p>
+
+  {% if external %}
+    {{ excerpt }}
+    <p><a href="{{ external }}" rel="external">Read the article at {{ external }}</a></p>
+  {% else %}
+    {{ content | safe }}
+  {% endif %}
+
+</article>
 
 {% include "footer.njk" %}
