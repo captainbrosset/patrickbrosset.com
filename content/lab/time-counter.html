@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Time Counter</title>
+  <style>
+    body {
+      font-family: calibri;
+      text-align: center;
+      font-size: 4rem;
+    }
+
+    #counter {
+      margin: 4rem 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="counter">00:00:00.000</div>
+  <button>Start</button>
+  <script>
+    const counterEl = document.getElementById('counter');
+    const startButton = document.querySelector('button');
+    let isRunning = false;
+
+    startButton.addEventListener("click", () => {
+      isRunning = !isRunning;
+      startButton.textContent = isRunning ? 'Stop' : 'Start';
+
+      if (isRunning) {
+        let startTime = Date.now();
+        const updateCounter = () => {
+          const elapsedTime = Date.now() - startTime;
+          const date = new Date(elapsedTime);
+          counterEl.textContent = date.toISOString().substr(11, 12);
+          if (isRunning) {
+            requestAnimationFrame(updateCounter);
+          }
+        };
+        updateCounter();
+      } else {
+        counterEl.textContent = '00:00:00.000';
+      }
+    });
+  </script>
+</body>
+
+</html>
