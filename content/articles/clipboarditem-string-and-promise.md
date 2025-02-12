@@ -45,7 +45,7 @@ But that's not all, the spec also allows for Promises to be passed to the `Clipb
 async function fetchSomeText() {
   // Imagine this method asynchronously returns some text content,
   // perhaps from a server, using fetch().
-  // For the sake of this sample code, let's just return the text now..
+  // For the sake of this sample code, let's just return the text now.
   return "Hello async!";
 }
 
