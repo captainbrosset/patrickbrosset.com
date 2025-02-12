@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<style>
+  body {
+    font-family: system-ui;
+    font-size: 1rem;
+  }
+
+  ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  #fonts {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: .25rem;
+  }
+
+  #fonts li {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: subgrid;
+    padding: .5rem;
+  }
+
+  #fonts li:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .sample-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+<button>List local fonts</button>
+<ul id="fonts"></ul>
+<script>
+  const button = document.querySelector("button");
+  const fontsEl = document.querySelector("#fonts");
+
+  const SAMPLE_TEXT = "The brown fox jumps over the lazy dog.";
+
+  button.addEventListener("click", () => {
+    if (!("queryLocalFonts" in window)) {
+      alert("The queryLocalFonts method is not supported in this browser.");
+      return;
+    }
+
+    navigator.permissions.query({ name: "local-fonts" }).then((result) => {
+      if (result.state === "denied") {
+        alert("Permission to use local fonts is denied.");
+        button.disabled = true;
+        return;
+      }
+
+      window.queryLocalFonts().then(fonts => {
+        for (const font of fonts) {
+          const li = document.createElement("li");
+
+          const fontName = document.createElement("span");
+          fontName.classList.add("font-name");
+          fontName.textContent = font.fullName;
+          li.appendChild(fontName);
+          
+          const sampleText = document.createElement("span");
+          sampleText.classList.add("sample-text");
+          sampleText.textContent = SAMPLE_TEXT;
+          sampleText.style.fontFamily = font.family;
+          sampleText.style.fontStyle = font.style;
+          if (font.style === "bold") {
+            sampleText.style.fontWeight = "bold";
+          }
+          li.appendChild(sampleText);
+          
+          fontsEl.appendChild(li);
+        }
+      });
+    });
+  });
+</script>
