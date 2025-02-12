@@ -2,6 +2,7 @@
 layout: article.njk
 title: Constructing ClipboardItems from strings and Promises
 tags: article
+hasCode: true
 date: 2025-02-12
 excerpt: "Starting with Edge and Chrome 133, it's now a bit easier to work with the Clipboard API, as you can now pass strings and Promises directly to the ClipboardItem constructor. This quality of life improvement brings Chromium up to par with other browsers."
 thumbnail: "/assets/clipboard.png"
