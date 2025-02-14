@@ -399,6 +399,10 @@ kbd {
   margin: 0;
 }
 
+.entries > li:not(.thumbnail) > p {
+  grid-column: 1;
+}
+
 @media (max-width: 800px) {
   .entries {
     grid-template-columns: 1fr;
