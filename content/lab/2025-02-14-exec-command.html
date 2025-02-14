@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<style>
+  html {
+    font-family: system-ui;
+    font-size: 1.1rem;
+  }
+
+  #editor {
+    border: 1px solid #ccc;
+  }
+
+  #editor #toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ccc;
+  }
+
+  #editor #text {
+    min-height: 400px;
+    padding: 1rem;
+  }
+</style>
+
+<h1>execCommand test</h1>
+
+<p>Back when I still did web development for a living, I often came across the <code>execCommand()</code> method when
+  trying to read and write from the clipboard. Now that the Async Clipboard API is basically usable everywhere, we don't
+  need it anymore. Plus, <code>execCommand()</code> is actually discouraged by the <a
+    href="https://w3c.github.io/editing/docs/execCommand/">spec</a> itself, and who knows how much longer it will be
+  supported in browsers.</p>
+<p>But, as I was looking into that method again, to document it properly in <a
+    href="https://github.com/web-platform-dx/web-features/pull/2641/">web-features</a>, I realized it did more than just
+  access the clipboard. It actually supports a bunch of commands meant at making it easy to implement a text editor.</p>
+<p>So the following is a test page for the <code>execCommand()</code> to see what works where, over time.</p>
+
+<div id="editor">
+  <div id="toolbar">
+    <div class="toolbar-area">
+      <div><button data-cmd="bold" style="font-weight:bold">b</button></div>
+      <div><button data-cmd="italic" style="font-style:italic;">i</button></div>
+      <div><button data-cmd="underline" style="text-decoration:underline">u</button></div>
+    </div>
+    <div class="toolbar-area">
+      <div>
+        <label>Font
+          <select data-cmd="fontName">
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>Size
+          <select data-cmd="fontSize">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        </label>
+      </div>
+      <div><button data-cmd="decreaseFontSize">A-</button></div>
+      <div><button data-cmd="increaseFontSize">A+</button></div>
+    </div>
+    <div class="toolbar-area">
+      <div><button data-cmd="justifyLeft">left</button></div>
+      <div><button data-cmd="justifyCenter">center</button></div>
+      <div><button data-cmd="justifyRight">right</button></div>
+      <div><button data-cmd="justifyFull">justified</button></div>
+    </div>
+    <div class="toolbar-area">
+      <div><input type="text" placeholder="href"><button data-cmd="createLink">Add link</button></div>
+      <div><button data-cmd="unlink">Remove link</button></div>
+      <div><button data-cmd="insertOrderedList">Ordered list</button></div>
+      <div><button data-cmd="insertUnorderedList">Unordered list</button></div>
+      <div><button data-cmd="insertParagraph">Paragraph</button></div>
+      <div><button data-cmd="insertHorizontalRule">Horizontal line</button></div>
+    </div>
+    <div><input type="text" placeholder="Image source"><button data-cmd="insertImage">Insert image</button></div>
+    <div class="toolbar-area">
+      <div><button data-cmd="copy">copy</button></div>
+      <div><button data-cmd="cut">cut</button></div>
+      <div><button data-cmd="paste">paste</button></div>
+    </div>
+    <div class="toolbar-area">
+      <div><button data-cmd="undo">undo</button></div>
+      <div><button data-cmd="redo">redo</button></div>
+    </div>
+  </div>
+  <div id="text" contenteditable>Here is some text which you can edit ...</div>
+</div>
+<script>
+  const editor = document.getElementById('editor');
+  const text = document.getElementById('text');
+
+  addEventListener('click', (e) => {
+    const cmdEl = e.target.closest('button[data-cmd]');
+    if (!cmdEl) {
+      return;
+    }
+
+    const cmd = cmdEl.dataset.cmd;
+    let value = undefined;
+    const previousTextField = cmdEl.previousElementSibling;
+
+    if (previousTextField && previousTextField.tagName === 'INPUT') {
+      value = previousTextField.value;
+    }
+
+    document.execCommand(cmd, false, value);
+  });
+
+  addEventListener('change', (e) => {
+    const cmdEl = e.target.closest('select[data-cmd]');
+    if (!cmdEl) {
+      return;
+    }
+
+    const cmd = cmdEl.dataset.cmd;
+    const value = cmdEl.value;
+
+    document.execCommand(cmd, false, value);
+  });
+</script>
