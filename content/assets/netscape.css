@@ -1,0 +1,117 @@
+:root {
+  --background: #ccc;
+  --bevel-width: 3px;
+  --bevel-light: #eee;
+  --bevel-dark: #777;
+
+  background: transparent;
+  background-image: none;
+}
+
+body {
+  margin: 0;
+  padding: var(--margin);
+  background: var(--background);
+  font-size: 1.1rem;
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.6;
+  accent-color: red;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  pointer-events: none;
+  border-width: var(--bevel-width);
+  border-style: solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+}
+
+a, a:hover, a:active {
+  color: blue;
+  text-decoration: revert;
+  background: none;
+}
+
+.site-nav ul, .social-links ul {
+  display: flex;
+}
+
+.site-nav li, .social-links li {
+  margin: 0;
+}
+
+.site-nav li a, .social-links li a {
+  margin: 0;
+  padding: .5rem;
+  border-width: var(--bevel-width);
+  border-style: solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  font-family: system-ui;
+  text-decoration: none;
+  text-align: center;
+  color: var(--text);
+}
+
+.site-nav li a:hover, .social-links li a:hover {
+  box-shadow: unset;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  background: var(--background);
+  color: var(--text);
+}
+
+.social-links a {
+  all: revert;
+  background-image: none !important;
+  text-transform: capitalize;
+}
+
+main h1,
+main h2,
+main h3 {
+  font-weight: revert;
+}
+
+main h1 {
+  margin: var(--margin) 0;
+}
+
+.entries li {
+  position: relative;
+}
+
+.entries li::before {
+  content: "";
+  position: absolute;
+  top: -1rem;
+  height: var(--bevel-width);
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+}
+
+.social-links::before, main::before {
+  content: "";
+  width: 100%;
+  height: var(--bevel-width);
+  margin-block-end: var(--margin);
+  display: block;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+}
+
+::selection {
+  background-color: blue;
+  color: white;
+}

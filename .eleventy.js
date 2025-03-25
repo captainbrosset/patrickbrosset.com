@@ -6,6 +6,7 @@ const embedTwitter = require("eleventy-plugin-embed-twitter");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/assets");
+  eleventyConfig.addPassthroughCopy("content/slides");
   eleventyConfig.addPassthroughCopy("content/lab/notification-lab-sw.js");
   eleventyConfig.addPassthroughCopy(
     "content/lab/notification-lab-manifest.json"
