@@ -42,7 +42,7 @@ On my site, I have pages that display lists of posts. Each post is represented b
 ```
 {% endraw %}
 
-The important part in the above code snippet is the `elementtiming` attribute on the `img` tag. The pieces that start with `{%` or `{{` are from the template language I use with my [Eleventy](https://www.11ty.dev/) website to generate the list of posts.
+The important part in the above code snippet is the `elementtiming` attribute on the `img` tag. The pieces that start with {% raw %}`{%` or `{{`{% endraw %} are from the template language I use with my [Eleventy](https://www.11ty.dev/) website to generate the list of posts.
 
 ## Step 2 - Set up a PerformanceObserver
 
