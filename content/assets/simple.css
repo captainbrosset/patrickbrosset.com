@@ -7,7 +7,8 @@ body {
   font-family: sans-serif;
 }
 
-nav ul, nav li {
+nav ul,
+nav li {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -54,12 +55,19 @@ h1 {
   list-style: none;
 }
 
-.entries > li:not(:last-child) {
-	margin-block-end: 4rem;
-	padding-block-end: 4rem;
-	border-block-end: 2px solid;
+.entries>li:not(:last-child) {
+  margin-block-end: 4rem;
+  padding-block-end: 4rem;
+  border-block-end: 2px solid;
 }
 
 img {
   max-width: 100%;
+}
+
+code {
+  background: #0000000a;
+  padding: 4px;
+  border-radius: 4px;
+  color: #005373ed;
 }
