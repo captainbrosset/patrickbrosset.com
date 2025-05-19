@@ -3,6 +3,9 @@ layout: main-layout.njk
 title: Articles
 ---
 <h1>Articles</h1>
+
+<p>Things I wrote on this site, or elsewhere:</p>
+
 <ul class="entries">
   {% for post in collections.article | reverse %}
     {% if not post.data.draft %}

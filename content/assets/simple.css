@@ -1,10 +1,30 @@
+:root {
+  --back-color: rgb(250, 250, 244);
+  --text-color: black;
+  --link-color: #005373;
+  --visited-link-color: #b5398a;
+  --spacing: 2rem;
+  --big-spacing: 4rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  --back-color: rgb(46, 46, 43);
+  --text-color: rgb(252, 252, 252);
+  --link-color: #91d6f1;
+  --visited-link-color: #e29eca;
+  }
+}
+
 body {
   font-size: 16pt;
   line-height: 1.8;
-  margin: 4em auto;
+  margin: var(--big-spacing) auto;
   padding: 0 10vw;
-  max-width: 800px;
+  max-width: 1200px;
   font-family: sans-serif;
+  background: var(--back-color);
+  color: var(--text-color);
 }
 
 nav ul,
@@ -20,25 +40,40 @@ nav ul {
   gap: 1rem;
 }
 
-nav a {
+a {
   text-underline-offset: .5rem;
-  text-transform: capitalize;
+  text-decoration-thickness: 2px;
+  color: var(--link-color);
 }
 
-nav a:hover {
+a:visited {
+  color: var(--visited-link-color);
+}
+
+a:hover {
   text-decoration: none;
 }
 
+a.external::after {
+  content: " (External link)";
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+nav a {
+  text-transform: capitalize;
+}
+
 .site-nav {
-  padding-block-end: 4rem;
-  margin-block-end: 4rem;
-  border-block-end: 2px solid;
+  padding-block-end: var(--big-spacing);
+  margin-block-end: var(--big-spacing);
+  border-block-end: 2px solid var(--text-color);
 }
 
 .social-links {
-  padding-block-start: 4rem;
-  margin-block-start: 4rem;
-  border-block-start: 2px solid;
+  padding-block-start: var(--big-spacing);
+  margin-block-start: var(--big-spacing);
+  border-block-start: 2px solid var(--text-color);
 }
 
 main {
@@ -46,19 +81,49 @@ main {
 }
 
 h1 {
-  margin: 2rem 0;
+  margin: var(--spacing) 0;
 }
 
 .entries {
   margin: 0;
   padding: 0;
   list-style: none;
+  display: grid;
+  gap: var(--spacing);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  align-items: start;
 }
 
-.entries>li:not(:last-child) {
-  margin-block-end: 4rem;
-  padding-block-end: 4rem;
-  border-block-end: 2px solid;
+.entries h2 {
+  margin: 0;
+}
+
+.entries li {
+  background: #fffc;
+  padding: var(--spacing);
+  border-radius: 1rem;
+  box-shadow: 0 0 .5rem 0 #0001;
+}
+
+@media (prefers-color-scheme: dark) {
+  .entries li {
+    background: #0001;
+    box-shadow: 0 0 .5rem 0 #fff1;
+  }
+}
+
+.entries .thumnail {
+  /* position: relative; */
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.entries .thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 img {
