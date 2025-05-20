@@ -1,0 +1,63 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alignment in Blocks</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: grid;
+        place-content: center;
+      }
+
+      /* This is the block layout container within which
+         we'll be aligning an element. */
+      .container {
+        /* This is the default display value,
+           but setting it anyway to make it clear that
+           this sample is about alignment within block layouts
+           as opposed to grid, flex, or multicolumn layouts. */
+        display: block;
+
+        /* Give it some size and color so we can see it. */
+        width: 90vmin;
+        height: 90vmin;
+        background-color: #f0f0f0;
+
+        /* On the block axis, alignment is achieved by
+           using content-distribution (align-content)
+           which works like padding. */
+        align-content: center;
+        /* Content-distribution on the inline axis 
+           does not work, so justify-content:center
+           has no effect. */
+      }
+
+      /* This is the alignment subject, the element which
+         we are trying to align within the container block. */
+      .subject {
+        /* Give it some size and color to see it. */
+        width: 50%;
+        height: 50%;
+        background-color: #0078d4;
+
+        /* Self-alignment along the inline axis
+           works. It does kind of what margin does. */
+        justify-self: center;
+        /* Self-alignment doesn't work along the
+           block axis as there might be multiple elements
+           on this axis.
+           So, align-self: center doesn't do anything. */
+      }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="subject"></div>
+  </div>
+</body>
+</html>
