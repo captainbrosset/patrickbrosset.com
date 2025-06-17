@@ -1,13 +1,42 @@
+---js
+{
+  layout: "main-layout.njk",
+  recentCollectionItems: function(allItems, nb) {
+    return allItems
+      .filter(post => !post.data || !post.data.draft)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, nb);
+  }
+}
 ---
-layout: main-layout.njk
----
-<h1>Hi</h1>
+<section class="list-section">
+  <p><img src="/assets/headshot.png" width="200" height="200" alt="A photo of my face against a blue background." style="width:20%;height:auto;float:left;margin:var(--spacing);margin-block-start:0;margin-inline-start:0;">I'm Patrick, a product manager on the Edge team at Microsoft. I do developer relations, and work on a wide range of web platform technologies and tools. Previously, I worked at Mozilla, on the Firefox DevTools team.<br>
+  I'm part of the <a href="https://openwebdocs.org/">Open Web Docs</a> governing committee and a co-chair of the <a href="https://www.w3.org/community/webdx/">W3C WebDX community group</a>. I also run <a href="https://devtoolstips.org">DevTools Tips</a>.</p>
+  <p>I have 20+ years of working experience with the web and have worked as a designer, web developer, software engineer, browser engineer, engineering manager, and product manager.</p>
+  <p>To get in touch, use the links to my social networks at the bottom of this page, or email me: patrickbrosset <em>at</em> gmail <em>dot</em> com.</p>
+</section>
 
-<p>My name is Patrick Brosset. I'm a product manager on the Edge team at Microsoft, where I work on a range of technologies such as the Web platform, Progressive Web Apps, and DevTools. Previously, I worked at Mozilla, on the Firefox DevTools team.<br>
-I'm also on the governing committee of <a href="https://openwebdocs.org/">Open Web Docs</a> and I co-chair the <a href="https://www.w3.org/community/webdx/">W3C WebDX community group</a>.</p>
-
-<p>I have more than twenty years of working experience with the web, having worked both as a web developer and a browser engineer and PM.</p>
-
-<p>On this website, I <a href="articles">write</a> and <a href="talks">talk</a> about the web, and what it can do for developers. I also sometimes <a href="lab">create</a> little experiments and tools.</p>
-
-<p>To connect with me, use the links to my social networks at the bottom of this page. You can also email me: patrickbrosset <em>at</em> gmail <em>dot</em> com.</p>
+{% for post in recentCollectionItems(collections.article, 3) %}
+  <section class="list-section">
+    <h2><a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}">{{ post.data.title }}</a></h2>
+    <time datetime="{{ post.date | dateTime }}">{{ post.date | formattedDateTime }}</time>
+    <p>{{ post.data.excerpt | safe }}</p>
+    <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}" class="thumbnail"><img loading="lazy" src="{{ post.data.thumbnail }}" alt="{{ post.data.altText }}"></a>
+  </section>
+{% endfor %}
+{% for lab in recentCollectionItems(labs, 2) %}
+  <section class="list-section">
+    <h2><a href="/lab/{{ lab.url }}">{{ lab.title | safe }}</a></h2>
+    <time datetime="{{ lab.date }}">{{ lab.date | formattedDateTime }}</time>
+    <p>{{ lab.description | safe }}</p>
+    {% if lab.img %}<a href="/lab/{{ lab.url }}" class="thumbnail"><img loading="lazy" src="{{ lab.img }}" alt="{{ lab.alt }}"></a>{% endif %}
+  </section>
+{% endfor %}
+{% for talk in recentCollectionItems(talks, 2) %}
+  <section class="list-section"{% if talk.lang %} lang="{{ talk.lang }}"{% endif %}>
+    <h2><a href="{{ talk.url }}">{{ talk.title | safe }}</a></h2>
+    <time datetime="{{ talk.date }}">{{ talk.date | formattedDateTime }}</time>
+    <p>{{ talk.description | safe }}</p>
+    <a href="{{ talk.url }}" class="thumbnail"><img loading="lazy" src="{{ talk.img }}" alt="{{ talk.alt }}"></a>
+  </section>
+{% endfor %}

@@ -2,14 +2,23 @@
 layout: main-layout.njk
 title: Articles
 ---
-<h1>Articles</h1>
 
-<p>Things I wrote on this site, or elsewhere:</p>
+<section class="list-section">
+  <h1>{{ title }}</h1>
+  <p>Things I wrote over the years, either on this site or elsewhere.</p>
+</section>
 
-<ul class="entries">
-  {% for post in collections.article | reverse %}
-    {% if not post.data.draft %}
-      {% include "one-article-in-loop.njk" %}
-    {% endif %}
-  {% endfor %}
-</ul>
+{% for post in collections.article | reverse %}
+  {% if not post.data.draft %}
+    <section class="list-section">
+      <h2>
+        <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}"{% if post.data.external %} class="external"{% endif %}>{{ post.data.title }}</a>
+      </h2>
+      <time datetime="{{ post.date | dateTime }}">{{ post.date | formattedDateTime }}</time>
+      <p>{{ post.data.excerpt | safe }}</p>
+      <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}" class="thumbnail">
+        <img loading="lazy" src="{{ post.data.thumbnail }}" alt="{% if post.data.altText %}{{ post.data.altText }}{% else %}Article thumbnail for illustration only{% endif %}">
+      </a>
+    </section>
+  {% endif %}
+{% endfor %}

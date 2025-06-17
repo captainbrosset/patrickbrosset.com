@@ -1,0 +1,21 @@
+---
+layout: main-layout.njk
+title: Photos
+---
+<h1>{{ title }}</h1>
+
+<ul class="entries">
+  {% for photo in collections.photo %}
+  <li>
+    <h2>
+      <a href="{{ photo.url }}">
+        {{ photo.title | safe }}
+      </a>
+    </h2>
+    <time datetime="{{ photo.date }}">{{ photo.date | formattedDateTime }}</time>
+    <a href="{{ photo.url }}" class="thumbnail">
+      <img loading="lazy" width="400" src="/photos/{{ photo.fileSlug }}.jpg" alt="{{ photo.data.altText }}">
+    </a>
+  </li>
+  {% endfor %}
+</ul>

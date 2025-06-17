@@ -4,7 +4,7 @@ permalink: "articles/{{ date | date: '%Y-%m-%d' }}-{{ title | slug | superSlug }
 
 {% include "header-article.njk" %}
 
-<article>
+<article class="article">
 
   <p class="article-illustration">
     <img src="{{ thumbnail }}" width="400" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}">
@@ -27,4 +27,4 @@ permalink: "articles/{{ date | date: '%Y-%m-%d' }}-{{ title | slug | superSlug }
 
 </article>
 
-{% include "footer.njk" %}
+{% include "footer-article.njk" %}
