@@ -166,13 +166,13 @@ code {
 
 /* Full page articles */
 article {
-  margin: var(--big-spacing);
-  max-width: 1000px;
+  margin: var(--spacing);
+  max-width: 800px;
   line-height: 2;
 }
 
 article + footer {
-  margin: var(--big-spacing);
+  margin: var(--spacing);
   padding: 0;
 }
 
