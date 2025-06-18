@@ -171,14 +171,23 @@ article {
   line-height: 2;
 }
 
-article + footer {
-  margin: var(--spacing);
+article+footer {
+  margin: var(--big-spacing) var(--spacing) var(--spacing) var(--spacing);
   padding: 0;
 }
 
-blockquote {
-	border-inline-start: var(--separator);
-	margin-inline-start: 0;
-	padding-inline-start: 1rem;
-	font-style: italic;
+article blockquote {
+  border-inline-start: var(--separator);
+  margin-inline-start: 0;
+  padding-inline-start: 1rem;
+  font-style: italic;
+}
+
+article h1, article h2, article h3 {
+  line-height: 1.5;
+}
+
+article .author-date {
+  margin-block-end: var(--big-spacing);
+  font-size: small;
 }
