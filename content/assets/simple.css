@@ -92,10 +92,63 @@ a:hover {
   text-decoration-thickness: calc(var(--separator-width) * 2);
 }
 
+a.external {
+  position: relative;
+}
+
 a.external::after {
-  content: " (External link)";
-  font-size: 1rem;
-  font-weight: normal;
+  content: "";
+  height: 1rem;
+  margin-inline-start: 0.5rem;
+  padding-inline-start: 2rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+a.external[href*="blogs.windows.com/msedgedev"]::after,
+a.external[href*="medium.com/web-on-the-edge"]::after,
+a.external[href*="microsoft.github.io/win-student-devs"]::after {
+  background-image: url(/assets/favicon-edge.png);
+}
+
+a.external[href*="blog.logrocket.com"]::after {
+  background-image: url(/assets/favicon-logrocket.png);
+}
+
+a.external[href*="css-tricks.com"]::after {
+  background-image: url(/assets/favicon-csstricks.png);
+}
+
+a.external[href*="hacks.mozilla.org"]::after {
+  background-image: url(/assets/favicon-mozilla.svg);
+  background-color: black;
+}
+
+a.external[href*="medium.com/mozilla-tech"]::after {
+  background-image: url(/assets/favicon-mozillam.png);
+}
+
+a.external[href*="smashingmagazine.com"]::after {
+  background-image: url(/assets/favicon-smashing.png);
+}
+
+a.external[href*="alistapart.com"]::after {
+  background-image: url(/assets/favicon-ala.svg);
+  background-color: white;
+}
+
+a.external[href*="chrome.com"]::after {
+  background-image: url(/assets/favicon-chrome.png);
+}
+
+a.external[href*="24joursdeweb.fr"]::after {
+  background-image: url(/assets/favicon-24jdw.svg);
+  background-color: white;
+}
+
+a.external[href*="w3.org"]::after {
+  background-image: url(/assets/favicon-w3.svg);
 }
 
 nav a {
