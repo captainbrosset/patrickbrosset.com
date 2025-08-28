@@ -8,7 +8,7 @@ excerpt: "WebMCP is an early proposal that allows web developers to take control
 thumbnail: "/assets/webmcp.png"
 altText: "A hand-drawn diagram of the WebMCP proposal, showing a user interacting with a webpage in a browser. The user interacts with the page in two ways. One way is directly, as normal, using the browser UI. The other way is through an an AI agent which communicates with the page by using an embedded MCP server in the browser."
 ---
-In this post, I'll introduce [WebMCP](https://github.com/webmachinelearning/webmcp), a proposal to let you, web developers, control how AI agents interact with your web pages. If this proposal is interesting to you, please let me know. [I'm looking for early feedback](#we-want-your-feedback)!
+In this post, I'll introduce [WebMCP](https://github.com/webmachinelearning/webmcp), a proposal to let you, web developers, control how AI agents interact with your web pages. If this proposal is interesting to you, please let me know. [I'm looking for early feedback](#feedback)!
 
 ## AI agents and the web
 
@@ -83,11 +83,13 @@ That's where the Edge window, next to VSCode in the video, comes into play. In i
 
 https://www.youtube.com/watch?v=sTmXzJ_1abE
 
+<div id="feedback"></div>
+
 ## Feedback
 
 As I mentioned before, this is an early proposal for now. There's nothing more important in the life of an early proposal than feedback from people who might need to use this when it exists.
 
-So, if you're excited about this (in fact, even if you have an alergic reaction to it), or if you have different ideas for how to do something like this, then let me know on [Mastodon](https://mas.to/@patrickbrosset), [Bluesly](https://bsky.app/profile/patrickbrosset.com), or [LinkedIn](https://www.linkedin.com/in/patrickbrosset/).
+So, if you're excited about this (in fact, even if you have an alergic reaction to it), or if you have different ideas for how to do something like this, then let me know on [Mastodon](https://mas.to/@patrickbrosset), [Bluesky](https://bsky.app/profile/patrickbrosset.com), or [LinkedIn](https://www.linkedin.com/in/patrickbrosset/).
 
 Or, [open an issue on the proposal's repository directly](https://github.com/webmachinelearning/webmcp/issues).
 
