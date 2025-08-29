@@ -81,7 +81,7 @@ In the following video, you can see me using VSCode and Edge side by side. I've 
 
 That's where the Edge window, next to VSCode in the video, comes into play. In it, I've loaded my TODO list app. The agent in VSCode connects to the MCP server in Edge, which exposes the actions that the TODO list app registered. So, I can just ask my agent in VSCode to add the TODO items I need.
 
-https://www.youtube.com/watch?v=sTmXzJ_1abE
+https://www.youtube.com/watch?v=gbu9kyY2B60
 
 <div id="feedback"></div>
 
