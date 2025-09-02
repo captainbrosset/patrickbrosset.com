@@ -1,5 +1,13 @@
 [
   {
+    "url": "css-gap-decoration-resources",
+    "img": "/assets/example-grid-with-spans.png",
+    "alt": "A grid layout illustration with blue column decorations and red row decorations.",
+    "title": "CSS gap decoration resources",
+    "date": "2025-09-02",
+    "description": "A list of all the resources you will need to learn more about the CSS gap decoration proposal, to try it out in your own projects, and provide feedback."
+  },
+  {
     "url": "alignment-in-blocks",
     "img": "/assets/block-alignment.png",
     "alt": "A blue square inside a gray square",
