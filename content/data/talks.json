@@ -1,5 +1,13 @@
 [
   {
+    "url": "/slides/2025-09-CSS-Gap-Decorations.pdf",
+    "img": "/assets/smashing-conf-2025-freiburg-logo.png",
+    "alt": "The SmashingConf Freiburg 2025 conference logo.",
+    "title": "Filling the Gap - Decorating Layouts with CSS (Smashing Conference, Freiburg)",
+    "date": "2025-09-08",
+    "description": "In this lightning talk, I introduced the new CSS Gap Decorations proposal, a super simple yet powerful and customizable, way to draw separators between elements of a layout. CSS Gap Decorations give you the tools you need to convey your design vision, in a way that's easy to maintain, and adaptable."
+  },
+  {
     "url": "https://www.w3.org/2025/04/AC/",
     "img": "/assets/ac-2025.png",
     "alt": "W3C AC 2025 logo.",
