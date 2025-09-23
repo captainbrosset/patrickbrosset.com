@@ -18,7 +18,7 @@
 
     <meta property="og:title" content="Patrick {% if title %} - {{ title }}{% endif %}">
     <meta property="og:url" content="https://patrickbrosset.com{{ page.url }}">
-    <meta property="og:image" content="https://patrickbrosset.com/assets/pixel-me-512.png">
+    <meta property="og:image" content="{% if thumbnail %}{{ thumbnail }}{% else %}https://patrickbrosset.com/assets/pixel-me-512.png{% endif %}">
     <meta property="og:description" content="{% if title %}A blog post by Patrick Brosset: {{ title }}{% else %}Patrick Brosset's personal website{% endif %}">
     <meta name="twitter:site" content="@patrickbrosset">
     <meta property="og:site_name" content="Patrick Brosset">
