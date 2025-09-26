@@ -1,5 +1,13 @@
 [
   {
+    "url": "steps",
+    "img": "/assets/steps.png",
+    "alt": "An abstract artwork, rendered by the demo.",
+    "title": "Friday abstract CSS animation",
+    "date": "2025-09-26",
+    "description": "WARNING: this page has lot's of rapidly moving parts. Animations are turned of if you've configured your system for reduced motion though. This is fun CSS animation, for no reasons other than today is Friday."
+  },
+  {
     "url": "css-gap-decoration-resources",
     "img": "/assets/example-grid-with-spans.png",
     "alt": "A grid layout illustration with blue column decorations and red row decorations.",
