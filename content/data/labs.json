@@ -1,5 +1,13 @@
 [
   {
+    "url": "css-masonry-resources",
+    "img": "/assets/masonry-is-awesome.png",
+    "alt": "Masonry is awesome",
+    "title": "CSS Masonry resources",
+    "date": "2025-09-29",
+    "description": "A list of all the resources you will need to learn more about the CSS Masonry proposal, to try it out in your own projects, and provide feedback."
+  },
+  {
     "url": "steps",
     "img": "/assets/steps.png",
     "alt": "An abstract artwork, rendered by the demo.",
