@@ -1,5 +1,13 @@
 [
   {
+    "url": "paint-performance",
+    "img": "/assets/paint-perf.png",
+    "alt": "PerformancePaintTiming",
+    "title": "Paint performance API test page",
+    "date": "2025-09-30",
+    "description": "A test page for the PerformancePaintTiming API."
+  },
+  {
     "url": "css-masonry-resources",
     "img": "/assets/masonry-is-awesome.png",
     "alt": "Masonry is awesome",

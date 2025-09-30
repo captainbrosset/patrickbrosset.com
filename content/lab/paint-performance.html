@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paint Performance Lab</title>
+  <style>
+    body {
+      font-size: 1rem;
+      font-family: system-ui;
+      margin: 2rem;
+    }
+
+    .logs {
+      background: #333;
+      color: white;
+      font-family: monospace;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: .5rem;
+      row-rule: 1px solid #666;
+    }
+
+    .logs li {
+      padding: .5rem;
+    }
+
+    .placeholder {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Paint performance metrics with the PerformancePaintTiming API</h1>
+
+  <ul class="logs"></ul>
+
+  <button>getEntriesByType</button>
+
+  <div class="placeholder">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, numquam a vitae sed provident odit dolorum sint
+      molestias minus natus distinctio excepturi officiis modi nam temporibus! Ipsam itaque doloremque fugiat!</p>
+    <img src="https://placehold.co/1000x400" alt="Placeholder image." width="1000" height="400">
+    <p>Repellat accusamus laborum earum amet atque molestiae tempora aperiam illo dolorem ea molestias excepturi
+      mollitia dignissimos recusandae impedit, laboriosam facilis? Eos, doloribus! In nesciunt porro consectetur
+      expedita eveniet accusantium nulla.</p>
+    <p>Iste alias aliquid esse ea fugit aperiam. Deleniti sunt eligendi, facilis suscipit veniam incidunt beatae
+      quisquam aspernatur aliquid perferendis, itaque quas! Aut inventore ab iure vel delectus alias, ea maxime!</p>
+    <p>Sit, necessitatibus et, odio laboriosam laborum aliquam perspiciatis error aperiam atque qui deserunt nulla!
+      Animi molestias dolorum, sit asperiores obcaecati doloribus distinctio placeat laboriosam iusto optio voluptatum
+      at ullam est.</p>
+    <p>Libero perspiciatis, nostrum debitis corporis autem inventore vitae repellat ab sit quos magnam corrupti quae
+      eius, modi sed laboriosam hic accusantium harum excepturi architecto tempore mollitia nisi possimus! Alias,
+      accusantium.</p>
+    <p>Rem magnam ex officiis vero quasi quos eveniet asperiores aut harum, sunt numquam dolore quisquam blanditiis
+      distinctio repellendus tempore nam atque sint architecto veritatis perferendis illum reiciendis ipsum temporibus.
+      Ab.</p>
+    <p>Commodi vitae reiciendis temporibus deleniti, repellendus quis excepturi similique placeat beatae necessitatibus
+      aliquam est accusantium minus odit quod asperiores exercitationem neque. Beatae quam itaque temporibus architecto
+      ipsum delectus aperiam? Culpa.</p>
+    <img src="https://placehold.co/1000x400" alt="Placeholder image." width="1000" height="400">
+    <p>Dolores quo iste fugiat ex modi qui tempore harum possimus similique id, eos, blanditiis at voluptatum cupiditate
+      quos amet doloremque fugit adipisci, porro ipsum asperiores velit quia vel ea! Soluta?</p>
+    <p>Reprehenderit dicta cum provident quo esse temporibus architecto magni. Dolorem alias ad molestias, ex obcaecati
+      vero magnam aut voluptatum deleniti consectetur modi nostrum dolore ut enim autem eligendi voluptates id?</p>
+    <p>Fuga odio facilis commodi quia ad dolorum eveniet, quis tempore rerum vel sed cumque eos illum deleniti iste
+      facere voluptatibus. Quo, voluptates! At commodi modi ex quod, non nulla laborum!</p>
+  </div>
+
+  <script>
+    function log(msg) {
+      console.log(msg);
+
+      const logEl = document.createElement("li");
+      logEl.textContent = msg;
+      document.querySelector(".logs").appendChild(logEl);
+    }
+
+    // Create a PerformanceObserver to listen for paint entries.
+    const observer = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        log(`[PerformanceObserver] The time to ${entry.name} was ${entry.startTime} milliseconds.`);
+      });
+    });
+
+    // Start observing paint entries, including any that have already been recorded (buffered: true).
+    observer.observe({ type: "paint", buffered: true });
+
+    // Alternatively, use getEntriesByType to log paint entries.
+    function logPaintPerformanceEntriesUsingGetEntriesByType() {
+      const entries = performance.getEntriesByType("paint");
+      entries.forEach((entry) => {
+        log(`[getEntriesByType] The time to ${entry.name} was ${entry.startTime} milliseconds.`);
+      });
+    }
+
+    document.querySelector("button").addEventListener("click", logPaintPerformanceEntriesUsingGetEntriesByType);
+  </script>
+</body>
+
+</html>
