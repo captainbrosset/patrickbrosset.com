@@ -1,5 +1,13 @@
 [
   {
+    "url": "html-styles",
+    "img": "/assets/html-styles.png",
+    "alt": "An abstract graphical artwork, rendered by the demo.",
+    "title": "Styles in HTML",
+    "date": "2025-10-10",
+    "description": "Who says we need CSS at all? The default user-agent styles of HTML elements comes with variations in sizes and colors already. More than enough to get some cool stuff done! (Kidding obviously, this was done while waiting for my flight at the airport, just trying to kill time really.)"
+  },
+  {
     "url": "paint-performance",
     "img": "/assets/paint-perf.png",
     "alt": "PerformancePaintTiming",
