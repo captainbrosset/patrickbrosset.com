@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      font-family: system-ui;
+    }
+
+    .test-case {
+      background: #fffc;
+      padding: 1rem;
+      border-radius: .25rem;
+      margin: 1rem;
+    }
+  </style>
+
+  <div class="test-case table-font-size-inheritance">
+    <style>
+      .table-font-size-inheritance div {
+        font-size: 30px;
+        border: 2px solid black;
+      }
+
+      .table-font-size-inheritance table,
+      .table-font-size-inheritance td {
+        border: 1px solid black;
+      }
+    </style>
+    <p>This container's font-size is set to 30px, which also applies to the table below:</p>
+    <div>
+      Text outside the table
+      <table>
+        <tr>
+          <td>Cell 1</td>
+          <td>Cell 2</td>
+        </tr>
+        <tr>
+          <td>Cell 3</td>
+          <td>Cell 4</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="test-case inline-vertical-align">
+    <p>The vertical alignment of the image below is to the baseline of text in the container element.</p>
+    <style>
+      .inline-vertical-align div {
+        border: 2px solid black;
+        font-size: 3rem;
+      }
+    </style>
+    <div>
+      <img src="https://placehold.co/200" alt="">
+    </div>
+  </div>
+</body>
+
+</html>
