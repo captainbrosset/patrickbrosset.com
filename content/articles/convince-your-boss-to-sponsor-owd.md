@@ -23,7 +23,7 @@ Any organization which finds itself in either of the below cases has a highly st
 
 ## What's MDN and OWD?
 
-[MDN](https://developer.mozilla.org/) is the de facto center of gravity for web platform docs and compatibility data. It is critical infrastructure for the developer community on the web, and there is no comparable equivalent. This resource is vendor-agnositic, up to date, and high-quality.
+[MDN](https://developer.mozilla.org/) is the de facto center of gravity for web platform docs and compatibility data. It is critical infrastructure for the developer community on the web, and there is no comparable equivalent. This resource is vendor-agnostic, up to date, and high-quality.
 
 While MDN, the website itself, is owned and maintained by Mozilla, the content and data that appears on it is the result of multiple actors. One of [the most prominent](https://openwebdocs.org/content/reports/2024/) of which is [Open Web Docs (OWD)](https://openwebdocs.org/).
 
