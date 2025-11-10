@@ -117,9 +117,19 @@
       list-style: none;
     }
 
+    .note .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
     details {
-      cursor: pointer;
       margin-block-end: calc(var(--margin) / 2);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
     }
 
     details ::marker {
@@ -153,36 +163,36 @@
       <p class="section-description">Ways to keep track with what's new on the web platform.</p>
       <ul class="notes">
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Learn how to use web platform features</summary>
+          <details open>
+            <summary title="Click to toggle details">Learn how to use web platform features</summary>
             <p>MDN Web Docs is a comprehensive standards web development resource for web developers. It provides
               documentation and compatibility information on all web technologies,
               including HTML, CSS, JavaScript, SVG, and APIs.<br>
               Can I Use also provides browser compatibility information.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://developer.mozilla.org">MDN Web Docs</a></li>
             <li><a href="https://caniuse.com">Can I Use</a></li>
           </ul>
         </li>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Stay up to date with what's new in browsers</summary>
+          <details open>
+            <summary title="Click to toggle details">Stay up to date with what's new in browsers</summary>
             <p>The web platform is implemented by multiple browser vendors, not just one. Individual vendors only tell
               you what's new in their own browsers.<br>
               Use the Web platform features explorer to stay up to date with what's new across all of the browsers.<br>
               Use BCD Watch to keep an eye on browser compatibility data changes, coming from browser updates.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://web-platform-dx.github.io/web-features-explorer/">Web platform features explorer</a>
             </li>
             <li><a href="https://bcd-watch.igalia.com/">BCD Watch</a></li>
           </ul>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Check what's become Baseline this year</summary>
+          <details open>
+            <summary title="Click to toggle details">Check what's become Baseline this year</summary>
             <p>Baseline features are features of the web that have reach a level of implementation maturity across all
               browsers that they're very safe to use. The Web platform status dashboard provides a list of features that
               have become Baseline each year.</p>
@@ -190,12 +200,12 @@
           <a href="https://webstatus.dev/">Web platform status</a>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Check individual browser release notes</summary>
+          <details open>
+            <summary title="Click to toggle details">Check individual browser release notes</summary>
             <p>Each browser vendor publishes its own release notes. Release notes are lists of bug fixes, new features,
               and removed features, per release of the browser.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://developer.chrome.com/release-notes">Chrome</a></li>
             <li><a href="https://learn.microsoft.com/microsoft-edge/web-platform/release-notes/">Edge</a></li>
             <li><a href="https://www.mozilla.org/firefox/releases/">Firefox</a></li>
@@ -203,12 +213,12 @@
           </ul>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Read browser vendors' blogs</summary>
+          <details open>
+            <summary title="Click to toggle details">Read browser vendors' blogs</summary>
             <p>Browser vendors announce new features and updates to their browsers on their blogs. Reading these blogs
               is helpful to stay up to date with what's new and what's coming next in each browser.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://developer.chrome.com/blog">Chrome for developers blog</a></li>
             <li><a href="https://hacks.mozilla.org/">Mozilla hacks</a></li>
             <li><a href="https://blogs.windows.com/msedgedev/posts/">Microsoft Edge Dev blog</a></li>
@@ -218,8 +228,8 @@
           </ul>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Learn more about what's coming next</summary>
+          <details open>
+            <summary title="Click to toggle details">Learn more about what's coming next</summary>
             <p>Browser vendors work on new features all the time. Here are a few ways to know what's coming next, and at
               what stage of development a feature is.<br>
               Chrome Platform Status lists new features that are being added to Chromium, the open-source project which
@@ -228,27 +238,27 @@
               Browser vendors also send <em>Intent to prototype/ship</em> emails when starting to work on a feature. The
               IntentToShip bot is a good way to keep track of what's coming next.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://chromestatus.com/features">Chrome Platform Status</a></li>
             <li><a href="https://bsky.app/profile/intenttoship.dev">IntentToShip Bluesky account</a></li>
           </ul>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Check the position of browser vendors about new feature proposals
+          <details open>
+            <summary title="Click to toggle details">Check the position of browser vendors about new feature proposals
             </summary>
             <p>Mozilla and WebKit maintain <em>standards positions</em> repositories, where they share their point of
               view about new feature proposals. For example, when someone wants to add a new feature to Chromium, they
               usually request a position from Mozilla and WebKit about that feature.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://github.com/mozilla/standards-positions/issues">Mozilla standards position</a></li>
             <li><a href="https://github.com/webkit/standards-positions/issues">WebKit standards position</a></li>
           </ul>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Check the implementation quality of a feature across browsers</summary>
+          <details open>
+            <summary title="Click to toggle details">Check the implementation quality of a feature across browsers</summary>
             <p>Web Platform Tests (WPT) is a test suite project for the web, which all browser vendors contribute to.
               The test suite tests the interoperability of web features across browsers. Navigate through the test
               folders or use the search input field to find the tests for the feature you care about, and review the
@@ -264,14 +274,14 @@
       <p class="section-description">Ways to make your voice heard and your needs taken into consideration.</p>
       <ul class="notes">
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Share frustrations, pain points, and missing features via surveys
+          <details open>
+            <summary title="Click to toggle details">Share frustrations, pain points, and missing features via surveys
             </summary>
             <p>Yearly developer surveys feed into the set of developer signals that browser vendors look at when
               prioritizing their efforts on the web platform. Sharing your pain points and missing features in these
               surveys helps browser vendors understand what developers need.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://stateofcss.com">State of CSS</a></li>
             <li><a href="https://stateofhtml.com/">State of HTML</a></li>
             <li><a href="https://stateofjs.com/">State of JavaScript</a></li>
@@ -279,8 +289,8 @@
           </ul>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Propose focus areas for inclusion in the next Interop project cycle
+          <details open>
+            <summary title="Click to toggle details">Propose focus areas for inclusion in the next Interop project cycle
             </summary>
             <p>Interop is a yearly project where Apple, Bocoup, Google, Igalia, Microsoft, and Mozilla get together and
               focus efforts in fixing highly requested interoperability issues of the web platform. Every year, before
@@ -291,21 +301,21 @@
           <a href="https://github.com/web-platform-tests/interop/">The Interop Project</a>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Report browser bugs</summary>
+          <details open>
+            <summary title="Click to toggle details">Report browser bugs</summary>
             <p>Report browser engine bugs when a web feature is supposed to work a certain way but doesn't. Always try
               to provide a reproducible test case so that browser engineers can easily verify the problem and find a fix
               for it.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://bugzilla.mozilla.org/home">Mozilla Bugzilla bug tracker</a></li>
             <li><a href="https://bugs.webkit.org/">WebKit Bugzilla bug tracker</a></li>
             <li><a href="https://issues.chromium.org/">Chromium issue tracker</a></li>
           </ul>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Report a website compatibility issue</summary>
+          <details open>
+            <summary title="Click to toggle details">Report a website compatibility issue</summary>
             <p>When you find a website which doesn't work the same way across browsers, report the issue on the Web
               Compat website. Knowing about the most common and most important web compatibility issues helps browser
               vendor prioritize the right fixes, including in the Interop project.</p>
@@ -313,16 +323,16 @@
           <a href="https://webcompat.com/">WebCompat.com</a>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Request a new web feature</summary>
+          <details open>
+            <summary title="Click to toggle details">Request a new web feature</summary>
             <p>Use the Web We Want project to report new web feature ideas and concepts that you think browsers should
               implement but currently don't.</p>
           </details>
           <a href="https://webwewant.fyi/">The Web We Want</a>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Participate in the development of a feature by testing it early
+          <details open>
+            <summary title="Click to toggle details">Participate in the development of a feature by testing it early
             </summary>
             <p>Browser vendors often need more than one release to fully implement a feature. During the early
               development phase, a feature is often hidden behind a flag. You can enable a feature flag in your browser
@@ -335,7 +345,7 @@
               to
               provide feedback to the browser vendor.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://developer.mozilla.org/docs/Mozilla/Firefox/Experimental_features">Experimental features
                 in Firefox</a></li>
             <li><a href="https://wiki.mozilla.org/Origin_Trials">Firefox Origin Trials</a></li>
@@ -349,15 +359,15 @@
           </ul>
         </li>
         <li class="note">
-          <details>
-            <summary title="Click to learn more">Participate in the development of a feature by reading explainers and
+          <details open>
+            <summary title="Click to toggle details">Participate in the development of a feature by reading explainers and
               sharing feedback</summary>
             <p>Explainers are documents that are used to propose a solution to a web developer problem area. Explainers
               are useful documents used to socialize and review a new feature proposal before that feature becomes part
               of one or more web specification. Explainers are hosting on GitHub repositories where you can share your
               feedback about them.</p>
           </details>
-          <ul>
+          <ul class="links">
             <li><a href="https://github.com/explainers-by-googlers">Explainers by Google</a></li>
             <li><a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/">Microsoft Edge explainers</a></li>
             <li><a href="https://github.com/mozilla/explainers">Mozilla explainers</a></li>
