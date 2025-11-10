@@ -52,6 +52,7 @@ footer {
 }
 
 .site-nav .signature {
+  display: block;
   height: 4rem;
 }
 
