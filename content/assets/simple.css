@@ -152,6 +152,10 @@ a.external[href*="w3.org"]::after {
   background-image: url(/assets/favicon-w3.svg);
 }
 
+a.external[href*="piccalil.li"]::after {
+  background-image: url(/assets/favicon-piccalilli.png);
+}
+
 nav a {
   text-transform: capitalize;
 }
