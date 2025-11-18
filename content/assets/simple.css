@@ -217,6 +217,12 @@ main {
   display: grid;
 }
 
+@media (prefers-color-scheme: dark) {
+  .list-section {
+    background: hsla(var(--hue), 50%, 15%, 0.8);
+  }
+}
+
 .list-section:nth-child(2n) { --hue: 200; }
 .list-section:nth-child(3n) { --hue: 300; }
 .list-section:nth-child(4n) { --hue: 400; }
