@@ -2,12 +2,18 @@
 
 <style>
   button {
-    margin: 40px;
+    margin: 10px;
   }
 
-  div {
-    width: 300px;
+  .test-case {
     margin: 40px;
+    padding: 10px;
+    background: #eee;
+  }
+
+  .scroller {
+    width: 300px;
+    margin: 10px;
     height: 300px;
     overflow-y: auto;
     border: 1px solid black;
@@ -18,18 +24,43 @@
   }
 </style>
 
-<button>Focus me and then tab</button>
+<h1>Keyboard focusable scroller tests</h1>
+<input type="text" value="Focus me first" />
 
-<div>
-  <h2>When focused, arrow keys should scroll through this container</h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, recusandae? Veniam repudiandae ab soluta odio
-    tenetur modi excepturi quia sequi consectetur ipsa aperiam, veritatis perspiciatis ipsam. Pariatur impedit laborum
-    corrupti.</p>
-  <p>Illum, earum unde dolor reiciendis, rerum magni nobis, voluptatibus nisi labore quaerat eaque est deserunt.
-    Repellat distinctio, obcaecati tempore eligendi consectetur, quod veritatis similique laboriosam assumenda officiis
-    officia dolores laborum.</p>
-  <p>Saepe assumenda aspernatur, neque modi beatae ducimus! Ad nobis repellendus doloribus amet eum possimus corporis
-    eaque cum aut! Saepe atque accusantium porro vero laudantium earum iure consequatur quod illo omnis.</p>
+<div class="test-case">
+  <h2>No tabindex</h2>
+  <button>Press tab to focus me next</button>
+  <div class="scroller">
+    <h3>This div has no tabindex</h3>
+    <p>On browsers that support the keyboard focusable scroller feature, it will be focusable anyway.</p>
+    <p>When focused, arrow keys should scroll through this container.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, recusandae? Veniam repudiandae ab soluta odio
+      tenetur modi excepturi quia sequi consectetur ipsa aperiam, veritatis perspiciatis ipsam. Pariatur impedit laborum
+      corrupti.</p>
+    <p>Illum, earum unde dolor reiciendis, rerum magni nobis, voluptatibus nisi labore quaerat eaque est deserunt.
+      Repellat distinctio, obcaecati tempore eligendi consectetur, quod veritatis similique laboriosam assumenda
+      officiis
+      officia dolores laborum.</p>
+    <p>Saepe assumenda aspernatur, neque modi beatae ducimus! Ad nobis repellendus doloribus amet eum possimus corporis
+      eaque cum aut! Saepe atque accusantium porro vero laudantium earum iure consequatur quod illo omnis.</p>
+  </div>
 </div>
 
-<button>You can focus me too</button>
+<div class="test-case">
+  <h2>Tabindex</h2>
+  <button>Press tab to focus me next</button>
+  <div class="scroller" tabindex="0">
+    <h3>This div has a tabindex value</h3>
+    <p>It should be focusable on all browsers.</p>
+    <p>When focused, arrow keys should scroll through this container</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, recusandae? Veniam repudiandae ab soluta odio
+      tenetur modi excepturi quia sequi consectetur ipsa aperiam, veritatis perspiciatis ipsam. Pariatur impedit laborum
+      corrupti.</p>
+    <p>Illum, earum unde dolor reiciendis, rerum magni nobis, voluptatibus nisi labore quaerat eaque est deserunt.
+      Repellat distinctio, obcaecati tempore eligendi consectetur, quod veritatis similique laboriosam assumenda
+      officiis
+      officia dolores laborum.</p>
+    <p>Saepe assumenda aspernatur, neque modi beatae ducimus! Ad nobis repellendus doloribus amet eum possimus corporis
+      eaque cum aut! Saepe atque accusantium porro vero laudantium earum iure consequatur quod illo omnis.</p>
+  </div>
+</div>
