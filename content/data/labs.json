@@ -1,5 +1,13 @@
 [
   {
+    "url": "crop-n-zoom",
+    "img": "/assets/crop-n-zoom.png",
+    "alt": "The image editor, showing a picture, and a zoom control slider below it.",
+    "title": "Crop'n'Zoom image editor",
+    "date": "2025-11-27",
+    "description": "⚠️ Only works in Chromium-based browsers for now. This simple image editor lets you crop and zoom into an image using the CSS <code>object-view-box</code> property and its <code>xywh()</code> function. If you want this to be implemented across all browsers, upvote <a href=\"https://github.com/web-platform-dx/developer-signals/issues/177\">this issue</a>."
+  },
+  {
     "url": "keyboard-focusable-scroller",
     "img": "/assets/scroller.png",
     "alt": "The arrow keys on a keyboard",

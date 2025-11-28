@@ -1,0 +1,124 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  background: #eee;
+}
+
+.editor {
+  width: 90vw;
+  max-width: 1000px;
+  border-radius: 1rem;
+  border: 1px solid #aaa;
+  background: white;
+  box-shadow: 0 0 1rem #0002;
+  padding: 4vw;
+  box-sizing: border-box;
+  position: relative;
+}
+
+@property --crop-x {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --crop-y {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --crop-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --crop-height {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+.editor img {
+  border-radius: .5rem;
+  width: 100%;
+  display: block;
+  cursor: grab;
+  object-view-box: xywh(var(--crop-x) var(--crop-y) var(--crop-width) var(--crop-height));
+}
+
+.panning,
+.panning .editor img {
+  cursor: grabbing;
+}
+
+.editor .controls {
+  position: absolute;
+  font-size: 2vw;
+  inset: 4vw;
+  height: 0vw;
+  overflow: hidden;
+  transition: height 0.3s;
+  padding: 0 2vw;
+  align-self: end;
+  background: linear-gradient(to bottom, transparent, black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  border-radius: 0 0 .5rem .5rem;
+  user-select: none;
+}
+
+.editor:hover .controls {
+  height: 8vw;
+}
+
+.panning .editor .controls {
+  pointer-events: none;
+}
+
+.editor label {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  padding: 1vw;
+  border-radius: .5vw;
+}
+
+.editor label:hover {
+  background: #fff2;
+}
+
+.editor #zoomer {
+  width: 20vw;
+}
+
+.editor button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 1vw;
+  margin: 0;
+  cursor: pointer;
+  border-radius: .5vw;
+}
+
+.editor button::before {
+  content: "↺";
+  margin-inline-end: 1vw;
+}
+
+.editor button:hover {
+  background: #fff2;
+}
