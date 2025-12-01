@@ -1,5 +1,13 @@
 [
   {
+    "url": "web-features-finder",
+    "img": "/assets/web-features-finder.png",
+    "alt": "Screenshot of the web features finder demo, showing multiple columns of web development tasks, organized hierarchically.",
+    "title": "Web features finder",
+    "date": "2025-12-01",
+    "description": "Browse the available features and APIs of the web platform through this hierarchical task-based interface."
+  },
+  {
     "url": "crop-n-zoom",
     "img": "/assets/crop-n-zoom.png",
     "alt": "The image editor, showing a picture, and a zoom control slider below it.",

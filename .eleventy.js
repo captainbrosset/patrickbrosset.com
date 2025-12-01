@@ -6,8 +6,7 @@ const pluginRss = require("@11ty/eleventy-plugin-rss");
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/assets");
   eleventyConfig.addPassthroughCopy("content/slides");
-  eleventyConfig.addPassthroughCopy("content/lab/**/*.js");
-  eleventyConfig.addPassthroughCopy("content/lab/**/*.css");
+  eleventyConfig.addPassthroughCopy("content/lab/**/*");
   eleventyConfig.addPassthroughCopy(
     "content/lab/notification-lab-manifest.json"
   );

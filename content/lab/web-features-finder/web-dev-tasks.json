@@ -1,0 +1,2872 @@
+{
+  "UI, layout and page structure": {
+    "Page and navigation": {
+      "Work with the page and document": {
+        "features": [
+          "base",
+          "body",
+          "head",
+          "html",
+          "dom",
+          "events",
+          "window",
+          "location",
+          "meta"
+        ]
+      },
+      "Navigate to another page": {
+        "features": [
+          "a",
+          "navigation",
+          "navigation-timing",
+          "scroll-to-text-fragment"
+        ]
+      },
+      "Print pages": {
+        "features": [
+          "print",
+          "print-events"
+        ]
+      },
+      "Manage windows": {
+        "features": [
+          "window-management",
+          "menu"
+        ]
+      },
+      "Change the URL without reload": {
+        "features": [
+          "hashchange",
+          "history"
+        ]
+      },
+      "Scroll to an element": {
+        "features": [
+          "scroll-into-view",
+          "scroll-snap"
+        ]
+      },
+      "Animate scrolling": {
+        "features": [
+          "scroll-behavior",
+          "scroll-into-view"
+        ]
+      },
+      "Detect scroll position": {
+        "features": [
+          "scroll-behavior",
+          "scroll-elements",
+          "scroll-into-view",
+          "scrollend"
+        ]
+      },
+      "Load content on scroll": {
+        "features": [
+          "intersection-observer",
+          "intersection-observer-v2",
+          "loading-lazy"
+        ]
+      },
+      "Detect when element is visible in viewport": {
+        "features": [
+          "element-from-point",
+          "intersection-observer",
+          "intersection-observer-v2"
+        ]
+      },
+      "Detect page visibility/hidden state": {
+        "features": [
+          "page-visibility",
+          "page-visibility-state"
+        ]
+      },
+      "Detect when layout changes": {
+        "features": [
+          "dom-geometry",
+          "getboxquads",
+          "mutation-events",
+          "mutationobserver",
+          "resize-observer",
+          "observable"
+        ]
+      },
+      "Detect when element size changes": {
+        "features": [
+          "resize-observer",
+          "resize"
+        ]
+      }
+    },
+    "Visual layout": {
+      "Write CSS code": {
+        "Use CSS variables and custom properties": {
+          "features": [
+            "custom-ellipses",
+            "custom-media-queries",
+            "custom-properties",
+            "registered-custom-properties"
+          ]
+        },
+        "Work with CSS units and values": {
+          "features": [
+            "ic",
+            "q-unit",
+            "rcap",
+            "lh",
+            "ch",
+            "rch",
+            "rem",
+            "resolution",
+            "resolution-compat",
+            "rex",
+            "rhythmic-sizing",
+            "ric",
+            "rlh",
+            "viewport-segments",
+            "viewport-unit-variants",
+            "viewport-units",
+            "visual-viewport"
+          ]
+        },
+        "Use CSS functions and keywords": {
+          "features": [
+            "all",
+            "inherit-value",
+            "initial-value",
+            "progress-function",
+            "revert-value",
+            "round-mod-rem",
+            "supports",
+            "supports-at-rule",
+            "supports-compat",
+            "unset-value",
+            "exp-functions"
+          ]
+        },
+        "Use CSS selectors": {
+          "features": [
+            "heading-selectors",
+            "is",
+            "link-selectors",
+            "not",
+            "nth-child",
+            "nth-child-of",
+            "nth-of-type",
+            "open-pseudo",
+            "placeholder-shown",
+            "read-write-pseudos",
+            "referencetarget",
+            "root",
+            "selectors",
+            "sibling-count",
+            "target",
+            "target-within",
+            "user-action-pseudos",
+            "where"
+          ]
+        },
+        "Apply styles conditionally to parent elements": {
+          "features": [
+            "container-queries",
+            "container-scroll-state-queries",
+            "container-style-queries",
+            "has",
+            "display-mode",
+            "dynamic-range",
+            "device-queries",
+            "inverted-colors",
+            "matchmedia",
+            "media-queries",
+            "media-query-range-syntax"
+          ]
+        },
+        "Work with the cascade and specificity": {
+          "features": [
+            "cascade-layers",
+            "all",
+            "inherit-value",
+            "initial-value"
+          ]
+        }
+      },
+      "Create a layout": {
+        "Position elements": {
+          "features": [
+            "absolute-positioning",
+            "fixed-positioning",
+            "float-clear",
+            "position",
+            "relative-positioning",
+            "static-positioning",
+            "sticky-positioning",
+            "z-index"
+          ]
+        },
+        "Work with spacing and sizing": {
+          "features": [
+            "align-content-block",
+            "aspect-ratio",
+            "box-sizing",
+            "fit-content",
+            "fit-content-function",
+            "justify-self-block",
+            "margin",
+            "margin-trim",
+            "min-max-clamp",
+            "min-max-content",
+            "min-max-width-height",
+            "padding",
+            "stretch",
+            "vertical-align"
+          ]
+        },
+        "Control layout direction and flow": {
+          "features": [
+            "baseline-shift",
+            "baseline-source",
+            "dominant-baseline",
+            "layout-direction-override",
+            "logical-properties",
+            "physical-properties",
+            "reading-flow"
+          ]
+        },
+        "Create a multi-column layout": {
+          "features": [
+            "column-breaks",
+            "column-fill",
+            "column-pseudo",
+            "column-span",
+            "multi-column"
+          ]
+        },
+        "Create a responsive grid": {
+          "features": [
+            "flexbox",
+            "flexbox-gap",
+            "gap-decorations",
+            "grid",
+            "grid-animation",
+            "subgrid",
+            "masonry"
+          ]
+        }
+      },
+      "Style elements": {
+        "Style backgrounds and borders": {
+          "features": [
+            "background",
+            "background-attachment",
+            "background-clip",
+            "background-clip-border-area",
+            "background-clip-text",
+            "background-color",
+            "background-image",
+            "background-origin",
+            "background-position",
+            "background-repeat",
+            "background-size",
+            "border-image",
+            "border-radius",
+            "borders",
+            "box-decoration-break",
+            "corner-shape",
+            "outline",
+            "outlines"
+          ]
+        },
+        "Style colors and images": {
+          "features": [
+            "crisp-edges",
+            "cross-fade",
+            "currentcolor",
+            "document-colors",
+            "loading-lazy",
+            "named-color",
+            "rgb",
+            "system-color"
+          ]
+        },
+        "Style page layouts for print": {
+          "features": [
+            "page-break-aliases",
+            "page-breaks",
+            "page-orientation",
+            "page-selectors",
+            "page-setup"
+          ]
+        },
+        "Style lists and counters": {
+          "features": [
+            "list-elements",
+            "description-list",
+            "counter-reset-reversed",
+            "counter-set",
+            "counter-style",
+            "counters",
+            "list-style",
+            "marker"
+          ]
+        }
+      },
+      "Control element display and visibility": {
+        "features": [
+          "appearance",
+          "display",
+          "display-contents",
+          "display-flow-root",
+          "display-list-item",
+          "display-ruby",
+          "display-table",
+          "modal",
+          "opacity",
+          "overlay",
+          "two-value-display",
+          "visibility"
+        ]
+      },
+      "Control overflow and scrolling": {
+        "features": [
+          "overflow-anchor",
+          "overflow-clip",
+          "overflow-clip-margin",
+          "overflow-overlay",
+          "overflow-shorthand",
+          "overflow-wrap",
+          "overscroll-behavior",
+          "scrollbar-color",
+          "scrollbar-gutter",
+          "scrollbar-width"
+        ]
+      },
+      "Work with transforms and motion": {
+        "features": [
+          "cubic-bezier-easing",
+          "motion-path",
+          "transform-box",
+          "translate"
+        ]
+      },
+      "Use advanced CSS features": {
+        "features": [
+          "cursor",
+          "main",
+          "namespace",
+          "nesting",
+          "paint-order",
+          "path-shape",
+          "placeholder",
+          "pointer-events",
+          "rect-xywx",
+          "referrer-policy",
+          "reporting",
+          "resizable-buffers",
+          "resource-size",
+          "shape-outside",
+          "tabindex",
+          "user-select",
+          "zoom"
+        ]
+      },
+      "Hide or show elements dynamically": {
+        "features": [
+          "check-visibility",
+          "content-visibility",
+          "display",
+          "display-animation"
+        ]
+      },
+      "Collapse/expand content": {
+        "features": [
+          "details",
+          "details-name",
+          "details-content"
+        ]
+      },
+      "Change element styles from JS": {
+        "features": [
+          "constructed-stylesheets",
+          "css-object-model",
+          "css-typed-om",
+          "get-computed-style",
+          "css-escape",
+          "css-supports",
+          "style",
+          "style-attr"
+        ]
+      },
+      "Adapt to the user's preferences": {
+        "Switch to dark/light mode automatically": {
+          "features": [
+            "color-scheme"
+          ]
+        },
+        "Detect user's color scheme": {
+          "features": [
+            "color-scheme",
+            "forced-colors"
+          ]
+        },
+        "Detect reduced-motion preference": {
+          "features": [
+            "prefers-reduced-motion"
+          ]
+        }
+      }
+    },
+    "Component-level UI": {
+      "Build custom web components": {
+        "features": [
+          "autonomous-custom-elements",
+          "customized-built-in-elements",
+          "declarative-shadow-dom",
+          "form-associated-custom-elements",
+          "has-slotted",
+          "host",
+          "host-context",
+          "shadow-dom",
+          "shadow-parts",
+          "slot",
+          "slot-assign"
+        ]
+      },
+      "Work with basic HTML elements": {
+        "features": [
+          "div",
+          "dom",
+          "domparser",
+          "embed",
+          "empty",
+          "has",
+          "nav",
+          "object",
+          "open-pseudo",
+          "output"
+        ]
+      },
+      "Improve accessibility": {
+        "features": [
+          "aria-attribute-reflection",
+          "arianotify"
+        ]
+      },
+      "Show a modal dialog": {
+        "features": [
+          "alerts",
+          "closewatcher",
+          "dialog",
+          "dialog-closedby",
+          "requestclose"
+        ]
+      },
+      "Create a popover": {
+        "features": [
+          "popover",
+          "popover-hint"
+        ]
+      },
+      "Create a tooltip": {
+        "features": [
+          "anchor-positioning",
+          "popover"
+        ]
+      },
+      "Create a dropdown menu": {
+        "features": [
+          "customizable-select",
+          "datalist",
+          "show-picker-select"
+        ]
+      },
+      "Expand and collapse content": {
+        "features": [
+          "details",
+          "details-content",
+          "details-name"
+        ]
+      },
+      "Implement drag-and-drop sorting": {
+        "features": [
+          "draganddrop",
+          "move-before"
+        ]
+      },
+      "Make elements resizable": {
+        "features": [
+          "resize",
+          "resize-observer"
+        ]
+      },
+      "Make elements draggable": {
+        "features": [
+          "draganddrop"
+        ]
+      },
+      "Create floating UI (context menus, floating toolbars)": {
+        "features": [
+          "anchor-positioning"
+        ]
+      },
+      "Manage focus between components": {
+        "features": [
+          "focus-events",
+          "focus-visible",
+          "focus-within",
+          "default"
+        ]
+      },
+      "Trap focus inside a component (modal)": {
+        "features": [
+          "inert",
+          "interactivity"
+        ]
+      }
+    }
+  },
+  "Forms and user input": {
+    "Build forms": {
+      "features": [
+        "form",
+        "fieldset",
+        "label",
+        "button",
+        "input",
+        "select",
+        "datalist",
+        "customizable-select",
+        "form-associated-custom-elements",
+        "form-validity-pseudos",
+        "vertical-form-controls",
+        "field-sizing"
+      ]
+    },
+    "Enhance form accessibility": {
+      "features": [
+        "aria-attribute-reflection",
+        "arianotify",
+        "accesskey",
+        "dirname"
+      ]
+    },
+    "Use form input types": {
+      "features": [
+        "input-button",
+        "input-checkbox",
+        "input-radio",
+        "input-color",
+        "input-color-alpha",
+        "input-date-time",
+        "input-email-tel-url",
+        "input-file",
+        "input-file-multiple",
+        "input-file-webkitdirectory",
+        "input-hidden",
+        "input-image",
+        "input-number",
+        "input-password",
+        "input-range",
+        "input-reset",
+        "input-submit",
+        "search",
+        "search-input-type",
+        "input-selectors",
+        "indeterminate",
+        "default"
+      ]
+    },
+    "Improve form input experience": {
+      "features": [
+        "autofocus",
+        "autofill",
+        "autocapitalize",
+        "autocorrect",
+        "enterkeyhint",
+        "inputmode",
+        "input-event"
+      ]
+    },
+    "Handle keyboard interaction": {
+      "features": [
+        "keyboard-events",
+        "keyboard-lock",
+        "keyboard-map"
+      ]
+    },
+    "Use invoker commands": {
+      "features": [
+        "invoker-commands"
+      ]
+    },
+    "Work with data attributes": {
+      "features": [
+        "data",
+        "dataset"
+      ]
+    },
+    "Capture text input": {
+      "features": [
+        "input",
+        "textarea",
+        "autocapitalize",
+        "autocorrect"
+      ]
+    },
+    "Validate form fields": {
+      "features": [
+        "constraint-validation"
+      ]
+    },
+    "Validate email addresses": {
+      "features": [
+        "input-email-tel-url",
+        "constraint-validation"
+      ]
+    },
+    "Validate URLs": {
+      "features": [
+        "input-email-tel-url",
+        "constraint-validation"
+      ]
+    },
+    "Autocomplete form data": {
+      "features": [
+        "autofill",
+        "autocomplete"
+      ]
+    },
+    "Use date pickers": {
+      "features": [
+        "input-date-time",
+        "show-picker-input"
+      ]
+    },
+    "Use color pickers": {
+      "features": [
+        "input-color",
+        "input-color-alpha",
+        "show-picker-input",
+        "eyedropper"
+      ]
+    },
+    "Capture file input": {
+      "features": [
+        "file",
+        "file-selector-button",
+        "download"
+      ]
+    },
+    "Capture multiple file inputs": {
+      "features": [
+        "input-file-multiple"
+      ]
+    },
+    "Upload files": {
+      "features": [
+        "fetch",
+        "xhr"
+      ]
+    },
+    "Read pasted content": {
+      "features": [
+        "async-clipboard",
+        "clipboard-events",
+        "clipboard-unsanitized-formats"
+      ]
+    },
+    "Detect copy/paste events": {
+      "features": [
+        "clipboard-events",
+        "clipboardchange"
+      ]
+    },
+    "Detect drag-over/drop into form fields": {
+      "features": [
+        "draganddrop"
+      ]
+    },
+    "Restrict input types": {
+      "features": [
+        "input",
+        "inputmode",
+        "constraint-validation"
+      ]
+    },
+    "Mask sensitive input": {
+      "features": [
+        "input-password"
+      ]
+    },
+    "Handle form submission": {
+      "features": [
+        "form",
+        "input-submit"
+      ]
+    },
+    "Pre-fill forms from stored data": {
+      "features": [
+        "localstorage",
+        "indexeddb",
+        "autofill"
+      ]
+    },
+    "Show form validation errors": {
+      "features": [
+        "constraint-validation",
+        "form-validity-pseudos"
+      ]
+    },
+    "Detect input method (keyboard vs. mouse vs. touch)": {
+      "features": [
+        "change-event",
+        "input-event",
+        "interaction",
+        "mouse-events",
+        "pointer-events-api",
+        "pointer-lock",
+        "touch-action",
+        "touch-events",
+        "wheel-events"
+      ]
+    },
+    "Provide input suggestions": {
+      "features": [
+        "datalist",
+        "autocomplete"
+      ]
+    },
+    "Handle ime composition (Asian languages)": {
+      "features": [
+        "composition-events",
+        "ime-mode"
+      ]
+    }
+  },
+  "Text, content and editing": {
+    "Style fonts and typography": {
+      "features": [
+        "font-display",
+        "font-face",
+        "font-family",
+        "font-family-math",
+        "font-family-system",
+        "font-family-ui",
+        "font-feature-settings",
+        "font-kerning",
+        "font-language-override",
+        "font-loading",
+        "font-metric-overrides",
+        "font-optical-sizing",
+        "font-palette",
+        "font-palette-animation",
+        "font-shorthand",
+        "font-size",
+        "font-size-adjust",
+        "font-stretch",
+        "font-style",
+        "font-synthesis",
+        "font-synthesis-position",
+        "font-synthesis-small-caps",
+        "font-synthesis-style",
+        "font-synthesis-weight",
+        "font-variant",
+        "font-variant-alternates",
+        "font-variant-caps",
+        "font-variant-east-asian",
+        "font-variant-emoji",
+        "font-variant-ligatures",
+        "font-variant-numeric",
+        "font-variant-position",
+        "font-variation-settings",
+        "font-weight",
+        "font-width",
+        "local-fonts"
+      ]
+    },
+    "Control text layout": {
+      "features": [
+        "text-align",
+        "text-align-last",
+        "text-autospace",
+        "text-box",
+        "text-combine-upright",
+        "text-decoration",
+        "text-decoration-line-blink",
+        "text-decoration-selection",
+        "text-emphasis",
+        "text-indent",
+        "text-indent-each-line",
+        "text-indent-hanging",
+        "text-justify",
+        "text-orientation",
+        "text-overflow",
+        "text-shadow",
+        "text-size-adjust",
+        "text-spacing-trim",
+        "text-stroke-fill",
+        "text-transform",
+        "text-underline-offset",
+        "text-underline-position",
+        "text-wrap",
+        "text-wrap-balance",
+        "text-wrap-mode",
+        "text-wrap-nowrap",
+        "text-wrap-pretty",
+        "text-wrap-stable",
+        "text-wrap-style",
+        "letter-spacing",
+        "line-break",
+        "line-clamp",
+        "line-height",
+        "tab-size",
+        "white-space",
+        "white-space-collapse",
+        "widows-orphans",
+        "word-break",
+        "word-break-auto-phrase",
+        "word-break-break-word",
+        "word-spacing",
+        "hyphens",
+        "hyphenate-character",
+        "hyphenate-limit-chars",
+        "hanging-punctuation",
+        "glyph-orientation-vertical"
+      ]
+    },
+    "Use text-to-speech and speech recognition": {
+      "features": [
+        "speak",
+        "speak-as",
+        "speech-recognition",
+        "speech-synthesis"
+      ]
+    },
+    "Handle text input and editing": {
+      "features": [
+        "textarea",
+        "spellcheck",
+        "spelling-grammar-error",
+        "writingsuggestions",
+        "document-caretpositionfrompoint",
+        "document-write"
+      ]
+    },
+    "Work with JavaScript strings and data": {
+      "features": [
+        "string-at",
+        "string-codepoint",
+        "string-includes",
+        "string-matchall",
+        "string-normalize",
+        "string-pad",
+        "string-raw",
+        "string-repeat",
+        "string-replaceall",
+        "string-startsends-with",
+        "string-trim-startend",
+        "string-wellformed",
+        "strings",
+        "template",
+        "template-literals",
+        "structured-clone",
+        "text-encoding"
+      ]
+    },
+    "Work with dates and times": {
+      "features": [
+        "date",
+        "date-get-year-set-year",
+        "date-to-gmt-string",
+        "time",
+        "time-relative-selectors",
+        "temporal"
+      ]
+    },
+    "Use AI features": {
+      "features": [
+        "summarizer"
+      ]
+    },
+    "Display rich text": {
+      "features": [
+        "abbr",
+        "address",
+        "article",
+        "aside",
+        "b",
+        "bdi",
+        "bdo",
+        "before-after",
+        "blockquote",
+        "br",
+        "cite",
+        "code",
+        "content",
+        "del",
+        "dfn",
+        "em",
+        "figure",
+        "first-letter",
+        "first-line",
+        "head",
+        "header-footer",
+        "headings",
+        "hgroup",
+        "hr",
+        "i",
+        "ins",
+        "kbd",
+        "mark",
+        "p",
+        "pre",
+        "progress",
+        "q",
+        "quotes",
+        "s",
+        "samp",
+        "section",
+        "small",
+        "span",
+        "strong",
+        "sub-sup",
+        "table",
+        "title",
+        "title-attr",
+        "u",
+        "var"
+      ]
+    },
+    "Edit rich text": {
+      "features": [
+        "contenteditable",
+        "contenteditable-plaintextonly",
+        "edit-context",
+        "execcommand"
+      ]
+    },
+    "Implement contenteditable behavior": {
+      "features": [
+        "contenteditable",
+        "contenteditable-plaintextonly"
+      ]
+    },
+    "Select text programmatically": {
+      "features": [
+        "document-caretpositionfrompoint",
+        "selection-api",
+        "selection"
+      ]
+    },
+    "Work with the system clipboard": {
+      "Copy text to clipboard": {
+        "features": [
+          "async-clipboard"
+        ]
+      },
+      "Cut text to clipboard": {
+        "features": [
+          "async-clipboard"
+        ]
+      },
+      "Paste content from clipboard": {
+        "features": [
+          "async-clipboard",
+          "clipboard-events"
+        ]
+      },
+      "Copy images to clipboard": {
+        "features": [
+          "async-clipboard",
+          "clipboard-custom-format",
+          "clipboard-supports",
+          "clipboard-svg"
+        ]
+      },
+      "Paste images from clipboard": {
+        "features": [
+          "async-clipboard",
+          "clipboard-svg"
+        ]
+      }
+    },
+    "Measure text size": {
+      "features": [
+        "dom-geometry",
+        "em-unit",
+        "ex"
+      ]
+    },
+    "Work with international text": {
+      "Generate localized strings": {
+        "features": [
+          "intl",
+          "intl-display-names",
+          "intl-duration-format",
+          "intl-list-format",
+          "intl-locale",
+          "intl-locale-info",
+          "intl-plural-rules",
+          "intl-relative-time-format",
+          "intl-segmenter",
+          "lang",
+          "lang-attr",
+          "language",
+          "writing-mode",
+          "writing-mode-svg-values"
+        ]
+      },
+      "Detect text direction (LTR/RTL)": {
+        "features": [
+          "dir-pseudo",
+          "dirname"
+        ]
+      }
+    },
+    "Implement search in text": {
+      "features": [
+        "highlight",
+        "highlightsfrompoint",
+        "hidden-until-found"
+      ]
+    },
+    "Highlight text matches": {
+      "features": [
+        "highlight",
+        "highlightsfrompoint"
+      ]
+    },
+    "Convert text to HTML": {
+      "features": [
+        "domparser",
+        "parse-html-unsafe",
+        "xpath",
+        "xslt",
+        "xml-serializer"
+      ]
+    },
+    "Sanitize HTML input": {
+      "features": [
+        "sanitizer"
+      ]
+    },
+    "Render mathematical formulas": {
+      "features": [
+        "mathml"
+      ]
+    }
+  },
+  "Graphics, animation and visual effects": {
+    "Work with SVG": {
+      "features": [
+        "svg",
+        "svg-filters"
+      ]
+    },
+    "Animation": {
+      "Animate element properties": {
+        "features": [
+          "animations-css",
+          "animation-composition",
+          "cubic-bezier-easing",
+          "display-animation",
+          "individual-transforms",
+          "interpolate-size",
+          "linear-easing",
+          "request-animation-frame",
+          "smil-svg-animations",
+          "steps-easing",
+          "transforms2d",
+          "transforms3d",
+          "web-animations"
+        ]
+      },
+      "Create transitions between element states": {
+        "features": [
+          "starting-style",
+          "transition-behavior",
+          "transitions"
+        ]
+      },
+      "Animate between pages": {
+        "features": [
+          "active-view-transition",
+          "cross-document-view-transitions",
+          "view-transition-class",
+          "view-transitions"
+        ]
+      },
+      "Animate scrolling": {
+        "features": [
+          "scroll-timeline",
+          "animation-timeline"
+        ]
+      },
+      "Trigger animations when elements enter viewport": {
+        "features": [
+          "intersection-observer",
+          "intersection-observer-v2"
+        ]
+      },
+      "Create scroll-driven animations": {
+        "features": [
+          "scroll-timeline",
+          "animation-timeline",
+          "view-timeline"
+        ]
+      },
+      "Pause/resume animations": {
+        "features": [
+          "web-animations"
+        ]
+      },
+      "Synchronize multiple animations": {
+        "features": [
+          "web-animations"
+        ]
+      }
+    },
+    "Canvas and drawing": {
+      "Draw shapes on canvas": {
+        "features": [
+          "canvas",
+          "canvas-2d",
+          "canvas-2d-alpha",
+          "canvas-2d-color-management",
+          "canvas-2d-desynchronized",
+          "canvas-2d-willreadfrequently",
+          "canvas-context-lost",
+          "canvas-createconicgradient",
+          "canvas-reset",
+          "canvas-roundrect",
+          "createimagebitmap",
+          "dom-geometry",
+          "offscreen-canvas"
+        ]
+      },
+      "Draw images on canvas": {
+        "features": [
+          "imagebitmaprenderingcontext"
+        ]
+      },
+      "Export canvas as image": {
+        "features": [
+          "capture-stream-canvas"
+        ]
+      },
+      "Read pixel data": {
+        "features": [
+          "canvas-2d"
+        ]
+      },
+      "Detect clicks on a canvas element": {
+        "features": [
+          "pointer-events-api",
+          "mouse-events"
+        ]
+      }
+    },
+    "WebGL/WebGPU": {
+      "Render 3D graphics": {
+        "features": [
+          "webgl",
+          "webgl2",
+          "webgpu"
+        ]
+      },
+      "Create GPU-accelerated visual effects": {
+        "features": [
+          "webgl",
+          "webgl2",
+          "webgpu"
+        ]
+      },
+      "Run compute shaders": {
+        "features": [
+          "webgpu"
+        ]
+      },
+      "WebGL extensions and capabilities": {
+        "features": [
+          "ext-blend-minmax",
+          "ext-color-buffer-float",
+          "ext-color-buffer-half-float",
+          "ext-disjoint-timer-query",
+          "ext-float-blend",
+          "ext-frag-depth",
+          "ext-shader-texture-lod",
+          "ext-srgb",
+          "ext-texture-compression-bptc",
+          "ext-texture-compression-rgtc",
+          "ext-texture-filter-anisotropic",
+          "ext-texture-norm16",
+          "khr-parallel-shader-compile",
+          "oes-element-index-uint",
+          "oes-fbo-render-mipmap",
+          "oes-standard-derivatives",
+          "oes-texture-float",
+          "oes-texture-float-linear",
+          "oes-texture-half-float",
+          "oes-texture-half-float-linear",
+          "oes-vertex-array-object",
+          "ovr-multiview2",
+          "webgl",
+          "angle-instanced-arrays",
+          "webgl-color-buffer-float",
+          "webgl-color-management",
+          "webgl-compressed-texture-astc",
+          "webgl-compressed-texture-etc",
+          "webgl-compressed-texture-etc1",
+          "webgl-compressed-texture-pvrtc",
+          "webgl-compressed-texture-s3tc",
+          "webgl-compressed-texture-s3tc-srgb",
+          "webgl-debug-renderer-info",
+          "webgl-debug-shaders",
+          "webgl-depth-texture",
+          "webgl-desynchronized",
+          "webgl-draw-buffers",
+          "webgl-lose-context",
+          "webgl-multi-draw",
+          "webgl-oes-draw-buffers-indexed",
+          "webgl-sab",
+          "webgl2",
+          "webgl2-color-management",
+          "webgl2-desynchronized",
+          "webgpu",
+          "webnn"
+        ]
+      }
+    },
+    "CSS Visual Effects": {
+      "Work with colors": {
+        "features": [
+          "color",
+          "color-adjust",
+          "color-contrast",
+          "color-function",
+          "color-gamut",
+          "color-mix",
+          "colrv0",
+          "colrv1",
+          "contrast-color",
+          "currentcolor",
+          "hsl",
+          "hwb",
+          "lab",
+          "light-dark",
+          "oklab",
+          "print-color-adjust",
+          "relative-color"
+        ]
+      },
+      "Apply filters and effects": {
+        "features": [
+          "filter",
+          "isolation",
+          "mix-blend-mode",
+          "opacity",
+          "opacity-svg"
+        ]
+      },
+      "Detect user preferences": {
+        "features": [
+          "prefers-color-scheme",
+          "prefers-contrast",
+          "prefers-reduced-data",
+          "prefers-reduced-motion",
+          "prefers-reduced-transparency"
+        ]
+      },
+      "Use advanced CSS painting": {
+        "features": [
+          "cross-fade",
+          "crisp-edges",
+          "element",
+          "if",
+          "initial-letter",
+          "paint",
+          "paint-order",
+          "paint-timing",
+          "pointer-events"
+        ]
+      },
+      "Apply blur/backdrop-filter": {
+        "features": [
+          "backdrop",
+          "backdrop-filter"
+        ]
+      },
+      "Apply blend modes": {
+        "features": [
+          "background-blend-mode"
+        ]
+      },
+      "Use CSS masks": {
+        "features": [
+          "clip",
+          "clip-path",
+          "clip-path-animatable",
+          "clip-path-boxes",
+          "mask-border",
+          "mask-type",
+          "masks",
+          "shape-function",
+          "shape-outside",
+          "shapes"
+        ]
+      },
+      "Use CSS gradients": {
+        "features": [
+          "conic-gradients",
+          "cross-fade",
+          "gradient-interpolation",
+          "gradients"
+        ]
+      },
+      "Create complex shadows": {
+        "features": [
+          "box-shadow"
+        ]
+      },
+      "Create transitions between states": {
+        "features": [
+          "transitions",
+          "starting-style"
+        ]
+      }
+    }
+  },
+  "Media (Audio, Video, Image)": {
+    "Display and style images": {
+      "features": [
+        "img",
+        "picture",
+        "source",
+        "srcset",
+        "sizes-auto",
+        "avif",
+        "jpegxl",
+        "webp",
+        "image-function",
+        "image-maps",
+        "image-orientation",
+        "image-rendering",
+        "image-set",
+        "imagebitmaprenderingcontext",
+        "object-fit",
+        "object-position",
+        "object-view-box"
+      ]
+    },
+    "Configure media elements": {
+      "features": [
+        "controls-list",
+        "encrypted-media-extensions",
+        "fast-seek",
+        "ping",
+        "audio-session",
+        "audio-worklet",
+        "video-dynamic-range"
+      ]
+    },
+    "Work with audio and video tracks": {
+      "features": [
+        "audio",
+        "video",
+        "audio-video-tracks"
+      ]
+    },
+    "Media Playback": {
+      "Configure media playback": {
+        "features": [
+          "managed-media-source",
+          "media-capabilities",
+          "media-playback-quality",
+          "media-pseudos",
+          "media-session",
+          "media-source",
+          "mediacontroller",
+          "meter",
+          "preserves-pitch"
+        ]
+      },
+      "Play audio": {
+        "features": [
+          "audio",
+          "audio-video-tracks"
+        ]
+      },
+      "Pause audio": {
+        "features": [
+          "audio"
+        ]
+      },
+      "Control audio volume": {
+        "features": [
+          "audio"
+        ]
+      },
+      "Play video": {
+        "features": [
+          "video"
+        ]
+      },
+      "Control playback position": {
+        "features": [
+          "video",
+          "audio"
+        ]
+      },
+      "Show video fullscreen": {
+        "features": [
+          "fullscreen",
+          "document-picture-in-picture",
+          "picture-in-picture"
+        ]
+      },
+      "Display captions/subtitles": {
+        "features": [
+          "text-tracks",
+          "webvtt",
+          "webvtt-cue-alignment",
+          "webvtt-cue-settings",
+          "webvtt-regions"
+        ]
+      }
+    },
+    "Media Capture": {
+      "Access microphone": {
+        "features": [
+          "media-capture"
+        ]
+      },
+      "Record audio": {
+        "features": [
+          "mediastream-recording"
+        ]
+      },
+      "Access camera": {
+        "features": [
+          "media-capture",
+          "html-media-capture"
+        ]
+      },
+      "Record video": {
+        "features": [
+          "capture-stream-audio-video"
+        ]
+      },
+      "Capture screen/window/tab": {
+        "features": [
+          "element-capture",
+          "region-capture",
+          "screen-capture"
+        ]
+      },
+      "Record screen video": {
+        "features": [
+          "mediastream-recording",
+          "screen-capture"
+        ]
+      }
+    },
+    "Media Processing": {
+      "Process audio streams": {
+        "features": [
+          "audio-worklet",
+          "offline-audio-context",
+          "web-audio"
+        ]
+      },
+      "Apply filters to audio": {
+        "features": [
+          "web-audio"
+        ]
+      },
+      "Process video frames": {
+        "features": [
+          "insertable-streams",
+          "request-video-frame-callback",
+          "webcodecs"
+        ]
+      },
+      "Extract frames from video": {
+        "features": [
+          "webcodecs"
+        ]
+      },
+      "Compress images": {
+        "features": [
+          "webcodecs"
+        ]
+      },
+      "Convert images between formats": {
+        "features": [
+          "webcodecs"
+        ]
+      }
+    }
+  },
+  "Files, storage and persistence": {
+    "File access (user-driven)": {
+      "Let user pick a file": {
+        "features": [
+          "file",
+          "file-system-access",
+          "download",
+          "origin-private-file-system"
+        ]
+      },
+      "Let user pick multiple files": {
+        "features": [
+          "input-file-multiple"
+        ]
+      },
+      "Let user pick a directory": {
+        "features": [
+          "input-file-webkitdirectory"
+        ]
+      },
+      "Read file content": {
+        "features": [
+          "file"
+        ]
+      },
+      "Write file content": {
+        "features": [
+          "file-system-access",
+          "origin-private-file-system"
+        ]
+      },
+      "Save file with user prompt": {
+        "features": [
+          "file-system-access",
+          "origin-private-file-system",
+          "download"
+        ]
+      },
+      "Modify a file in place": {
+        "features": [
+          "file-system-access",
+          "origin-private-file-system"
+        ]
+      },
+      "Re-open previously used files": {
+        "features": [
+          "file-system-access",
+          "origin-private-file-system",
+          "indexeddb"
+        ]
+      },
+      "Persist file handles": {
+        "features": [
+          "indexeddb"
+        ]
+      },
+      "Detect file type": {
+        "features": [
+          "file"
+        ]
+      }
+    },
+    "Storage (origin-controlled)": {
+      "Store small key-value data": {
+        "features": [
+          "localstorage"
+        ]
+      },
+      "Store large amounts of data": {
+        "features": [
+          "indexeddb"
+        ]
+      },
+      "Store structured objects": {
+        "features": [
+          "indexeddb",
+          "localstorage"
+        ]
+      },
+      "Store blobs/binary data": {
+        "features": [
+          "indexeddb"
+        ]
+      },
+      "Store user settings": {
+        "features": [
+          "localstorage"
+        ]
+      },
+      "Store session data": {
+        "features": [
+          "cookie-enabled",
+          "cookie-store",
+          "cookies",
+          "non-cookie-storage-access",
+          "partitioned-cookies",
+          "sessionstorage",
+          "localstorage"
+        ]
+      },
+      "Cache assets for offline use": {
+        "features": [
+          "service-workers"
+        ]
+      },
+      "Delete stored data": {
+        "features": [
+          "indexeddb",
+          "localstorage"
+        ]
+      },
+      "Check available storage": {
+        "features": [
+          "storage-buckets",
+          "storage-manager"
+        ]
+      },
+      "Detect storage quota": {
+        "features": [
+          "storage-manager"
+        ]
+      },
+      "Use persistent storage": {
+        "features": [
+          "storage-manager"
+        ]
+      }
+    },
+    "Database-like behavior": {
+      "features": [
+        "indexeddb"
+      ]
+    }
+  },
+  "Networking and communication": {
+    "Use async programming patterns": {
+      "features": [
+        "async-await",
+        "async-generators",
+        "async-iterators"
+      ]
+    },
+    "Work with streams": {
+      "features": [
+        "streams",
+        "async-iterable-streams",
+        "transferable-streams",
+        "transformstream-transformer-cancel",
+        "compression-streams"
+      ]
+    },
+    "Handle URLs and patterns": {
+      "features": [
+        "url",
+        "url-canparse",
+        "urlpattern",
+        "data-urls"
+      ]
+    },
+    "Configure network security": {
+      "features": [
+        "cors",
+        "csp",
+        "hsts",
+        "local-network-access",
+        "http-authentication"
+      ]
+    },
+    "Use HTTP protocols and compression": {
+      "features": [
+        "http11",
+        "http2",
+        "http3",
+        "early-data",
+        "zstd"
+      ]
+    },
+    "Transfer data between contexts": {
+      "features": [
+        "postmessage",
+        "transferable-arraybuffer"
+      ]
+    },
+    "Detect network status": {
+      "features": [
+        "network-information",
+        "online"
+      ]
+    },
+    "HTTP and fetch": {
+      "Make HTTP requests": {
+        "features": [
+          "async-await",
+          "beacons",
+          "brotli",
+          "fetch",
+          "fetch-metadata",
+          "fetch-priority",
+          "fetchlater",
+          "xhr"
+        ]
+      },
+      "Upload large files": {
+        "features": [
+          "fetch",
+          "fetch-request-streams"
+        ]
+      },
+      "Stream downloads": {
+        "features": [
+          "streams",
+          "fetch"
+        ]
+      },
+      "Stream uploads": {
+        "features": [
+          "fetch-request-streams"
+        ]
+      },
+      "Handle timeouts": {
+        "features": [
+          "aborting",
+          "settimeout"
+        ]
+      },
+      "Abort a request": {
+        "features": [
+          "abortable-fetch",
+          "aborting",
+          "abortsignal-any"
+        ]
+      },
+      "Send form data": {
+        "features": [
+          "fetch"
+        ]
+      }
+    },
+    "Real-time communication": {
+      "Open a WebSocket connection": {
+        "features": [
+          "websockets"
+        ]
+      },
+      "Send/receive live updates": {
+        "features": [
+          "websockets"
+        ]
+      },
+      "Join a real-time chat": {
+        "features": [
+          "websockets"
+        ]
+      },
+      "Synchronize multiple clients": {
+        "features": [
+          "websockets"
+        ]
+      }
+    },
+    "Server-sent events": {
+      "Subscribe to server updates": {
+        "features": [
+          "server-sent-events"
+        ]
+      }
+    },
+    "WebRTC": {
+      "Connect to a peer": {
+        "features": [
+          "webrtc",
+          "webrtc-encoded-transform",
+          "webrtc-stats"
+        ]
+      },
+      "Exchange data channels": {
+        "features": [
+          "webrtc",
+          "webrtc-sctp"
+        ]
+      },
+      "Establish a video call": {
+        "features": [
+          "webrtc"
+        ]
+      },
+      "Handle ICE candidates": {
+        "features": [
+          "webrtc"
+        ]
+      }
+    },
+    "New protocols": {
+      "Use QUIC/WebTransport streams": {
+        "features": [
+          "webtransport"
+        ]
+      },
+      "Send bidirectional real-time data": {
+        "features": [
+          "webtransport"
+        ]
+      }
+    },
+    "Background networking": {
+      "Sync data when online": {
+        "features": [
+          "background-fetch",
+          "background-sync",
+          "beacons"
+        ]
+      },
+      "Queue requests offline": {
+        "features": [
+          "background-sync",
+          "service-workers"
+        ]
+      }
+    }
+  },
+  "Device, sensors, and OS integration": {
+    "Access device information": {
+      "features": [
+        "navigator",
+        "screen"
+      ]
+    },
+    "Control screen and display": {
+      "features": [
+        "screen-orientation",
+        "screen-orientation-lock",
+        "screen-wake-lock",
+        "presentation-api",
+        "remote-playback"
+      ]
+    },
+    "Use virtual input devices": {
+      "features": [
+        "virtual-keyboard",
+        "virtual-pressure-sources",
+        "virtual-sensors"
+      ]
+    },
+    "Build VR and AR experiences": {
+      "features": [
+        "webvr",
+        "webxr-anchors",
+        "webxr-ar",
+        "webxr-camera",
+        "webxr-depth-sensing",
+        "webxr-device",
+        "webxr-dom-overlays",
+        "webxr-gamepads",
+        "webxr-hand-input",
+        "webxr-hit-test",
+        "webxr-layers",
+        "webxr-lighting-estimation"
+      ]
+    },
+    "Sensors": {
+      "Read geolocation": {
+        "features": [
+          "geolocation"
+        ]
+      },
+      "Track position updates": {
+        "features": [
+          "geolocation"
+        ]
+      },
+      "Read accelerometer": {
+        "features": [
+          "accelerometer"
+        ]
+      },
+      "Read gyroscope": {
+        "features": [
+          "gyroscope"
+        ]
+      },
+      "Detect device orientation": {
+        "features": [
+          "device-orientation-events",
+          "device-posture",
+          "orientation-sensor",
+          "screen-orientation",
+          "screen-orientation-lock"
+        ]
+      },
+      "Detect ambient light": {
+        "features": [
+          "ambient-light"
+        ]
+      }
+    },
+    "System integration": {
+      "Vibrate the device": {
+        "features": [
+          "vibration"
+        ]
+      },
+      "Wake lock screen": {
+        "features": [
+          "screen-wake-lock"
+        ]
+      },
+      "Detect battery status": {
+        "features": [
+          "battery"
+        ]
+      },
+      "Detect network type": {
+        "features": [
+          "network-information",
+          "online"
+        ]
+      },
+      "Detect device memory": {
+        "features": [
+          "device-memory",
+          "devicepixelratio"
+        ]
+      },
+      "Detect device hardware concurrency": {
+        "features": [
+          "hardware-concurrency"
+        ]
+      },
+      "Detect idle state": {
+        "features": [
+          "idle-detection"
+        ]
+      }
+    },
+    "Bluetooth/USB/NFC": {
+      "Connect to Bluetooth device": {
+        "features": [
+          "web-bluetooth"
+        ]
+      },
+      "Read/write Bluetooth GATT characteristics": {
+        "features": [
+          "web-bluetooth"
+        ]
+      },
+      "Connect to USB device": {
+        "features": [
+          "webusb"
+        ]
+      },
+      "Send/receive data to USB": {
+        "features": [
+          "webusb"
+        ]
+      },
+      "Connect via WebSerial": {
+        "features": [
+          "serial"
+        ]
+      },
+      "Connect via WebHID": {
+        "features": [
+          "webhid"
+        ]
+      },
+      "Scan NFC tags": {
+        "features": [
+          "barcode",
+          "web-nfc"
+        ]
+      },
+      "Write NFC tags": {
+        "features": [
+          "web-nfc"
+        ]
+      },
+      "Use game controllers": {
+        "features": [
+          "gamepad",
+          "gamepad-haptics",
+          "gamepad-touch",
+          "gamepad-vr",
+          "web-midi"
+        ]
+      }
+    },
+    "Share and integration": {
+      "Share text or files with native share sheet": {
+        "features": [
+          "contact-picker",
+          "digital-goods",
+          "eyedropper",
+          "share"
+        ]
+      },
+      "Receive shared content from OS (Share Target API)": {
+        "features": [
+          "app-share-targets"
+        ]
+      },
+      "Handle custom file types in PWA": {
+        "features": [
+          "app-file-handlers"
+        ]
+      },
+      "Launch app from a protocol link": {
+        "features": [
+          "app-protocol-handlers"
+        ]
+      }
+    }
+  },
+  "Security, privacy and permissions": {
+    "Cryptography": {
+      "features": [
+        "web-cryptography"
+      ]
+    },
+    "Permissions": {
+      "Request permission for camera": {
+        "features": [
+          "permissions",
+          "media-capture"
+        ]
+      },
+      "Request permission for microphone": {
+        "features": [
+          "permissions",
+          "media-capture"
+        ]
+      },
+      "Request permission for notifications": {
+        "features": [
+          "permissions",
+          "notifications"
+        ]
+      },
+      "Request permission for geolocation": {
+        "features": [
+          "permissions",
+          "geolocation"
+        ]
+      },
+      "Detect permission status": {
+        "features": [
+          "permissions"
+        ]
+      }
+    },
+    "Authentication": {
+      "Implement login with cookies": {
+        "features": [
+          "cookies",
+          "cookie-store"
+        ]
+      },
+      "Implement token-based auth": {
+        "features": [
+          "localstorage",
+          "fetch"
+        ]
+      },
+      "Integrate OAuth": {
+        "features": [
+          "fedcm",
+          "federated-credentials"
+        ]
+      },
+      "Use WebAuthn / Passkeys": {
+        "features": [
+          "secure-payment-confirmation",
+          "web-otp",
+          "webauthn",
+          "webauthn-easy-public-key",
+          "webauthn-public-key-easy",
+          "webauthn-signals"
+        ]
+      },
+      "Store secure credentials": {
+        "features": [
+          "credential-management",
+          "password-credentials"
+        ]
+      },
+      "Auto-login users": {
+        "features": [
+          "credential-management"
+        ]
+      },
+      "Manage sessions": {
+        "features": [
+          "cookies",
+          "cookie-store",
+          "localstorage"
+        ]
+      }
+    },
+    "Privacy and isolation": {
+      "Use iframes securely": {
+        "features": [
+          "fencedframe",
+          "iframe",
+          "iframe-sandbox",
+          "iframe-credentialless",
+          "iframe-srcdoc"
+        ]
+      },
+      "Prevent clickjacking": {
+        "features": [
+          "csp",
+          "iframe-sandbox"
+        ]
+      },
+      "Enforce CSP": {
+        "features": [
+          "csp",
+          "gpc",
+          "mixed-content",
+          "private-click-measurement",
+          "private-network-access",
+          "topics"
+        ]
+      },
+      "Limit cross-origin access": {
+        "features": [
+          "cors",
+          "fetch-metadata",
+          "storage-access"
+        ]
+      },
+      "Sanitize incoming data": {
+        "features": [
+          "trusted-types"
+        ]
+      }
+    },
+    "Sandboxing": {
+      "Run isolated code with sandboxed iframes": {
+        "features": [
+          "iframe-sandbox",
+          "iframe-credentialless"
+        ]
+      },
+      "Limit access to cross-origin data": {
+        "features": [
+          "iframe-sandbox"
+        ]
+      }
+    },
+    "Multitab, lifecycle and background tasks": {
+      "Detect multiple open tabs": {
+        "features": [
+          "broadcast-channel",
+          "localstorage"
+        ]
+      },
+      "Communicate across tabs": {
+        "features": [
+          "broadcast-channel",
+          "channel-messaging",
+          "messageerror"
+        ]
+      },
+      "Keep data in sync between tabs": {
+        "features": [
+          "web-locks"
+        ]
+      },
+      "Detect when tab regains focus": {
+        "features": [
+          "focus-events",
+          "page-visibility"
+        ]
+      },
+      "Detect when user returns to page": {
+        "features": [
+          "page-visibility",
+          "page-lifecycle"
+        ]
+      },
+      "Run code when page loads": {
+        "features": [
+          "bfcache-blocking-reasons",
+          "events",
+          "page-transition-events"
+        ]
+      },
+      "Run code before page unloads": {
+        "features": [
+          "beforeunload"
+        ]
+      },
+      "Keep service worker alive": {
+        "features": [
+          "service-workers"
+        ]
+      },
+      "Run code in background service worker": {
+        "features": [
+          "service-workers"
+        ]
+      },
+      "Handle push messages": {
+        "features": [
+          "push"
+        ]
+      },
+      "Periodically sync data": {
+        "features": [
+          "periodic-background-sync"
+        ]
+      },
+      "Respond to notification clicks": {
+        "features": [
+          "notifications",
+          "notifications-apps"
+        ]
+      }
+    }
+  },
+  "Progressive Web App (PWA) capabilities": {
+    "Configure app integration": {
+      "features": [
+        "app-file-handlers",
+        "app-launch-handler",
+        "app-protocol-handlers",
+        "app-share-targets",
+        "app-shortcuts",
+        "window-controls-overlay"
+      ]
+    },
+    "Enhance app capabilities": {
+      "features": [
+        "badging",
+        "content-index",
+        "pdf-viewer"
+      ]
+    },
+    "Handle payments": {
+      "features": [
+        "payment-handler",
+        "payment-request"
+      ]
+    },
+    "Use service workers": {
+      "features": [
+        "service-workers",
+        "periodic-background-sync"
+      ]
+    },
+    "Make the app installable": {
+      "features": [
+        "beforeinstallprompt"
+      ]
+    },
+    "Detect if running as PWA": {
+      "features": [
+        "display-mode"
+      ]
+    },
+    "Create an application manifest": {
+      "features": [
+        "manifest",
+        "meta-application-title",
+        "meta-theme-color"
+      ]
+    },
+    "Use offline fallback routes": {
+      "features": [
+        "service-workers"
+      ]
+    },
+    "Cache resources for offline use": {
+      "features": [
+        "service-workers"
+      ]
+    },
+    "Precache assets": {
+      "features": [
+        "service-workers"
+      ]
+    },
+    "Update service worker": {
+      "features": [
+        "service-workers"
+      ]
+    },
+    "Handle service worker lifecycle": {
+      "features": [
+        "service-workers"
+      ]
+    },
+    "Implement background sync": {
+      "features": [
+        "background-sync"
+      ]
+    },
+    "Handle push notifications": {
+      "features": [
+        "notifications",
+        "notifications-apps",
+        "push"
+      ]
+    },
+    "Access installed app's files": {
+      "features": [
+        "app-file-handlers"
+      ]
+    },
+    "Register app as share target": {
+      "features": [
+        "app-share-targets"
+      ]
+    },
+    "Handle deep links": {
+      "features": [
+        "app-protocol-handlers",
+        "registerprotocolhandler"
+      ]
+    },
+    "Customise app window": {
+      "features": [
+        "window-controls-overlay",
+        "meta-application-title"
+      ]
+    }
+  },
+  "Performance and workers": {
+    "Work with collections and data structures": {
+      "features": [
+        "map",
+        "set",
+        "set-methods",
+        "iterator-methods",
+        "iterators",
+        "typed-arrays",
+        "typed-array-iteration-methods",
+        "typed-array-iterators",
+        "uint8array-base64-hex"
+      ]
+    },
+    "Handle objects and symbols": {
+      "features": [
+        "object-hasown",
+        "object-object",
+        "symbol",
+        "proxy-reflect",
+        "proto"
+      ]
+    },
+    "Work with numbers and math": {
+      "features": [
+        "number",
+        "numeric-factory-functions",
+        "numeric-separators",
+        "exponentiation"
+      ]
+    },
+    "Handle JSON and data": {
+      "features": [
+        "json",
+        "json-raw",
+        "stable-array-sort"
+      ]
+    },
+    "Use WebAssembly": {
+      "features": [
+        "wasm",
+        "wasm-bigint",
+        "wasm-bulk-memory",
+        "wasm-exception-handling",
+        "wasm-exnref-exceptions",
+        "wasm-extended-constant-expressions",
+        "wasm-garbage-collection",
+        "wasm-memory64",
+        "wasm-multi-memory",
+        "wasm-multi-value",
+        "wasm-mutable-globals",
+        "wasm-non-trapping-float-to-int",
+        "wasm-reference-types",
+        "wasm-sign-extension-operators",
+        "wasm-simd",
+        "wasm-simd-relaxed",
+        "wasm-string-builtins",
+        "wasm-tail-call-optimization",
+        "wasm-threads",
+        "wasm-typed-fun-refs"
+      ]
+    },
+    "Optimize rendering performance": {
+      "features": [
+        "contain",
+        "contain-inline-size",
+        "contain-intrinsic-size",
+        "contain-layout",
+        "contain-paint",
+        "contain-size",
+        "contain-style",
+        "content-visibility",
+        "will-change"
+      ]
+    },
+    "Schedule and time operations": {
+      "features": [
+        "scheduler",
+        "setinterval",
+        "settimeout",
+        "request-animation-frame",
+        "request-animation-frame-workers",
+        "queuemicrotask",
+        "requestidlecallback"
+      ]
+    },
+    "Monitor system resources": {
+      "features": [
+        "compute-pressure",
+        "is-input-pending"
+      ]
+    },
+    "Handle errors and debugging": {
+      "features": [
+        "console",
+        "error-cause",
+        "serializable-errors",
+        "is-error"
+      ]
+    },
+    "Manage resources": {
+      "features": [
+        "explicit-resource-management",
+        "shared-memory"
+      ]
+    },
+    "Work with streams": {
+      "features": [
+        "readable-byte-streams",
+        "readablestream-from"
+      ]
+    },
+    "Use Web Components features": {
+      "features": [
+        "scope",
+        "scope-pseudo",
+        "scoped-custom-element-registries"
+      ]
+    },
+    "Access browser and user context": {
+      "features": [
+        "globalthis",
+        "is-secure-context",
+        "user-activation",
+        "user-agent-sniffing",
+        "ua-client-hints"
+      ]
+    },
+    "Use legacy or compatibility features": {
+      "features": [
+        "escape-unescape",
+        "unicode-point-escapes",
+        "with"
+      ]
+    },
+    "Use utility APIs": {
+      "features": [
+        "getallrecords",
+        "gethtml",
+        "getorinsert",
+        "update",
+        "upgrade-insecure-requests",
+        "user-pseudos"
+      ]
+    },
+    "Create a Web Worker": {
+      "features": [
+        "dedicated-workers"
+      ]
+    },
+    "Create a Shared Worker": {
+      "features": [
+        "shared-workers"
+      ]
+    },
+    "Preload resources": {
+      "features": [
+        "link",
+        "link-rel-dns-prefetch",
+        "link-rel-expect",
+        "link-rel-preconnect",
+        "link-rel-preload",
+        "modulepreload",
+        "preloading-responsive-images"
+      ]
+    },
+    "Prefetch next pages": {
+      "features": [
+        "link-rel-prefetch",
+        "speculation-rules"
+      ]
+    },
+    "Optimize scripts": {
+      "features": [
+        "css-modules",
+        "import",
+        "import-assertions",
+        "import-maps",
+        "js-modules",
+        "js-modules-service-workers",
+        "js-modules-shared-workers",
+        "js-modules-workers",
+        "json-modules"
+      ]
+    },
+    "Measure performance": {
+      "Use performance APIs": {
+        "features": [
+          "performance",
+          "largest-contentful-paint",
+          "layout-instability",
+          "element-timing",
+          "event-timing",
+          "navigation-timing",
+          "paint-timing",
+          "resource-timing",
+          "server-timing",
+          "profiler"
+        ]
+      },
+      "Detect long tasks": {
+        "features": [
+          "event-timing",
+          "longtasks",
+          "long-animation-frames"
+        ]
+      },
+      "Test and automate": {
+        "features": [
+          "webdriver",
+          "webdriver-bidi",
+          "profiler"
+        ]
+      }
+    },
+    "Use memory efficiently": {
+      "features": [
+        "explicit-resource-management",
+        "measure-memory",
+        "weak-references",
+        "weakmap",
+        "weakset"
+      ]
+    }
+  },
+  "JavaScript language and syntax": {
+    "Use modern JavaScript features": {
+      "features": [
+        "javascript",
+        "let-const",
+        "generators",
+        "promise",
+        "promise-allsettled",
+        "promise-any",
+        "promise-finally",
+        "promise-try",
+        "promise-withresolvers",
+        "functions",
+        "functions-caller-arguments",
+        "top-level-await",
+        "nullish-coalescing",
+        "logical-assignments",
+        "optional-catch-binding",
+        "hashbang-comments"
+      ]
+    },
+    "Variables and scope": {
+      "features": [
+        "let-const"
+      ]
+    },
+    "Functions and methods": {
+      "Arrow functions": {
+        "features": []
+      },
+      "Default parameters": {
+        "features": []
+      },
+      "Rest and spread": {
+        "features": []
+      },
+      "Method definitions": {
+        "features": []
+      }
+    },
+    "Classes and object-oriented programming": {
+      "Class syntax": {
+        "features": []
+      },
+      "Inheritance and extends": {
+        "features": []
+      },
+      "Static members": {
+        "features": []
+      },
+      "Private fields": {
+        "features": []
+      },
+      "Getters and setters": {
+        "features": []
+      }
+    },
+    "Operators and expressions": {
+      "Destructuring": {
+        "features": []
+      },
+      "Optional chaining": {
+        "features": []
+      },
+      "Nullish coalescing": {
+        "features": [
+          "nullish-coalescing"
+        ]
+      },
+      "Logical operators": {
+        "features": [
+          "logical-assignments"
+        ]
+      },
+      "Comparison operators": {
+        "features": []
+      }
+    },
+    "Control flow": {
+      "Conditionals": {
+        "features": []
+      },
+      "Loops": {
+        "features": []
+      },
+      "Switch statements": {
+        "features": []
+      },
+      "Error handling": {
+        "features": [
+          "optional-catch-binding",
+          "error-cause"
+        ]
+      }
+    },
+    "Module syntax": {
+      "Import and export": {
+        "features": [
+          "import",
+          "js-modules"
+        ]
+      },
+      "Dynamic imports": {
+        "features": [
+          "import"
+        ]
+      },
+      "Default exports": {
+        "features": []
+      },
+      "Named exports": {
+        "features": []
+      }
+    },
+    "Template literals and strings": {
+      "Template strings": {
+        "features": [
+          "template",
+          "template-literals"
+        ]
+      },
+      "Tagged templates": {
+        "features": []
+      },
+      "String methods": {
+        "features": [
+          "string-at",
+          "string-codepoint",
+          "string-includes",
+          "string-matchall",
+          "string-normalize",
+          "string-pad",
+          "string-raw",
+          "string-repeat",
+          "string-replaceall",
+          "string-startsends-with",
+          "string-trim-startend",
+          "string-wellformed",
+          "strings"
+        ]
+      }
+    },
+    "Async and iteration": {
+      "Async/await syntax": {
+        "features": [
+          "async-await"
+        ]
+      },
+      "Promises": {
+        "features": [
+          "promise",
+          "promise-allsettled",
+          "promise-any",
+          "promise-finally",
+          "promise-try",
+          "promise-withresolvers"
+        ]
+      },
+      "Generators": {
+        "features": [
+          "generators",
+          "async-generators"
+        ]
+      },
+      "Iterators": {
+        "features": [
+          "iterators",
+          "iterator-methods",
+          "async-iterators"
+        ]
+      },
+      "For-of loops": {
+        "features": []
+      }
+    },
+    "Type checking and validation": {
+      "Typeof operator": {
+        "features": []
+      },
+      "Instanceof": {
+        "features": []
+      },
+      "Type coercion": {
+        "features": []
+      }
+    },
+    "Use regular expressions": {
+      "features": [
+        "regexp",
+        "regexp-compile",
+        "regexp-escape",
+        "regexp-static-properties"
+      ]
+    },
+    "Collections and data structures": {
+      "Arrays": {
+        "features": [
+          "stable-array-sort"
+        ]
+      },
+      "Maps and Sets": {
+        "features": [
+          "map",
+          "set",
+          "set-methods",
+          "weakmap",
+          "weakset"
+        ]
+      },
+      "Typed arrays": {
+        "features": [
+          "typed-arrays",
+          "typed-array-iteration-methods",
+          "typed-array-iterators",
+          "uint8array-base64-hex"
+        ]
+      }
+    },
+    "Objects and symbols": {
+      "Object methods": {
+        "features": [
+          "object-hasown",
+          "object-object"
+        ]
+      },
+      "Symbols": {
+        "features": [
+          "symbol"
+        ]
+      },
+      "Proxy and Reflect": {
+        "features": [
+          "proxy-reflect"
+        ]
+      },
+      "Prototype chain": {
+        "features": [
+          "proto"
+        ]
+      }
+    },
+    "Numbers and math": {
+      "Number methods and properties": {
+        "features": [
+          "number",
+          "numeric-factory-functions",
+          "numeric-separators"
+        ]
+      },
+      "Math operations": {
+        "features": [
+          "exponentiation"
+        ]
+      }
+    },
+    "JSON and structured data": {
+      "JSON methods": {
+        "features": [
+          "json",
+          "json-raw"
+        ]
+      },
+      "Data cloning and encoding": {
+        "features": [
+          "structured-clone",
+          "text-encoding"
+        ]
+      }
+    },
+    "Memory management": {
+      "Weak references": {
+        "features": [
+          "weak-references"
+        ]
+      },
+      "Resource management": {
+        "features": [
+          "explicit-resource-management"
+        ]
+      }
+    },
+    "Legacy and compatibility": {
+      "Deprecated features": {
+        "features": [
+          "escape-unescape",
+          "with"
+        ]
+      },
+      "Unicode escapes": {
+        "features": [
+          "unicode-point-escapes"
+        ]
+      },
+      "Hashbang comments": {
+        "features": [
+          "hashbang-comments"
+        ]
+      }
+    },
+    "Advanced features": {
+      "Top-level await": {
+        "features": [
+          "top-level-await"
+        ]
+      },
+      "Global context": {
+        "features": [
+          "globalthis"
+        ]
+      }
+    }
+  }
+}
