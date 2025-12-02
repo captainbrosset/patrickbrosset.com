@@ -1096,8 +1096,7 @@
       },
       "Animate scrolling": {
         "features": [
-          "scroll-timeline",
-          "animation-timeline"
+          "scroll-driven-animations"
         ]
       },
       "Trigger animations when elements enter viewport": {
@@ -1108,8 +1107,7 @@
       },
       "Create scroll-driven animations": {
         "features": [
-          "scroll-timeline",
-          "animation-timeline",
+          "scroll-driven-animations",
           "view-timeline"
         ]
       },
@@ -1517,7 +1515,8 @@
       },
       "Let user pick multiple files": {
         "features": [
-          "input-file-multiple"
+          "input-file-multiple",
+          "file-system-access"
         ]
       },
       "Let user pick a directory": {
@@ -2077,10 +2076,7 @@
         "features": [
           "secure-payment-confirmation",
           "web-otp",
-          "webauthn",
-          "webauthn-easy-public-key",
-          "webauthn-public-key-easy",
-          "webauthn-signals"
+          "webauthn"
         ]
       },
       "Store secure credentials": {

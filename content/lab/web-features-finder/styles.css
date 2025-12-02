@@ -1,11 +1,12 @@
 :root {
   --margin: 1rem;
   --half-margin: calc(var(--margin) / 2);
+  --active-color: #2da3dd;
 }
 
 body {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 10pt;
+  font-size: 9pt;
   color: white;
   background: #000;
   overflow-x: auto;
@@ -27,21 +28,37 @@ h1 {
 #columns-container {
   display: flex;
   overflow-y: hidden;
-  align-items: start;
 }
 
 .column {
   margin-inline-end: var(--margin);
-  min-width: 300px;
-  max-width: 400px;
+  flex: 15rem 0 0;
   border: 1px solid #111;
   border-radius: 8px;
   background: #202020;
   overflow-y: auto;
 }
 
+.column:has(.feature-details) {
+  flex-basis: 30rem;
+}
+
+.column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.column ul:focus-visible {
+	outline-offset: -1px;
+	outline: 1px solid var(--active-color);
+}
+
 .column-title {
-  padding: 12px;
+  padding: .5rem;
+  font-size: inherit;
+  font-weight: normal;
+  margin: 0;
   background: #333;
   border-block-end: 1px solid #111;
   font-weight: 600;
@@ -50,22 +67,38 @@ h1 {
   z-index: 10;
 }
 
+button {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  display: block;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: start;
+}
+
 .task-item {
-  padding: var(--half-margin);
-  cursor: pointer;
-  border-block-end: 1px solid #111;
+	padding: var(--half-margin);
+	cursor: pointer;
+	border-block-end: 1px solid #111;
+	outline-offset: -1px;
+}
+
+.task-item:focus-visible {
+  outline: 1px solid var(--active-color);
 }
 
 .task-item:hover {
   background: #000;
 }
 
-.task-item.selected {
+.task-item[aria-selected="true"] {
   background: #000;
-  border-inline-start: 3px solid #c7600c;
+  border-inline-start: 3px solid var(--active-color);
 }
 
-.features {
+.column .features {
   padding: var(--half-margin);
   display: grid;
   gap: var(--half-margin);
@@ -82,12 +115,16 @@ h1 {
 	color: white;
 }
 
+.feature-tag:focus-visible {
+  outline: 1px solid var(--active-color);
+}
+
 .feature-tag:hover {
   background: #000;
 }
 
-.feature-tag.selected {
-  border-color: #c7600c;
+.feature-tag[aria-selected="true"] {
+  border-color: var(--active-color);
   background: #000;
 }
 
@@ -103,6 +140,11 @@ h1 {
 
 .feature-details {
   padding: 12px;
+  outline-offset: -1px;
+}
+
+.feature-details:focus-visible {
+  outline: 1px solid var(--active-color);
 }
 
 .feature-section {

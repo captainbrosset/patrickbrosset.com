@@ -4,151 +4,211 @@ const ALL_BROWSERS = ['chrome', 'chrome_android', 'edge', 'firefox', 'firefox_an
 const webFeatures = {};
 
 const columnsContainer = document.getElementById('columns-container');
-let currentPath = [];
 
-function renderColumn(data, title, depth) {
+function focusElementAndScrollColumn(element, column, backward) {
+  element.focus();
+  column.scrollIntoView({ behavior: "smooth", block: "start", inline: backward ? "end" : "start" });
+}
+
+function createColumnDom(depth, title, noListOfEntries) {
+  const el = document.createElement('div');
+  el.dataset.depth = depth;
+  el.className = 'column';
+  // Remove the column from tab order, because the ul inside them are
+  // already reachable. In Chromium and Firefox, they may get focused otherwise.
+  el.tabIndex = -1;
+
+  const titleTag = depth <= 4 ? `h${depth + 2}` : 'div';
+  const columnTitle = document.createElement(titleTag);
+
+  columnTitle.className = 'column-title';
+  columnTitle.textContent = title;
+
+  const id = `column-title-${depth}`;
+  columnTitle.id = id;
+
+  el.appendChild(columnTitle);
+
+  let ul;
+  if (!noListOfEntries) {
+    ul = document.createElement('ul');
+    ul.role = 'listbox';
+    ul.setAttribute('tabindex', '0');
+    ul.setAttribute('aria-labelledby', id);
+    el.appendChild(ul);
+  }
+
+  return { el, entriesEl: ul };
+}
+
+function createColumnButtonDom(className, id) {
+  const li = document.createElement('li');
+  const button = document.createElement('button');
+  li.appendChild(button);
+
+  button.role = 'option';
+  button.className = className;
+  button.id = id;
+  button.setAttribute('aria-expanded', 'false');
+  button.setAttribute('type', 'button');
+  // button.setAttribute('aria-controls', ???);
+
+  return { li, button };
+}
+
+function titleToID(title) {
+  return title.replace(/[^a-zA-Z\d\s:]/g, "").toLowerCase().replaceAll(" ", "-");
+}
+
+function markColumnButtonAsSelected(columnContainer, selectedButton) {
+  // Remove selected class from siblings.
+  Array.from(columnContainer.querySelectorAll('button[role="option"]')).forEach(otherButton => {
+    otherButton.setAttribute('aria-selected', 'false');
+    otherButton.setAttribute('aria-expanded', 'false');
+  });
+
+  // Mark the selected button.
+  selectedButton.setAttribute('aria-selected', 'true');
+  selectedButton.setAttribute('aria-expanded', 'true');
+
+  // Update aria-activedescendant on the listbox.
+  const columnList = columnContainer.querySelector('ul[role="listbox"]');
+  columnList.setAttribute('aria-activedescendant', selectedButton.id);
+}
+
+function renderTaskColumn(data, title, depth) {
   // Remove all columns after this depth
   while (columnsContainer.children.length > depth) {
     columnsContainer.removeChild(columnsContainer.lastChild);
   }
 
-  const column = document.createElement('div');
-  column.className = 'column';
-
-  const columnTitle = document.createElement('div');
-  columnTitle.className = 'column-title';
-  columnTitle.textContent = title;
-  column.appendChild(columnTitle);
+  const { el: column, entriesEl } = createColumnDom(depth, title);
+  columnsContainer.appendChild(column);
 
   // Get all tasks at this level
   const tasks = Object.entries(data);
 
-  tasks.forEach(([key, value]) => {
-    const taskItem = document.createElement('div');
-    taskItem.className = 'task-item';
-    taskItem.textContent = key;
+  tasks.forEach(([taskLabel, taskData]) => {
+    const { li: taskItem, button } = createColumnButtonDom('task-item', `task-${titleToID(taskLabel)}`);
+    button.textContent = taskLabel;
+    entriesEl.appendChild(taskItem);
 
-    taskItem.addEventListener('click', () => {
-      // Remove selected class from siblings
-      Array.from(column.querySelectorAll('.task-item')).forEach(item => {
-        item.classList.remove('selected');
-      });
-      taskItem.classList.add('selected');
-
-      // Update current path
-      currentPath = currentPath.slice(0, depth);
-      currentPath.push(key);
-
-      // Check if there are nested tasks
-      const nestedTasks = {};
-      let hasNested = false;
-      for (const [nestedKey, nestedValue] of Object.entries(value)) {
-        if (nestedKey !== 'features' && typeof nestedValue === 'object') {
-          nestedTasks[nestedKey] = nestedValue;
-          hasNested = true;
-        }
-      }
-
-      if (hasNested) {
-        // Render next column with nested tasks
-        renderColumn(nestedTasks, key, depth + 1);
-      } else {
-        // No more nested tasks, just remove columns after this one
-        while (columnsContainer.children.length > depth + 1) {
-          columnsContainer.removeChild(columnsContainer.lastChild);
-        }
-      }
-
-      // Show features if present
-      if (value.features && Array.isArray(value.features) && value.features.length > 0) {
-        renderFeatures(value.features, depth + 1);
-      }
+    button.addEventListener('click', () => {
+      handleTaskClick(button, taskData);
     });
-
-    column.appendChild(taskItem);
   });
 
-  columnsContainer.appendChild(column);
+  // Focus on creation, so that selecting an item in the previous column
+  // moves focus here.
+  focusElementAndScrollColumn(entriesEl, column);
 }
 
-async function renderFeatures(features, depth) {
-  // Load web features data if not already loaded.
-  await loadMoreWebFeaturesData(features);
+function handleTaskClick(button, taskData) {
+  const column = button.closest('.column');
+  const depth = parseInt(column.dataset.depth, 10);
+  const taskLabel = button.textContent;
 
+  markColumnButtonAsSelected(column, button);
+
+  // Check if there are nested tasks
+  const nestedTasks = {};
+  let hasNestedTasks = false;
+  for (const [nestedKey, nestedValue] of Object.entries(taskData)) {
+    if (nestedKey !== 'features' && typeof nestedValue === 'object') {
+      nestedTasks[nestedKey] = nestedValue;
+      hasNestedTasks = true;
+    }
+  }
+
+  if (hasNestedTasks) {
+    // Render next column with nested tasks
+    renderTaskColumn(nestedTasks, taskLabel, depth + 1);
+  } else {
+    // No more nested tasks, just remove columns after this one
+    while (columnsContainer.children.length > depth + 1) {
+      columnsContainer.removeChild(columnsContainer.lastChild);
+    }
+  }
+
+  // Show features if present
+  const features = taskData.features;
+  if (features && Array.isArray(features) && features.length > 0) {
+    renderFeatureColumn(features, depth + 1);
+  }
+}
+
+function renderFeatureColumn(features, depth) {
   // Remove features column if it exists
   while (columnsContainer.children.length > depth) {
     columnsContainer.removeChild(columnsContainer.lastChild);
   }
 
-  const column = document.createElement('div');
-  column.className = 'column';
+  const { el: column, entriesEl } = createColumnDom(depth, 'Features');
+  entriesEl.className = 'features';
+  columnsContainer.appendChild(column);
 
-  const columnTitle = document.createElement('div');
-  columnTitle.className = 'column-title';
-  columnTitle.textContent = 'Features';
-  column.appendChild(columnTitle);
+  // Focus on creation, so that selecting an item in the previous column
+  // moves focus here.
+  focusElementAndScrollColumn(entriesEl, column);
 
-  const featuresDiv = document.createElement('div');
-  featuresDiv.className = 'features';
+  // This part is asynchronous, because that's when we
+  // need to load more web features data.
+  // This data is kept in the webFeatures object, so next
+  // time we don't need to load it again.
+  loadMoreWebFeaturesData(features).then(() => {
+    features.forEach(feature => {
+      // Look up feature data from webFeatures
+      const featureData = webFeatures[feature];
+      if (!featureData) {
+        return;
+      }
 
-  features.forEach(feature => {
-    const tag = document.createElement('div');
-    tag.className = 'feature-tag';
+      const { li: tag, button } = createColumnButtonDom('feature-tag', `feature-${featureData.id}`);
 
-    // Look up feature data from webFeatures
-    const featureData = webFeatures[feature];
-    if (featureData) {
       const nameDiv = document.createElement('div');
       nameDiv.className = 'feature-name';
       nameDiv.textContent = featureData.name;
-      tag.appendChild(nameDiv);
+      button.appendChild(nameDiv);
 
       if (featureData.description_html) {
         const descDiv = document.createElement('div');
         descDiv.className = 'feature-description';
         descDiv.innerHTML = featureData.description_html;
-        tag.appendChild(descDiv);
+        button.appendChild(descDiv);
       }
 
       // Add click handler to show feature details
-      tag.addEventListener('click', async () => {
-        // Remove selected class from siblings
-        Array.from(featuresDiv.querySelectorAll('.feature-tag')).forEach(item => {
-          item.classList.remove('selected');
-        });
-        tag.classList.add('selected');
-
-        // Fetch additional data and show feature details
-        await renderFeatureDetails(feature, featureData, depth + 1);
+      button.addEventListener('click', async () => {
+        await handleFeatureClick(button, feature);
       });
-    } else {
-      // Fallback to feature ID if not found
-      tag.textContent = feature;
-    }
 
-    featuresDiv.appendChild(tag);
+      entriesEl.appendChild(tag);
+    });
   });
-
-  column.appendChild(featuresDiv);
-  columnsContainer.appendChild(column);
 }
 
-async function renderFeatureDetails(featureId, featureData, depth) {
+async function handleFeatureClick(button, feature) {
+  const column = button.closest('.column');
+  const depth = parseInt(column.dataset.depth, 10);
+  const featureData = webFeatures[feature];
+
+  markColumnButtonAsSelected(column, button);
+
+  // Fetch additional data and show feature details
+  await renderFeature(feature, featureData, depth + 1);
+}
+
+async function renderFeature(featureId, featureData, depth) {
   // Remove feature details column if it exists
   while (columnsContainer.children.length > depth) {
     columnsContainer.removeChild(columnsContainer.lastChild);
   }
 
-  const column = document.createElement('div');
-  column.className = 'column';
-
-  const columnTitle = document.createElement('div');
-  columnTitle.className = 'column-title';
-  columnTitle.textContent = featureData.name;
-  column.appendChild(columnTitle);
+  const { el: column } = createColumnDom(depth, featureData.name, true);
 
   const detailsDiv = document.createElement('div');
   detailsDiv.className = 'feature-details';
+  detailsDiv.tabIndex = 0;
 
   // Show spinner initially
   const spinnerContainer = document.createElement('div');
@@ -160,6 +220,8 @@ async function renderFeatureDetails(featureId, featureData, depth) {
 
   column.appendChild(detailsDiv);
   columnsContainer.appendChild(column);
+
+  focusElementAndScrollColumn(detailsDiv, column);
 
   // Now load the content asynchronously
   await loadFeatureDetailsContent(featureData, detailsDiv);
@@ -297,4 +359,26 @@ async function loadWebFeature(id) {
   }
 }
 
-renderColumn(taskTree, 'What do you want to do?', 0);
+renderTaskColumn(taskTree, 'What do you want to do?', 0);
+
+// Handle Escape to move back to the previously selected
+// element in the previous column.
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const activeElement = document.activeElement;
+    const currentColumn = activeElement.closest('.column');
+    const previousColumn = currentColumn.previousElementSibling;
+    if (previousColumn) {
+      const previousListbox = previousColumn.querySelector('[role="listbox"]');
+      if (previousListbox) {
+        // Focus the previously selected item in this column.
+        const activeDescendantId = previousListbox.getAttribute('aria-activedescendant');
+        const activeOption = previousListbox.querySelector(`#${activeDescendantId}`);
+        if (activeOption) {
+          focusElementAndScrollColumn(activeOption, previousColumn, true);
+        }
+        e.preventDefault();
+      }
+    }
+  }
+});
