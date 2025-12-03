@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accordion component</title>
+  <style>
+    html {
+      font-family: system-ui;
+      font-size: 1.2rem;
+      background: white;
+      color: black;
+    }
+
+    body {
+      margin: 2rem;
+    }
+
+    .accordion {
+      --closed-background: #eee;
+      --hovered-background: #ddd;
+      --open-background: aliceblue;
+      --border-color: #ccc;
+      --open-animation-duration: 1s;
+
+      box-shadow: 0 0 1rem 0 #0003;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .accordion details {
+      border: 1px solid var(--border-color);
+      border-radius: 0.25rem;
+      overflow: hidden;
+      background: var(--closed-background);
+      transition: background-color var(--open-animation-duration) ease;
+    }
+
+    .accordion details:hover {
+      background: var(--hovered-background);
+    }
+
+    .accordion details:open {
+      background: var(--open-background);
+    }
+
+    .accordion summary {
+      padding: 1rem;
+      position: relative;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .accordion details::details-content {
+      padding-inline: 1rem;
+      border-block-start: 1px solid var(--border-color);
+      /* To hide the border. */
+      position: relative;
+      top: 1px;
+      /* Hidden initially. */
+      block-size: 0;
+      /* Animate the opening. */
+      interpolate-size: allow-keywords;
+      transition:
+        block-size var(--open-animation-duration) ease-in-out,
+        content-visibility var(--open-animation-duration) ease-in-out;
+      transition-behavior: allow-discrete;
+    }
+
+    .accordion details:open::details-content {
+      block-size: auto;
+    }
+
+    .accordion summary::marker {
+      content: "";
+    }
+
+    .accordion summary::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 auto;
+      aspect-ratio: 1;
+      background-image: url('data:image/svg+xml,<svg width="20" height="10" xmlns="http://www.w3.org/2000/svg" stroke="black"><line x1="0" y1="0" x2="10" y2="10"></line><line x1="10" y1="10" x2="20" y2="0"></line></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: auto;
+      transition: scale var(--open-animation-duration) ease;
+    }
+
+    .accordion details:open summary::after {
+      scale: 1 -1;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Accordion component</h1>
+
+  <p>This is an accordion component made only by using out of the box HTML and CSS features of the web.</p>
+
+  <p>The features that are used here are:</p>
+  <ul>
+    <li>Mutually exclusive <code>&lt;details&gt;</code> elements by using the <code>name</code> attribute.</li>
+    <li>The <code>:open</code> pseudo-class to style the open state of the accordion sections.</li>
+    <li>The <code>::details-content</code> pseudo-element to style the expandable content part of each section.</li>
+    <li>Animation to an <code>auto</code> height by using the <code>interpolate-size</code> CSS property (or maybe use
+      calc-size instead, if calculations are needed).</li>
+    <li>The <code>::marker</code> pseudo-element to style the expander icon (or hide it in this case, since it's
+      replaced with a more flexible ::after pseudo-element).</li>
+  </ul>
+
+  <div class="accordion">
+    <details name="my-accordion">
+      <summary>Section 1</summary>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus cupiditate laudantium nemo optio
+        doloremque nobis odit illum, architecto sint veritatis incidunt molestias, tempore accusantium atque veniam eos,
+        unde illo mollitia.</p>
+      <ul>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+      </ul>
+      <p>Minus debitis totam saepe consectetur dicta accusantium necessitatibus reiciendis sint perferendis est, tempore
+        maxime provident fugit fugiat quis sequi. Voluptatibus nobis vel enim excepturi sunt ex at omnis corporis.
+        Sequi?</p>
+      <p>Magnam deserunt quaerat nisi architecto culpa tempora. Temporibus at facilis voluptate itaque, fugit ullam
+        aperiam repudiandae, totam tenetur similique sed esse autem modi eius corrupti optio qui expedita nostrum
+        delectus.</p>
+    </details>
+    <details name="my-accordion">
+      <summary>Section 2</summary>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eos adipisci, tempore inventore quaerat
+        officiis culpa aliquam quasi atque quas beatae eveniet blanditiis exercitationem dicta suscipit, corporis
+        dolorem! Reprehenderit, eaque.</p>
+      <ul>
+        <li>test</li>
+        <li>test</li>
+      </ul>
+    </details>
+    <details name="my-accordion">
+      <summary>Section 3</summary>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. In modi accusamus, qui, inventore minima fugiat
+        numquam cum sunt saepe eaque tenetur, officiis sed! Similique esse deleniti aperiam autem consequuntur. Fugiat.
+      </p>
+      <p>Magni eveniet, aliquid cumque suscipit blanditiis repellendus sunt ea ad laboriosam voluptatibus. Expedita
+        magni ex sint quam laudantium suscipit officiis, quas inventore, optio et adipisci obcaecati fugiat. Alias,
+        veritatis ad!</p>
+      <p>Adipisci quidem neque sed incidunt placeat deleniti, eos vitae doloribus amet officia delectus, nemo maiores
+        commodi reiciendis cum cupiditate culpa nostrum porro pariatur eaque ducimus? Magnam autem numquam iusto minima.
+      </p>
+      <p>Adipisci quidem neque sed incidunt placeat deleniti, eos vitae doloribus amet officia delectus, nemo maiores
+        commodi reiciendis cum cupiditate culpa nostrum porro pariatur eaque ducimus? Magnam autem numquam iusto minima.
+      </p>
+    </details>
+  </div>
+
+</html>
