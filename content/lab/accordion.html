@@ -198,7 +198,7 @@
 
     <div class="accordion">
 
-      <details name="my-accordion">
+      <details>
         <summary>Mutually exclusive <code>&lt;details&gt;</code> elements</summary>
         <p>By setting the <code>name</code> attribute of <code>&lt;details&gt;</code> elements to the same value, only
           one
@@ -207,10 +207,13 @@
         </p>
         <p>Mutually exclusive <code>&lt;details&gt;</code> elements have been supported by all major browsers since
           September 2024.</p>
+        <p>This accordion does not use the <code>name</code> attribute because <a
+            href="https://yatil.net/blog/exclusive-accordions">mutually exclusive accordions are not accessible</a> but
+          if you really need to use one, at least you don't need JavaScript code for it.</p>
         <p><a href="https://web-platform-dx.github.io/web-features-explorer/features/details-name/">Learn more</a></p>
       </details>
 
-      <details name="my-accordion">
+      <details>
         <summary>Style the expandable content with <code>::details-content</code></summary>
         <p>The <code>::details-content</code> pseudo-element allows styling the expandable content part of a
           <code>&lt;details&gt;</code> element only.
@@ -225,7 +228,7 @@
         </p>
       </details>
 
-      <details name="my-accordion">
+      <details>
         <summary>Animate to an intrinsic size with <code>calc-size()</code></summary>
         <p>The <code>calc-size()</code> CSS function, and the <code>interpolate-size</code> CSS property, allow
           animating an element's size to or from an intrinsic size like <code>auto</code>.</p>
@@ -249,7 +252,7 @@
             display properties like content-visibility</a>.</p>
       </details>
 
-      <details name="my-accordion">
+      <details>
         <summary>Style the expander icon with <code>::marker</code></summary>
         <p>The <code>::marker</code> pseudo-element lets you style the expander icon part of the
           <code>&lt;summary&gt;</code> element.
