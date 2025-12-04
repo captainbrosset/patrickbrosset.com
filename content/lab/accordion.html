@@ -22,7 +22,7 @@
       --hovered-background: #ddd;
       --open-background: aliceblue;
       --border-color: #ccc;
-      --open-animation-duration: 1s;
+      --open-animation-duration: .3s;
 
       box-shadow: 0 0 1rem 0 #0003;
       padding: 1rem;
@@ -36,7 +36,6 @@
       border-radius: 0.25rem;
       overflow: hidden;
       background: var(--closed-background);
-      transition: background-color var(--open-animation-duration) ease;
     }
 
     .accordion details:hover {
@@ -61,17 +60,23 @@
       position: relative;
       top: 1px;
       /* Hidden initially. */
-      block-size: 0;
-      /* Animate the opening. */
-      interpolate-size: allow-keywords;
-      transition:
-        block-size var(--open-animation-duration) ease-in-out,
-        content-visibility var(--open-animation-duration) ease-in-out;
-      transition-behavior: allow-discrete;
+      /* block-size: 0; */
     }
 
-    .accordion details:open::details-content {
-      block-size: auto;
+    /* Only animate to auto if the browser supports calc-size() */
+    @supports (block-size: calc-size(auto, 100px)) {
+      .accordion details::details-content {
+        block-size: 0;
+        /* Animate the opening. */
+        transition:
+          block-size var(--open-animation-duration) ease-in-out,
+          content-visibility var(--open-animation-duration) ease-in-out;
+        transition-behavior: allow-discrete;
+      }
+
+      .accordion details:open::details-content {
+        block-size: calc-size(auto, size + 1rem);
+      }
     }
 
     .accordion summary::marker {
@@ -87,11 +92,11 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: auto;
-      transition: scale var(--open-animation-duration) ease;
+      transition: transform var(--open-animation-duration) ease;
     }
 
     .accordion details:open summary::after {
-      scale: 1 -1;
+      transform: rotate(-.5turn);
     }
   </style>
 </head>
@@ -106,7 +111,7 @@
     <li>Mutually exclusive <code>&lt;details&gt;</code> elements by using the <code>name</code> attribute.</li>
     <li>The <code>:open</code> pseudo-class to style the open state of the accordion sections.</li>
     <li>The <code>::details-content</code> pseudo-element to style the expandable content part of each section.</li>
-    <li>Animation to an <code>auto</code> height by using the <code>interpolate-size</code> CSS property.</li>
+    <li>Animation to an <code>auto</code> height by using the <code>calc-size()</code> CSS function.</li>
     <li>The <code>::marker</code> pseudo-element to style the expander marker (or hide it in this case, since it's
       replaced with a more flexible <code>::after</code> pseudo-element).</li>
   </ul>
@@ -154,6 +159,30 @@
         commodi reiciendis cum cupiditate culpa nostrum porro pariatur eaque ducimus? Magnam autem numquam iusto minima.
       </p>
     </details>
+    <details name="my-accordion">
+      <summary>Section 4</summary>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eos adipisci, tempore inventore quaerat
+        officiis culpa aliquam quasi atque quas beatae eveniet blanditiis exercitationem dicta suscipit, corporis
+        dolorem! Reprehenderit, eaque.</p>
+      <table>
+        <tr>
+          <th>Header 1</th>
+          <th>Header 2</th>
+          <th>Header 3</th>
+        </tr>
+        <tr>
+          <td>Data 1</td>
+          <td>Data 2</td>
+          <td>Data 3</td>
+        </tr>
+        <tr>
+          <td>Data 4</td>
+          <td>Data 5</td>
+          <td>Data 6</td>
+        </tr>
+      </table>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam deserunt earum quos odio alias repellendus
+        cum? Nisi ipsa quam numquam et optio minima inventore, magni maiores dolorum accusamus laudantium nemo.</p>
   </div>
 
 </html>
