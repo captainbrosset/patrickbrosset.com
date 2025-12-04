@@ -1,5 +1,13 @@
 [
   {
+    "url": "accordion",
+    "img": "/assets/accordion.png",
+    "alt": "An accordion component, with 4 collapsed sections, one is focused.",
+    "title": "Implementing an accordion component in 2026 🪗",
+    "date": "2025-12-04",
+    "description": "Creating an accessible and performant accordion component using recent HTML and CSS features only."
+  },
+  {
     "url": "web-features-finder",
     "img": "/assets/web-features-finder.png",
     "alt": "Screenshot of the web features finder demo, showing multiple columns of web development tasks, organized hierarchically.",
