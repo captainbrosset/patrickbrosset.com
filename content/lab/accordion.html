@@ -14,18 +14,18 @@
       line-height: 1.6;
     }
 
-body {
-    margin: 2rem auto;
-    display: grid;
-    grid-template:
-      "header header"
-      "main aside"
-      "footer footer"
-      / 2fr 3fr;
-    gap: 2rem;
-    max-inline-size: 1300px;
-    padding-inline: 2rem;
-}
+    body {
+      margin: 2rem auto;
+      display: grid;
+      grid-template:
+        "header header"
+        "main aside"
+        "footer footer"
+        / 2fr 3fr;
+      gap: 2rem;
+      max-inline-size: 1300px;
+      padding-inline: 2rem;
+    }
 
     @media (max-width: 900px) {
       body {
@@ -47,11 +47,11 @@ body {
       grid-area: main;
     }
 
-    main > :first-child {
+    main> :first-child {
       margin-block-start: 0;
     }
 
-    main > :last-child {
+    main> :last-child {
       margin-block-end: 0;
     }
 
@@ -107,6 +107,8 @@ body {
       font-weight: bold;
       cursor: pointer;
       line-height: initial;
+      /* Hide the default marker. */
+      list-style: none;
     }
 
     /* Draw the visual keyboard focus outline on the details element instead of the summary (default) */
@@ -124,11 +126,9 @@ body {
     .accordion details::details-content {
       padding-inline: 1rem;
       border-block-start: 1px solid var(--border-color);
-      /* To hide the border. */
+      /* To hide the border */
       position: relative;
       top: 1px;
-      /* Hidden initially. */
-      /* block-size: 0; */
     }
 
     /* Only animate to auto if the browser supports calc-size() */
@@ -147,15 +147,7 @@ body {
       }
     }
 
-    .accordion summary::marker {
-      content: "";
-    }
-
-    /* Safari doesn't fully support ::marker. */
-    .accordion summary::-webkit-details-marker {
-      display: none;
-    }
-
+    /* Display our own marker with ::after, so we can animate a custom shape */
     .accordion summary::after {
       content: "";
       position: absolute;
@@ -223,27 +215,47 @@ body {
         <p>The <code>::details-content</code> pseudo-element allows styling the expandable content part of a
           <code>&lt;details&gt;</code> element only.
         </p>
-        <p>The <code>::details-content</code> pseudo-element saves you from having to nest an additional container element.</p>
-        <p>In this example, the pseudo-element is used to add inline padding to the content, and a top border to separate the content from the <code>&lt;summary&gt;</code> element.</p>
+        <p>The <code>::details-content</code> pseudo-element saves you from having to nest an additional container
+          element.</p>
+        <p>In this example, the pseudo-element is used to add inline padding to the content, and a top border to
+          separate the content from the <code>&lt;summary&gt;</code> element.</p>
         <p>The <code>::details-content</code> pseudo-element has been supported by all major browsers since
           September 2025.</p>
-        <p><a href="https://web-platform-dx.github.io/web-features-explorer/features/details-content/">Learn more</a></p>
+        <p><a href="https://web-platform-dx.github.io/web-features-explorer/features/details-content/">Learn more</a>
+        </p>
       </details>
 
       <details name="my-accordion">
         <summary>Animate to an intrinsic size with <code>calc-size()</code></summary>
-        <p>The <code>calc-size()</code> CSS function, and the <code>interpolate-size</code> CSS property, allow animating an element's size to or from an intrinsic size like <code>auto</code>.</p>
-        <p>This has long been needed to animate the opening of sections which contain unknown content, such as user-submitted content.</p>
-        <p>This accordion uses the <code>calc-size()</code> function to set the expanded height of the <code>::details-content</code> pseudo-element to <code>auto + 1rem</code>. Doing so automatically applies the <code>interpolate-size:allow-keywords</code> style to the element, which enables animations to CSS keywords like <code>auto</code>.</p>
-        <p>The component also uses the ability to animate the <code>content-visibility</code> CSS property, by using <code>transition-behavior: allow-discrete</code>. This allows to hide the content in sync with the animation of the size, preventing the browser from hiding the content before the collapse animation is complete.</p>
-        <p>Animating to an intrisic size is only fully supported on Chromium-based browsers, but can be used as a progressive enhancement. Users of non-supporting browsers will still be able to use the accordion.</p>
-        <p>Learn more about <a href="https://web-platform-dx.github.io/web-features-explorer/features/calc-size/">calc-size()</a>, <a href="https://web-platform-dx.github.io/web-features-explorer/features/interpolate-size/">interpolate-size</a>, and <a href="https://web-platform-dx.github.io/web-features-explorer/features/display-animation/">animating display properties like content-visibility</a>.</p>
+        <p>The <code>calc-size()</code> CSS function, and the <code>interpolate-size</code> CSS property, allow
+          animating an element's size to or from an intrinsic size like <code>auto</code>.</p>
+        <p>This has long been needed to animate the opening of sections which contain unknown content, such as
+          user-submitted content.</p>
+        <p>This accordion uses the <code>calc-size()</code> function to set the expanded height of the
+          <code>::details-content</code> pseudo-element to <code>auto + 1rem</code>. Doing so automatically applies the
+          <code>interpolate-size:allow-keywords</code> style to the element, which enables animations to CSS keywords
+          like <code>auto</code>.
+        </p>
+        <p>The component also uses the ability to animate the <code>content-visibility</code> CSS property, by using
+          <code>transition-behavior: allow-discrete</code>. This allows to hide the content in sync with the animation
+          of the size, preventing the browser from hiding the content before the collapse animation is complete.
+        </p>
+        <p>Animating to an intrisic size is only fully supported on Chromium-based browsers, but can be used as a
+          progressive enhancement. Users of non-supporting browsers will still be able to use the accordion.</p>
+        <p>Learn more about <a
+            href="https://web-platform-dx.github.io/web-features-explorer/features/calc-size/">calc-size()</a>, <a
+            href="https://web-platform-dx.github.io/web-features-explorer/features/interpolate-size/">interpolate-size</a>,
+          and <a href="https://web-platform-dx.github.io/web-features-explorer/features/display-animation/">animating
+            display properties like content-visibility</a>.</p>
       </details>
 
       <details name="my-accordion">
         <summary>Style the expander icon with <code>::marker</code></summary>
-        <p>The <code>::marker</code> pseudo-element lets you style the expander icon part of the <code>&lt;summary&gt;</code> element.</p>
-        <p>This pseudo only supports a limited number of properties, which are likely enough for a majority of use cases. These properties are:</p>
+        <p>The <code>::marker</code> pseudo-element lets you style the expander icon part of the
+          <code>&lt;summary&gt;</code> element.
+        </p>
+        <p>This pseudo only supports a limited number of properties, which are likely enough for a majority of use
+          cases. These properties are:</p>
         <ul>
           <li>All font properties</li>
           <li>The <code>white-space</code> property</li>
@@ -253,7 +265,10 @@ body {
           <li>All animation and transition properties</li>
         </ul>
         <p>At the moment, Safari only supports styling the <code>color</code> and <code>font-size</code> properties.</p>
-        <p>This example accordion uses <code>::marker { content: "" }</code> to hide the default marker (also using <code>::-webkit-details-marker</code> to hide it on Safari). A custom icon is displayed by using the <code>::after</code> pseudo-element, which provides more flexibility.</p>
+        <p>This example accordion doesn't use the <code>::marker</code> pseudo-element. A custom icon is displayed by
+          using the
+          <code>::after</code> pseudo-element instead, which provides more flexibility.
+        </p>
         <p><a href="https://web-platform-dx.github.io/web-features-explorer/features/marker/">Learn more</a></p>
     </div>
 
