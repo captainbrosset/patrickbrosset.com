@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+
+<head>
+  <title>Math</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: math;
+      background: black;
+    }
+
+    body {
+      perspective: 300px;
+    }
+
+    math {
+      position: absolute;
+      left: var(--x, 50vw);
+      top: var(--y, 50vh);
+      color: rgb(253, 255, 248);
+      font-size: 2vw;
+    }
+
+    .segment {
+      width: 7vw;
+      height: 7vw;
+      position: absolute;
+      left: var(--x, 50vw);
+      top: var(--y, 50vh);
+
+      background: linear-gradient(45deg, transparent 0 calc(50% - .05vw), rgb(163, 163, 156) calc(50% - .05vw) calc(50% + .05vw), transparent calc(50% + .05vw));
+    }
+
+    .segment::before,
+    .segment::after {
+      content: "";
+      position: absolute;
+      width: 0.2vw;
+      height: 0.2vw;
+      border-radius: 50%;
+      background: rgb(163, 163, 156);
+      top: -.1vw;
+      left: -.1vw;
+    }
+
+    .segment::after {
+      top: unset;
+      left: unset;
+      bottom: -.1vw;
+      right: -.1vw;
+    }
+
+    .circle {
+      width: 10vw;
+      height: 10vw;
+      position: absolute;
+      left: var(--x, 50vw);
+      top: var(--y, 50vh);
+      border: 0.1vw solid rgb(163, 163, 156);
+      border-radius: 50%;
+    }
+
+    math,
+    .segment,
+    .circle {
+      animation: fly 10s linear infinite;
+      animation-delay: calc(sibling-index() * -3s);
+    }
+
+    /* Fly animation: start from random position and rush toward viewer */
+    @keyframes fly {
+      0% {
+        translate: 0 0 -100px;
+        opacity: 0;
+      }
+
+      20%,
+      70% {
+        opacity: 1;
+        filter: blur(0);
+      }
+
+      100% {
+        translate: 0 0 400px;
+        filter: blur(25px);
+        opacity: 0.1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('math, div').forEach((el) => {
+        // position randomly in % of viewport
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        el.style.setProperty('--x', `${x}vw`);
+        el.style.setProperty('--y', `${y}vh`);
+
+        if (el.tagName === "DIV") {
+          // Random rotate and scale the divs
+          const angle = Math.random() * 360;
+          const scale = Math.random() * 1.5 + 0.2;
+          el.style.transform = `rotateZ(${angle}deg) scale(${scale})`;
+        }
+      });
+    });
+  </script>
+
+  <math>
+    <mi>π</mi>
+    <mo></mo>
+    <msup>
+      <mi>r</mi>
+      <mn>2</mn>
+    </msup>
+  </math>
+  <math>
+    <mi>a</mi>
+    <msup>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msup>
+    <mo>+</mo>
+    <mi>b</mi>
+    <mi>x</mi>
+    <mo>+</mo>
+    <mi>c</mi>
+    <mo>=</mo>
+    <mn>0</mn>
+  </math>
+  <math>
+    <mrow>
+      <mi>x</mi>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mrow>
+            <mo>-</mo>
+            <mi>b</mi>
+          </mrow>
+          <mo>±</mo>
+          <msqrt>
+            <mrow>
+              <msup>
+                <mi>b</mi>
+                <mn>2</mn>
+              </msup>
+              <mo>-</mo>
+              <mrow>
+                <mn>4</mn>
+                <mo>⁢</mo>
+                <mi>a</mi>
+                <mo>⁢</mo>
+                <mi>c</mi>
+              </mrow>
+            </mrow>
+          </msqrt>
+        </mrow>
+        <mrow>
+          <mn>2</mn>
+          <mo>⁢</mo>
+          <mi>a</mi>
+        </mrow>
+      </mfrac>
+    </mrow>
+  </math>
+  <div class="segment"></div>
+
+  <math>
+    <mrow>
+      <mi>A</mi>
+      <mo>=</mo>
+      <mfenced open="[" close="]">
+        <mtable>
+          <mtr>
+            <mtd>
+              <mi>x</mi>
+            </mtd>
+            <mtd>
+              <mi>y</mi>
+            </mtd>
+          </mtr>
+          <mtr>
+            <mtd>
+              <mi>z</mi>
+            </mtd>
+            <mtd>
+              <mi>w</mi>
+            </mtd>
+          </mtr>
+        </mtable>
+      </mfenced>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <semantics>
+        <mrow>
+          <msubsup>
+            <mo>∫</mo>
+            <mn>1</mn>
+            <mi>t</mi>
+          </msubsup>
+          <mfrac>
+            <mrow>
+              <mo>ⅆ</mo>
+              <mi>x</mi>
+            </mrow>
+            <mi>x</mi>
+          </mfrac>
+        </mrow>
+        <annotation-xml encoding="MathML-Content">
+          <apply>
+            <int></int>
+            <bvar>
+              <ci>x</ci>
+            </bvar>
+            <lowlimit>
+              <cn>1</cn>
+            </lowlimit>
+            <uplimit>
+              <ci>t</ci>
+            </uplimit>
+            <apply>
+              <divide></divide>
+              <cn>1</cn>
+              <ci>x</ci>
+            </apply>
+          </apply>
+        </annotation-xml>
+      </semantics>
+    </mrow>
+  </math>
+  <math title="a x^2+b x+c=0">
+    <mstyle>
+      <mi>
+        a
+      </mi>
+      <msup>
+        <mi>
+          x
+        </mi>
+        <mn>
+          2
+        </mn>
+      </msup>
+      <mo>
+        +
+      </mo>
+      <mi>
+        b
+      </mi>
+      <mi>
+        x
+      </mi>
+      <mo>
+        +
+      </mo>
+      <mi>
+        c
+      </mi>
+      <mo>
+        =
+      </mo>
+      <mn>
+        0
+      </mn>
+    </mstyle>
+  </math>
+  <math>
+    <mn>
+      2
+    </mn>
+    <mo>
+      ⁢
+    </mo>
+    <mi>
+      x
+    </mi>
+    <mo>
+      ×
+    </mo>
+    <mo>
+      -
+    </mo>
+    <mfrac>
+      <mrow>
+        <mi>
+          1
+        </mi>
+      </mrow>
+      <mn>
+        16
+      </mn>
+    </mfrac>
+    <mo>
+      +
+    </mo>
+    <msup>
+      <mrow>
+        <mo>
+          −
+        </mo>
+        <mn>
+          5
+        </mn>
+      </mrow>
+      <mn>
+        2
+      </mn>
+    </msup>
+    <mo>
+      =
+    </mo>
+    <mn>
+      24
+    </mn>
+    <mo>
+      ⁤
+    </mo>
+    <mfrac>
+      <mn>
+        15
+      </mn>
+      <mn>
+        16
+      </mn>
+    </mfrac>
+  </math>
+  <div class="segment"></div>
+  <math>
+    <mtable>
+      <mlabeledtr id="e-is-m-c-square">
+        <mtd>
+          <mtext></mtext>
+        </mtd>
+        <mrow>
+          <mi>E</mi>
+          <mo>=</mo>
+          <mi>m</mi>
+          <msup>
+            <mi>c</mi>
+            <mn>2</mn>
+          </msup>
+        </mrow>
+      </mlabeledtr>
+    </mtable>
+  </math>
+  <math>
+    <mo>{</mo>
+    <mo>[</mo>
+    <mi>a</mi>
+    <mo>+</mo>
+    <mi>b</mi>
+    <mo>+</mo>
+    <mi>c</mi>
+    <mo>)</mo>
+    <mo>-</mo>
+    <mi>d</mi>
+    <mo>}</mo>
+  </math>
+  <math>
+    <mfenced>
+      <mrow>
+        <mi> a </mi>
+        <mo> + </mo>
+        <mi> b </mi>
+      </mrow>
+    </mfenced>
+  </math>
+  <math>
+    <mtable groupalign="{decimalpoint left left decimalpoint left left decimalpoint}">
+      <mtr>
+        <mtd>
+          <mrow>
+            <mrow>
+              <mrow>
+                <maligngroup></maligngroup>
+                <mn> 8.44 </mn>
+                <mo></mo>
+                <maligngroup></maligngroup>
+                <mi> x </mi>
+              </mrow>
+              <maligngroup></maligngroup>
+              <mo> + </mo>
+              <mrow>
+                <maligngroup></maligngroup>
+                <mn> 55 </mn>
+                <mo></mo>
+                <maligngroup></maligngroup>
+                <mi> y </mi>
+              </mrow>
+            </mrow>
+            <maligngroup></maligngroup>
+            <mo> = </mo>
+            <maligngroup></maligngroup>
+            <mn> 0 </mn>
+          </mrow>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mrow>
+            <mrow>
+              <!--mrow-->
+              <maligngroup></maligngroup>
+              <mn> 3.1 </mn>
+              <mo></mo>
+              <maligngroup></maligngroup>
+              <mi> x </mi>
+              <!--/mrow-->
+              <maligngroup></maligngroup>
+              <mo> - </mo>
+              <mrow>
+                <maligngroup></maligngroup>
+                <mn> 0.7 </mn>
+                <mo></mo>
+                <maligngroup></maligngroup>
+                <mi> y </mi>
+              </mrow>
+            </mrow>
+            <maligngroup></maligngroup>
+            <mo> = </mo>
+            <maligngroup></maligngroup>
+            <mrow>
+              <mo> - </mo>
+              <mn> 1.1 </mn>
+            </mrow>
+          </mrow>
+        </mtd>
+      </mtr>
+    </mtable>
+  </math>
+  <math>
+    <semantics>
+      <mrow>
+        <mrow>
+          <mi>sin</mi>
+          <mo>⁡<!--FUNCTION APPLICATION--></mo>
+          <mfenced>
+            <mi>x</mi>
+          </mfenced>
+        </mrow>
+        <mo>+</mo>
+        <mn>5</mn>
+      </mrow>
+      <annotation-xml cd="mathmlkeys" name="contentequiv" encoding="MathML-Content">
+        <apply>
+          <plus></plus>
+          <apply>
+            <sin></sin>
+            <ci>x</ci>
+          </apply>
+          <cn>5</cn>
+        </apply>
+      </annotation-xml>
+      <annotation encoding="application/x-tex">
+        \sin x + 5
+      </annotation>
+    </semantics>
+  </math>
+  <math>
+    <menclose notation="circle box">
+      <mi> x </mi>
+      <mo> + </mo>
+      <mi> y </mi>
+    </menclose>
+  </math>
+  <math>
+    <mrow>
+      <mroot>
+        <mi>x</mi>
+        <mn>3</mn>
+      </mroot>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <mroot>
+        <mi>64</mi>
+        <mn>4</mn>
+      </mroot>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <mroot>
+        <mi>x</mi>
+        <mn>3</mn>
+      </mroot>
+      <mo>+</mo>
+      <mi>1</mi>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <mroot>
+        <mi>x</mi>
+        <mn>5</mn>
+      </mroot>
+    </mrow>
+  </math>
+  <math>
+    <mroot>
+      <mrow>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mn>1</mn>
+      </mrow>
+      <mfrac>
+        <mrow>
+          <mo>−</mo>
+          <mn>1</mn>
+        </mrow>
+        <mn>3</mn>
+      </mfrac>
+    </mroot>
+  </math>
+  <math>
+    <mi>f</mi>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>a</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mo>=</mo>
+    <mfrac>
+      <mn>1</mn>
+      <mrow>
+        <mn>2</mn>
+        <mi>π</mi>
+        <mi>i</mi>
+      </mrow>
+    </mfrac>
+    <mo data-mjx-texclass="OP">∮</mo>
+    <mfrac>
+      <mrow>
+        <mi>f</mi>
+        <mo stretchy="false">(</mo>
+        <mi>z</mi>
+        <mo stretchy="false">)</mo>
+      </mrow>
+      <mrow>
+        <mi>z</mi>
+        <mo>−</mo>
+        <mi>a</mi>
+      </mrow>
+    </mfrac>
+    <mi>d</mi>
+    <mi>z</mi>
+  </math>
+  <math>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>θ</mi>
+      <mo>+</mo>
+      <mi>φ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mo>=</mo>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>θ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>φ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mo>−</mo>
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>θ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>φ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+  </math>
+  <math>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mn>4</mn>
+      <msup>
+        <mi>x</mi>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mn>1</mn>
+            <mn>4</mn>
+          </mfrac>
+        </mrow>
+      </msup>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <msup>
+      <mrow data-mjx-texclass="ORD">
+        <mo stretchy="false">(</mo>
+        <mn>9</mn>
+        <mi>x</mi>
+        <mo stretchy="false">)</mo>
+      </mrow>
+      <mrow data-mjx-texclass="ORD">
+        <mfrac>
+          <mn>1</mn>
+          <mn>2</mn>
+        </mfrac>
+      </mrow>
+    </msup>
+  </math>
+  <div class="segment"></div>
+  <math>
+    <msub>
+      <mi>log</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msub>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>x</mi>
+  </math>
+  <math>
+    <mi>ln</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>e</mi>
+    <mo>=</mo>
+    <mn>1</mn>
+  </math>
+  <math>
+    <mi>V</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mn>4</mn>
+      <mn>3</mn>
+    </mfrac>
+    <mi>π</mi>
+    <msup>
+      <mi>r</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>3</mn>
+      </mrow>
+    </msup>
+  </math>
+  <math>
+    <msub>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>1</mn>
+      </mrow>
+    </msub>
+    <mo>+</mo>
+    <msub>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msub>
+    <mo>−</mo>
+    <msub>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>3</mn>
+      </mrow>
+    </msub>
+  </math>
+  <math>
+    <msup>
+      <mi>sin</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msup>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>x</mi>
+    <mo>+</mo>
+    <msup>
+      <mi>cos</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msup>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>y</mi>
+    <mo>=</mo>
+    <mn>1</mn>
+  </math>
+  <div class="circle"></div>
+  <math>
+    <msup>
+      <mi mathvariant="normal">∇</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mo stretchy="false">→</mo>
+      </mrow>
+    </msup>
+    <mo>⋅</mo>
+    <msup>
+      <mi>F</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mo stretchy="false">→</mo>
+      </mrow>
+    </msup>
+    <mo>=</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>z</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>y</mi>
+        </mrow>
+      </mfrac>
+      <mo>−</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>y</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>z</mi>
+        </mrow>
+      </mfrac>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>i</mi>
+    <mo>+</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>x</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>z</mi>
+        </mrow>
+      </mfrac>
+      <mo>−</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>z</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>x</mi>
+        </mrow>
+      </mfrac>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>j</mi>
+    <mo>+</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>y</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>x</mi>
+        </mrow>
+      </mfrac>
+      <mo>−</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>x</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>y</mi>
+        </mrow>
+      </mfrac>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>k</mi>
+  </math>
+  <math>
+    <mi>A</mi>
+    <mi>B</mi>
+    <mi>C</mi>
+    <mo>△</mo>
+  </math>
+  <math>
+    <mover>
+      <mrow>
+        <mi>A</mi>
+        <mi>B</mi>
+      </mrow>
+      <mrow data-mjx-texclass="ORD">
+        <mtext>⌒</mtext>
+      </mrow>
+    </mover>
+  </math>
+  <math>
+    <mover>
+      <mrow>
+        <mi>A</mi>
+        <mi>B</mi>
+      </mrow>
+      <mrow data-mjx-texclass="ORD">
+        <mo stretchy="false">←</mo>
+      </mrow>
+    </mover>
+  </math>
+  <math>
+    <mn>10</mn>
+    <mo>∵</mo>
+    <mn>5</mn>
+  </math>
+  <math>
+    <mi>l</mi>
+    <mi>i</mi>
+    <msub>
+      <mi>m</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mi>x</mi>
+        <mo stretchy="false">→</mo>
+        <mi mathvariant="normal">∞</mi>
+      </mrow>
+    </msub>
+    <mi>f</mi>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>x</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+  </math>
+  <math>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mn>4</mn>
+    <mi>π</mi>
+    <msup>
+      <mi>r</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msup>
+  </math>
+  <math>
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>A</mi>
+      <mi>C</mi>
+    </mfrac>
+  </math>
+  <math>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>B</mi>
+      <mi>C</mi>
+    </mfrac>
+  </math>
+  <math>
+    <msup>
+      <mi>sin</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mo>−</mo>
+        <mn>1</mn>
+      </mrow>
+    </msup>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>x</mi>
+    <mo>=</mo>
+    <mi>a</mi>
+    <mi>r</mi>
+    <mi>c</mi>
+    <mi>s</mi>
+    <mi>i</mi>
+    <mi>n</mi>
+    <mi>x</mi>
+  </math>
+  <math>
+    <mi>tan</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>θ</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>A</mi>
+      <mi>B</mi>
+    </mfrac>
+  </math>
+  <div class="segment"></div>
+  <math>
+    <mi>cot</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>B</mi>
+      <mi>A</mi>
+    </mfrac>
+  </math>
+  <math>
+    <mi>sec</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>C</mi>
+      <mi>A</mi>
+    </mfrac>
+  </math>
+  <math>
+    <mi>csc</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>C</mi>
+      <mi>B</mi>
+    </mfrac>
+  </math> <math>
+    <mfrac>
+      <mi>xx</mi>
+      <mi>yy</mi>
+    </mfrac>
+  </math>
+  <math>
+    <mi>π</mi>
+    <mo></mo>
+    <msup>
+      <mi>r</mi>
+      <mn>2</mn>
+    </msup>
+  </math>
+  <math>
+    <mi>a</mi>
+    <msup>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msup>
+    <mo>+</mo>
+    <mi>b</mi>
+    <mi>x</mi>
+    <mo>+</mo>
+    <mi>c</mi>
+    <mo>=</mo>
+    <mn>0</mn>
+  </math>
+  <math>
+    <mrow>
+      <mi>x</mi>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mrow>
+            <mo>-</mo>
+            <mi>b</mi>
+          </mrow>
+          <mo>±</mo>
+          <msqrt>
+            <mrow>
+              <msup>
+                <mi>b</mi>
+                <mn>2</mn>
+              </msup>
+              <mo>-</mo>
+              <mrow>
+                <mn>4</mn>
+                <mo>⁢</mo>
+                <mi>a</mi>
+                <mo>⁢</mo>
+                <mi>c</mi>
+              </mrow>
+            </mrow>
+          </msqrt>
+        </mrow>
+        <mrow>
+          <mn>2</mn>
+          <mo>⁢</mo>
+          <mi>a</mi>
+        </mrow>
+      </mfrac>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <mi>A</mi>
+      <mo>=</mo>
+      <mfenced open="[" close="]">
+        <mtable>
+          <mtr>
+            <mtd>
+              <mi>x</mi>
+            </mtd>
+            <mtd>
+              <mi>y</mi>
+            </mtd>
+          </mtr>
+          <mtr>
+            <mtd>
+              <mi>z</mi>
+            </mtd>
+            <mtd>
+              <mi>w</mi>
+            </mtd>
+          </mtr>
+        </mtable>
+      </mfenced>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <semantics>
+        <mrow>
+          <msubsup>
+            <mo>∫</mo>
+            <mn>1</mn>
+            <mi>t</mi>
+          </msubsup>
+          <mfrac>
+            <mrow>
+              <mo>ⅆ</mo>
+              <mi>x</mi>
+            </mrow>
+            <mi>x</mi>
+          </mfrac>
+        </mrow>
+        <annotation-xml encoding="MathML-Content">
+          <apply>
+            <int></int>
+            <bvar>
+              <ci>x</ci>
+            </bvar>
+            <lowlimit>
+              <cn>1</cn>
+            </lowlimit>
+            <uplimit>
+              <ci>t</ci>
+            </uplimit>
+            <apply>
+              <divide></divide>
+              <cn>1</cn>
+              <ci>x</ci>
+            </apply>
+          </apply>
+        </annotation-xml>
+      </semantics>
+    </mrow>
+  </math>
+  <math title="a x^2+b x+c=0">
+    <mstyle>
+      <mi>
+        a
+      </mi>
+      <msup>
+        <mi>
+          x
+        </mi>
+        <mn>
+          2
+        </mn>
+      </msup>
+      <mo>
+        +
+      </mo>
+      <mi>
+        b
+      </mi>
+      <mi>
+        x
+      </mi>
+      <mo>
+        +
+      </mo>
+      <mi>
+        c
+      </mi>
+      <mo>
+        =
+      </mo>
+      <mn>
+        0
+      </mn>
+    </mstyle>
+  </math>
+  <math>
+    <mn>
+      2
+    </mn>
+    <mo>
+      ⁢
+    </mo>
+    <mi>
+      x
+    </mi>
+    <mo>
+      ×
+    </mo>
+    <mo>
+      -
+    </mo>
+    <mfrac>
+      <mrow>
+        <mi>
+          1
+        </mi>
+      </mrow>
+      <mn>
+        16
+      </mn>
+    </mfrac>
+    <mo>
+      +
+    </mo>
+    <msup>
+      <mrow>
+        <mo>
+          −
+        </mo>
+        <mn>
+          5
+        </mn>
+      </mrow>
+      <mn>
+        2
+      </mn>
+    </msup>
+    <mo>
+      =
+    </mo>
+    <mn>
+      24
+    </mn>
+    <mo>
+      ⁤
+    </mo>
+    <mfrac>
+      <mn>
+        15
+      </mn>
+      <mn>
+        16
+      </mn>
+    </mfrac>
+  </math>
+  <div class="segment"></div>
+  <math>
+    <mtable>
+      <mlabeledtr id="e-is-m-c-square">
+        <mtd>
+          <mtext></mtext>
+        </mtd>
+        <mrow>
+          <mi>E</mi>
+          <mo>=</mo>
+          <mi>m</mi>
+          <msup>
+            <mi>c</mi>
+            <mn>2</mn>
+          </msup>
+        </mrow>
+      </mlabeledtr>
+    </mtable>
+  </math>
+  <math>
+    <mo>{</mo>
+    <mo>[</mo>
+    <mi>a</mi>
+    <mo>+</mo>
+    <mi>b</mi>
+    <mo>+</mo>
+    <mi>c</mi>
+    <mo>)</mo>
+    <mo>-</mo>
+    <mi>d</mi>
+    <mo>}</mo>
+  </math>
+  <math>
+    <mfenced>
+      <mrow>
+        <mi> a </mi>
+        <mo> + </mo>
+        <mi> b </mi>
+      </mrow>
+    </mfenced>
+  </math>
+  <math>
+    <mtable groupalign="{decimalpoint left left decimalpoint left left decimalpoint}">
+      <mtr>
+        <mtd>
+          <mrow>
+            <mrow>
+              <mrow>
+                <maligngroup></maligngroup>
+                <mn> 8.44 </mn>
+                <mo></mo>
+                <maligngroup></maligngroup>
+                <mi> x </mi>
+              </mrow>
+              <maligngroup></maligngroup>
+              <mo> + </mo>
+              <mrow>
+                <maligngroup></maligngroup>
+                <mn> 55 </mn>
+                <mo></mo>
+                <maligngroup></maligngroup>
+                <mi> y </mi>
+              </mrow>
+            </mrow>
+            <maligngroup></maligngroup>
+            <mo> = </mo>
+            <maligngroup></maligngroup>
+            <mn> 0 </mn>
+          </mrow>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mrow>
+            <mrow>
+              <!--mrow-->
+              <maligngroup></maligngroup>
+              <mn> 3.1 </mn>
+              <mo></mo>
+              <maligngroup></maligngroup>
+              <mi> x </mi>
+              <!--/mrow-->
+              <maligngroup></maligngroup>
+              <mo> - </mo>
+              <mrow>
+                <maligngroup></maligngroup>
+                <mn> 0.7 </mn>
+                <mo></mo>
+                <maligngroup></maligngroup>
+                <mi> y </mi>
+              </mrow>
+            </mrow>
+            <maligngroup></maligngroup>
+            <mo> = </mo>
+            <maligngroup></maligngroup>
+            <mrow>
+              <mo> - </mo>
+              <mn> 1.1 </mn>
+            </mrow>
+          </mrow>
+        </mtd>
+      </mtr>
+    </mtable>
+  </math>
+  <math>
+    <semantics>
+      <mrow>
+        <mrow>
+          <mi>sin</mi>
+          <mo>⁡<!--FUNCTION APPLICATION--></mo>
+          <mfenced>
+            <mi>x</mi>
+          </mfenced>
+        </mrow>
+        <mo>+</mo>
+        <mn>5</mn>
+      </mrow>
+      <annotation-xml cd="mathmlkeys" name="contentequiv" encoding="MathML-Content">
+        <apply>
+          <plus></plus>
+          <apply>
+            <sin></sin>
+            <ci>x</ci>
+          </apply>
+          <cn>5</cn>
+        </apply>
+      </annotation-xml>
+      <annotation encoding="application/x-tex">
+        \sin x + 5
+      </annotation>
+    </semantics>
+  </math>
+  <div class="segment"></div>
+  <math>
+    <menclose notation="circle box">
+      <mi> x </mi>
+      <mo> + </mo>
+      <mi> y </mi>
+    </menclose>
+  </math>
+  <math>
+    <mrow>
+      <mroot>
+        <mi>x</mi>
+        <mn>3</mn>
+      </mroot>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <mroot>
+        <mi>64</mi>
+        <mn>4</mn>
+      </mroot>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <mroot>
+        <mi>x</mi>
+        <mn>3</mn>
+      </mroot>
+      <mo>+</mo>
+      <mi>1</mi>
+    </mrow>
+  </math>
+  <math>
+    <mrow>
+      <mroot>
+        <mi>x</mi>
+        <mn>5</mn>
+      </mroot>
+    </mrow>
+  </math>
+  <math>
+    <mroot>
+      <mrow>
+        <mi>x</mi>
+        <mo>+</mo>
+        <mn>1</mn>
+      </mrow>
+      <mfrac>
+        <mrow>
+          <mo>−</mo>
+          <mn>1</mn>
+        </mrow>
+        <mn>3</mn>
+      </mfrac>
+    </mroot>
+  </math>
+  <math>
+    <mi>f</mi>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>a</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mo>=</mo>
+    <mfrac>
+      <mn>1</mn>
+      <mrow>
+        <mn>2</mn>
+        <mi>π</mi>
+        <mi>i</mi>
+      </mrow>
+    </mfrac>
+    <mo data-mjx-texclass="OP">∮</mo>
+    <mfrac>
+      <mrow>
+        <mi>f</mi>
+        <mo stretchy="false">(</mo>
+        <mi>z</mi>
+        <mo stretchy="false">)</mo>
+      </mrow>
+      <mrow>
+        <mi>z</mi>
+        <mo>−</mo>
+        <mi>a</mi>
+      </mrow>
+    </mfrac>
+    <mi>d</mi>
+    <mi>z</mi>
+  </math>
+  <math>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>θ</mi>
+      <mo>+</mo>
+      <mi>φ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mo>=</mo>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>θ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>φ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mo>−</mo>
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>θ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>φ</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+  </math>
+  <math>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mn>4</mn>
+      <msup>
+        <mi>x</mi>
+        <mrow data-mjx-texclass="ORD">
+          <mfrac>
+            <mn>1</mn>
+            <mn>4</mn>
+          </mfrac>
+        </mrow>
+      </msup>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <msup>
+      <mrow data-mjx-texclass="ORD">
+        <mo stretchy="false">(</mo>
+        <mn>9</mn>
+        <mi>x</mi>
+        <mo stretchy="false">)</mo>
+      </mrow>
+      <mrow data-mjx-texclass="ORD">
+        <mfrac>
+          <mn>1</mn>
+          <mn>2</mn>
+        </mfrac>
+      </mrow>
+    </msup>
+  </math>
+  <div class="segment"></div>
+  <math>
+    <msub>
+      <mi>log</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msub>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>x</mi>
+  </math>
+  <math>
+    <mi>ln</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>e</mi>
+    <mo>=</mo>
+    <mn>1</mn>
+  </math>
+  <math>
+    <mi>V</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mn>4</mn>
+      <mn>3</mn>
+    </mfrac>
+    <mi>π</mi>
+    <msup>
+      <mi>r</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>3</mn>
+      </mrow>
+    </msup>
+  </math>
+  <math>
+    <msub>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>1</mn>
+      </mrow>
+    </msub>
+    <mo>+</mo>
+    <msub>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msub>
+    <mo>−</mo>
+    <msub>
+      <mi>x</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>3</mn>
+      </mrow>
+    </msub>
+  </math>
+  <math>
+    <msup>
+      <mi>sin</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msup>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>x</mi>
+    <mo>+</mo>
+    <msup>
+      <mi>cos</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msup>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>y</mi>
+    <mo>=</mo>
+    <mn>1</mn>
+  </math>
+  <div class="circle"></div>
+  <math>
+    <msup>
+      <mi mathvariant="normal">∇</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mo stretchy="false">→</mo>
+      </mrow>
+    </msup>
+    <mo>⋅</mo>
+    <msup>
+      <mi>F</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mo stretchy="false">→</mo>
+      </mrow>
+    </msup>
+    <mo>=</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>z</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>y</mi>
+        </mrow>
+      </mfrac>
+      <mo>−</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>y</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>z</mi>
+        </mrow>
+      </mfrac>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>i</mi>
+    <mo>+</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>x</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>z</mi>
+        </mrow>
+      </mfrac>
+      <mo>−</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>z</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>x</mi>
+        </mrow>
+      </mfrac>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>j</mi>
+    <mo>+</mo>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>y</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>x</mi>
+        </mrow>
+      </mfrac>
+      <mo>−</mo>
+      <mfrac>
+        <mrow>
+          <mi>∂</mi>
+          <msub>
+            <mi>F</mi>
+            <mrow data-mjx-texclass="ORD">
+              <mi>x</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mrow>
+          <mi>∂</mi>
+          <mi>y</mi>
+        </mrow>
+      </mfrac>
+      <mo stretchy="false">)</mo>
+    </mrow>
+    <mi>k</mi>
+  </math>
+  <math>
+    <mi>A</mi>
+    <mi>B</mi>
+    <mi>C</mi>
+    <mo>△</mo>
+  </math>
+  <math>
+    <mover>
+      <mrow>
+        <mi>A</mi>
+        <mi>B</mi>
+      </mrow>
+      <mrow data-mjx-texclass="ORD">
+        <mtext>⌒</mtext>
+      </mrow>
+    </mover>
+  </math>
+  <math>
+    <mover>
+      <mrow>
+        <mi>A</mi>
+        <mi>B</mi>
+      </mrow>
+      <mrow data-mjx-texclass="ORD">
+        <mo stretchy="false">←</mo>
+      </mrow>
+    </mover>
+  </math>
+  <math>
+    <mn>10</mn>
+    <mo>∵</mo>
+    <mn>5</mn>
+  </math>
+  <math>
+    <mi>l</mi>
+    <mi>i</mi>
+    <msub>
+      <mi>m</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mi>x</mi>
+        <mo stretchy="false">→</mo>
+        <mi mathvariant="normal">∞</mi>
+      </mrow>
+    </msub>
+    <mi>f</mi>
+    <mrow data-mjx-texclass="ORD">
+      <mo stretchy="false">(</mo>
+      <mi>x</mi>
+      <mo stretchy="false">)</mo>
+    </mrow>
+  </math>
+  <math>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mn>4</mn>
+    <mi>π</mi>
+    <msup>
+      <mi>r</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mn>2</mn>
+      </mrow>
+    </msup>
+  </math>
+  <math>
+    <mi>sin</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>A</mi>
+      <mi>C</mi>
+    </mfrac>
+  </math>
+  <math>
+    <mi>cos</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>B</mi>
+      <mi>C</mi>
+    </mfrac>
+  </math>
+  <math>
+    <msup>
+      <mi>sin</mi>
+      <mrow data-mjx-texclass="ORD">
+        <mo>−</mo>
+        <mn>1</mn>
+      </mrow>
+    </msup>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>x</mi>
+    <mo>=</mo>
+    <mi>a</mi>
+    <mi>r</mi>
+    <mi>c</mi>
+    <mi>s</mi>
+    <mi>i</mi>
+    <mi>n</mi>
+    <mi>x</mi>
+  </math>
+  <div class="segment"></div>
+  <math>
+    <mi>tan</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>θ</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>A</mi>
+      <mi>B</mi>
+    </mfrac>
+  </math>
+  <math>
+    <mi>cot</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>B</mi>
+      <mi>A</mi>
+    </mfrac>
+  </math>
+  <math>
+    <mi>sec</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>C</mi>
+      <mi>A</mi>
+    </mfrac>
+  </math>
+  <math>
+    <mi>csc</mi>
+    <mo data-mjx-texclass="NONE">⁡</mo>
+    <mi>A</mi>
+    <mo>=</mo>
+    <mfrac>
+      <mi>C</mi>
+      <mi>B</mi>
+    </mfrac>
+  </math> <math>
+    <mfrac>
+      <mi>xx</mi>
+      <mi>yy</mi>
+    </mfrac>
+  </math>
+</body>
+
+</html>

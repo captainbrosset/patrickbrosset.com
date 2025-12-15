@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+
+<head>
+  <title>shadows</title>
+  <meta charset="UTF-8">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      display: grid;
+      place-content: center;
+    }
+
+    @property --size {
+      syntax: "<length>";
+      inherits: false;
+      initial-value: 1px;
+    }
+
+    div {
+      position: absolute;
+      border-radius: 50%;
+      width: var(--size);
+      aspect-ratio: 1;
+      background: black;
+      mix-blend-mode: difference;
+      animation: breathe 5s ease-in-out infinite;
+      animation-delay: calc(-5s * var(--size) / 100vmin);
+      --color-1: white;
+      --color-2: black;
+      --color-3: white;
+    }
+
+    .colored div {
+      --color-1: red;
+      --color-2: green;
+      --color-3: blue;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes breathe {
+      from {
+        /* Who can remember box-shadow syntax? Thanks to this I can now. x y blur spread color. */
+        /* What I learned here: the spread value is how much more from the *previous* shadow you're extending. */
+        /* Another thing I learned: the order here is last shadow is below. */
+        box-shadow:
+          0 0 0 calc(var(--size) * 0.1) var(--color-1),
+          0 0 0 calc(var(--size) * 0.2) var(--color-2),
+          0 0 0 calc(var(--size) * 0.3) var(--color-3);
+      }
+
+      50% {
+        box-shadow:
+          0 0 0 calc(var(--size) * 0.2) var(--color-1),
+          0 0 0 calc(var(--size) * 0.4) var(--color-2),
+          0 0 0 calc(var(--size) * 0.6) var(--color-3);
+      }
+
+      to {
+        box-shadow:
+          0 0 0 calc(var(--size) * 0.1) var(--color-1),
+          0 0 0 calc(var(--size) * 0.2) var(--color-2),
+          0 0 0 calc(var(--size) * 0.3) var(--color-3);
+      }
+    }
+
+    h1 {
+      z-index: 1;
+      margin: 0;
+      font-size: 14vw;
+      text-transform: uppercase;
+      color: white;
+      text-align: center;
+      position: relative;
+      font-family: arial black, serif;
+      font-weight: bold;
+      line-height: 11vw;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>The Art of Shadows</h1>
+  <script>
+    function addCircle() {
+      const div = document.createElement("div");
+
+      const x = (Math.random() * window.innerWidth) * 2 - window.innerWidth;
+      const y = (Math.random() * window.innerHeight) * 2 - window.innerHeight;
+      div.style.left = `${x}px`;
+      div.style.top = `${y}px`;
+
+      const size = Math.random() * 100 + 5;
+      div.style.setProperty('--size', size + "vmin");
+
+      document.body.appendChild(div);
+    }
+
+    for (let i = 0; i < 20; i++) {
+      addCircle();
+    }
+
+    addEventListener("click", () => {
+      document.body.classList.toggle("colored");
+    })
+  </script>
+</body>
+
+</html>

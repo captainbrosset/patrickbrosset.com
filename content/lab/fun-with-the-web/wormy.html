@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>wormy</title>
+  <meta charset="UTF-8">
+  <style>
+    label {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      z-index: 1;
+      color: white;
+      font-family: system-ui;
+    }
+    
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+    
+    .wrapper {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      background: black;
+    }
+    
+    .wrapper>div {
+      position: absolute;
+      background: #b60ee0;
+      /* TIL: using sibling-index and sibling-count to avoid having to generate indices in HTML/JS. */
+      filter: brightness(calc(1 - (sibling-index() / sibling-count()) * 0.7));
+      border-radius: 50%;
+      corner-shape: superellipse(1.8);
+      
+      --size: 10vw;
+      width: calc(var(--size) - (sibling-index() / sibling-count()) * var(--size));
+      height: calc(var(--size) - (sibling-index() / sibling-count()) * var(--size));
+
+      animation: 1s move linear infinite alternate;
+      animation-delay: calc(sibling-index() * -0.2s);
+
+    }
+
+    .wrapper>div:not(#head) {
+      position-area: center inline-start;
+    }
+
+    :not(:has(#squish:checked)) .wrapper>div {
+      position-try-fallbacks: flip-inline;
+      position-try-order: most-inline-size;
+    }
+
+    @keyframes move {
+      from {
+        translate: 0 3vh;
+      }
+
+      to {
+        translate: 0 -3vh;
+      }
+    }
+
+    #head {
+      top: calc(50% - var(--size) / 2);
+      right: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <label for="squish">Squish <input type="checkbox" id="squish"></label>
+
+  <div class="wrapper">
+    <div id="head"></div>
+    <!-- TIL: can link to an anchor with HTML attribute -->
+    <div id="w1" anchor="head"></div>
+    <div id="w2" anchor="w1"></div>
+    <div id="w3" anchor="w2"></div>
+    <div id="w4" anchor="w3"></div>
+    <div id="w5" anchor="w4"></div>
+    <div id="w6" anchor="w5"></div>
+    <div id="w7" anchor="w6"></div>
+    <div id="w8" anchor="w7"></div>
+    <div id="w9" anchor="w8"></div>
+    <div id="w10" anchor="w9"></div>
+  </div>
+
+  <script>
+    // Make the head follow the mouse on over.
+    addEventListener('mousemove', (event) => {
+      const x = event.clientX;
+      const y = event.clientY;
+
+      // TIL: I'm only moving the head, the rest follows thanks to anchoring.
+      head.style.left = `${x}px`;
+      head.style.top = `${y}px`;
+    });
+  </script>
+</body>
+
+</html>

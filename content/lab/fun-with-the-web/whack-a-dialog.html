@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+
+<head>
+  <title>Whack-a-Dialog</title>
+  <meta charset="UTF-8">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html {
+      background: #f7f7e4;
+    }
+
+    body {
+      font-family: cursive;
+      text-align: center;
+      display: grid;
+      align-items: center;
+      grid-template-rows: auto auto auto 1fr;
+      cursor: url("../hammer.png") 0 0, pointer;
+      max-width: 1300px;
+      margin: 0 auto;
+      container: game / size;
+    }
+
+    h1 {
+      font-size: clamp(10px, 10vw, 80px);
+      margin: 0;
+      text-shadow:
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff;
+    }
+
+    p {
+      margin: 0;
+      font-size: clamp(9px, 4vw, 40px);
+    }
+
+    .game {
+      box-sizing: border-box;
+      padding: 10cqw;
+      display: grid;
+      grid-template-rows: repeat(2, 1fr);
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10cqw;
+      align-self: start;
+    }
+
+    .hole {
+      border-radius: 50%;
+      background: #352c01;
+      grid-column: span 2;
+      place-self: center;
+      inline-size: 100%;
+      aspect-ratio: 1;
+      display: grid;
+      place-content: center;
+      box-shadow: inset 1cqw 1cqw 0 0 #0007;
+      corner-shape: superellipse(1.3);
+    }
+
+    .hole:nth-child(4) {
+      grid-column: 2 / span 2;
+    }
+
+    dialog {
+      /* TIL: you can change the default positioning and styling of dialogs. */
+      margin: 0;
+      padding: 0;
+      position: static;
+      border: 0;
+      background: url(../mole.png) no-repeat center / contain;
+      border-radius: 50%;
+      width: 18cqw;
+      height: 18cqw;
+    }
+
+    dialog[open] {
+      /* TIL: you can animate thne appearance of dialogs. */
+      animation: fade-in 0.1s forwards;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        scale: .5;
+      }
+
+      to {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+
+    dialog button {
+      border: 0;
+      background: none;
+      display: block;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      outline: none;
+      cursor: inherit;
+    }
+
+    .leaves {
+      position: absolute;
+      background: radial-gradient(green, limegreen);
+      box-shadow: inset 0 0 0 15px #0004, 0 0 3cqw 0 #0004;
+      width: 1000px;
+      height: 500px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    #start {
+      position: absolute;
+      inset: calc(50% - 4rem) calc(50% - 7rem);
+      width: 14rem;
+      height: 8rem;
+      z-index: 1;
+      border: 9px solid #18a904;
+      border-radius: 50%;
+      corner-shape: superellipse(2);
+      font-weight: bold;
+      font-size: 1.8rem;
+      background: white;
+      box-shadow: 0 0 21vw 11vw black;
+      font-family: cursive;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #stop {
+      display: none;
+      inset: calc(50% - 4rem) calc(50% - 7rem);
+      width: 5rem;
+      z-index: 1;
+      border: 4px solid #a90404;
+      border-radius: 50%;
+      corner-shape: superellipse(2);
+      font-size: 1rem;
+      background: white;
+      font-family: cursive;
+      cursor: pointer;
+      transition: transform 0.2s;
+      justify-self: center;
+    }
+
+    #start:hover,
+    #stop:hover {
+      transform: scale(1.05);
+    }
+
+    #start:active,
+    #stop:active {
+      transform: scale(.95);
+    }
+  </style>
+</head>
+
+<body>
+  <button id="stop">Stop</button>
+  <h1>Whack-a-Dialog</h1>
+  <p class="scores"></p>
+  <button id="start">Start playing!</button>
+  <div class="game">
+    <div class="hole">
+      <dialog id="dialog1">
+        <!-- TIL: using command and commandfor attributes to close the dialog from HTML directly. -->
+        <button tabindex="-1" commandfor="dialog1" command="close" value="closed-by-player"></button>
+      </dialog>
+    </div>
+    <div class="hole">
+      <dialog id="dialog2">
+        <button tabindex="-1" commandfor="dialog2" command="close" value="closed-by-player"></button>
+      </dialog>
+    </div>
+    <div class="hole">
+      <dialog id="dialog3">
+        <button tabindex="-1" commandfor="dialog3" command="close" value="closed-by-player"></button>
+      </dialog>
+    </div>
+    <div class="hole">
+      <dialog id="dialog4">
+        <button tabindex="-1" commandfor="dialog4" command="close" value="closed-by-player"></button>
+      </dialog>
+    </div>
+    <div class="hole">
+      <dialog id="dialog5">
+        <button tabindex="-1" commandfor="dialog5" command="close" value="closed-by-player"></button>
+      </dialog>
+    </div>
+  </div>
+
+  <div class="leaves" style="top: -250px;left: -520px;rotate: -29deg;"></div>
+  <div class="leaves" style="bottom: -338px;right: -448px;rotate: -8deg;"></div>
+  <div class="leaves" style="bottom: -300px;left: -489px;rotate: 14deg;"></div>
+  <div class="leaves" style="top: -114px;right: -328px;width: 500px;"></div>
+  <div class="leaves" style="top: 255px;right: -268px;width: 320px;"></div>
+  <div class="leaves" style="bottom: 110px;left: -719px;rotate: 63deg;"></div>
+
+  <script>
+    const MIN_SHOW_TIME = 900;
+    const MAX_SHOW_TIME = 1200;
+    const MIN_ROUND_WAIT = 900;
+    const MAX_ROUND_WAIT = 2500;
+
+    class Score {
+      constructor(element, dialogs, player) {
+        this.element = element;
+        this.dialogs = dialogs;
+        this.player = player;
+        this.update();
+      }
+
+      playerScores() {
+        this.player += 1;
+        this.update();
+      }
+
+      dialogScores() {
+        this.dialogs += 1;
+        this.update();
+      }
+
+      reset() {
+        this.player = 0;
+        this.dialogs = 0;
+        this.update();
+      }
+
+      update() {
+        this.element.textContent = `You: ${this.player} | Dialogs: ${this.dialogs}`;
+      }
+    }
+
+    const dialogs = [
+      document.getElementById("dialog1"),
+      document.getElementById("dialog2"),
+      document.getElementById("dialog3"),
+      document.getElementById("dialog4"),
+      document.getElementById("dialog5")
+    ];
+
+    const score = new Score(document.querySelector(".scores"), 0, 0);
+
+    function getRandomClosedDialog() {
+      const closedDialogs = dialogs.filter(dialog => !dialog.open);
+      const index = Math.floor(Math.random() * closedDialogs.length);
+      return closedDialogs[index];
+    }
+
+    dialogs.forEach(d => d.addEventListener("close", (event) => {
+      // TIL: since I use commandfor/command, I don't have JS code I can use to count scores.
+      // So I can use the returnValue on the general close event instead. Set via the `value` attribute on buttons.
+      // Also can be set via close(returnValue) in JS.
+      if (d.returnValue === "closed-by-timeout") {
+        score.dialogScores();
+      }
+
+      if (d.returnValue === "closed-by-player") {
+        score.playerScores();
+      }
+    }));
+
+    let gameRunning = false;
+    let timeoutIds = [];
+
+    function loop() {
+      if (!gameRunning) {
+        return;
+      }
+
+      const randomNumberOfDialogs = Math.floor(Math.random() * 2) + 1;
+
+      for (let i = 0; i < randomNumberOfDialogs; i++) {
+        const dialog = getRandomClosedDialog();
+        if (!dialog) {
+          continue;
+        }
+
+        dialog.show();
+        const randomShowTime = Math.random() * (MAX_SHOW_TIME - MIN_SHOW_TIME) + MIN_SHOW_TIME;
+        const timeoutId = setTimeout(() => {
+          if (!dialog.open) {
+            return;
+          }
+          dialog.close("closed-by-timeout");
+        }, randomShowTime);
+        timeoutIds.push(timeoutId);
+      }
+
+      // After a random time, loop again.
+      const randomWaitTime = Math.random() * (MAX_ROUND_WAIT - MIN_ROUND_WAIT) + MIN_ROUND_WAIT;
+      const loopTimeoutId = setTimeout(() => {
+        loop();
+      }, randomWaitTime);
+      timeoutIds.push(loopTimeoutId);
+    }
+
+    const startButton = document.getElementById("start");
+    const stopButton = document.getElementById("stop");
+
+    startButton.addEventListener("click", () => {
+      // Reset score when starting a new game
+      score.reset();
+
+      startButton.style.display = "none";
+      stopButton.style.display = "block";
+      gameRunning = true;
+      loop();
+    });
+
+    stopButton.addEventListener("click", () => {
+      gameRunning = false;
+
+      // Clear all pending timeouts
+      timeoutIds.forEach(id => clearTimeout(id));
+      timeoutIds = [];
+
+      // Close all open dialogs
+      dialogs.forEach(dialog => {
+        if (dialog.open) {
+          dialog.close();
+        }
+      });
+
+      // Show start button and hide stop button
+      stopButton.style.display = "none";
+      startButton.style.display = "block";
+    });
+  </script>
+</body>
+
+</html>

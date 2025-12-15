@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>subgrid cells</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    @property --size {
+      syntax: '<integer>';
+      inherits: false;
+    }
+
+    body {
+      --size: 9;
+      --duration: 5s;
+      --delay: .3s;
+      display: grid;
+      grid-template-rows: repeat(var(--size), 1fr);
+      grid-template-columns: repeat(var(--size), 1fr);
+      background: black;
+    }
+
+    div {
+      display: grid;
+      grid-area: 2 / 2 / -2 / -2;
+      border: 1px solid #fff1;
+      /* background: #fff1; */
+      /* TIL: You can keep using subgrid in nested descendants to refer, step-by-step, to the parent grid. */
+      grid-template-rows: subgrid;
+      grid-template-columns: subgrid;
+    }
+
+    @property --x-pos {
+      syntax: '<integer>';
+      inherits: false;
+      initial-value: 1;
+    }
+
+    @property --y-pos {
+      syntax: '<integer>';
+      inherits: false;
+      initial-value: 1;
+    }
+
+    span {
+      grid-column: var(--x-pos);
+      grid-row: var(--y-pos);
+      background: black;
+      outline: 1px solid white;
+      box-shadow: 0 0 calc(200vw / var(--size)) rgb(80 255 0 / 50%);
+
+      animation: move var(--duration) linear infinite;
+
+      --delay-multiplier: attr(data-level type(<number>));
+      animation-delay: calc(var(--delay-multiplier) * -1 * var(--delay));
+    }
+
+    .dot2 {
+      animation-direction: reverse;
+      background: white;
+      outline: 1px solid black;
+    }
+
+    /* TIL: you can animate grid-row/grid-column.
+    They are discrete anim types, so they "jump" from one position to the next
+    but that's ok.
+    To do it, we're actually animating custom @property properties. */
+    @keyframes move {
+      from {
+        --x-pos: 1;
+        --y-pos: 1;
+      }
+
+      20% {
+        --x-pos: 1;
+        --y-pos: var(--size);
+      }
+
+      40% {
+        --x-pos: var(--size);
+        --y-pos: var(--size);
+      }
+
+      60% {
+        --x-pos: var(--size);
+        --y-pos: 1;
+      }
+
+      80% {
+        --x-pos: 1;
+        --y-pos: 1;
+      }
+    }
+
+    button {
+      position: fixed;
+      font-size: .8rem;
+      top: .5rem;
+      right: .5rem;
+      z-index: 1;
+      padding: .25rem .5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <button>Randomize</button>
+  <script>
+    function init(size, duration, delay) {
+      const previousDiv = document.querySelector('body > div');
+      if (previousDiv) {
+        previousDiv.remove();
+      }
+
+      document.body.style.setProperty('--size', size);
+      document.body.style.setProperty('--duration', duration);
+      document.body.style.setProperty('--delay', delay);
+
+      let parent = document.body;
+      for (let i = 0; i < (size / 2 - 1); i++) {
+        const div = document.createElement('div');
+
+        const dot1 = document.createElement('span');
+        dot1.classList.add('dot1');
+        dot1.dataset.level = i;
+        div.appendChild(dot1);
+
+        const dot2 = document.createElement('span');
+        dot2.classList.add('dot2');
+        dot2.dataset.level = i;
+        div.appendChild(dot2);
+
+        parent.appendChild(div);
+        parent = div;
+      }
+    }
+
+    init(9, '5s', '.3s');
+
+    const button = document.querySelector('button');
+    button.addEventListener('click', () => {
+      const size = Math.floor(Math.random() * 497) + 4;
+      const duration = (Math.random() * 9 + 1).toFixed(2) + 's';
+      const delay = (Math.random() * 2).toFixed(2) + 's';
+
+      init(size, duration, delay);
+    });
+  </script>
+</body>
+
+</html>

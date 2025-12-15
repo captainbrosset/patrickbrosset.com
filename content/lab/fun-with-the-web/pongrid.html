@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+
+<head>
+  <title>pongrid</title>
+  <meta charset="UTF-8">
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    :root {
+      --background: black;
+      --width: 60;
+      --height: 41;
+      --wall-color: lightgrey;
+      --paddle-color: white;
+      --ball-color: white;
+    }
+
+    body {
+      background: var(--background);
+      display: grid;
+      place-content: center;
+    }
+
+    .screen {
+      width: 100vmin;
+      aspect-ratio: var(--width) / var(--height);
+      display: grid;
+      /* What I learned: you can repeat rows and cols a lot! to create a pixel grid. */
+      grid-template-columns: repeat(var(--width), 1fr);
+      grid-template-rows: repeat(var(--height), 1fr);
+    }
+
+    .hard-mode .screen {
+      animation: slow-rotate 20s linear infinite;
+    }
+
+    @keyframes slow-rotate {
+      from {
+        transform: rotate(0deg) scale(1);
+      }
+
+      50% {
+        transform: rotate(180deg) scale(.7);
+      }
+
+      to {
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    .top-wall {
+      grid-column: 1 / span var(--width);
+      grid-row: 1 / span 1;
+      background: var(--wall-color);
+    }
+
+    .bottom-wall {
+      grid-column: 1 / span var(--width);
+      grid-row: calc(var(--height) - 1 + 1) / span 1;
+      background: var(--wall-color);
+    }
+
+    .middle-line {
+      grid-column: calc(var(--width) / 2) / span 1;
+      grid-row: 1 / span var(--height);
+      --real-height: calc(100vmin * var(--height) / var(--width));
+      background:
+        repeating-linear-gradient(to bottom,
+          transparent 0 calc(var(--real-height) / var(--height)),
+          var(--wall-color) calc(var(--real-height) / var(--height)) calc(2 * var(--real-height) / var(--height)));
+    }
+
+    .ball {
+      background: var(--ball-color);
+    }
+
+    .left-paddle,
+    .right-paddle {
+      background: var(--paddle-color);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="screen">
+    <div class="left-paddle"></div>
+    <div class="right-paddle"></div>
+    <div class="ball"></div>
+    <div class="top-wall"></div>
+    <div class="bottom-wall"></div>
+    <div class="middle-line"></div>
+  </div>
+
+  <script>
+    const gridEl = document.querySelector('.screen');
+    const ballEl = document.querySelector('.ball');
+    const leftPaddleEl = document.querySelector('.left-paddle');
+    const rightPaddleEl = document.querySelector('.right-paddle');
+
+    const width = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--width'), 10);
+    const height = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--height'), 10);
+    const paddleHeight = 5;
+    const maxPaddleY = height - paddleHeight - 1;
+
+    var paddleSpeed = 1;
+    var ballSpeed = .5;
+
+    const leftPaddle = {
+      // start in the middle of the game on the left side
+      x: 2,
+      y: height / 2 - paddleHeight / 2,
+      width: 2,
+      height: paddleHeight,
+
+      // paddle velocity
+      dy: 0
+    };
+    const rightPaddle = {
+      // start in the middle of the game on the right side
+      x: width - 3,
+      y: height / 2 - paddleHeight / 2,
+      width: 2,
+      height: paddleHeight,
+
+      // paddle velocity
+      dy: 0
+    };
+    const ball = {
+      // start in the middle of the game
+      x: width / 2,
+      y: height / 2,
+      width: 2,
+      height: 2,
+
+      // ball velocity (start going to the top-right corner)
+      dx: ballSpeed,
+      dy: -ballSpeed
+    };
+
+    // check for collision between two objects using axis-aligned bounding box (AABB)
+    // @see https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    function collides(obj1, obj2) {
+      return obj1.x < obj2.x + obj2.width &&
+        obj1.x + obj1.width > obj2.x &&
+        obj1.y < obj2.y + obj2.height &&
+        obj1.y + obj1.height > obj2.y;
+    }
+
+    function moveLeftPaddle() {
+      const x = Math.round(leftPaddle.x + 1);
+      const y = Math.round(leftPaddle.y + 1);
+      const w = leftPaddle.width;
+      const h = leftPaddle.height;
+
+      leftPaddleEl.style.gridColumn = `${x} / span ${w}`;
+      leftPaddleEl.style.gridRow = `${y} / span ${h}`;
+    }
+
+    function moveRightPaddle() {
+      const x = Math.round(rightPaddle.x + 1);
+      const y = Math.round(rightPaddle.y + 1);
+      const w = rightPaddle.width;
+      const h = rightPaddle.height;
+
+      rightPaddleEl.style.gridColumn = `${x} / span ${w}`;
+      rightPaddleEl.style.gridRow = `${y} / span ${h}`;
+    }
+
+    function moveBall() {
+      const x = Math.round(ball.x + 1);
+      const y = Math.round(ball.y + 1);
+      const w = ball.width;
+      const h = ball.height;
+
+      // What I learned: doing this will set the grid-area property and its syntax is:
+      // rowStart / colStart / rowEnd / colEnd. Pretty neat!
+      ballEl.style.gridColumn = `${x} / span ${w}`;
+      ballEl.style.gridRow = `${y} / span ${h}`;
+    }
+
+    // game loop
+    function loop() {
+      requestAnimationFrame(loop);
+
+      // move paddles by their velocity
+      leftPaddle.y += leftPaddle.dy;
+      rightPaddle.y += rightPaddle.dy;
+
+      // prevent paddles from going through walls
+      if (leftPaddle.y < 1) {
+        leftPaddle.y = 1;
+      }
+      else if (leftPaddle.y > maxPaddleY) {
+        leftPaddle.y = maxPaddleY;
+      }
+
+      if (rightPaddle.y < 1) {
+        rightPaddle.y = 1;
+      }
+      else if (rightPaddle.y > maxPaddleY) {
+        rightPaddle.y = maxPaddleY;
+      }
+
+      // draw paddles
+      moveLeftPaddle();
+      moveRightPaddle();
+
+      // move ball by its velocity
+      ball.x += ball.dx;
+      ball.y += ball.dy;
+
+      // prevent ball from going through walls by changing its velocity
+      if (ball.y < 1) {
+        ball.y = 1;
+        ball.dy *= -1;
+      }
+      else if (ball.y + 1 > height - 1) {
+        ball.y = height - 2;
+        ball.dy *= -1;
+      }
+
+      // reset ball if it goes past paddle (but only if we haven't already done so)
+      if (ball.x < 0 || ball.x > width) {
+        ball.x = width / 2;
+        ball.y = height / 2;
+      }
+
+      // check to see if ball collides with paddle. if they do change x velocity
+      if (collides(ball, leftPaddle)) {
+        ball.dx *= -1;
+
+        // move ball next to the paddle otherwise the collision will happen again
+        // in the next frame
+        ball.x = leftPaddle.x + leftPaddle.width;
+      }
+      else if (collides(ball, rightPaddle)) {
+        ball.dx *= -1;
+
+        // move ball next to the paddle otherwise the collision will happen again
+        // in the next frame
+        ball.x = rightPaddle.x - ball.width;
+      }
+
+      if (ball.x < 0) {
+        console.log(ball.x);
+      }
+
+      // draw ball
+      moveBall();
+    }
+
+    // listen to keyboard events to move the paddles
+    document.addEventListener('keydown', function (e) {
+
+      // up arrow key
+      if (e.which === 38) {
+        rightPaddle.dy = -paddleSpeed;
+      }
+      // down arrow key
+      else if (e.which === 40) {
+        rightPaddle.dy = paddleSpeed;
+      }
+
+      // w key
+      if (e.which === 87) {
+        leftPaddle.dy = -paddleSpeed;
+      }
+      // a key
+      else if (e.which === 83) {
+        leftPaddle.dy = paddleSpeed;
+      }
+    });
+
+    // listen to keyboard events to stop the paddle if key is released
+    document.addEventListener('keyup', function (e) {
+      if (e.which === 38 || e.which === 40) {
+        rightPaddle.dy = 0;
+      }
+
+      if (e.which === 83 || e.which === 87) {
+        leftPaddle.dy = 0;
+      }
+    });
+
+    // start the game
+    requestAnimationFrame(loop);
+  </script>
+</body>
+
+</html>

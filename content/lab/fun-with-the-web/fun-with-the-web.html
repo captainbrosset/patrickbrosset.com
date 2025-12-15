@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>fun with the web</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+    
+    body {
+      font-family: system-ui;
+      display: grid;
+      place-content: center;
+      background: repeating-conic-gradient(
+        from 90deg at 0 0,
+        #98caa333 0deg 15deg,
+        #15ebe133 15deg 30deg
+      ),
+      repeating-conic-gradient(
+        from 90deg at 100% 0,
+        #e57ed433 0deg 15deg,
+        #eb159933 15deg 30deg
+      ),
+      repeating-conic-gradient(
+        from 90deg at 100% 100%,
+        #e57ed433 0deg 15deg,
+        #15ebe133 15deg 30deg
+      ),
+      repeating-conic-gradient(
+        from 90deg at 0 100%,
+        #e57ed433 0deg 15deg,
+        #15ebe133 15deg 30deg
+      );
+    }
+
+    h1 {
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 11vw;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: -3px 0 0 #e57ed4, 3px 0 0 #15ebe1;
+      letter-spacing: 5px;
+      margin: 0;
+      color: white;
+    }
+
+    h1 div {
+      break-inside: avoid;
+      display: inline-block;
+    }
+
+    h1 span {
+
+    }
+
+    h1 span:nth-child(odd) {
+      transform: skewY(-10deg);
+      display: inline-block;
+    }
+
+    h1 span:nth-child(even) {
+      transform: skewY(10deg);
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>
+    <div>
+      <span>F</span><span>U</span><span>N</span>
+    </div>
+    <div>
+      <span>W</span><span>I</span><span>T</span><span>H</span>
+    </div>
+    <div>
+      <span>T</span><span>H</span><span>E</span>
+    </div>
+    <div>
+      <span>W</span><span>E</span><span>B</span>
+    </div>
+  </h1>
+</body>
+
+</html>
