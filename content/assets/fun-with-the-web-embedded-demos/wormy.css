@@ -1,0 +1,77 @@
+.wormy {
+  margin: var(--big-spacing) calc(-1 * var(--big-spacing));
+  height: 50vh;
+  position: relative;
+}
+
+@scope (.wormy) {
+  .wrapper {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+
+  #head { anchor-name: --head; }
+  #w1 { position-anchor: --head; anchor-name: --w1; }
+  #w2 { position-anchor: --w1; anchor-name: --w2; }
+  #w3 { position-anchor: --w2; anchor-name: --w3; }
+  #w4 { position-anchor: --w3; anchor-name: --w4; }
+  #w5 { position-anchor: --w4; anchor-name: --w5; }
+  #w6 { position-anchor: --w5; anchor-name: --w6; }
+  #w7 { position-anchor: --w6; anchor-name: --w7; }
+  #w8 { position-anchor: --w7; anchor-name: --w8; }
+  #w9 { position-anchor: --w8; anchor-name: --w9; }
+  #w10 { position-anchor: --w9; }
+
+
+  .wrapper>div {
+    pointer-events: none;
+    position: absolute;
+    background: #b60ee0;
+    filter: brightness(calc(1 - (sibling-index() / sibling-count()) * 0.7));
+    border-radius: 50%;
+    corner-shape: superellipse(1.8);
+
+    --size: 10vw;
+    width: calc(var(--size) - (sibling-index() / sibling-count()) * var(--size));
+    height: calc(var(--size) - (sibling-index() / sibling-count()) * var(--size));
+
+    animation: 1s move linear infinite alternate;
+    animation-delay: calc(sibling-index() * -0.2s);
+  }
+
+  @supports not (width: calc(sibling-index() * 2px)) {
+    .wrapper>div {
+      /* Fallback for browsers without sibling-index/sibling-count support. */
+      width: var(--size);
+      height: var(--size);
+    }
+
+    .wrapper::before {
+      content: "Your browser isn't supported :'(";
+      text-align: center;
+      display: block;
+      font-style: italic;
+      opacity: .8;
+    }
+  }
+
+  .wrapper>div:not(#head) {
+    position-area: center inline-start;
+  }
+
+  @keyframes move {
+    from {
+      translate: 0 3vh;
+    }
+
+    to {
+      translate: 0 -3vh;
+    }
+  }
+
+  #head {
+    top: calc(50% - var(--size) / 2);
+    right: 0;
+  }
+}

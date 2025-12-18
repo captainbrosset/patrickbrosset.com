@@ -10,7 +10,7 @@ permalink: "articles/{{ date | date: '%Y-%m-%d' }}-{{ title | slug | superSlug }
     <img src="{{ thumbnail }}" width="600" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}">
   </p>
 
-  <h1>{{ title }}</h1>
+  <h1{% if titleForScreenReadersOnly %} class="sr-only"{% endif %}>{{ title }}</h1>
 
   <p class="author-date">
     <a href="/">Patrick Brosset</a>

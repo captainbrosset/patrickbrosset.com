@@ -1,0 +1,166 @@
+.kaleidoscope {
+  margin: var(--big-spacing) calc(-1 * var(--big-spacing));
+  height: 50vh;
+}
+
+@scope (.kaleidoscope) {
+  .wrapper {
+    --image: url("/assets/photos/19.webp");
+    --size: 500px;
+    --angle: 30deg;
+    --position: 0px -100px;
+    --rotation: 0;
+
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+
+  .blades {
+    aspect-ratio: 1;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+
+    position: relative;
+  }
+
+  @media (width <= 50vh) {
+    .blades {
+      width: 100%;
+      height: unset;
+    }
+  }
+
+  .blade {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    clip-path: polygon(0 0, 100% 0, 100% calc(tan(var(--angle)) * 100%), 0 0);
+
+    transform-origin: 0 0;
+  }
+
+  .blade::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: var(--image);
+    background-size: var(--size);
+    background-position: var(--position);
+
+    transform-origin: center center;
+    transform: rotate(var(--rotation));
+  }
+
+  .blade:nth-child(3),
+  .blade:nth-child(4) {
+    rotate: calc(2 * var(--angle));
+  }
+
+  .blade:nth-child(5),
+  .blade:nth-child(6) {
+    rotate: calc(4 * var(--angle));
+  }
+
+  .blade:nth-child(7),
+  .blade:nth-child(8) {
+    rotate: calc(6 * var(--angle));
+  }
+
+  .blade:nth-child(9),
+  .blade:nth-child(10) {
+    rotate: calc(8 * var(--angle));
+  }
+
+  .blade:nth-child(11),
+  .blade:nth-child(12) {
+    rotate: calc(10 * var(--angle));
+  }
+
+  .blade:nth-child(13),
+  .blade:nth-child(14) {
+    rotate: calc(12 * var(--angle));
+  }
+
+  .blade:nth-child(15),
+  .blade:nth-child(16) {
+    rotate: calc(14 * var(--angle));
+  }
+
+  .blade:nth-child(17),
+  .blade:nth-child(18) {
+    rotate: calc(16 * var(--angle));
+  }
+
+  .blade:nth-child(19),
+  .blade:nth-child(20) {
+    rotate: calc(18 * var(--angle));
+  }
+
+  .blade:nth-child(21),
+  .blade:nth-child(22) {
+    rotate: calc(20 * var(--angle));
+  }
+
+  .blade:nth-child(23),
+  .blade:nth-child(24) {
+    rotate: calc(22 * var(--angle));
+  }
+
+  .blade:nth-child(25),
+  .blade:nth-child(26) {
+    rotate: calc(24 * var(--angle));
+  }
+
+  .blade:nth-child(27),
+  .blade:nth-child(28) {
+    rotate: calc(26 * var(--angle));
+  }
+
+  .blade:nth-child(29),
+  .blade:nth-child(30) {
+    rotate: calc(28 * var(--angle));
+  }
+
+  .blade:nth-child(2n) {
+    scale: 1 -1;
+  }
+
+  .controls {
+    font-size: 0.8rem;
+    font-family: system-ui;
+    position: absolute;
+    opacity: 0.3;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background: black;
+    border: 2px solid #666;
+    color: white;
+    border-radius: 10px;
+    transition: opacity 0.3s;
+  }
+
+  .controls:hover {
+    opacity: .9;
+  }
+
+  .controls label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .controls input {
+    display: block;
+  }
+}

@@ -258,33 +258,26 @@
 
     // listen to keyboard events to move the paddles
     document.addEventListener('keydown', function (e) {
-
-      // up arrow key
-      if (e.which === 38) {
+      if (e.key === 'o') {
         rightPaddle.dy = -paddleSpeed;
-      }
-      // down arrow key
-      else if (e.which === 40) {
+      } else if (e.key === 'l') {
         rightPaddle.dy = paddleSpeed;
       }
 
-      // w key
-      if (e.which === 87) {
+      if (e.key === 'w') {
         leftPaddle.dy = -paddleSpeed;
-      }
-      // a key
-      else if (e.which === 83) {
+      } else if (e.key === 's') {
         leftPaddle.dy = paddleSpeed;
       }
     });
 
     // listen to keyboard events to stop the paddle if key is released
     document.addEventListener('keyup', function (e) {
-      if (e.which === 38 || e.which === 40) {
+      if (e.key === 'o' || e.key === 'l') {
         rightPaddle.dy = 0;
       }
 
-      if (e.which === 83 || e.which === 87) {
+      if (e.key === 'w' || e.key === 's') {
         leftPaddle.dy = 0;
       }
     });

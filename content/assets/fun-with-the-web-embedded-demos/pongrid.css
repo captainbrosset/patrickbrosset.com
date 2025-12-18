@@ -1,0 +1,100 @@
+.pongrid {
+  margin: var(--big-spacing) calc(-1 * var(--big-spacing));
+}
+
+@scope (.pongrid) {
+  .screen {
+    --background: black;
+    --width: 120;
+    --height: 80;
+    --wall-color: lightgrey;
+    --paddle-color: white;
+    --ball-color: white;
+    --score-color: white;
+
+    background: var(--background);
+    width: 100%;
+    aspect-ratio: var(--width) / var(--height);
+    display: grid;
+    grid-template-columns: repeat(var(--width), 1fr);
+    grid-template-rows: repeat(var(--height), 1fr);
+    overflow: hidden;
+  }
+
+  .top-wall {
+    grid-column: 1 / span var(--width);
+    grid-row: 1 / span 1;
+    background: var(--wall-color);
+  }
+
+  .bottom-wall {
+    grid-column: 1 / span var(--width);
+    grid-row: calc(var(--height) - 1 + 1) / span 1;
+    background: var(--wall-color);
+  }
+
+  .middle-line {
+    grid-column: calc(var(--width) / 2) / span 1;
+    grid-row: 1 / span var(--height);
+    --real-height: calc(100vmin * var(--height) / var(--width));
+    background:
+      repeating-linear-gradient(to bottom,
+        transparent 0 calc(var(--real-height) / var(--height)),
+        var(--wall-color) calc(var(--real-height) / var(--height)) calc(2 * var(--real-height) / var(--height)));
+  }
+
+  .left-score,
+  .right-score {
+    grid-row: 4 / span calc(var(--height) / 8);
+    grid-column: span calc(var(--height) / 8) / calc(var(--width) / 2 - 2);
+    color: var(--score-color);
+    text-align: center;
+    font-family: monospace;
+    display: grid;
+    place-content: center;
+    font-size: clamp(10px, 4vw, 45px);
+  }
+
+  .right-score {
+    grid-column: calc(var(--width) / 2 + 3) / span calc(var(--height) / 8);
+  }
+
+  .ball {
+    background: var(--ball-color);
+  }
+
+  .left-paddle,
+  .right-paddle {
+    background: var(--paddle-color);
+  }
+
+  .alternative-look.screen {
+    --background: radial-gradient(circle at center, #ff68f3, #097acb 160%);
+    --wall-color: transparent;
+    border-radius: 5vmin;
+  }
+
+  .alternative-look .left-paddle,
+  .alternative-look .right-paddle {
+    border-radius: 100vh;
+    box-shadow: 0 0 1vmin #fff6;
+    background: linear-gradient(45deg, #ff68f3, #097acb);
+  }
+
+  .alternative-look .ball {
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff68f3, #097acb);
+    box-shadow: 0 0 2vmin #fffffffc;
+    animation: rotate linear 1s infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

@@ -1,0 +1,62 @@
+.shadows {
+  margin: var(--big-spacing) calc(-1 * var(--big-spacing));
+  position: relative;
+  height: 50vh;
+  overflow: hidden;
+}
+
+@scope (.shadows) {
+  .wrapper {
+    height: 100%;
+    width: 100%;
+  }
+
+  @property --shadow-size {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 1px;
+  }
+
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    width: var(--shadow-size);
+    aspect-ratio: 1;
+    background: black;
+    mix-blend-mode: difference;
+    animation: breathe 5s ease-in-out infinite;
+    animation-delay: calc(-5s * var(--shadow-size) / 100vmin);
+    --color-1: white;
+    --color-2: black;
+    --color-3: white;
+  }
+
+  .colored .circle {
+    --color-1: red;
+    --color-2: green;
+    --color-3: blue;
+  }
+
+  @keyframes breathe {
+    from {
+      box-shadow:
+        0 0 0 calc(var(--shadow-size) * 0.1) var(--color-1),
+        0 0 0 calc(var(--shadow-size) * 0.2) var(--color-2),
+        0 0 0 calc(var(--shadow-size) * 0.3) var(--color-3);
+    }
+
+    50% {
+      box-shadow:
+        0 0 0 calc(var(--shadow-size) * 0.2) var(--color-1),
+        0 0 0 calc(var(--shadow-size) * 0.4) var(--color-2),
+        0 0 0 calc(var(--shadow-size) * 0.6) var(--color-3);
+    }
+
+    to {
+      box-shadow:
+        0 0 0 calc(var(--shadow-size) * 0.1) var(--color-1),
+        0 0 0 calc(var(--shadow-size) * 0.2) var(--color-2),
+        0 0 0 calc(var(--shadow-size) * 0.3) var(--color-3);
+    }
+  }
+}

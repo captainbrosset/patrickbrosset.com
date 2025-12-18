@@ -15,7 +15,8 @@
 
     @property --size {
       syntax: '<integer>';
-      inherits: false;
+      inherits: true;
+      initial-value: 1;
     }
 
     body {
@@ -29,11 +30,11 @@
     }
 
     div {
-      display: grid;
       grid-area: 2 / 2 / -2 / -2;
       border: 1px solid #fff1;
       /* background: #fff1; */
       /* TIL: You can keep using subgrid in nested descendants to refer, step-by-step, to the parent grid. */
+      display: grid;
       grid-template-rows: subgrid;
       grid-template-columns: subgrid;
     }
@@ -50,6 +51,10 @@
       initial-value: 1;
     }
 
+    @property --level-delay {
+      syntax: '<time>';
+    }
+
     span {
       grid-column: var(--x-pos);
       grid-row: var(--y-pos);
@@ -59,8 +64,7 @@
 
       animation: move var(--duration) linear infinite;
 
-      --delay-multiplier: attr(data-level type(<number>));
-      animation-delay: calc(var(--delay-multiplier) * -1 * var(--delay));
+      animation-delay: var(--level-delay);
     }
 
     .dot2 {
@@ -121,8 +125,8 @@
       }
 
       document.body.style.setProperty('--size', size);
-      document.body.style.setProperty('--duration', duration);
-      document.body.style.setProperty('--delay', delay);
+      document.body.style.setProperty('--duration', `${duration}s`);
+      document.body.style.setProperty('--delay', `${delay}s`);
 
       let parent = document.body;
       for (let i = 0; i < (size / 2 - 1); i++) {
@@ -130,12 +134,12 @@
 
         const dot1 = document.createElement('span');
         dot1.classList.add('dot1');
-        dot1.dataset.level = i;
+        dot1.style.setProperty('--level-delay', `${-i * delay}s`);
         div.appendChild(dot1);
-
+        
         const dot2 = document.createElement('span');
         dot2.classList.add('dot2');
-        dot2.dataset.level = i;
+        dot2.style.setProperty('--level-delay', `${-i * delay}s`);
         div.appendChild(dot2);
 
         parent.appendChild(div);
@@ -143,13 +147,13 @@
       }
     }
 
-    init(9, '5s', '.3s');
+    init(9, 5, .3);
 
     const button = document.querySelector('button');
     button.addEventListener('click', () => {
       const size = Math.floor(Math.random() * 497) + 4;
-      const duration = (Math.random() * 9 + 1).toFixed(2) + 's';
-      const delay = (Math.random() * 2).toFixed(2) + 's';
+      const duration = (Math.random() * 9 + 1).toFixed(2);
+      const delay = (Math.random() * 2).toFixed(2);
 
       init(size, duration, delay);
     });

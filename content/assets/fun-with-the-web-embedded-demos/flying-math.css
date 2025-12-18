@@ -1,0 +1,107 @@
+.flying-math {
+  margin: var(--big-spacing) calc(-1 * var(--big-spacing));
+}
+
+@scope (.flying-math) {
+  .animation {
+    perspective: 300px;
+    height: 50vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  math {
+    position: absolute;
+    left: var(--x, 50vw);
+    top: var(--y, 50vh);
+    color: var(--text-color);
+    font-family: math;
+    font-size: 2vw;
+  }
+
+  .segment {
+    width: 7vw;
+    height: 7vw;
+    position: absolute;
+    left: var(--x, 50vw);
+    top: var(--y, 50vh);
+
+    background: linear-gradient(45deg, transparent 0 calc(50% - .05vw), var(--text-color) calc(50% - .05vw) calc(50% + .05vw), transparent calc(50% + .05vw));
+  }
+
+  .segment::before,
+  .segment::after {
+    content: "";
+    position: absolute;
+    width: 0.2vw;
+    height: 0.2vw;
+    border-radius: 50%;
+    background: var(--text-color);
+    top: -.1vw;
+    left: -.1vw;
+  }
+
+  .segment::after {
+    top: unset;
+    left: unset;
+    bottom: -.1vw;
+    right: -.1vw;
+  }
+
+  .circle {
+    width: 10vw;
+    height: 10vw;
+    position: absolute;
+    left: var(--x, 50vw);
+    top: var(--y, 50vh);
+    border: 0.1vw solid var(--text-color);
+    border-radius: 50%;
+  }
+
+  math,
+  .segment,
+  .circle {
+    animation: fly 8s linear infinite;
+    animation-delay: calc(sibling-index() * -3s);
+    animation-play-state: paused;
+  }
+
+  .animation.running {
+    math, .segment, .circle {
+      animation-play-state: running;
+    }
+  }
+  
+  @supports not (animation-delay: calc(sibling-index() * -3s)) {
+    @property --delay {
+      syntax: "<time>";
+      inherits: false;
+      initial-value: 0s;
+    }
+
+    math,
+    .segment,
+    .circle {
+      animation-delay: var(--delay);
+    }
+  }
+
+  @keyframes fly {
+    0% {
+      translate: 0 0 -100px;
+      opacity: 0;
+    }
+
+    20%,
+    70% {
+      opacity: 1;
+      /* filter: blur(0); */
+    }
+
+    100% {
+      translate: 0 0 400px;
+      /* filter: blur(25px); */
+      opacity: 0.1;
+    }
+  }
+}

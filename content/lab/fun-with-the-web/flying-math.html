@@ -73,7 +73,20 @@
       animation-delay: calc(sibling-index() * -3s);
     }
 
-    /* Fly animation: start from random position and rush toward viewer */
+    @supports not (animation-delay: calc(sibling-index() * -3s)) {
+      @property --delay {
+        syntax: "<time>";
+        inherits: false;
+        initial-value: 0s;
+      }
+
+      math,
+      .segment,
+      .circle {
+        animation-delay: var(--delay);
+      }
+    }
+
     @keyframes fly {
       0% {
         translate: 0 0 -100px;
@@ -98,7 +111,7 @@
 <body>
   <script>
     addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('math, div').forEach((el) => {
+      document.querySelectorAll('math, div').forEach((el, index) => {
         // position randomly in % of viewport
         const x = Math.random() * 100;
         const y = Math.random() * 100;
@@ -111,6 +124,9 @@
           const scale = Math.random() * 1.5 + 0.2;
           el.style.transform = `rotateZ(${angle}deg) scale(${scale})`;
         }
+
+        // For browsers which don't support sibling-index, generate a delay in JS instead.
+        el.style.setProperty('--delay', `${index * -3}s`);
       });
     });
   </script>
