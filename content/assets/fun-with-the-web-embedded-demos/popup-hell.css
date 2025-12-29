@@ -1,0 +1,68 @@
+.popup-hell {
+  margin: var(--big-spacing) 0;
+  height: 70vh;
+  overflow: hidden;
+  position: relative;
+  border: var(--separator);
+  background: #6fa7b9;
+  font-family: system-ui;
+}
+
+.popup-hell.no-clip {
+  overflow: visible;
+}
+
+@scope (.popup-hell) {
+  .popup {
+    border: var(--separator);
+    border-radius: .5rem;
+    background: var(--back-color);
+    font-size: .8rem;
+    width: max-content;
+    max-width: 15rem;
+    height: min-content;
+    position: absolute;
+    box-shadow: 0 0 2rem 0 #0004;
+    user-select: none;
+    overflow: hidden;
+  }
+
+  .popup:first-child {
+    left: 30%;
+    top: 30%;
+    z-index: 1;
+  }
+
+  .popup:first-child .title {
+    cursor: move;
+    background: red;
+    color: white;
+  }
+
+  .popup:first-child .title::after {
+    content: " (move me)";
+  }
+
+  .popup .title {
+    padding: .125rem .5rem;
+    border-block-end: var(--separator);
+    background: var(--text-color);
+    color: var(--back-color);
+  }
+
+  .popup .content {
+    padding: .5rem;
+  }
+  
+  .popup .actions {
+    padding: .125rem .5rem;
+    border-block-start: var(--separator);
+    text-align: center;
+  }
+
+  .popup .actions button {
+    font-size: inherit;
+    font-family: inherit;
+    border: 1px solid var(--text-color);
+  }
+}

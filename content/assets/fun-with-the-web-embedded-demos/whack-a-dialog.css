@@ -52,10 +52,11 @@
     padding: 0;
     position: static;
     border: 0;
-    background: url(../../lab/fun-with-the-web/mole.png) no-repeat center / contain;
+    background: url(../../lab/fun-with-the-web/mole.png) no-repeat center / 103%;
     border-radius: 50%;
-    width: 95cqw;
-    height: 95cqh;
+    width: 100cqw;
+    height: 100cqh;
+    box-shadow: inset 2vw 2vw 0 0 #0006, inset 3vw 3vw 0 0 #0006
   }
 
   dialog[open] {
@@ -93,14 +94,16 @@
     transition: transform 0.2s;
     width: max-content;
     justify-self: center;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     border-radius: .5rem;
-    background: #22f922;
+    background: #d8ffd8;
+    margin-block-end: 1rem;
+    padding: .5rem 1rem;
   }
 
   #stop {
     display: none;
-    background: red;
+    background: rgb(255, 211, 211);
   }
 
   #start:hover,

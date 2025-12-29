@@ -6,19 +6,20 @@
   const rotationControl = container.querySelector("#rotation-control");
   const numberControl = container.querySelector("#number-control");
 
-  sizeControl.addEventListener("input", () => {
+  const setSize = () => {
     container.style.setProperty("--size", `${sizeControl.value}px`);
-  });
+  };
 
-  positionControl.addEventListener("input", () => {
+  const setPosition = () => {
     container.style.setProperty("--position", `0px -${positionControl.value}px`);
-  });
+  };
 
-  rotationControl.addEventListener("input", () => {
+  const setRotation = (e, keepAnimation) => {
+    !keepAnimation && container.classList.remove("animated");
     container.style.setProperty("--rotation", `${rotationControl.value}deg`);
-  });
+  };
 
-  numberControl.addEventListener("input", () => {
+  const setNumber = () => {
     const nb = parseInt(numberControl.value, 10);
     const angle = 360 / nb;
     container.style.setProperty("--angle", angle + "deg");
@@ -33,5 +34,15 @@
       blade.classList.add("blade");
       bladesContainer.appendChild(blade);
     }
-  });
+  };
+
+  sizeControl.addEventListener("input", setSize);
+  positionControl.addEventListener("input", setPosition);
+  rotationControl.addEventListener("input", setRotation);
+  numberControl.addEventListener("input", setNumber);
+
+  setSize();
+  setPosition();
+  setRotation(null, true);
+  setNumber();
 })();

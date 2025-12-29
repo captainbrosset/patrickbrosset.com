@@ -5,7 +5,7 @@
 
 @scope (.kaleidoscope) {
   .wrapper {
-    --image: url("/assets/photos/19.webp");
+    --image: url("/assets/photos/1.webp");
     --size: 500px;
     --angle: 30deg;
     --position: 0px -100px;
@@ -59,7 +59,21 @@
     background-position: var(--position);
 
     transform-origin: center center;
-    transform: rotate(var(--rotation));
+    scale: 1.5;
+    rotate: var(--rotation);
+  }
+
+  .animated .blade::before {
+    animation: rotate-image 20s linear infinite;
+  }
+
+  @keyframes rotate-image {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 360deg;
+    }
   }
 
   .blade:nth-child(3),

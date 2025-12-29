@@ -73,8 +73,16 @@
   function drawBall() {
     const x = Math.round(ball.x + 1);
     const y = Math.round(ball.y + 1);
-    const w = ball.width;
-    const h = ball.height;
+    let w = ball.width;
+    let h = ball.height;
+
+    if (x + w > width) {
+      w = width - x + 1;
+    }
+
+    if (y + h > height) {
+      h = height - y + 1;
+    }
 
     // What I learned: doing this will set the grid-area property and its syntax is:
     // rowStart / colStart / rowEnd / colEnd. Pretty neat!

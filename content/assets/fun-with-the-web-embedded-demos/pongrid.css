@@ -21,6 +21,15 @@
     overflow: hidden;
   }
 
+  @supports (row-rule: 1px solid red) {
+    .screen {
+      gap: 1px;
+      row-rule: 1px solid #fff2;
+      column-rule: 1px solid #fff2;
+      rule-break: none;
+    }
+  }
+
   .top-wall {
     grid-column: 1 / span var(--width);
     grid-row: 1 / span 1;

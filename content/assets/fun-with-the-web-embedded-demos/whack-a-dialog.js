@@ -1,10 +1,10 @@
 (() => {
   const gameContainer = document.querySelector(".whack-a-dialog");
 
-  const MIN_SHOW_TIME = 900;
-  const MAX_SHOW_TIME = 1200;
-  const MIN_ROUND_WAIT = 900;
-  const MAX_ROUND_WAIT = 2500;
+  const MIN_SHOW_TIME = 700;
+  const MAX_SHOW_TIME = 1000;
+  const MIN_ROUND_WAIT = 400;
+  const MAX_ROUND_WAIT = 2000;
 
   class Score {
     constructor(element, dialogs, player) {

@@ -30,7 +30,7 @@
 
   observer.observe(container);
 
-  addEventListener("click", () => {
+  container.addEventListener("click", () => {
     container.classList.toggle("colored");
   })
 })();
