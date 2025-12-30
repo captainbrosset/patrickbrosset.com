@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Million Dollar Grid</title>
+  <style>
+    body {
+      font-family: arial;
+      background: gray;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    h1,
+    p,
+    footer {
+      width: 1000px;
+      margin: 0 auto;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      background: #646464;
+      text-shadow: -2px -2px 0px #e7eb3a, 2px 2px 0 #dfb12c, -2px 2px 0 #dfb12c, 2px -2px 0 #dfb12c;
+      color: #646464;
+      font-weight: normal;
+      letter-spacing: 4px;
+    }
+
+    p {
+      background: linear-gradient(to bottom, #e2b83f, #ba921b);
+      line-height: 1.5;
+    }
+
+    footer {
+      background: #646464;
+    }
+
+    .grid {
+      width: 1000px;
+      height: 1000px;
+      margin: 0 auto;
+      display: grid;
+      /* The minimum is 10x10px, no need to split into 1000 rows/cols. */
+      grid-template-columns: repeat(100, 1fr);
+      grid-template-rows: repeat(100, 1fr);
+      background:
+        linear-gradient(to right, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5)),
+        linear-gradient(to bottom, rgba(0, 128, 0, 0.5), rgba(255, 255, 0, 0.5));
+      background-size: 10px 10px;
+    }
+
+    .grid>div {
+      background: var(--image) no-repeat;
+    }
+
+    .grid>div:hover {
+      box-shadow: 0 0 0 10px #fffc;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>The Million Dollar Grid</h1>
+  <p><a href='https://www.webdesignmuseum.org/web-design-history/million-dollar-homepage-2005'>The Million Dollar
+      Homepage</a> was a very successful and viral marketing stunt back in 2005 where people could buy 1 pixel worth of
+    advertising space for 1 US dollar (with a minimum advertising surface of 10&times;10 pixels).<br>
+    At the time, the million dollar homepage was implemented by using a single image which contains all ads stitched
+    together, and an <a href='https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/map'>image map</a> to link
+    the image's various parts to their corresponding URLs.</p>
+  <p>The demo below is a silly recreation of the million dollar homepage which uses CSS grid.<br>
+    The grid has one hundred rows and one hundred columns. Each reserved ad space is represented by a <code>div</code>
+    element that's
+    positioned onto the grid by using the <code>grid-area</code> CSS property. The original image from the million
+    dollar homepage is used here, but I've made an effort to remove any explicit material I could find.</p>
+  <div class="grid"></div>
+  <footer>
+    &copy; 2025 <a href="https://patrickbrosset.com">Patrick Brosset</a>. The image above is a slightly modified version of the image at <a href="http://www.milliondollarhomepage.com/">The Million Dollar Homepage</a>.
+  </footer>
+  <script>
+    async function main() {
+      const response = await fetch('./million-dollar-grid.json')
+      const data = await response.json();
+
+      const grid = document.querySelector('.grid');
+
+      grid.style.setProperty('--image', `url("${data.image}")`);
+
+      let i = 0;
+      for (const ad of data.ads) {
+        const rowStart = Math.round(ad[0] / 10 + 1);
+        const colStart = Math.round(ad[1] / 10 + 1);
+        const rowEnd = Math.round(ad[2] / 10 + 1);
+        const colEnd = Math.round(ad[3] / 10 + 1);
+
+        const div = document.createElement('div');
+        div.style.gridArea = `${colStart} / ${rowStart} / ${colEnd} / ${rowEnd}`;
+        div.style.backgroundPosition = `-${ad[0]}px -${ad[1]}px`;
+
+        grid.appendChild(div);
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
+    }
+
+    main();
+  </script>
+</body>
+
+</html>

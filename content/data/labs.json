@@ -1,5 +1,13 @@
 [
   {
+    "url": "million-dollar-grid",
+    "img": "/assets/million-dollar-grid.png",
+    "alt": "The million dollar homepage.",
+    "title": "The Million Dollar Grid",
+    "date": "2025-12-30",
+    "description": "<a href='https://www.webdesignmuseum.org/web-design-history/million-dollar-homepage-2005'>The Million Dollar Homepage</a> was a very successful and viral marketing stunt back in 2005. At the time, it was implemented by using a single image together with an <a href='https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/map'>image map</a>. This silly experiment recreates the page by using a CSS grid layout instead."
+  },
+  {
     "url": "accordion",
     "img": "/assets/accordion.png",
     "alt": "An accordion component, with 4 collapsed sections, one is focused.",
