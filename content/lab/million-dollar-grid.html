@@ -53,11 +53,13 @@
       background-size: 10px 10px;
     }
 
-    .grid>div {
+    .grid>a {
+      box-sizing: border-box;
       background: var(--image) no-repeat;
+      text-decoration: none;
     }
 
-    .grid>div:hover {
+    .grid>a:hover {
       box-shadow: 0 0 0 10px #fffc;
       z-index: 1;
     }
@@ -97,11 +99,12 @@
         const rowEnd = Math.round(ad[2] / 10 + 1);
         const colEnd = Math.round(ad[3] / 10 + 1);
 
-        const div = document.createElement('div');
-        div.style.gridArea = `${colStart} / ${rowStart} / ${colEnd} / ${rowEnd}`;
-        div.style.backgroundPosition = `-${ad[0]}px -${ad[1]}px`;
+        const link = document.createElement('a');
+        link.style.gridArea = `${colStart} / ${rowStart} / ${colEnd} / ${rowEnd}`;
+        link.style.backgroundPosition = `-${ad[0]}px -${ad[1]}px`;
+        link.href = "/lab/million-dollar-grid";
 
-        grid.appendChild(div);
+        grid.appendChild(link);
 
         await new Promise(resolve => setTimeout(resolve, 0));
       }
