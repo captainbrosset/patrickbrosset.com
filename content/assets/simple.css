@@ -367,3 +367,7 @@ article .author-date {
   border-block-end: var(--separator);
   padding-block-end: var(--big-spacing);
 }
+
+article p:has(a img) {
+  text-align: center;
+}
