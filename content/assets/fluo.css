@@ -1,0 +1,139 @@
+.sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}
+
+:root {
+  --spacing: 2rem;
+}
+
+body {
+  --back-pattern-unit: var(--spacing);
+  --pos-1: calc(1 * var(--back-pattern-unit));
+  --pos-2: calc(2 * var(--back-pattern-unit));
+  --pos-3: calc(3 * var(--back-pattern-unit));
+  --pos-4: calc(4 * var(--back-pattern-unit));
+  --pos-5: calc(5 * var(--back-pattern-unit));
+  --back-pattern-width: calc(3 * var(--back-pattern-unit));
+  --back-pattern-height: calc(6 * var(--back-pattern-unit));
+  --color-1: #f693ff;
+  --color-2: #baff1a;
+  --color-3: #3dc8ff;
+  --color-4: #ffdd20;
+  --color-5: #de55fa;
+  --color-6: #ff156e;
+
+  background:
+    conic-gradient(at var(--pos-2) var(--pos-5), transparent 0 90deg, var(--color-1) 90deg 180deg, transparent 0),
+    conic-gradient(at var(--pos-2) var(--pos-2), transparent 0 90deg, var(--color-6) 90deg 180deg, transparent 0),
+    conic-gradient(at var(--pos-2) var(--pos-2), var(--color-1) 0 90deg, transparent 0),
+    conic-gradient(at var(--pos-1) var(--pos-4), transparent 0 90deg, var(--color-2) 90deg 180deg, transparent 0),
+    conic-gradient(at var(--pos-1) var(--pos-1), var(--color-2) 0 90deg, transparent 0),
+    conic-gradient(at var(--pos-1) var(--pos-3), transparent 0 180deg, var(--color-5) 180deg 270deg, transparent 0),
+    conic-gradient(at var(--pos-1) var(--pos-3), var(--color-3) 0 270deg, var(--color-4) 0);
+  background-size: var(--back-pattern-width) var(--back-pattern-height);
+  background-position: 0 0;
+  background-attachment: fixed;
+
+  margin: var(--spacing);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12pt;
+  line-height: 1.6;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--spacing));
+  grid-auto-rows: var(--spacing);
+}
+
+.site-nav {
+  grid-area: 1 / 1 / span 13 / span 5;
+  position: sticky;
+  top: 0;
+}
+
+main {
+  grid-area: 4 / 7 / auto / -1;
+}
+
+.site-nav .title {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-nav .title .face {
+  width: 100%;
+  display: block;
+  height: unset;
+  aspect-ratio: 1;
+  mix-blend-mode: luminosity;
+  order: 1;
+}
+
+.site-nav .title .name {
+  display: block;
+  width: 100%;
+  height: calc(var(--spacing) * 3);
+  object-fit: contain;
+}
+
+.site-nav ul {
+  display: grid;
+  grid-auto-rows: var(--spacing);
+}
+
+.site-nav ul, .site-nav li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav li {
+  font-weight: bold;
+  height: var(--spacing);
+}
+
+.site-nav li a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  background: #fffe;
+  text-transform: uppercase;
+}
+
+.site-nav li a:hover {
+  color: white;
+  background: #000e;
+}
+
+.list-section {
+  background: #fffe;
+  padding: var(--spacing);
+  box-shadow: calc(var(--spacing) / 2) calc(var(--spacing) / 2) 0 0 #0002;
+}
+
+.list-section:not(:first-child) {
+  margin-block-start: var(--spacing);
+}
+
+.list-section p {
+  margin: var(--spacing) 0;
+}
+
+.list-section :first-child {
+  margin-block-start: 0;
+}
+
+.list-section :last-child {
+  margin-block-end: 0;
+}
