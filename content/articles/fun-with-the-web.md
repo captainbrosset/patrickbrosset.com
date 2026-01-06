@@ -3,11 +3,10 @@ layout: article.njk
 title: Fun with the web
 titleForScreenReadersOnly: true
 tags: article
-date: 2026-01-02
-excerpt: "Kids learn by playing, and so do adults! Let's explore fun experiments with the web, and how building silly things help learn while having a good time. Let's all keep the web weird and wonderful."
+date: 2026-01-06
+excerpt: "Kids learn by playing, and so do adults! Let's explore fun experiments with the web, and how building silly things can help learn while having a good time.<br>Let's all keep the web weird and wonderful."
 thumbnail: "/assets/fun-with-the-web.png"
 altText: "Fun with the web"
-draft: true
 ---
 
 Fun makes learning better!
