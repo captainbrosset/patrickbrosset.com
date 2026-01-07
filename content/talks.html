@@ -6,7 +6,8 @@
 ---
 
 <section class="list-section">
-  <p>Here is a list of talks and presentations I have given, either in person or online.</p>
+  <h1>Talks</h1>
+  <p>Here are the talks and presentations I have given, either in person or online.</p>
 </section>
 
 {% for page in talks %}
@@ -14,6 +15,6 @@
     <h2><a href="{{ page.url }}">{{ page.title | safe }}</a></h2>
     <time datetime="{{ page.date }}">{{ page.date | formattedDateTime }}</time>
     <p>{{ page.description | safe }}</p>
-    <a href="{{ page.url }}" class="thumbnail"><img loading="lazy" sizes="auto" src="{{ page.img }}" alt="{{ page.alt }}"></a>
+    <a href="{{ page.url }}" class="thumbnail"><img loading="lazy" src="{{ page.img }}" alt="{{ page.alt }}"></a>
   </section>
 {% endfor %}

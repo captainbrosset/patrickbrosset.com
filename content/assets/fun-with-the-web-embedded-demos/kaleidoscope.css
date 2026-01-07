@@ -1,5 +1,4 @@
 .kaleidoscope {
-  margin: var(--big-spacing) calc(-1 * var(--big-spacing));
   height: 50vh;
 }
 

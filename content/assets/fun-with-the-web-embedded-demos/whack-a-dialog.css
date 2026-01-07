@@ -1,7 +1,3 @@
-.whack-a-dialog {
-  margin: var(--big-spacing) calc(-1 * var(--big-spacing));
-}
-
 @scope (.whack-a-dialog) {
   .wrapper {
     font-family: cursive;

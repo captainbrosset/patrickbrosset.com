@@ -1,5 +1,4 @@
 .shadows {
-  margin: var(--big-spacing) calc(-1 * var(--big-spacing));
   position: relative;
   height: 50vh;
   overflow: hidden;
