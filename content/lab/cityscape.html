@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cityscape</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      grid-template-rows: 1fr;
+      --color-1: black;
+      --color-2: rgb(250, 126, 244);
+      --color-3: rgb(0, 102, 255);
+      background: var(--color-1);
+    }
+
+    .scape {
+      /* Number of blocks across. Reload the page for this to take effect. */
+      --nb: 12;
+
+      /* Customize buildings. */
+      --gap: 0.5vmin;
+      --building-size: 5vmin;
+      --building-size-to-depth-ratio: 2.5;
+
+      /* Computed vars. */
+      --half-building-size: calc(var(--building-size) / 2 - var(--gap) / 2);
+      --building-depth: calc(var(--building-size) / var(--building-size-to-depth-ratio));
+      --half-build-depth: calc(var(--half-building-size) / var(--building-size-to-depth-ratio));
+      --total-building-size: calc(var(--building-size) + var(--building-depth));
+      --scape-width: calc(var(--nb) * var(--total-building-size) + (var(--nb) - 1) * var(--gap));
+
+      width: var(--scape-width);
+      height: var(--scape-width);
+      display: grid;
+      grid-template-columns: repeat(var(--nb), 1fr);
+      grid-template-rows: repeat(var(--nb), 1fr);
+      gap: var(--gap);
+    }
+
+    .block {
+      --roof: var(--color-1);
+      --wall-2: var(--color-2);
+      --wall-1: var(--color-3);
+    }
+
+    .block:nth-child(3n) {
+      --wall-1: var(--color-1);
+      --roof: var(--color-2);
+      --wall-2: var(--color-3);
+    }
+
+    .block:nth-child(4n),
+    .block:nth-child(9n) {
+      --wall-2: var(--color-1);
+      --wall-1: var(--color-2);
+      --roof: var(--color-3);
+    }
+
+    .block:nth-child(5n),
+    .block:nth-child(13n) {
+      --wall-1: var(--color-1);
+      --wall-2: var(--color-2);
+      --roof: var(--color-3);
+    }
+
+    .block.mini {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    .building {
+      width: var(--building-size);
+      height: var(--building-size);
+      background: var(--roof);
+      border-inline-end: var(--building-depth) solid var(--wall-1);
+      border-block-end: var(--building-depth) solid var(--wall-2);
+      clip-path: polygon(0 0, var(--building-size) 0, 100% var(--building-depth), 100% 100%, var(--building-depth) 100%, 0 var(--building-size));
+    }
+
+    .building.half {
+      --building-size: var(--half-building-size);
+      --building-depth: var(--half-build-depth);
+    }
+
+    .building[data-inline="end"][data-block="end"] {
+      border-inline-start: var(--building-depth) solid var(--wall-1);
+      border-inline-end: unset;
+      border-block-start: var(--building-depth) solid var(--wall-2);
+      border-block-end: unset;
+      clip-path: polygon(0 0, calc(100% - var(--building-depth)) 0, 100% var(--building-depth), 100% 100%, var(--building-depth) 100%, 0 calc(100% - var(--building-depth)));
+    }
+
+    .building[data-inline="start"][data-block="end"] {
+      border-inline-start: unset;
+      border-inline-end: var(--building-depth) solid var(--wall-1);
+      border-block-start: var(--building-depth) solid var(--wall-2);
+      border-block-end: unset;
+      clip-path: polygon(0 var(--building-depth), var(--building-depth) 0, 100% 0, 100% calc(100% - var(--building-depth)), calc(100% - var(--building-depth)) 100%, 0 100%);
+    }
+
+    .building[data-inline="end"][data-block="start"] {
+      border-inline-start: var(--building-depth) solid var(--wall-1);
+      border-inline-end: unset;
+      border-block-start: unset;
+      border-block-end: var(--building-depth) solid var(--wall-2);
+      clip-path: polygon(0 var(--building-depth), var(--building-depth) 0, 100% 0, 100% calc(100% - var(--building-depth)), calc(100% - var(--building-depth)) 100%, 0 100%);
+    }
+
+    p {
+      font-family: system-ui;
+      color: white;
+    }
+
+    a {
+      color: var(--color-2);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="scape"></div>
+  <p>By <a href="https://patrickbrosset.com">Patrick Brosset</a> - Inspired by <a href="https://genart.social/@ronikaufman/115859686602280947">this piece</a> by <a href="https://ronikaufman.github.io/">Roni Kaufman</a></p>
+
+  <script>
+    function createBuilding(inlinePos, blockPos) {
+      const building = document.createElement('div');
+      building.classList.add('building');
+      building.dataset.inline = inlinePos;
+      building.dataset.block = blockPos;
+
+      return building;
+    }
+
+    const scapeEl = document.querySelector('.scape');
+
+    const nb = parseInt(getComputedStyle(scapeEl).getPropertyValue('--nb'), 10);
+
+    for (let rowIndex = 0; rowIndex < nb; rowIndex++) {
+      for (let colIndex = 0; colIndex < nb; colIndex++) {
+        const block = document.createElement('div');
+        block.classList.add('block');
+
+        const isInTop = rowIndex < (nb / 2);
+        const isInLeft = colIndex < (nb / 2);
+
+        const createHalfBuildings = (Math.random() < 0.5);
+        const nbBuildings = createHalfBuildings ? 4 : 1;
+        block.classList.toggle('mini', createHalfBuildings);
+
+        for (let i = 0; i < nbBuildings; i++) {
+          const building = createBuilding(isInLeft ? 'start' : 'end', isInTop ? 'start' : 'end');
+          building.classList.toggle('half', createHalfBuildings);
+          block.appendChild(building);
+        }
+
+        scapeEl.appendChild(block);
+      }
+    }
+  </script>
+</body>
+
+</html>

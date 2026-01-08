@@ -1,5 +1,13 @@
 [
   {
+    "url": "cityscape",
+    "img": "/assets/cityscape.avif",
+    "alt": "Screenshot of the demo page, black, pink, and blue 3D cubes, as seen from above, with perspective.",
+    "title": "Cityscape",
+    "date": "2026-01-08",
+    "description": "Cityscape, inspired by <a href='https://genart.social/@ronikaufman/115859686602280947'>this piece</a> by <a href='https://ronikaufman.github.io/'>Roni Kaufman</a>"
+  },
+  {
     "url": "million-dollar-grid",
     "img": "/assets/million-dollar-grid.avif",
     "alt": "The million dollar homepage.",
