@@ -12,19 +12,25 @@
   white-space: nowrap !important;
 }
 
+@property --hue {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
 :root {
-  --color-1: hsl(295deg 100% 78.82%);
-  --color-2: hsl(78.08deg 100% 55.1%);
-  --color-3: hsl(197.01deg 100% 61.96%);
-  --color-4: hsl(50.85deg 100% 56.27%);
-  --color-5: hsl(289.82deg 94.29% 65.69%);
-  --color-6: hsl(337.18deg 100% 54.12%);
+  --color-1: hsl(calc(295deg + var(--hue)) 100% 78.82%);
+  --color-2: hsl(calc(78.08deg + var(--hue)) 100% 55.1%);
+  --color-3: hsl(calc(197.01deg + var(--hue)) 100% 61.96%);
+  --color-4: hsl(calc(50.85deg + var(--hue)) 100% 56.27%);
+  --color-5: hsl(calc(289.82deg + var(--hue)) 94.29% 65.69%);
+  --color-6: hsl(calc(337.18deg + var(--hue)) 100% 54.12%);
 
   --back-semitransparent-color: #fffe;
   --back-color: white;
   --text-color: black;
-  --link-color: var(--color-6);
-  --link-hover-color: var(--color-2);
+  --link-color: hsl(337.18deg 100% 54.12%);
+  --link-hover-color: hsl(78.08deg 100% 55.1%);
   --shadow-color: #0002;
   --subtext-color: #555;
   --code-text-color: var(--text-color);
@@ -36,12 +42,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-1: hsl(293.92deg 79.8% 19.41%);
-    --color-2: hsl(78.84deg 97.73% 17.25%);
-    --color-3: hsl(197.39deg 77.53% 17.45%);
-    --color-4: hsl(50.89deg 71.17% 21.76%);
-    --color-5: hsl(289.74deg 97.44% 15.29%);
-    --color-6: hsl(236.33deg 71.01% 13.53%);
+    --color-1: hsl(calc(293.92deg + var(--hue)) 79.8% 19.41%);
+    --color-2: hsl(calc(78.84deg + var(--hue)) 97.73% 17.25%);
+    --color-3: hsl(calc(197.39deg + var(--hue)) 77.53% 17.45%);
+    --color-4: hsl(calc(50.89deg + var(--hue)) 71.17% 21.76%);
+    --color-5: hsl(calc(289.74deg + var(--hue)) 97.44% 15.29%);
+    --color-6: hsl(calc(236.33deg + var(--hue)) 71.01% 13.53%);
 
     --back-semitransparent-color: #000c;
     --back-color: #111;
@@ -52,6 +58,20 @@
     --subtext-color: #aaa;
     --code-text-color: var(--text-color);
     --code-back-color: #fff3;
+  }
+}
+
+:root.on-steroids {
+  animation: rotate-hue 5s linear infinite;
+}
+
+@keyframes rotate-hue {
+  from {
+    --hue: 0deg;
+  }
+
+  to {
+    --hue: 360deg;
   }
 }
 
@@ -107,7 +127,7 @@ a:has(>img):hover {
 }
 
 a>img {
-  width: 100%;
+  inline-size: 100%;
   display: block;
 }
 
@@ -125,9 +145,9 @@ a>img {
 }
 
 .site-nav .title .face {
-  width: 100%;
+  inline-size: 100%;
   display: block;
-  height: unset;
+  block-size: unset;
   aspect-ratio: 1;
   mix-blend-mode: luminosity;
   order: 1;
@@ -140,8 +160,8 @@ a>img {
 
 .site-nav .title .name {
   display: block;
-  width: 100%;
-  height: calc(var(--spacing) * var(--site-name-height));
+  inline-size: 100%;
+  block-size: calc(var(--spacing) * var(--site-name-height));
   object-fit: contain;
 }
 
@@ -168,16 +188,21 @@ a>img {
 
 .site-nav li {
   font-weight: bold;
-  height: var(--spacing);
+  block-size: var(--spacing);
 }
 
 .site-nav li a {
-  height: 100%;
+  block-size: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--back-semitransparent-color);
   text-transform: uppercase;
+  font-size: calc(var(--spacing) / 2);
+}
+
+.on-steroids .site-nav li a {
+  mix-blend-mode: luminosity;
 }
 
 .site-nav li a:hover {
@@ -207,6 +232,10 @@ main {
   align-self: start;
 }
 
+.on-steroids .list-section {
+  mix-blend-mode: luminosity;
+}
+
 .list-section h1,
 .list-section h2,
 .list-section p {
@@ -234,6 +263,11 @@ footer {
   box-shadow: calc(var(--spacing) / 2) calc(var(--spacing) / 2) 0 0 var(--shadow-color);
 }
 
+.on-steroids .social-links,
+.on-steroids footer {
+  mix-blend-mode: luminosity;
+}
+
 .social-links {
   position: absolute;
   inset-inline-start: var(--spacing);
@@ -259,10 +293,11 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--spacing);
+  block-size: var(--spacing);
   padding: 0 calc(var(--spacing) / 2);
   text-transform: uppercase;
   font-weight: bold;
+  font-size: calc(var(--spacing) / 2);
 }
 
 /* article */
@@ -273,6 +308,8 @@ article {
   max-inline-size: calc(30 * var(--spacing));
   margin-block-end: var(--spacing);
   line-height: 1.9;
+  inline-size: round(100%, var(--spacing));
+  box-sizing: border-box;
 }
 
 article hr {
@@ -281,7 +318,7 @@ article hr {
 }
 
 .article-illustration img {
-  width: 100%;
+  inline-size: 100%;
 }
 
 article h1,
