@@ -1,5 +1,21 @@
 [
   {
+    "url": "custom-select/folders",
+    "img": "/assets/folders-custom-select.avif",
+    "alt": "A folder selector where the listed folders appear as a fanned out stack of folders.",
+    "title": "Springy file and folder selector with custom &lt;select&gt;",
+    "date": "2026-01-28",
+    "description": "Playing with the new customizable &lt;select&gt; element again, for a file picker with springy animations. See <a href='https://developer.chrome.com/blog/a-customizable-select'>this Chrome for developers blog post</a> for more info."
+  },
+  {
+    "url": "custom-select/emojis",
+    "img": "/assets/emoji-custom-select.avif",
+    "alt": "An emoji picker component where the emojis appear in a circle around the button when opened.",
+    "title": "Bouncy emoji picker with custom &lt;select&gt;",
+    "date": "2026-01-28",
+    "description": "Playing with the new customizable &lt;select&gt; element for an emoji picker. See <a href='https://developer.chrome.com/blog/a-customizable-select'>this Chrome for developers blog post</a> for more info."
+  },
+  {
     "url": "cityscape",
     "img": "/assets/cityscape.avif",
     "alt": "Screenshot of the demo page, black, pink, and blue 3D cubes, as seen from above, with perspective.",

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Folder and file picker</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: system-ui;
+      font-size: 15pt;
+      padding: 3rem;
+      box-sizing: border-box;
+      background:
+        linear-gradient(135deg, #f6d365 0%, #fda085 100%),
+        radial-gradient(circle at top left, #ff9ff3, #a855f7, #48dbfb);
+      background-blend-mode: multiply;
+    }
+
+    select,
+    ::picker(select) {
+      appearance: base-select;
+    }
+
+    select::picker-icon {
+      display: none;
+    }
+
+    select,
+    option span {
+      padding: .25rem .5rem;
+      border-radius: .25rem;
+      border: 0;
+    }
+
+    select {
+      background: linear-gradient(
+        135deg,
+        rgba(40, 40, 50, 0.4) 0%,
+        rgba(60, 60, 70, 0.25) 50%,
+        rgba(50, 50, 60, 0.35) 100%
+      );
+      backdrop-filter: blur(12px) saturate(180%);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      min-inline-size: 12rem;
+    }
+
+    select::before {
+      content: "📂";
+    }
+
+    select.files::before {
+      content: "📄";
+    }
+
+    ::picker(select) {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    option {
+      --stagger-delay: .01s;
+      --rotation-offset: 4deg;
+
+      /* So that all options have the same transform origin, in the top right corner of the picker area. */
+      transform-origin: right calc(sibling-index() * -1.5rem);
+
+      /* By default, options are not rotated, not visible. */
+      rotate: 0deg;
+      opacity: 0;
+
+      /* When the select is open, we transition the rotation angle and opacity. */
+      transition: 
+        opacity 0.3s ease-out,
+        rotate 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      /* But we do this with a gradually longer delay, to achieve a staggered effect. */
+      transition-delay: calc((sibling-index() - 1) * var(--stagger-delay));
+    }
+
+    select:open option {
+      opacity: 1;
+      rotate: calc(sibling-index() * -1 *  var(--rotation-offset));
+    }
+
+    @starting-style {
+      select:open option {
+        opacity: 0;
+        rotate: 0deg;
+      }
+    }
+
+    option span {
+      align-self: center;
+    }
+    
+    option::before {
+      content: "📁";
+      display: block;
+      font-size: 2.5rem;
+      align-self: center;
+      filter: drop-shadow(0 0 1rem rgba(0,0,0,.3));
+    }
+
+    option:checked::before {
+      content: "📂";
+    }
+
+    .files option::before {
+      content: "📄";
+    }
+
+    .files option:checked::before {
+      content: "📄";
+    }
+
+    option:hover {
+      background: none;
+    }
+
+    option:hover span {
+      background: #eee;
+    }
+
+    option:checked span {
+      background: #222;
+      color: white;
+    }
+
+    option::checkmark {
+      content: "●";
+      color: #222;
+    }
+
+    option:focus-visible {
+      outline: none;
+    }
+
+    option:focus-visible span {
+      outline: 2px solid black;
+      outline-offset: 2px;
+    }
+
+    #no-support {
+      display: none;
+      font-size: 1.5rem;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem 2rem;
+      border-radius: .5rem;
+      max-inline-size: max-content;
+    }
+
+    @supports not (appearance: base-select) {
+      #no-support {
+        display: block;
+      }
+
+      select {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="no-support">Sorry, it seems like your browser doesn't support custom &lt;select&gt; yet.</div>
+
+  <select>
+    <option value="documents"><span>Documents</span></option>
+    <option value="photos"><span>Photos</span></option>
+    <option value="music"><span>Music</span></option>
+    <option value="videos"><span>Videos</span></option>
+    <option value="downloads"><span>Downloads</span></option>
+    <option value="desktop"><span>Desktop</span></option>
+    <option value="projects"><span>Projects</span></option>
+    <option value="backups"><span>Backups</span></option>
+    <option value="trash"><span>Trash</span></option>
+  </select>
+
+  <select class="files">
+    <option value="readme"><span>readme.txt</span></option>
+    <option value="resume"><span>resume.pdf</span></option>
+    <option value="photo"><span>photo.jpg</span></option>
+    <option value="budget"><span>budget.xlsx</span></option>
+    <option value="notes"><span>notes.md</span></option>
+    <option value="presentation"><span>slides.pptx</span></option>
+    <option value="config"><span>config.json</span></option>
+    <option value="backup"><span>backup.zip</span></option>
+    <option value="playlist"><span>playlist.mp3</span></option>
+  </select>
+
+  <script>
+
+  </script>
+</body>
+
+</html>
