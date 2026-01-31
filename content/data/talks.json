@@ -1,5 +1,13 @@
 [
   {
+    "url": "/slides/2026-01-FOSDEM.pdf",
+    "img": "/assets/fosdem.png",
+    "alt": "Title slide of my talk, which is 'Improving the experience of developing for the web, one feature at a time', with he FOSDEM logo.",
+    "title": "Improving the experience of developing for the web, one feature at a time (FOSDEM 2026, Brussels)",
+    "date": "2026-01-31",
+    "description": "As developers, we rely on open source data, sometimes without even realizing it. Imagine your job without reliable browser compatibility data, or without CI or debugging tools that understand the features you're using and the browsers you target. That would be a pretty bad experience. In this talk, I dive into the <a href='https://github.com/mdn/browser-compat-data'>browser-compat-data</a>, <a href='https://github.com/web-platform-dx/web-features'>web-features</a>, and <a href='https://web-platform-dx.github.io/web-features/'>Baseline</a> projects, and show how they shape our experiences as developers. <a href='https://fosdem.org/2026/schedule/event/YWG7DK-improving_the_experience_of_developing_for_the_web_one_feature_at_a_time/'>Talk description</a>, <a href='/slides/2026-01-FOSDEM.pdf'>slides</a>."
+  },
+  {
     "url": "/slides/2025-10-CSS-Masonry.pdf",
     "img": "/assets/masonry-smashing.png",
     "alt": "Title slide, saying 'Masonry, the pretty grid you didn't see coming', and the SmasingConf logo below it.",
