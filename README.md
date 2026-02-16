@@ -2,17 +2,7 @@
 
 This is the source code for [Patrick Brosset's personal website](https://patrickbrosset.com) - a technical blog and portfolio showcasing articles, talks, labs, and experiments related to web development, browser DevTools, and CSS.
 
-## About
-
-This site serves as a platform for sharing technical articles, conference presentations, interactive demos, and experimental web projects. It features content primarily focused on:
-
-- Web development techniques and best practices
-- Browser Developer Tools
-- CSS features and demonstrations
-- Web standards and interoperability (Interop project)
-- Conference talks and presentations
-
-## Technical Stack
+## Technical stack
 
 The site is built using modern static site generation tools:
 
@@ -22,29 +12,25 @@ The site is built using modern static site generation tools:
   - `@11ty/eleventy-plugin-rss` - RSS feed generation
   - `@11ty/eleventy-plugin-syntaxhighlight` - Code syntax highlighting
   - `eleventy-plugin-youtube-embed` - YouTube video embeds
-  - Custom `tabify.js` plugin - Special formatting for tab-related content
 
-## Project Structure
+## Project structure
 
 ```
 .
 ├── content/                 # Source content
 │   ├── articles/           # Blog articles (Markdown)
 │   ├── lab/                # Interactive demos and experiments
-│   ├── slides/             # Conference presentation slides (PDF)
-│   ├── tabs/               # Special tab-related content
-│   ├── tracks/             # GPS tracks and related content
-│   ├── data/               # JSON data files (labs, talks, playlists)
+│   ├── slides/             # Conference presentation slides
+│   ├── data/               # JSON data files (labs, talks)
 │   ├── includes/           # Nunjucks templates and layouts
 │   └── assets/             # Images and static assets
 ├── _site/                  # Generated site output (git-ignored)
-├── .eleventy.js            # Eleventy configuration
-└── tabify.js               # Custom Eleventy plugin
+└── .eleventy.js            # Eleventy configuration
 ```
 
-## Key Features
+## Key features
 
-### Content Types
+### Content types
 
 1. **Articles**: Technical blog posts written in Markdown with support for:
    - External article links (using `external:` frontmatter field)
@@ -59,11 +45,7 @@ The site is built using modern static site generation tools:
 
 3. **Talks**: Conference presentations with metadata stored in `data/talks.json`
 
-4. **Slides**: PDF presentations from various conferences
-
-5. **Tabs**: Special formatted content using the custom tabify plugin
-
-### Template Features
+### Template features
 
 - **Custom filters**:
   - `dateTime`: Formats dates as YYYY-MM-DD
@@ -113,9 +95,9 @@ The site is built using modern static site generation tools:
   npm run watch
   ```
 
-## Content Creation
+## Content creation
 
-### Adding a New Article
+### Adding a new article
 
 1. Create a new Markdown file in `content/articles/` with frontmatter:
    ```markdown
@@ -144,18 +126,10 @@ The site is built using modern static site generation tools:
    ---
    ```
 
-### Adding Assets
+### Adding assets
 
 Place images and other assets in `content/assets/`. They will be automatically copied to the output directory.
 
 ## Deployment
 
 The site is generated as static files in the `_site` directory and can be deployed to any static hosting service.
-
-## License
-
-ISC License - See package.json for details.
-
-## Author
-
-Patrick Brosset - [@patrickbrosset](https://github.com/captainbrosset)
