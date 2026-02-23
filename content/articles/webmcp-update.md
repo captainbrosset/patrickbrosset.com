@@ -62,4 +62,4 @@ AI agents are already using the web, that much is true. On the Edge team, we car
 
 The best way to make it great is by testing it with real scenarios and then providing informed feedback. Google's early preview is a great step towards this, and stay tuned for more news from the Edge team as well!
 
-In the meantime, if you have ideas, feedback, concerns, or just want to get involved, please take a look at the [proposal](https://github.com/webmachinelearning/webmcp/blob/main/docs/proposal.md) and reach out, for example by [opening a new issue](https://github.com/webmachinelearning/webmcp/issues) or jumping existing discussions.
+In the meantime, if you have ideas, feedback, concerns, or just want to get involved, please take a look at the [proposal](https://github.com/webmachinelearning/webmcp/blob/main/docs/proposal.md) and reach out, for example by [opening a new issue](https://github.com/webmachinelearning/webmcp/issues) or jumping into existing discussions.
