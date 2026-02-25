@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art with CSS gap decorations</title>
+  <style>
+    :root {
+      --style: dashed;
+      --width: 2vmin;
+      --gap: 10vmin;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      display: grid;
+      place-content: center;
+      font-family: system-ui;
+      font-size: 12pt;
+      background: black;
+    }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-content: center;
+    }
+
+    .grid {
+      grid-area: 1 / 1;
+      width: 100vmin;
+      height: 100vmin;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: var(--gap);
+      rule: var(--width) var(--style) white;
+    }
+
+    .grid {
+      rotate: calc((sibling-index() - 1) * (360deg / sibling-count()));
+    }
+
+    .controls {
+      position: absolute;
+      z-index: 1;
+      inset: auto auto 0 0;
+      max-width: max-content;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .5rem;
+      background: white;
+      box-shadow: 0 0 0 1px black;
+      padding: 1rem;
+      color: black;
+      accent-color: black;
+    }
+
+    .input {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    button,
+    select,
+    input {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    .controls button,
+    .controls select {
+      background: black;
+      color: white;
+      border: none;
+      padding: .5rem 1rem;
+      border-radius: .5rem;
+      inline-size: 9rem;
+    }
+
+    .controls select,
+    .controls select::picker(select) {
+      appearance: base-select;
+    }
+
+    .controls select::picker(select) {
+      padding: 1rem;
+      background: black;
+      border-color: white;
+      border-radius: .5rem;
+      color: white;
+    }
+
+    .controls option {
+      padding: .5rem;
+    }
+
+    .controls option span {
+      width: 3rem;
+      height: 0;
+      margin-inline-start: auto;
+      border-block-start: 1rem var(--style) white;
+    }
+
+    @supports not ((width: calc(sibling-index() * 1px)) and (rule: 1px solid red)) {
+      .container::before {
+        content: "Sorry, this demo requires support for the `rule` CSS property and `sibling-index()` CSS function.";
+        place-self: center;
+        color: white;
+      }
+
+      .container .grid,
+      .controls {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <div class="input">
+      <label for="number">Number of grids:</label>
+      <input type="range" id="number" name="number" oninput="setNumberOfGrids(this.value)">
+    </div>
+    <div class="input">
+      <label for="style">Style:</label>
+      <select id="style" name="style" onchange="setStyle(this.value)"></select>
+    </div>
+    <div class="input">
+      <label for="width">Width:</label>
+      <input type="range" id="width" name="width" oninput="setWidth(this.value + 'vmin')">
+    </div>
+    <div class="input">
+      <label for="gap">Gap:</label>
+      <input type="range" id="gap" name="gap" oninput="setGap(this.value + 'vmin')">
+    </div>
+    <div class="input">
+      <button onclick="randomize()">Randomize!</button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="grid"></div>
+    <div class="grid"></div>
+    <div class="grid"></div>
+    <div class="grid"></div>
+    <div class="grid"></div>
+    <div class="grid"></div>
+    <div class="grid"></div>
+    <div class="grid"></div>
+    <div class="grid"></div>
+    <div class="grid"></div>
+  </div>
+
+  <script>
+    const container = document.querySelector('.container');
+    const numberInput = document.querySelector('#number');
+    const styleSelect = document.querySelector('#style');
+    const widthInput = document.querySelector('#width');
+    const gapInput = document.querySelector('#gap');
+
+    const STYLES = ['dashed', 'dotted', 'solid', 'double'];
+
+    const NUMBER_MIN = 1;
+    const NUMBER_MAX = 20;
+    const NUMBER_STEP = 1;
+
+    const WIDTH_MIN = 0.1;
+    const WIDTH_MAX = 7;
+    const WIDTH_STEP = 0.1;
+
+    const GAP_MIN = 0;
+    const GAP_MAX = 60;
+    const GAP_STEP = 1;
+
+    function initializeControls() {
+      numberInput.min = NUMBER_MIN;
+      numberInput.max = NUMBER_MAX;
+      numberInput.step = NUMBER_STEP;
+
+      widthInput.min = WIDTH_MIN;
+      widthInput.max = WIDTH_MAX;
+      widthInput.step = WIDTH_STEP;
+
+      gapInput.min = GAP_MIN;
+      gapInput.max = GAP_MAX;
+      gapInput.step = GAP_STEP;
+
+      styleSelect.innerHTML = '';
+      for (const style of STYLES) {
+        const option = document.createElement('option');
+        option.value = style;
+        option.textContent = style.charAt(0).toUpperCase() + style.slice(1);
+
+        const preview = document.createElement("span");
+        option.appendChild(preview);
+        option.style.setProperty('--style', style);
+
+        styleSelect.appendChild(option);
+      }
+      styleSelect.value = STYLES[0];
+
+      setNumberOfGrids(numberInput.value);
+      setStyle(styleSelect.value);
+      setWidth(widthInput.value + 'vmin');
+      setGap(gapInput.value + 'vmin');
+    }
+
+    function setNumberOfGrids(nb) {
+      container.innerHTML = '';
+      for (let i = 0; i < nb; i++) {
+        const grid = document.createElement('div');
+        grid.classList.add('grid');
+        container.appendChild(grid);
+      }
+    }
+
+    function setStyle(style) {
+      document.documentElement.style.setProperty('--style', style);
+    }
+
+    function setWidth(width) {
+      document.documentElement.style.setProperty('--width', width);
+    }
+
+    function setGap(gap) {
+      document.documentElement.style.setProperty('--gap', gap);
+    }
+
+    function randomize() {
+      const randomNumber = Math.floor(Math.random() * (NUMBER_MAX - NUMBER_MIN + 1)) + NUMBER_MIN;
+      const randomStyle = STYLES[Math.floor(Math.random() * STYLES.length)];
+      const randomWidth = (Math.round((Math.random() * (WIDTH_MAX - WIDTH_MIN) + WIDTH_MIN) / WIDTH_STEP) * WIDTH_STEP).toFixed(1);
+      const randomGap = Math.floor(Math.random() * (GAP_MAX - GAP_MIN + 1)) + GAP_MIN;
+
+      numberInput.value = randomNumber;
+      styleSelect.value = randomStyle;
+      widthInput.value = randomWidth;
+      gapInput.value = randomGap;
+
+      setNumberOfGrids(randomNumber);
+      setStyle(randomStyle);
+      setWidth(randomWidth + 'vmin');
+      setGap(randomGap + 'vmin');
+    }
+
+    initializeControls();
+    randomize();
+  </script>
+</body>
+
+</html>

@@ -1,5 +1,13 @@
 [
   {
+    "url": "gap-decoration-art",
+    "img": "/assets/gap-decoration-art.avif",
+    "alt": "Four abstract artworks, made of white lines and dots, in circular shapes, on a black background.",
+    "title": "Abusing CSS gap decoration for art",
+    "date": "2026-02-25",
+    "description": "CSS gap decorations are coming soon! So, as usual, I wanted to use this new feature in a way that wasn't really intended, just for fun, and for learning. This demo uses several square CSS grids, with absolutely no content in them, and only gap decorations. The grids are rotated and stacked, and you can customize the decorations to create nice patterns."
+  },
+  {
     "url": "custom-select/folders",
     "img": "/assets/folders-custom-select.avif",
     "alt": "A folder selector where the listed folders appear as a fanned out stack of folders.",
