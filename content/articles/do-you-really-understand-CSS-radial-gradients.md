@@ -406,9 +406,7 @@ Last but not least, let's take a quick look at [browser support](https://develop
 
 ![A copy of the MDN browser compat table for radial-gradient](/assets/radial-gradient/support.png)
 
-Overall, the function is very well supported across browsers, with the notable exception of the `at` keyword for positioning the ending shape in the gradient box in Safari.
-
-If you really need to use this syntax on Safari, then you're only way is to use the `background-position` property to move the gradient to the right place.
+The function is very well supported across browsers.
 
 ---
 
