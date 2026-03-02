@@ -1,0 +1,59 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 1cm;
+  }
+
+  h1 {
+    margin-block-start: 0;
+  }
+
+  body {
+    margin: 0;
+    width: 100%;
+    font-size: 12pt;
+  }
+
+  .intro {
+    place-self: center start;
+  }
+
+  .intro img {
+    height: 4em;
+    border-radius: 50%;
+  }
+
+  .intro ul {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 25em;
+    column-gap: 1em;
+  }
+
+  article h2 {
+    border-block-start: 0;
+    padding-block-start: 0;
+  }
+
+  /* Avoid breaking content across pages */
+  article {
+    page-break-inside: avoid;
+  }
+
+  h2, h3 {
+    page-break-after: avoid;
+  }
+
+  /* Ensure links are visible when printed */
+  a {
+    color: #d13a7a;
+  }
+
+  .skills {
+    display: none;
+  }
+
+  article:last-child {
+    display: none;
+  }
+}

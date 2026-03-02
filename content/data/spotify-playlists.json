@@ -1,0 +1,536 @@
+{
+  "created_at": "2026-03-02T08:51:55.313Z",
+  "total_playlists": 17,
+  "playlists": [
+    {
+      "id": "5L3ltsrSdrgVgzsaKvs0e9",
+      "name": "2026",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 13,
+        "href": "https://api.spotify.com/v1/playlists/5L3ltsrSdrgVgzsaKvs0e9/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/5L3ltsrSdrgVgzsaKvs0e9"
+      },
+      "href": "https://api.spotify.com/v1/playlists/5L3ltsrSdrgVgzsaKvs0e9",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e0271545c0813cae622eed49998ab67616d00001e0276a3fbbf7526808dac473368ab67616d00001e02b3503c84956920409b9a54faab67616d00001e02bbdd1c4cbed3c759d1b5c629",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e0271545c0813cae622eed49998ab67616d00001e0276a3fbbf7526808dac473368ab67616d00001e02b3503c84956920409b9a54faab67616d00001e02bbdd1c4cbed3c759d1b5c629",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e0271545c0813cae622eed49998ab67616d00001e0276a3fbbf7526808dac473368ab67616d00001e02b3503c84956920409b9a54faab67616d00001e02bbdd1c4cbed3c759d1b5c629",
+          "width": 60
+        }
+      ],
+      "uri": "spotify:playlist:5L3ltsrSdrgVgzsaKvs0e9"
+    },
+    {
+      "id": "76vjBjXvwkP16jGZxavQ7Y",
+      "name": "New Year 2026",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 121,
+        "href": "https://api.spotify.com/v1/playlists/76vjBjXvwkP16jGZxavQ7Y/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/76vjBjXvwkP16jGZxavQ7Y"
+      },
+      "href": "https://api.spotify.com/v1/playlists/76vjBjXvwkP16jGZxavQ7Y",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da844706bae90680b16aa9c88fe6",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:76vjBjXvwkP16jGZxavQ7Y"
+    },
+    {
+      "id": "0V4rYY9lkCTPJCGThskxSA",
+      "name": "2025",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 59,
+        "href": "https://api.spotify.com/v1/playlists/0V4rYY9lkCTPJCGThskxSA/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/0V4rYY9lkCTPJCGThskxSA"
+      },
+      "href": "https://api.spotify.com/v1/playlists/0V4rYY9lkCTPJCGThskxSA",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da8492ad2ff872d6819e78d003e6",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:0V4rYY9lkCTPJCGThskxSA"
+    },
+    {
+      "id": "2jzmUrax0IYXlXzmyEKZiG",
+      "name": "2024",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 63,
+        "href": "https://api.spotify.com/v1/playlists/2jzmUrax0IYXlXzmyEKZiG/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/2jzmUrax0IYXlXzmyEKZiG"
+      },
+      "href": "https://api.spotify.com/v1/playlists/2jzmUrax0IYXlXzmyEKZiG",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da844b881b0f67c7a48a1331e051",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:2jzmUrax0IYXlXzmyEKZiG"
+    },
+    {
+      "id": "3SxMIimuwytOvOMytl396i",
+      "name": "2023",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 62,
+        "href": "https://api.spotify.com/v1/playlists/3SxMIimuwytOvOMytl396i/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/3SxMIimuwytOvOMytl396i"
+      },
+      "href": "https://api.spotify.com/v1/playlists/3SxMIimuwytOvOMytl396i",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84f7b8175118d918b647fbe1cf",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:3SxMIimuwytOvOMytl396i"
+    },
+    {
+      "id": "55CPTk3cYAC4ibMDWW48A3",
+      "name": "2022",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 76,
+        "href": "https://api.spotify.com/v1/playlists/55CPTk3cYAC4ibMDWW48A3/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/55CPTk3cYAC4ibMDWW48A3"
+      },
+      "href": "https://api.spotify.com/v1/playlists/55CPTk3cYAC4ibMDWW48A3",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8414f36f61e93ced3377a61c30",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:55CPTk3cYAC4ibMDWW48A3"
+    },
+    {
+      "id": "5cFRK4pNFYWOBzwtaGwT0s",
+      "name": "2021",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 74,
+        "href": "https://api.spotify.com/v1/playlists/5cFRK4pNFYWOBzwtaGwT0s/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/5cFRK4pNFYWOBzwtaGwT0s"
+      },
+      "href": "https://api.spotify.com/v1/playlists/5cFRK4pNFYWOBzwtaGwT0s",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8482cb05a897bd0cc5f8e091ca",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:5cFRK4pNFYWOBzwtaGwT0s"
+    },
+    {
+      "id": "3bCYIeyjRj79C6sermupnB",
+      "name": "2020",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 46,
+        "href": "https://api.spotify.com/v1/playlists/3bCYIeyjRj79C6sermupnB/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/3bCYIeyjRj79C6sermupnB"
+      },
+      "href": "https://api.spotify.com/v1/playlists/3bCYIeyjRj79C6sermupnB",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84279748b43ef4a1e21f7cd82f",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:3bCYIeyjRj79C6sermupnB"
+    },
+    {
+      "id": "1oltC2awzlsPbXReXz3TW1",
+      "name": "2019",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 42,
+        "href": "https://api.spotify.com/v1/playlists/1oltC2awzlsPbXReXz3TW1/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/1oltC2awzlsPbXReXz3TW1"
+      },
+      "href": "https://api.spotify.com/v1/playlists/1oltC2awzlsPbXReXz3TW1",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da844e6693605109e561a55fb720",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:1oltC2awzlsPbXReXz3TW1"
+    },
+    {
+      "id": "0Md4hib97X4Kg5vs9Rb4bI",
+      "name": "2018",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 59,
+        "href": "https://api.spotify.com/v1/playlists/0Md4hib97X4Kg5vs9Rb4bI/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/0Md4hib97X4Kg5vs9Rb4bI"
+      },
+      "href": "https://api.spotify.com/v1/playlists/0Md4hib97X4Kg5vs9Rb4bI",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8400d62e9f25793f8d74902428",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:0Md4hib97X4Kg5vs9Rb4bI"
+    },
+    {
+      "id": "5qZG0HN5QA2AV53KbRTJpo",
+      "name": "2017",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 65,
+        "href": "https://api.spotify.com/v1/playlists/5qZG0HN5QA2AV53KbRTJpo/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/5qZG0HN5QA2AV53KbRTJpo"
+      },
+      "href": "https://api.spotify.com/v1/playlists/5qZG0HN5QA2AV53KbRTJpo",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da842e5b5464b4bd869ef8983ada",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:5qZG0HN5QA2AV53KbRTJpo"
+    },
+    {
+      "id": "4a8CVtgKL2qAnjf7iAEu00",
+      "name": "2016",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 61,
+        "href": "https://api.spotify.com/v1/playlists/4a8CVtgKL2qAnjf7iAEu00/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/4a8CVtgKL2qAnjf7iAEu00"
+      },
+      "href": "https://api.spotify.com/v1/playlists/4a8CVtgKL2qAnjf7iAEu00",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da848858811e31234c99676e09a0",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:4a8CVtgKL2qAnjf7iAEu00"
+    },
+    {
+      "id": "5eSDthI1Jlo5d8AANmqtjI",
+      "name": "2015",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 82,
+        "href": "https://api.spotify.com/v1/playlists/5eSDthI1Jlo5d8AANmqtjI/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/5eSDthI1Jlo5d8AANmqtjI"
+      },
+      "href": "https://api.spotify.com/v1/playlists/5eSDthI1Jlo5d8AANmqtjI",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da844d30f15cbada73f86a388a95",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:5eSDthI1Jlo5d8AANmqtjI"
+    },
+    {
+      "id": "08SlEvH23GEqpUuzVJdreO",
+      "name": "Best of Sigur Rós",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 9,
+        "href": "https://api.spotify.com/v1/playlists/08SlEvH23GEqpUuzVJdreO/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/08SlEvH23GEqpUuzVJdreO"
+      },
+      "href": "https://api.spotify.com/v1/playlists/08SlEvH23GEqpUuzVJdreO",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://mosaic.scdn.co/640/ab67616d00001e0210fc7f6809f8e1904b4afce3ab67616d00001e0211d8349d9bcc5e5d1bc43005ab67616d00001e027d5c9fa537845b71c4eb3b5eab67616d00001e02b19819836be834ecd3bbd764",
+          "width": 640
+        },
+        {
+          "height": 300,
+          "url": "https://mosaic.scdn.co/300/ab67616d00001e0210fc7f6809f8e1904b4afce3ab67616d00001e0211d8349d9bcc5e5d1bc43005ab67616d00001e027d5c9fa537845b71c4eb3b5eab67616d00001e02b19819836be834ecd3bbd764",
+          "width": 300
+        },
+        {
+          "height": 60,
+          "url": "https://mosaic.scdn.co/60/ab67616d00001e0210fc7f6809f8e1904b4afce3ab67616d00001e0211d8349d9bcc5e5d1bc43005ab67616d00001e027d5c9fa537845b71c4eb3b5eab67616d00001e02b19819836be834ecd3bbd764",
+          "width": 60
+        }
+      ],
+      "uri": "spotify:playlist:08SlEvH23GEqpUuzVJdreO"
+    },
+    {
+      "id": "7vUJpr6pD643cqGhhcxdbA",
+      "name": "Best of Archive",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 34,
+        "href": "https://api.spotify.com/v1/playlists/7vUJpr6pD643cqGhhcxdbA/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/7vUJpr6pD643cqGhhcxdbA"
+      },
+      "href": "https://api.spotify.com/v1/playlists/7vUJpr6pD643cqGhhcxdbA",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8418a5b897e0f12d8ab32baac1",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:7vUJpr6pD643cqGhhcxdbA"
+    },
+    {
+      "id": "2LuXG91E9AD7bOUgWDLFOi",
+      "name": "Best of Daft Punk",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 7,
+        "href": "https://api.spotify.com/v1/playlists/2LuXG91E9AD7bOUgWDLFOi/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/2LuXG91E9AD7bOUgWDLFOi"
+      },
+      "href": "https://api.spotify.com/v1/playlists/2LuXG91E9AD7bOUgWDLFOi",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da846ae7f60b426dc7d785ff28d8",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:2LuXG91E9AD7bOUgWDLFOi"
+    },
+    {
+      "id": "2fqpBCpxKAUWBE33ybh5eE",
+      "name": "Best of Metallica",
+      "description": "",
+      "public": true,
+      "collaborative": false,
+      "owner": {
+        "id": "pbrosset",
+        "display_name": "pbrosset",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/user/pbrosset"
+        }
+      },
+      "tracks": {
+        "total": 11,
+        "href": "https://api.spotify.com/v1/playlists/2fqpBCpxKAUWBE33ybh5eE/tracks"
+      },
+      "external_urls": {
+        "spotify": "https://open.spotify.com/playlist/2fqpBCpxKAUWBE33ybh5eE"
+      },
+      "href": "https://api.spotify.com/v1/playlists/2fqpBCpxKAUWBE33ybh5eE",
+      "images": [
+        {
+          "height": null,
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84188457ae2de61706e80ad7e7",
+          "width": null
+        }
+      ],
+      "uri": "spotify:playlist:2fqpBCpxKAUWBE33ybh5eE"
+    }
+  ]
+}

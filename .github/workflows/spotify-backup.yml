@@ -1,0 +1,35 @@
+name: Weekly Spotify Backup
+
+on:
+  schedule:
+    # Run every Monday at noon UTC
+    - cron: '0 12 * * 1'
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Backup Spotify albums
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+        run: node spotify-backup.js
+      
+      - name: Commit and push changes
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add content/data/spotify-albums.json content/data/spotify-playlists.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update Spotify backup data" && git push)

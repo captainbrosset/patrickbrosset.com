@@ -8,7 +8,8 @@
     "@11ty/eleventy": "^3.0.0",
     "@11ty/eleventy-plugin-rss": "^2.0.4",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.1",
-    "eleventy-plugin-youtube-embed": "^1.13.0"
+    "eleventy-plugin-youtube-embed": "^1.13.0",
+    "dotenv": "^16.3.1"
   },
   "scripts": {
     "build": "npx @11ty/eleventy",

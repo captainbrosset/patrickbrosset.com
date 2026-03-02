@@ -1,419 +1,364 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>patrick / resume</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1"
-    />
-    <style>
-      @import url("https://fonts.googleapis.com/css?family=Rokkitt");
 
-      body {
-        margin: 0 auto 1em auto;
-        width: 60%;
-        max-width: 1000px;
-        font-family: Rokkitt, serif;
-        font-size: 14pt;
-        line-height: 1.5;
-        color: #444;
+<head>
+  <title>patrick / resume</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Rokkitt");
 
-        display: grid;
-        grid-template-columns: max-content 1fr;
-      }
+    body {
+      margin: 3em auto 3em auto;
+      width: 60%;
+      max-width: 1000px;
+      font-family: Rokkitt, serif;
+      font-size: 14pt;
+      line-height: 1.5;
+      color: #444;
 
-      ul,
-      li {
-        padding: 0;
-        margin: 0;
-        list-style-type: none;
-      }
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      column-gap: 1em;
+    }
 
-      a {
-        color: #d13a7a;
-        text-decoration: none;
-        transition: box-shadow 0.2s ease-in;
-      }
-      a:hover {
-        box-shadow: 0 4px 0 0;
+    ul,
+    li {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+    }
+
+    a {
+      color: #d13a7a;
+      text-decoration: none;
+      transition: box-shadow 0.2s ease-in;
+    }
+
+    a:hover {
+      box-shadow: 0 4px 0 0;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      padding-top: 1em;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+
+    h1,
+    article {
+      grid-column: span 2;
+    }
+
+    .intro {
+      place-self: center start;
+    }
+
+    @media screen and (max-width: 600px) {
+      .intro {
+        grid-column: span 2;
+        text-align: center;
       }
 
       h1 {
-        margin-top: 3em;
-      }
-      h2 {
-        margin-bottom: 0;
-        padding-top: 1em;
-      }
-      h3 {
-        margin-top: 0;
-      }
-
-      h1,
-      article {
-        grid-column: span 2;
-      }
-
-      @media screen and (max-width: 600px) {
-        .intro {
-          grid-column: span 2;
-          text-align: center;
-        }
-
-        h1 {
-          text-align: center;
-        }
-
-        body {
-          width: 75%;
-        }
-      }
-
-      article h2 {
-        border-top: 2px solid #d13a7a26;
-      }
-
-      article p {
-        margin-bottom: 0;
-      }
-
-      .intro img {
-        height: 7.5em;
-        margin-right: 1em;
-      }
-
-      .skills {
-        margin-top: 1em;
-      }
-
-      .skills li {
-        display: inline;
-        background: #d13a7a26;
-        padding: 0.1em 0.3em;
-        border-radius: 2px;
-        white-space: nowrap;
-      }
-
-      footer {
         text-align: center;
-        grid-column: span 2;
-        margin-top: 1em;
       }
-    </style>
-  </head>
-  <body>
-    <h1>Patrick Brosset</h1>
 
-    <section class="intro">
-      <img src="/assets/headshot.png" alt="A photo of myself" />
-    </section>
+      body {
+        width: 75%;
+      }
+    }
 
-    <section class="intro">
-      <ul>
-        <li>
-          <a href="mailto:patrickbrosset@gmail.com">patrickbrosset@gmail.com</a>
-        </li>
-        <li>
-          <a href="https://patrickbrosset.com">https://patrickbrosset.com</a>
-        </li>
-        <li>
-          <a href="https://mas.to/@patrickbrosset">Mastodon</a> | <a href="https://bsky.app/profile/patrickbrosset.com">Bluesky</a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/patrickbrosset/">LinkedIn</a>
-        </li>
-        <li>+33 6 25 30 67 25</li>
-      </ul>
-    </section>
+    article h2 {
+      border-top: 2px solid #d13a7a26;
+    }
 
-    <article>
-      <h2>Senior Product Manager, Edge Developer Experience</h2>
-      <h3>
-        <a href="http://www.microsoft.com/" target="blank">Microsoft</a>, France
-        (remote), July 2021 &raquo; Now
-      </h3>
-      <div class="content">
-        <p>
-          As part of the Edge Web Experiences team, my role main role is DevRel. I document and evangelize Edge web technologies such as web platform, DevTools, PWA or WebView. I manage our open-source community across multiple repositories. I write developer documentation on the <a href="https://learn.microsoft.com/microsoft-edge/">Edge developer docs website</a>, <a href="https://developer.mozilla.org">MDN</a>, and other places. I produce demos, videos, blog posts, and speak at conferences.
-        </p>
-        <p>
-          I also participate in multiple cross-company web ecosystem initiatives such as <a href="https://www.w3.org/community/docs-cg/">W3C Docs Community Group</a>, <a href="https://github.com/web-platform-tests/interop/">Interop project</a>, <a href="https://webwewant.fyi/">The Web We Want</a>, <a href="https://www.w3.org/community/webdx/">W3C WebDX Community Group</a>, <a href="https://openwebdocs.org/">Open Web Docs</a>, <a href="https://docs.google.com/document/d/1vC2IRBel2PIahJLE1Mrnd4nm0OMvWDQcKUQSsfxMFBY/edit">FUGU</a>, and others.
-        </p>
-        <p>
-          I also act as a feature PM for the Edge web platform and DevTools teams, on various features.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>Blogging</li>
-        <li>Technical documentation</li>
-        <li>Evangelism</li>
-        <li>Customer listening</li>
-        <li>Open-Source</li>
-        <li>Video producing</li>
-        <li>Public speaking</li>
-        <li>Cross-company meetings</li>
-        <li>Web platform</li>
-        <li>Standards</li>
-      </ul>
-    </article>
+    article p {
+      margin-bottom: 0;
+    }
 
-    <article>
-      <h2>Senior Developer Tools Engineer</h2>
-      <h3>
-        <a href="http://www.microsoft.com/" target="blank">Microsoft</a>, France
-        (remote), May 2020 &raquo; July 2021
-      </h3>
-      <div class="content">
-        <p>
-          Part of the Microsoft Edge Developer Tools team as a senior software engineer. I helped implement new features (such as layout debugging and <a href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/DevTools/FocusMode/explainer.md">Focus mode</a>), triaged and acted on customer feedback, fixed bugs and improved accessibility in DevTools.
-          A lot of the work was done on the open-source Chromium project, in collaboration with the Chrome DevTools team at Google.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>Open-Source</li>
-        <li>Remote work</li>
-        <li>Code reviews</li>
-        <li>HTML/CSS/JavaScript</li>
-        <li>TypeScript</li>
-        <li>C++</li>
-      </ul>
-    </article>
+    .intro img {
+      height: 8.5em;
+      display: block;
+    }
 
-    <article>
-      <h2>Senior Firefox DevTools Engineering Manager</h2>
-      <h3>
-        <a href="http://www.mozilla.com/" target="blank">Mozilla</a>, France
-        (remote), June 2018 &raquo; April 2020
-      </h3>
-      <div class="content">
-        <p>
-          I was in charge of the engineering team that implemented and
-          maintained the following tools in Firefox: CSS grid inspector, Flexbox
-          inspector, Fonts editor, CSS Shapes editor, CSS Changes tracker, the
-          Responsive Design Mode and more.<br />
-          These are industry-leading tools that have been acclaimed by DevTools
-          users, and have been influencing other browser vendors' strategies.<br />
-          The biggest part of my job consisted in managing engineers, including
-          hiring, mentoring, planning, setting goals and expectations, doing
-          performance reviews, etc.<br />
-          I was also actively involved in defining the product strategy, setting
-          team goals and helping design and ship new features, keeping in close
-          contact with product management and user experience.<br />
-          I was also the owner of the DevTools module within
-          <a href="https://wiki.mozilla.org/Modules/All#DevTools"
-            >the Mozilla project</a
-          >.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>People management</li>
-        <li>Hiring</li>
-        <li>Planning</li>
-        <li>Strategy</li>
-        <li>CSS specifications</li>
-        <li>User testing</li>
-      </ul>
-    </article>
+    .skills {
+      margin-top: 1em;
+    }
 
-    <article>
-      <h2>Firefox DevTools Engineering Manager</h2>
-      <h3>
-        <a href="http://www.mozilla.com/" target="blank">Mozilla</a>, France
-        (remote), May 2015 &raquo; June 2018
-      </h3>
-      <div class="content">
-        <p>
-          At first I managed a sub-team within DevTools, but then moved on to
-          being in charge of the entire group (~20 people, including two
-          managers and their teams).<br />
-          My responsibilities included people management, hiring, planning,
-          defining strategies and goals and technical ownership of the Inspector
-          module.<br />
-          I led the team through various projects including: the first CSS
-          layout debugging tool in any browser (CSS Grid inspector, which I
-          actively helped design, implement and ship), important re-architecture
-          projects (XUL removal, and multi-process support), refactor of the
-          entire UI with React/Redux, new remote debugging features, etc.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>People management</li>
-        <li>Hiring</li>
-        <li>Planning</li>
-        <li>Strategy</li>
-        <li>React/Redux</li>
-        <li>HTML/CSS/JavaScript</li>
-      </ul>
-    </article>
+    .skills li {
+      display: inline;
+      background: #d13a7a26;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
 
-    <article>
-      <h2>Senior Firefox DevTools Software Engineer</h2>
-      <h3>
-        <a href="http://www.mozilla.com/" target="blank">Mozilla</a>, France
-        (remote), August 2013 &raquo; May 2015
-      </h3>
-      <div class="content">
-        <p>
-          Worked remotely with a geographically distributed team, on Firefox
-          DevTools, part of the open-source Mozilla project.<br />
-          I was in charge of the DOM/HTML/CSS tooling within DevTools.<br />
-          My main work consisted in setting the Inspector tool on a trajectory
-          that would make it relevant and even possibly leading in the
-          future.<br />
-          I implemented a lot of missing features then, modernized it, but also
-          implemented innovative features (a CSS animation/transition inspector,
-          a CSS transform previewer). Finally, I participated in many code
-          clean-up and re-architecture projects such as the implementation of an
-          entire new rendering stack for highlighting elements in the page.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>Open-Source</li>
-        <li>Remote work</li>
-        <li>Code reviews</li>
-        <li>HTML/CSS/JavaScript</li>
-        <li>C++</li>
-      </ul>
-    </article>
+    footer {
+      text-align: center;
+      grid-column: span 2;
+      margin-top: 1em;
+    }
+  </style>
+  <link rel="stylesheet" href="/assets/resume-print.css" media="print" />
+</head>
 
-    <article>
-      <h2>Senior Software Engineer</h2>
-      <h3>
-        <a href="http://www.amadeus.com/" target="blank">Amadeus</a>, France,
-        July 2012 &raquo; August 2013
-      </h3>
-      <div class="content">
-        <p>
-          I joined the newly created Airport IT development group within
-          Amadeus, and worked on mission-critical applications for the Airport
-          IT industry.<br />
-          I helped implement a runway sequence planner and a stand and gate
-          allocation tool.<br />
-          I wrote mostly HTML5, CSS3 and JavaScript with client-side frameworks.
-          The applications had to deal with big amounts of data that needed to
-          be displayed live with high performance.<br />
-          I also spent 2 months in Munich, Germany, to help and train a part of
-          the development team based there.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>HTML/CSS/JavaScript</li>
-        <li>Performance</li>
-        <li>Training</li>
-      </ul>
-    </article>
+<body>
+  <h1>Patrick Brosset</h1>
 
-    <article>
-      <h2>Team Leader</h2>
-      <h3>
-        <a href="http://www.amadeus.com/" target="blank">Amadeus</a>, France,
-        June 2009 &raquo; July 2012
-      </h3>
-      <div class="content">
-        <p>
-          I was in charge of the team developing the Amadeus
-          <a
-            href="http://github.com/ariatemplates/ariatemplates/"
-            target="blank"
-            >aria templates</a
-          >
-          UI framework.<br />
-          The team was focused on delivering a fast and reliable framework that
-          powered professional single-page web apps for the travel-industry
-          business.<br />
-          I helped create the team, put in place processes and managed the day
-          to day activities.<br />
-          The framework became the official Amadeus UI web stack, used by
-          hundreds within the company, and later on also open sourced.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>Open-Source</li>
-        <li>Git/GitHub</li>
-        <li>Hiring</li>
-        <li>People management</li>
-        <li>Project management</li>
-        <li>SCRUM</li>
-      </ul>
-    </article>
+  <section class="intro">
+    <img src="/assets/headshot.png" alt="A photo of myself" />
+  </section>
 
-    <article>
-      <h2>Software Engineer</h2>
-      <h3>
-        <a href="http://www.amadeus.com/" target="blank">Amadeus</a>, France,
-        January 2008 &raquo; May 2009
-      </h3>
-      <div class="content">
-        <p>
-          Using a variety of technologies from Java/J2EE to Ajax, I participated
-          in the design, architecture, development and maintenance of an
-          internal client/server application framework.<br />
-          I also trained other development teams to use the framework.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>J2EE</li>
-        <li>HTML/CSS/JavaScript</li>
-        <li>Training/mentoring</li>
-      </ul>
-    </article>
+  <section class="intro">
+    <ul>
+      <li>
+        <a href="mailto:patrickbrosset@gmail.com">patrickbrosset@gmail.com</a>
+      </li>
+      <li>
+        <a href="https://patrickbrosset.com">https://patrickbrosset.com</a>
+      </li>
+      <li>
+        <a href="https://mas.to/@patrickbrosset">Mastodon</a>
+      </li>
+      <li>
+        <a href="https://bsky.app/profile/patrickbrosset.com">Bluesky</a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/patrickbrosset/">LinkedIn</a>
+      </li>
+      <li>+33 6 25 30 67 25</li>
+    </ul>
+  </section>
 
-    <article>
-      <h2>Software Engineer</h2>
-      <h3>
-        <a href="http://www.groupeastek.com/" target="blank">Astek</a>, France,
-        July 2006 &raquo; January 2008
-      </h3>
-      <div class="content">
-        <p>
-          I worked on
-          <a href="https://aircanada.com" target="blank">aircanada.com</a>'s
-          booking website and implemented and maintained several of the pages,
-          using JSP, HTML, CSS and JavaScript.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>J2EE</li>
-        <li>HTML/CSS/JavaScript</li>
-      </ul>
-    </article>
+  <article>
+    <h2>Principal Product Manager, Edge Web Platform</h2>
+    <h3>
+      <a href="http://www.microsoft.com/">Microsoft</a>, France
+      (remote), July 2021 &raquo; Now
+    </h3>
+    <div class="content">
+      <p>
+        Lead Edge Web Platform developer ecosystem efforts, focusing on customer
+        listening, interoperability, web standards, and evangelism.
+      </p>
+      <p>
+        Evangelize Chromium and Edge features to make the web easier to use,
+        through developer documentation, feature announcements on blogs and social media,
+        videos, and talks at conferences.
+      </p>
+      <p>
+        Drive cross-company web ecosystem initiatives including <a
+          href="https://www.w3.org/community/docs-cg/">W3C Docs Community Group</a>, <a
+          href="https://github.com/web-platform-tests/interop/">Interop project</a>, <a
+          href="https://webwewant.fyi/">The Web We Want</a>, <a href="https://www.w3.org/community/webdx/">W3C WebDX
+          Community Group</a>, <a href="https://openwebdocs.org/">Open Web Docs</a>, <a
+          href="https://docs.google.com/document/d/1vC2IRBel2PIahJLE1Mrnd4nm0OMvWDQcKUQSsfxMFBY/edit">FUGU</a>, and
+        others, aligning stakeholders and advancing shared standards goals.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>Blogging</li>
+      <li>Technical documentation</li>
+      <li>Evangelism</li>
+      <li>Customer listening</li>
+      <li>Open Source</li>
+      <li>Public speaking</li>
+      <li>Cross-company collaboration</li>
+      <li>Web platform</li>
+      <li>Standards</li>
+      <li>Interoperability</li>
+    </ul>
+  </article>
 
-    <article>
-      <h2>Web Designer/Developer</h2>
-      <h3>
-        <a href="https://web.archive.org/web/20040519181104/http://zoe.co.nz/" target="blank">Zoe Communications</a>, New
-        Zealand, June 2004 &raquo; February 2006
-      </h3>
-      <div class="content">
-        <p>
-          As a web developer and designer, I created websites for companies in
-          New Zealand. I was responsible for meeting with customers, designing
-          the pages and implementing the sites, based on a CMS.
-        </p>
-      </div>
-      <ul class="skills">
-        <li>PHP/MySQL</li>
-        <li>HTML/CSS/JavaScript</li>
-        <li>UX/UI Design</li>
-      </ul>
-    </article>
+  <article>
+    <h2>Senior Developer Tools Engineer</h2>
+    <h3>
+      <a href="http://www.microsoft.com/">Microsoft</a>, France
+      (remote), May 2020 &raquo; July 2021
+    </h3>
+    <div class="content">
+      <p>
+        Delivered new Edge DevTools features such as layout debugging and <a
+          href="https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/DevTools/FocusMode/explainer.md">Focus
+          mode</a>, acted on customer feedback, fixed bugs, and improved accessibility. Contributed to the open source
+        Chromium project in close collaboration with the Chrome DevTools team.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>Open Source</li>
+      <li>Code reviews</li>
+      <li>HTML/CSS/JavaScript</li>
+      <li>TypeScript</li>
+      <li>C++</li>
+    </ul>
+  </article>
 
-    <article>
-      <h2>Education and certifications</h2>
-      <ul>
-        <li>
-          Telecommunications engineering degree.
-          <a href="https://www.insa-lyon.fr/en/" target="blank">INSA de Lyon</a
-          >, France, 1998 &raquo; 2003
-        </li>
-        <li>
-          Master's degree.
-          <a href="https://www.kth.se/en" target="blank">KTH</a>, Sweden, 2001
-          &raquo; 2003
-        </li>
-        <li>Certified SCRUM Master</li>
-      </ul>
-    </article>
-  </body>
+  <article>
+    <h2>Senior Firefox DevTools Engineering Manager</h2>
+    <h3>
+      <a href="http://www.mozilla.com/">Mozilla</a>, France
+      (remote), May 2015 &raquo; April 2020
+    </h3>
+    <div class="content">
+      <p>
+        I led the Firefox DevTools engineering org, owning strategy, hiring, and
+        execution while shipping major UI and architecture updates, remote
+        debugging, and industry-leading inspection tools (Grid, Flexbox,
+        Fonts, Shapes, Changes, Responsive Design Mode) that influenced other
+        browser vendors and advanced Firefox DevTools.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>People management</li>
+      <li>Hiring</li>
+      <li>Planning</li>
+      <li>Strategy</li>
+      <li>User testing</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Senior Firefox DevTools Software Engineer</h2>
+    <h3>
+      <a href="http://www.mozilla.com/">Mozilla</a>, France
+      (remote), August 2013 &raquo; May 2015
+    </h3>
+    <div class="content">
+      <p>
+        Led DOM/HTML/CSS debugging in Firefox DevTools with a distributed team,
+        defining the design-tools direction and shipping animation, layout, and
+        CSS debugging features.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>Open Source</li>
+      <li>Code reviews</li>
+      <li>HTML/CSS/JavaScript</li>
+      <li>C++</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Senior Software Engineer</h2>
+    <h3>
+      <a href="http://www.amadeus.com/">Amadeus</a>, France,
+      July 2012 &raquo; August 2013
+    </h3>
+    <div class="content">
+      <p>
+        Built mission-critical Airport IT apps such as runway sequencing and
+        stand/gate allocation, handling high-volume live data with strong
+        performance. Wrote mostly HTML/CSS/JavaScript and trained the Munich
+        team for two months.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>HTML/CSS/JavaScript</li>
+      <li>Performance</li>
+      <li>Training</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Team Leader</h2>
+    <h3>
+      <a href="http://www.amadeus.com/">Amadeus</a>, France,
+      June 2009 &raquo; July 2012
+    </h3>
+    <div class="content">
+      <p>
+        Led the team building the open source Amadeus
+        <a href="http://github.com/ariatemplates/ariatemplates/">aria templates</a>
+        UI framework, delivering a fast, reliable foundation for travel-industry
+        single-page apps. Set up team processes and ran day-to-day delivery.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>Open Source</li>
+      <li>Git/GitHub</li>
+      <li>Hiring</li>
+      <li>People management</li>
+      <li>Project management</li>
+      <li>SCRUM</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Software Engineer</h2>
+    <h3>
+      <a href="http://www.amadeus.com/">Amadeus</a>, France,
+      January 2008 &raquo; May 2009
+    </h3>
+    <div class="content">
+      <p>
+        Designed, built, and maintained an internal client/server framework
+        using Java/J2EE and Ajax, and trained other teams to adopt it.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>J2EE</li>
+      <li>HTML/CSS/JavaScript</li>
+      <li>Training/mentoring</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Software Engineer</h2>
+    <h3>
+      <a href="http://www.groupeastek.com/">Astek</a>, France,
+      July 2006 &raquo; January 2008
+    </h3>
+    <div class="content">
+      <p>
+        Implemented and maintained key pages of
+        <a href="https://aircanada.com">aircanada.com</a>'s
+        booking site using JSP, HTML, CSS, and JavaScript.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>J2EE</li>
+      <li>HTML/CSS/JavaScript</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Web Designer and Developer</h2>
+    <h3>
+      <a href="https://web.archive.org/web/20040519181104/http://zoe.co.nz/">Zoe Communications</a>, New
+      Zealand, June 2004 &raquo; February 2006
+    </h3>
+    <div class="content">
+      <p>
+        Designed and built CMS-based websites for New Zealand clients, owning
+        customer discovery, page design, and implementation.
+      </p>
+    </div>
+    <ul class="skills">
+      <li>PHP/MySQL</li>
+      <li>HTML/CSS/JavaScript</li>
+      <li>UX/UI Design</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Education and certifications</h2>
+    <ul>
+      <li>
+        Telecommunications engineering degree.
+        <a href="https://www.insa-lyon.fr/en/">INSA de Lyon</a>, France, 1998 &raquo; 2003
+      </li>
+      <li>
+        Master's degree.
+        <a href="https://www.kth.se/en">KTH</a>, Sweden, 2001
+        &raquo; 2003
+      </li>
+      <li>Certified SCRUM Master</li>
+    </ul>
+  </article>
+</body>
+
 </html>
