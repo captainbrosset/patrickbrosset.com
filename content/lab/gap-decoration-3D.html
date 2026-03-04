@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D gap decorations</title>
+  <style>
+    :root {
+      /* How close to the ground the camera is. */
+      /* Min: 25vh (very close) */
+      /* Max: 35vh (beyond this, the repeat of the ground pattern doesn't work). */
+      --distance: 30vh;
+
+      /* How fast the ground goes by. Lower value = faster. */
+      /* Min: 50s, there isn't really a limit, but 50s is very very slow. */
+      /* Max: 2s, very fast, lower values won't work. */
+      --speed: 10s;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      perspective: var(--distance);
+      background-image: radial-gradient(farthest-side circle at 50% 0, #23aae1, #5f1a5f, black 140%);
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 0;
+      z-index: 1;
+      background: linear-gradient(to bottom, black -50% 0%, transparent 40%);
+    }
+
+    .road {
+      width: 100vw;
+      height: 200vh;
+
+      display: grid;
+      grid-template-columns: repeat(40, 1fr);
+      grid-template-rows: repeat(80, 1fr);
+      gap: 1px;
+      rule: 1px solid #fff6;
+
+      transform-origin: top center;
+      transform: rotateX(25deg) translateY(-135vh);
+
+      animation: drive var(--speed) linear infinite;
+    }
+
+    @keyframes drive {
+      0% {
+        transform: rotateX(25deg) translateY(-135vh);
+      }
+
+      100% {
+        transform: rotateX(25deg) translateY(0);
+      }
+    }
+
+    span {
+      place-self: center;
+      font-family: fantasy;
+      color: #ff62f9ad;
+      font-size: calc(200vh / 90);
+      text-shadow: 0 0 1vh #ffff99;
+    }
+
+    .controls {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 1em;
+      background: #0008;
+      color: white;
+      accent-color: white;
+      font-family: system-ui;
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1em;
+      flex-wrap: wrap;
+      z-index: 2;
+    }
+
+    .controls .input {
+      display: flex;
+      align-items: center;
+      gap: .5em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="road">
+    <span style="grid-area:51 / 18;">G</span>
+    <span style="grid-area:52 / 18;">A</span>
+    <span style="grid-area:53 / 18;">P</span>
+
+    <span style="grid-area:51 / 22;">D</span>
+    <span style="grid-area:52 / 22;">E</span>
+    <span style="grid-area:53 / 22;">C</span>
+    <span style="grid-area:54 / 22;">O</span>
+    <span style="grid-area:55 / 22;">R</span>
+    <span style="grid-area:56 / 22;">A</span>
+    <span style="grid-area:57 / 22;">T</span>
+    <span style="grid-area:58 / 22;">I</span>
+    <span style="grid-area:59 / 22;">O</span>
+    <span style="grid-area:60 / 22;">N</span>
+    <span style="grid-area:61 / 22;">S</span>
+  </div>
+  <div class="controls">
+    <div class="input">
+      <label for="speed">Speed</label>
+      <input id="speed" type="range" min="2" max="50" value="10">
+    </div>
+    <div class="input">
+      <label for="distance">Distance</label>
+      <input id="distance" type="range" min="25" max="35" value="30">
+    </div>
+  </div>
+  <script>
+    const rootStyle = document.documentElement.style;
+    const speedInput = document.getElementById("speed");
+    const distanceInput = document.getElementById("distance");
+
+    const updateSpeed = () => {
+      // Invert the value: 2 → 50s (fastest), 50 → 2s (slowest)
+      const inverted = parseInt(speedInput.min) + parseInt(speedInput.max) - parseInt(speedInput.value);
+      rootStyle.setProperty("--speed", `${inverted}s`);
+    };
+
+    const updateDistance = () => {
+      rootStyle.setProperty("--distance", `${distanceInput.value}vh`);
+    };
+
+    speedInput.addEventListener("input", updateSpeed);
+    distanceInput.addEventListener("input", updateDistance);
+
+    updateSpeed();
+    updateDistance();
+  </script>
+</body>
+
+</html>
