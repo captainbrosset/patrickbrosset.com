@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>focusgroup pacman</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      place-content: center;
+      background: black;
+    }
+
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    td {
+      /* Must match the NB var in JS */
+      --nb: 20;
+
+      inline-size: calc(90vmin / var(--nb));
+      block-size: calc(90vmin / var(--nb));
+      padding: 0;
+      text-align: center;
+      font-size: 0;
+
+      background: radial-gradient(circle at center, white 10%, transparent 0);
+    }
+
+    td[data-eaten="true"] {
+      background: none;
+    }
+
+    td:focus-within {
+      outline: none;
+    }
+
+    td:focus-within::before {
+      content: "";
+      display: block;
+      inline-size: 80%;
+      aspect-ratio: 1;
+      margin: 10%;
+      border-radius: 50%;
+
+      animation: eat 1s linear infinite;
+    }
+
+    @keyframes eat {
+      from {
+        background-image: conic-gradient(from 60deg,
+            transparent 0deg 60deg,
+            #dfd007 60deg 360deg);
+      }
+
+      to {
+        background-image: conic-gradient(from 60deg,
+            transparent 0deg,
+            #dfd007 0deg 360deg);
+      }
+    }
+
+    td:not([tabindex]) {
+      background: rgb(7, 19, 83);
+    }
+
+    table:not(:has(td[data-eaten="false"])) {
+      animation: win 1s linear infinite;
+    }
+
+    @keyframes win {
+      from {
+        filter: hue-rotate(0deg);
+      }
+
+      to {
+        filter: hue-rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <table focusgroup="grid wrap">
+  </table>
+
+  <script>
+    const NB = 20;
+
+    function parseLevel(rows) {
+      return rows.map(row => [...row].map(Number));
+    }
+
+    const LEVELS = [
+      parseLevel([
+        "00010000000000001000",
+        "01111111101111111110",
+        "01000000101000000110",
+        "01111110101111110110",
+        "01010010101010010110",
+        "01110110101110110110",
+        "00000100000000100000",
+        "01111111111111111110",
+        "01000100011000100010",
+        "01110111011011101110",
+        "11010101000010101011",
+        "01110101111110101110",
+        "01000101000010100010",
+        "01111101111110111110",
+        "01000001011010000010",
+        "01111111011011111110",
+        "01000000000000000010",
+        "01111111111111111110",
+        "01111111111111111110",
+        "00010000000000001000",
+      ]),
+      parseLevel([
+        "00000000000000000000",
+        "01111111111111111110",
+        "01000000011000000010",
+        "01111111011011111110",
+        "00000101000010100000",
+        "01110101111110101110",
+        "01010100000000101010",
+        "01010111101111101010",
+        "01010000101000001010",
+        "01111110101011111110",
+        "00000010101010000000",
+        "01111110101010111110",
+        "01000000100010000010",
+        "01101111111111110110",
+        "01001000000000010010",
+        "01111011111111101110",
+        "01000010011000100010",
+        "01111110011000111110",
+        "01111111111111111110",
+        "00000000000000000000",
+      ]),
+      parseLevel([
+        "00000000000000000000",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "01111111111111111110",
+        "00000000000000000000",
+      ]),
+      parseLevel([
+        "11111111111111111111",
+        "11111111111111111111",
+        "11111111111111111111",
+        "00010001000101010001",
+        "01110101011101010111",
+        "00110101011101010001",
+        "01110101011101011101",
+        "01110001000100010001",
+        "11111111111111111111",
+        "11111111111111111111",
+        "11111111111111111111",
+        "11111111111111111111",
+        "10001001100010101000",
+        "10111010101010101010",
+        "10001001101010101000",
+        "10101010101010101011",
+        "10001010100010001011",
+        "11111111111111111111",
+        "11111111111111111111",
+        "11111111111111111111",
+      ]),
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    const levelParam = Number.parseInt(params.get("level"), 10);
+    const noClipping = params.has("no-clipping");
+
+    const levelIndex = Number.isFinite(levelParam) && levelParam >= 0 && levelParam < LEVELS.length
+      ? levelParam
+      : 0;
+    const currentLevel = LEVELS[levelIndex];
+
+    const table = document.querySelector("table");
+
+    let activeCell = null;
+
+    for (let i = 0; i < NB; i++) {
+      const tr = document.createElement("tr");
+
+      for (let j = 0; j < NB; j++) {
+        const td = document.createElement("td");
+        td.dataset.row = i;
+        td.dataset.col = j;
+        tr.appendChild(td);
+
+        // 1 = walkable cell, 0 = wall.
+        if (currentLevel[i][j] === 0) {
+          continue;
+        }
+
+        td.dataset.eaten = "false";
+        td.tabIndex = 0;
+      }
+
+      table.appendChild(tr);
+    }
+
+    const center = Math.floor(NB / 2);
+    const centerCell = table.querySelector(`td[data-row="${center}"][data-col="${center}"][tabindex]`);
+    activeCell = centerCell || table.querySelector("td[tabindex]");
+
+    if (!activeCell) {
+      throw new Error("The selected level has no walkable cells.");
+    }
+
+    activeCell.focus();
+
+    addEventListener("focusin", event => {
+      const oldRow = Number(activeCell.dataset.row);
+      const oldCol = Number(activeCell.dataset.col);
+
+      const newRow = Number(event.target.dataset.row);
+      const newCol = Number(event.target.dataset.col);
+
+      const rowDelta = Math.abs(newRow - oldRow);
+      const colDelta = Math.abs(newCol - oldCol);
+
+      const isAdjacentJump = rowDelta <= 1 && colDelta <= 1;
+      const isEdgeWrapJump =
+        (rowDelta === NB - 1 && colDelta === 0) ||
+        (colDelta === NB - 1 && rowDelta === 0);
+
+      // Make sure they are adjacent (except for wrapping cases).
+      if (!noClipping && !isAdjacentJump && !isEdgeWrapJump) {
+        // Force re-focus back to the previously focused cell if the jump is not valid.
+        activeCell.focus();
+        return;
+      }
+
+      activeCell = document.activeElement;
+      activeCell.dataset.eaten = "true";
+    });
+  </script>
+
+</body>
+
+</html>
