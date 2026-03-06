@@ -33,17 +33,27 @@
       text-align: center;
       font-size: 0;
 
+      /* Draw a dot in the cell, which animates away once focused. */
       background: radial-gradient(circle at center, white 10%, transparent 0);
+      animation: eaten .00001s linear forwards;
+      animation-play-state: paused;
     }
 
-    td[data-eaten="true"] {
-      background: none;
+    td:focus-within {
+      animation-play-state: running;
+    }
+
+    @keyframes eaten {
+      to {
+        background: none;
+      }
     }
 
     td:focus-within {
       outline: none;
     }
 
+    /* Draw pacman in the focused cell. */
     td:focus-within::before {
       content: "";
       display: block;
@@ -71,20 +81,6 @@
 
     td:not([tabindex]) {
       background: rgb(7, 19, 83);
-    }
-
-    table:not(:has(td[data-eaten="false"])) {
-      animation: win 1s linear infinite;
-    }
-
-    @keyframes win {
-      from {
-        filter: hue-rotate(0deg);
-      }
-
-      to {
-        filter: hue-rotate(360deg);
-      }
     }
   </style>
 </head>
@@ -219,7 +215,6 @@
           continue;
         }
 
-        td.dataset.eaten = "false";
         td.tabIndex = 0;
       }
 
@@ -259,7 +254,6 @@
       }
 
       activeCell = document.activeElement;
-      activeCell.dataset.eaten = "true";
     });
   </script>
 
