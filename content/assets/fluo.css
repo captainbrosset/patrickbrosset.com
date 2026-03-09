@@ -317,10 +317,6 @@ article hr {
   margin: var(--spacing) 0;
 }
 
-.article-illustration img {
-  inline-size: 100%;
-}
-
 article h1,
 article h2,
 article h3,
@@ -342,9 +338,9 @@ article :last-child {
 }
 
 article img {
-  max-height: 50vh;
-  max-width: 100%;
-  width: unset;
+  max-block-size: 50vh;
+  max-inline-size: 100%;
+  inline-size: unset;
 }
 
 /* inline code snippets and key shortcuts */
