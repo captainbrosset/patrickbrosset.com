@@ -141,7 +141,7 @@ Here's a demo that uses hover instead of focus, and has multiple elements with t
 
 ## Animating other properties
 
-Of course changing colors is just a simple thing you can do with this. But, CS animations are capable of changing any property, including custom properties, and even properties that can't be animated.
+Of course changing colors is just a simple thing you can do with this. But, CSS animations are capable of changing any property, including custom properties, and even properties that can't be animated.
 
 For example, you could use this technique to add a checkmark icon next to an element that was focused by animating the `content` property of a pseudo-element, even if `content` is not animatable.
 
