@@ -143,9 +143,9 @@ Here's a demo that uses hover instead of focus, and has multiple elements with t
 
 Of course changing colors is just a simple thing you can do with this. But, CSS animations are capable of changing any property, including custom properties, and even properties that can't be animated.
 
-For example, you could use this technique to add a checkmark icon next to an element that was focused by animating the `content` property of a pseudo-element, even if `content` is not animatable.
+For example, to display an icon next to an element that was focused, you could use the technique to animate the `content` property of the element's `::after` pseudo, even if `content` is not animatable.
 
-Try it yourself: click the first box below, and then use tab to navigate to the next boxes. You'll see a checkmark appear next to the boxes you've already focused:
+Try it yourself: focus the first box below, and then use tab to navigate to the next boxes. You'll see the icon next to the boxes you've already focused change:
 
 <style>
 .checks {
