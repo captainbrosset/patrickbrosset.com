@@ -31,7 +31,7 @@ Let's use these properties to set up our animation:
 ```css
 .remember-focus {
   animation-name: remember-focus;
-  animation-duration: 0.000001s;
+  animation-duration: .00001s;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
   animation-play-state: paused;
@@ -42,13 +42,13 @@ Or, using the shorthand syntax:
 
 ```css
 .remember-focus {
-  animation: remember-focus 0.000001s linear forwards paused;
+  animation: remember-focus .00001s linear forwards paused;
 }
 ```
 
 The `.remember-focus` class sets an animation on the element, keeping it paused for now, but filling forwards so it retains the end state once it runs.
 
-Notice the weirdly short animation duration of `0.000001s`. That's because we want the animation to reach its end state immediately after starting. The duration needs to be short enough to be effectively instant to the user.
+Notice the weirdly short animation duration of `.00001s`. That's because we want the animation to reach its end state immediately after starting. The duration needs to be short enough to be effectively instant to the user.
 
 Whenever we're ready to change the state, all we have to do is play the animation. Let's say we want to do this when the element receives the user focus:
 
@@ -87,7 +87,7 @@ Here's a live demo of the code we've just seen. Click or tab to focus the box: t
   color: white;
   font-weight: bold;
   font-size: 1.1rem;
-  animation: remember-focus 0.000001s linear forwards paused;
+  animation: remember-focus .00001s linear forwards paused;
 }
 .remember-focus:focus {
   animation-play-state: running;
@@ -117,7 +117,7 @@ Here's a demo that uses hover instead of focus, and has multiple elements with t
   aspect-ratio: 1;
 }
 .hover-grid div {
-  animation: remember-hover 0.000001s linear forwards paused;
+  animation: remember-hover .00001s linear forwards paused;
 }
 .hover-grid div:hover {
   animation-play-state: running;
@@ -158,7 +158,7 @@ Try it yourself: focus the first box below, and then use tab to navigate to the 
   border: 2px dashed black;
   inline-size: max-content;
   cursor: pointer;
-  animation: check-on-focus 0.000001s linear forwards paused;
+  animation: check-on-focus .00001s linear forwards paused;
 }
 .checks .check-on-focus:hover {
   background: #eee;
@@ -166,7 +166,7 @@ Try it yourself: focus the first box below, and then use tab to navigate to the 
 .checks .check-on-focus::after {
   content: "🐰";
   margin-inline-start: .25rem;
-  animation: check-on-focus 0.000001s linear forwards paused;
+  animation: check-on-focus .00001s linear forwards paused;
 }
 .checks .check-on-focus:focus {
   animation-play-state: running;
@@ -198,7 +198,7 @@ First, let's use the technique to swap the value of a custom property called `--
 ```css
 .track-focus {
   --was-focused: false;
-  animation: track-focus 0.000001s linear forwards paused;
+  animation: track-focus .00001s linear forwards paused;
 }
 .track-focus:focus-within {
   animation-play-state: running;
@@ -242,7 +242,7 @@ And here is the result:
 }
 .track-focus {
   --was-focused: false;
-  animation: track-focus 0.000001s linear forwards paused;
+  animation: track-focus .00001s linear forwards paused;
 }
 .track-focus:focus-within {
   animation-play-state: running;
