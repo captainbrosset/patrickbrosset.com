@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anchor system</title>
+  <style>
+    html {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-size: 10px;
+    }
+
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+      background-image:
+        radial-gradient(circle at 12% 20%, rgb(255 255 255 / 0.36) 0.8px, transparent 1.2px),
+        radial-gradient(circle at 78% 14%, rgb(255 255 255 / 0.28) 0.7px, transparent 1.1px),
+        radial-gradient(circle at 30% 72%, rgb(255 255 255 / 0.33) 0.9px, transparent 1.3px),
+        radial-gradient(circle at 66% 62%, rgb(255 255 255 / 0.25) 0.7px, transparent 1.1px),
+        radial-gradient(circle at 44% 38%, rgb(255 255 255 / 0.2) 0.6px, transparent 1px);
+      background-size: 260px 260px, 320px 320px, 420px 420px, 540px 540px, 700px 700px;
+      background-position: 0 0, 80px 40px, 120px 180px, 220px 90px, 40px 260px;
+    }
+
+    :root {
+      --speed-multiplier: 1;
+
+      --sun-size: 10rem;
+      --sun-year: calc(5s / var(--speed-multiplier));
+      --mercury-size: 1.4rem;
+      --mercury-orbit: 18rem;
+      --mercury-year: calc(2s / var(--speed-multiplier));
+      --mercury-phase: 0.12;
+      --venus-size: 2.4rem;
+      --venus-orbit: 24rem;
+      --venus-year: calc(5.12s / var(--speed-multiplier));
+      --venus-phase: 0.68;
+      --earth-size: 2.6rem;
+      --earth-orbit: 30rem;
+      --earth-year: calc(8.32s / var(--speed-multiplier));
+      --earth-phase: 0.34;
+      --mars-size: 1.8rem;
+      --mars-orbit: 36rem;
+      --mars-year: calc(15.64s / var(--speed-multiplier));
+      --mars-phase: 0.91;
+      --jupiter-size: 5.8rem;
+      --jupiter-orbit: 52rem;
+      --jupiter-year: calc(98.4s / var(--speed-multiplier));
+      --jupiter-phase: 0.43;
+      --saturn-size: 5rem;
+      --saturn-orbit: 66rem;
+      --saturn-year: calc(244.6s / var(--speed-multiplier));
+      --saturn-phase: 0.79;
+      --uranus-size: 3.6rem;
+      --uranus-orbit: 82rem;
+      --uranus-year: calc(697.4s / var(--speed-multiplier));
+      --uranus-phase: 0.26;
+      --neptune-size: 3.4rem;
+      --neptune-orbit: 98rem;
+      --neptune-year: calc(1368s / var(--speed-multiplier));
+      --neptune-phase: 0.57;
+    }
+
+    .sun {
+      inline-size: var(--sun-size);
+      aspect-ratio: 1;
+      background: yellow;
+      border-radius: 50%;
+      position: absolute;
+      top: calc(50% - var(--sun-size) / 2);
+      left: calc(50% - var(--sun-size) / 2);
+      z-index: calc(sibling-count());
+
+      anchor-name: --sun;
+    }
+
+    .spin .sun {
+      animation: orbit var(--sun-year) linear infinite reverse;
+      offset-path: circle(50vmin at 50% 50%);
+    }
+
+    .orbit {
+      position: absolute;
+      left: calc(anchor(--sun center) - var(--orbit) / 2);
+      top: calc(anchor(--sun center) - var(--orbit) / 2);
+      border-radius: 50%;
+      border: 1px solid #fff4;
+      aspect-ratio: 1;
+      width: var(--orbit);
+      z-index: calc(sibling-count() - sibling-index());
+    }
+
+    .orbit .planet {
+      width: var(--diameter);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--surface);
+
+      position: absolute;
+      offset-path: circle(calc(var(--orbit) / 2) at 50% 50%);
+      animation: orbit var(--year) linear infinite;
+      animation-delay: calc(var(--year) * var(--phase) * -1);
+
+      anchor-name: --planet;
+    }
+
+    .orbit .rings {
+      position: absolute;
+      offset-path: circle(calc(var(--orbit) / 2) at 50% 50%);
+      animation: orbit var(--year) linear infinite;
+      animation-delay: calc(var(--year) * var(--phase) * -1);
+      width: calc(var(--diameter) * 2);
+      height: calc(var(--diameter) / 2);
+      background:
+        radial-gradient(ellipse at center,
+          rgb(255 255 255 / 0) 22%,
+          rgb(236 218 171 / 0.55) 28%,
+          rgb(212 187 136 / 0.8) 34%,
+          rgb(242 230 197 / 0.65) 41%,
+          rgb(181 152 103 / 0.75) 49%,
+          rgb(234 214 172 / 0.55) 58%,
+          rgb(255 255 255 / 0) 67%),
+        radial-gradient(ellipse at center,
+          rgb(255 255 255 / 0) 0 27%,
+          rgb(255 255 255 / 0.22) 31%,
+          rgb(255 255 255 / 0) 37%,
+          rgb(255 255 255 / 0.14) 46%,
+          rgb(255 255 255 / 0) 57%);
+      border-radius: 50%;
+      clip-path: shape(from 0 0, line to 25% 0, line to 25% 50%, arc to 75% 50% of 85% ccw, line to 75% 0, line to 100% 0, line to 100% 100%, line to 0 100%);
+    }
+
+    .orbit::after {
+      content: attr(data-name);
+      color: white;
+      font-family: system-ui;
+      font-size: 2rem;
+      line-height: 0;
+      position: absolute;
+      top: anchor(--planet center);
+      left: calc(1rem + anchor(--planet right));
+    }
+
+    @keyframes orbit {
+      from {
+        offset-distance: 0%;
+      }
+
+      to {
+        offset-distance: 100%;
+      }
+    }
+
+    .sun:hover,
+    .orbit:hover,
+    .orbit:hover .planet {
+      box-shadow: 0 0 0 .25rem rgb(77 229 255);
+    }
+
+    [data-name="mercury" i] {
+      --orbit: var(--mercury-orbit);
+      --diameter: var(--mercury-size);
+      --year: var(--mercury-year);
+      --phase: var(--mercury-phase);
+      --surface: radial-gradient(circle at 30% 30%, #b9b9b9, #8e8e8e 58%, #5f5f5f);
+    }
+
+    [data-name="venus" i] {
+      --orbit: var(--venus-orbit);
+      --diameter: var(--venus-size);
+      --year: var(--venus-year);
+      --phase: var(--venus-phase);
+      --surface: radial-gradient(circle at 35% 25%, #f7e7b0, #d8b66b 55%, #a88145);
+    }
+
+    [data-name="earth" i] {
+      --orbit: var(--earth-orbit);
+      --diameter: var(--earth-size);
+      --year: var(--earth-year);
+      --phase: var(--earth-phase);
+      --surface:
+        radial-gradient(45% 35% at 65% 34%, rgb(99 183 97 / 0.9) 0 42%, rgb(99 183 97 / 0) 58%),
+        radial-gradient(32% 26% at 38% 58%, rgb(74 161 88 / 0.85) 0 45%, rgb(74 161 88 / 0) 62%),
+        radial-gradient(28% 22% at 30% 30%, rgb(117 196 103 / 0.75) 0 40%, rgb(117 196 103 / 0) 60%),
+        radial-gradient(circle at 50% 75%, #71cfff 0 35%, #1a6fb8 65%, #0b3d91 100%);
+    }
+
+    [data-name="mars" i] {
+      --orbit: var(--mars-orbit);
+      --diameter: var(--mars-size);
+      --year: var(--mars-year);
+      --phase: var(--mars-phase);
+      --surface: radial-gradient(circle at 35% 30%, #e8a17c, #c7653d 60%, #7b2f1d);
+    }
+
+    [data-name="jupiter" i] {
+      --orbit: var(--jupiter-orbit);
+      --diameter: var(--jupiter-size);
+      --year: var(--jupiter-year);
+      --phase: var(--jupiter-phase);
+      --surface: linear-gradient(12deg, #f3dfba 0%, #ebcc97 20%, #d8ab73 38%, #c08b5d 56%, #ae754a 74%, #ca9a68 88%, #e2be8d 100%);
+    }
+
+    [data-name="saturn" i] {
+      --orbit: var(--saturn-orbit);
+      --diameter: var(--saturn-size);
+      --year: var(--saturn-year);
+      --phase: var(--saturn-phase);
+      --surface: linear-gradient(160deg, #f8efcf 0%, #eed8a0 38%, #d4b777 62%, #b9965f 100%);
+    }
+
+    [data-name="uranus" i] {
+      --orbit: var(--uranus-orbit);
+      --diameter: var(--uranus-size);
+      --year: var(--uranus-year);
+      --phase: var(--uranus-phase);
+      --surface: radial-gradient(circle at 30% 30%, #bdf6ff, #6ed3de 58%, #3a9eab);
+    }
+
+    [data-name="neptune" i] {
+      --orbit: var(--neptune-orbit);
+      --diameter: var(--neptune-size);
+      --year: var(--neptune-year);
+      --phase: var(--neptune-phase);
+      --surface: radial-gradient(circle at 30% 28%, #7fc2ff, #2f72d6 60%, #17388e);
+    }
+
+    .controls {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 15px;
+      display: flex;
+      gap: .5em;
+      padding: .5em;
+      background: #fff5;
+      border-radius: 0 0 0 .5em;
+      z-index: calc(sibling-count() + 1);
+    }
+
+    .controls button {
+      font-size: inherit;
+      background: white;
+      border: 1px solid #0002;
+      border-radius: 0.25em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <button title="Zoom out" id="zoom-out">-</button>
+    <button title="Zoom in" id="zoom-in">+</button>
+    <button title="Spin the system" id="spin">↺</button>
+    <button title="Go faster" id="faster">»</button>
+    <button title="Go slower" id="slower">«</button>
+  </div>
+  <div class="sun"></div>
+  <div class="orbit" data-name="Mercury">
+    <div class="planet"></div>
+  </div>
+  <div class="orbit" data-name="Venus">
+    <div class="planet"></div>
+  </div>
+  <div class="orbit" data-name="Earth">
+    <div class="planet"></div>
+  </div>
+  <div class="orbit" data-name="Mars">
+    <div class="planet"></div>
+  </div>
+  <div class="orbit" data-name="Jupiter">
+    <div class="planet"></div>
+  </div>
+  <div class="orbit" data-name="Saturn">
+    <div class="planet"></div>
+    <div class="rings"></div>
+  </div>
+  <div class="orbit" data-name="Uranus">
+    <div class="planet"></div>
+  </div>
+  <div class="orbit" data-name="Neptune">
+    <div class="planet"></div>
+  </div>
+
+  <script>
+    const zoomOut = document.querySelector('#zoom-out');
+    const zoomIn = document.querySelector('#zoom-in');
+    const spin = document.querySelector('#spin');
+    const faster = document.querySelector('#faster');
+    const slower = document.querySelector('#slower');
+    const root = document.documentElement;
+
+    zoomOut.addEventListener('click', () => {
+      const currentSize = parseFloat(getComputedStyle(root).fontSize);
+      root.style.fontSize = `${currentSize * 0.9}px`;
+    });
+
+    zoomIn.addEventListener('click', () => {
+      const currentSize = parseFloat(getComputedStyle(root).fontSize);
+      root.style.fontSize = `${currentSize * 1.1}px`;
+    });
+
+    spin.addEventListener('click', () => {
+      root.classList.toggle('spin');
+    });
+
+    faster.addEventListener('click', () => {
+      const currentMultiplier = parseFloat(getComputedStyle(root).getPropertyValue('--speed-multiplier'));
+      root.style.setProperty('--speed-multiplier', currentMultiplier * 1.25);
+    });
+
+    slower.addEventListener('click', () => {
+      const currentMultiplier = parseFloat(getComputedStyle(root).getPropertyValue('--speed-multiplier'));
+      root.style.setProperty('--speed-multiplier', currentMultiplier * 0.8);
+    });
+  </script>
+</body>
+
+</html>

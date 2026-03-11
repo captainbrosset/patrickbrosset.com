@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nested Masonry Lab</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      --nb: attr(data-length type(<number>));
+      scroll-snap-type: block mandatory;
+    }
+
+    .level, .win-message, .start-screen {
+      --unit-width: calc(100vw / var(--nb));
+      --block-height: 5vh;
+
+      block-size: 100vh;
+      scale: 1 -1;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+
+      display: grid-lanes;
+      grid-template-columns: repeat(var(--nb), var(--unit-width));
+
+      background:
+        radial-gradient(circle at 220px 225px, #fffd 70px, transparent 0),
+        radial-gradient(circle at 300px 250px, #fffd 100px, transparent 0),
+        radial-gradient(circle at 390px 220px, #fffd 64px, transparent 0),
+        radial-gradient(circle at 810px 240px, #fffd 40px, transparent 0),
+        radial-gradient(circle at 860px 270px, #fffd 60px, transparent 0),
+        radial-gradient(circle at 920px 300px, #fffd 100px, transparent 0),
+        radial-gradient(circle at 1000px 280px, #fffd 50px, transparent 0),
+        radial-gradient(circle at 180px 80vh, rgb(255, 255, 230) 70px, rgb(247, 215, 70) 100px, transparent 0),
+        linear-gradient(to top, rgb(135, 206, 235), rgb(135, 206, 235) 50%, rgb(135, 206, 250) 100%);
+      background-size:
+        1200px 500px,
+        1200px 500px,
+        1200px 500px,
+        1200px 500px,
+        1200px 500px,
+        1200px 500px,
+        1200px 500px,
+        100% 100%,
+        100% 100%;
+      background-repeat:
+        repeat,
+        repeat,
+        repeat,
+        repeat,
+        repeat,
+        repeat,
+        repeat,
+        no-repeat,
+        repeat;
+      background-position:
+        calc(100px * (sibling-index() - 1)) 0,
+        calc(100px * (sibling-index() - 1)) 0,
+        calc(100px * (sibling-index() - 1)) 0,
+        calc(100px * (sibling-index() - 1)) 0,
+        calc(100px * (sibling-index() - 1)) 0,
+        calc(100px * (sibling-index() - 1)) 0,
+        calc(100px * (sibling-index() - 1)) 0,
+        0 0,
+        0 0;
+    }
+
+    .level {
+      counter-increment: level;
+    }
+
+    .level::after, .win-message::after, .start-screen::after {
+      content: "Level " counter(level);
+      position: absolute;
+      bottom: 5vh;
+      justify-self: center;
+      scale: 1 -1;
+      font-size: 8vh;
+      font-family: system-ui;
+      font-weight: bold;
+      color: black;
+      padding: 1vh;
+      border-radius: 1vh;
+      background: #fff5;
+    }
+
+    .ground {
+      background: linear-gradient(to top, green, #14370e);
+
+      block-size: calc(attr(data-altitude type(<number>)) * var(--block-height));
+    }
+
+    .ground.up {
+      border-radius: 0 0 0 var(--block-height);
+    }
+
+    .ground.down,
+    .ground:has(+ .ground.down) {
+      border-radius: 0 0 var(--block-height) 0;
+    }
+
+
+    .ground.up:has(+ .ground.down) {
+      border-radius: 0 0 var(--block-height) var(--block-height);
+    }
+
+    .ground.down:has(+ .ground.up) {
+      border-radius: 0;
+      clip-path: shape(from -1px -1px,
+          line to 102% -1px,
+          line to 102% 100%,
+          arc to -1px 100% of 1% ccw,
+          line to -1px -1px);
+    }
+
+    .ground.down:has(+ .ground:not(.up):not(.down)) {
+      border-radius: 0;
+    }
+
+    @property --rotation {
+      syntax: '<angle>';
+      inherits: true;
+      initial-value: 0deg;
+    }
+
+    .player-pos {
+      inline-size: var(--unit-width);
+      aspect-ratio: 1;
+      grid-column: calc(sibling-index() - var(--nb));
+      border-radius: 50%;
+      --rotation: calc(sibling-index() * -60deg);
+    }
+
+    .player-pos:focus {
+      background: conic-gradient(from var(--rotation) at 50% 50%,
+          red 0 60deg,
+          rgb(216, 65, 216) 60deg 120deg,
+          rgb(69, 137, 182) 120deg 180deg,
+          rgb(16, 179, 16) 180deg 240deg,
+          rgb(204, 204, 16) 240deg 300deg,
+          orange 300deg 360deg);
+    }
+
+    .win-message, .start-screen {
+      display: grid;
+      place-content: center;
+    }
+
+    .start-screen::after {
+      content: "Press Tab to start playing!";
+    }
+
+    .win-message::after {
+      content: "You won!";
+    }
+  </style>
+</head>
+
+<body data-length="20" data-levels="10">
+  <div class="start-screen" tabindex="0"></div>
+  <div class="win-message" tabindex="0"></div>
+
+  <script>
+    const NB = Number(document.body.dataset.levels);
+    const LENGTH = Number(document.body.dataset.length);
+    const MAX_ALTITUDE = 15;
+    let lastAltitude = Math.round(MAX_ALTITUDE / 2);
+    const winMessageEl = document.querySelector('.win-message');
+    const startScreenEl = document.querySelector('.start-screen');
+
+    function getAltitude(previousAltitude) {
+      // Randomly return a new altitude that's either +1 or -1 from the previous one.
+      const change = Math.random() < 0.5 ? -1 : 1;
+      const newAltitude = previousAltitude + change;
+      // Ensure the new altitude is between 1 and 4.
+      return Math.max(1, Math.min(MAX_ALTITUDE, newAltitude));
+    }
+
+    addEventListener('DOMContentLoaded', () => {
+      for (let levelIndex = 0; levelIndex < NB; levelIndex++) {
+        const levelEl = document.createElement('div');
+        levelEl.className = 'level';
+        levelEl.setAttribute('focusgroup', 'toolbar inline nomemory');
+        document.body.insertBefore(levelEl, winMessageEl);
+
+        for (let i = 0; i < LENGTH; i++) {
+          const ground = document.createElement('div');
+          ground.className = 'ground';
+          ground.tabIndex = -1;
+
+          const newAltitude = getAltitude(lastAltitude);
+          ground.dataset.altitude = newAltitude;
+          ground.classList.toggle('up', newAltitude > lastAltitude);
+          ground.classList.toggle('down', newAltitude < lastAltitude);
+          lastAltitude = Number(ground.dataset.altitude);
+
+          levelEl.appendChild(ground);
+        }
+
+        for (let i = 0; i < LENGTH; i++) {
+          const playerPos = document.createElement('div');
+          playerPos.className = 'player-pos';
+          playerPos.tabIndex = 0;
+          levelEl.appendChild(playerPos);
+        }
+      }
+
+      startScreenEl.focus();
+    });
+  </script>
+</body>
+
+</html>
