@@ -1,7 +1,414 @@
 {
-  "created_at": "2026-03-30T12:51:14.831Z",
+  "created_at": "2026-04-06T12:44:17.770Z",
   "total_albums": 682,
   "albums": [
+    {
+      "added_at": "2024-02-08T11:36:44Z",
+      "album": {
+        "id": "2ZwNcWl8h9blysDE8i4juL",
+        "name": "Playing Robots Into Heaven",
+        "artists": [
+          {
+            "id": "53KwLdlmrlCelAZMaLVZqU",
+            "name": "James Blake"
+          }
+        ],
+        "release_date": "2023-09-08",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2ZwNcWl8h9blysDE8i4juL"
+        },
+        "href": "https://api.spotify.com/v1/albums/2ZwNcWl8h9blysDE8i4juL?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273921f7aa6349a070b6f26b3ff",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02921f7aa6349a070b6f26b3ff",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851921f7aa6349a070b6f26b3ff",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2ZwNcWl8h9blysDE8i4juL"
+      }
+    },
+    {
+      "added_at": "2024-07-19T11:55:58Z",
+      "album": {
+        "id": "5dhet1luldVxu21FUspJXV",
+        "name": "Once in a Long, Long While...",
+        "artists": [
+          {
+            "id": "5WoWlP0ihSFIxnppxjwSgE",
+            "name": "Low Roar"
+          }
+        ],
+        "release_date": "2017-04-14",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5dhet1luldVxu21FUspJXV"
+        },
+        "href": "https://api.spotify.com/v1/albums/5dhet1luldVxu21FUspJXV?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27387986e804018697f14194ace",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0287986e804018697f14194ace",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485187986e804018697f14194ace",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5dhet1luldVxu21FUspJXV"
+      }
+    },
+    {
+      "added_at": "2024-01-19T08:17:52Z",
+      "album": {
+        "id": "754ju3m25jKqrlevlJibZl",
+        "name": "°1",
+        "artists": [
+          {
+            "id": "0glR494sLIJfgyO03vHgnw",
+            "name": "Champion"
+          }
+        ],
+        "release_date": "2013-05-28",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/754ju3m25jKqrlevlJibZl"
+        },
+        "href": "https://api.spotify.com/v1/albums/754ju3m25jKqrlevlJibZl?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27352a384e8057f40341f29f8ef",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0252a384e8057f40341f29f8ef",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485152a384e8057f40341f29f8ef",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:754ju3m25jKqrlevlJibZl"
+      }
+    },
+    {
+      "added_at": "2024-04-29T14:05:32Z",
+      "album": {
+        "id": "5SqZ5yS7uG7e7lqZHIMLXs",
+        "name": "Let the monster fall",
+        "artists": [
+          {
+            "id": "1tMIosPVEqpXGdD8JW1tIe",
+            "name": "Thomas de Pourquery"
+          }
+        ],
+        "release_date": "2024-03-29",
+        "total_tracks": 14,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5SqZ5yS7uG7e7lqZHIMLXs"
+        },
+        "href": "https://api.spotify.com/v1/albums/5SqZ5yS7uG7e7lqZHIMLXs?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273d0308400c0327027bc8a1961",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02d0308400c0327027bc8a1961",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851d0308400c0327027bc8a1961",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5SqZ5yS7uG7e7lqZHIMLXs"
+      }
+    },
+    {
+      "added_at": "2024-08-10T13:05:38Z",
+      "album": {
+        "id": "0aYwzFnbFur2SEyJKKS0LD",
+        "name": "Sand",
+        "artists": [
+          {
+            "id": "4oMBP1OWXtmxyDhAj2aRyQ",
+            "name": "Balthazar"
+          }
+        ],
+        "release_date": "2021-02-26",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0aYwzFnbFur2SEyJKKS0LD"
+        },
+        "href": "https://api.spotify.com/v1/albums/0aYwzFnbFur2SEyJKKS0LD?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273f5923a4766a342f82b6e9c57",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02f5923a4766a342f82b6e9c57",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851f5923a4766a342f82b6e9c57",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0aYwzFnbFur2SEyJKKS0LD"
+      }
+    },
+    {
+      "added_at": "2024-11-05T09:34:21Z",
+      "album": {
+        "id": "1VGf2S10jrdRo2Nub0OXLp",
+        "name": "Ritual",
+        "artists": [
+          {
+            "id": "6tcOJ8DRI6oaFcXgYBCnRc",
+            "name": "Jean du Voyage"
+          }
+        ],
+        "release_date": "2024-11-01",
+        "total_tracks": 16,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1VGf2S10jrdRo2Nub0OXLp"
+        },
+        "href": "https://api.spotify.com/v1/albums/1VGf2S10jrdRo2Nub0OXLp?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2730b036f9da77658fca6380916",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e020b036f9da77658fca6380916",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048510b036f9da77658fca6380916",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1VGf2S10jrdRo2Nub0OXLp"
+      }
+    },
+    {
+      "added_at": "2025-03-08T09:12:06Z",
+      "album": {
+        "id": "6UwHiqFX3htgoYFGFk91Zh",
+        "name": "Israelites",
+        "artists": [
+          {
+            "id": "1FcB6xMihhP9Hb6AdGVbWe",
+            "name": "Desmond Dekker"
+          }
+        ],
+        "release_date": "1975-04-14",
+        "total_tracks": 13,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6UwHiqFX3htgoYFGFk91Zh"
+        },
+        "href": "https://api.spotify.com/v1/albums/6UwHiqFX3htgoYFGFk91Zh?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273bf5b8770f55124130172a966",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02bf5b8770f55124130172a966",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851bf5b8770f55124130172a966",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6UwHiqFX3htgoYFGFk91Zh"
+      }
+    },
+    {
+      "added_at": "2025-11-07T07:56:54Z",
+      "album": {
+        "id": "3SUEJULSGgBDG1j4GQhfYY",
+        "name": "LUX",
+        "artists": [
+          {
+            "id": "7ltDVBr6mKbRvohxheJ9h1",
+            "name": "ROSALÍA"
+          }
+        ],
+        "release_date": "2025-11-07",
+        "total_tracks": 15,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3SUEJULSGgBDG1j4GQhfYY"
+        },
+        "href": "https://api.spotify.com/v1/albums/3SUEJULSGgBDG1j4GQhfYY?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27393ee2e2f2dfb7de9befcc164",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0293ee2e2f2dfb7de9befcc164",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485193ee2e2f2dfb7de9befcc164",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3SUEJULSGgBDG1j4GQhfYY"
+      }
+    },
+    {
+      "added_at": "2017-10-27T14:54:35Z",
+      "album": {
+        "id": "5Apij5l1XrnDjdgkTshqZM",
+        "name": "UN",
+        "artists": [
+          {
+            "id": "5STTEE3TlZg9gb3xNC4RHF",
+            "name": "Malik Djoudi"
+          }
+        ],
+        "release_date": "2017-07-21",
+        "total_tracks": 8,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5Apij5l1XrnDjdgkTshqZM"
+        },
+        "href": "https://api.spotify.com/v1/albums/5Apij5l1XrnDjdgkTshqZM?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2735f4d35ce655cb92441a1054d",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e025f4d35ce655cb92441a1054d",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048515f4d35ce655cb92441a1054d",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5Apij5l1XrnDjdgkTshqZM"
+      }
+    },
+    {
+      "added_at": "2026-02-01T15:28:53Z",
+      "album": {
+        "id": "3Zb3okc6fG3IgrKgdzZhmj",
+        "name": "Misplaced",
+        "artists": [
+          {
+            "id": "2XhkFDEyxeqjEOfPw6BIDu",
+            "name": "Oxy"
+          }
+        ],
+        "release_date": "2024-11-08",
+        "total_tracks": 6,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3Zb3okc6fG3IgrKgdzZhmj"
+        },
+        "href": "https://api.spotify.com/v1/albums/3Zb3okc6fG3IgrKgdzZhmj?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27329d06855a6e09cfdc555c24a",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0229d06855a6e09cfdc555c24a",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485129d06855a6e09cfdc555c24a",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3Zb3okc6fG3IgrKgdzZhmj"
+      }
+    },
+    {
+      "added_at": "2026-02-20T13:36:25Z",
+      "album": {
+        "id": "4383uHOn6d0N0zyV0mZ1uQ",
+        "name": "Future Quiet",
+        "artists": [
+          {
+            "id": "3OsRAKCvk37zwYcnzRf5XF",
+            "name": "Moby"
+          }
+        ],
+        "release_date": "2026-02-20",
+        "total_tracks": 14,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4383uHOn6d0N0zyV0mZ1uQ"
+        },
+        "href": "https://api.spotify.com/v1/albums/4383uHOn6d0N0zyV0mZ1uQ?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273c7328bdad86c6a299efbf905",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02c7328bdad86c6a299efbf905",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851c7328bdad86c6a299efbf905",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:4383uHOn6d0N0zyV0mZ1uQ"
+      }
+    },
     {
       "added_at": "2014-04-23T15:43:58Z",
       "album": {
@@ -798,17 +1205,17 @@
         "href": "https://api.spotify.com/v1/albums/67AYhGt60AoJa1TVcn5lCn?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b273c8baed02b303627f0b571f20",
+            "url": "https://i.scdn.co/image/ab67616d0000b273d536d5464b41b140d77cf9b5",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e02c8baed02b303627f0b571f20",
+            "url": "https://i.scdn.co/image/ab67616d00001e02d536d5464b41b140d77cf9b5",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00004851c8baed02b303627f0b571f20",
+            "url": "https://i.scdn.co/image/ab67616d00004851d536d5464b41b140d77cf9b5",
             "height": 64,
             "width": 64
           }
@@ -1487,43 +1894,6 @@
       }
     },
     {
-      "added_at": "2025-11-07T07:56:54Z",
-      "album": {
-        "id": "3SUEJULSGgBDG1j4GQhfYY",
-        "name": "LUX",
-        "artists": [
-          {
-            "id": "7ltDVBr6mKbRvohxheJ9h1",
-            "name": "ROSALÍA"
-          }
-        ],
-        "release_date": "2025-11-07",
-        "total_tracks": 15,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3SUEJULSGgBDG1j4GQhfYY"
-        },
-        "href": "https://api.spotify.com/v1/albums/3SUEJULSGgBDG1j4GQhfYY?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27393ee2e2f2dfb7de9befcc164",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0293ee2e2f2dfb7de9befcc164",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485193ee2e2f2dfb7de9befcc164",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3SUEJULSGgBDG1j4GQhfYY"
-      }
-    },
-    {
       "added_at": "2014-04-22T19:31:20Z",
       "album": {
         "id": "32HfaMfzcBvEqRAgXLrkDR",
@@ -1706,43 +2076,6 @@
           }
         ],
         "uri": "spotify:album:2MHUaRi9OCyTN02SoyRRBJ"
-      }
-    },
-    {
-      "added_at": "2026-02-20T13:36:25Z",
-      "album": {
-        "id": "4383uHOn6d0N0zyV0mZ1uQ",
-        "name": "Future Quiet",
-        "artists": [
-          {
-            "id": "3OsRAKCvk37zwYcnzRf5XF",
-            "name": "Moby"
-          }
-        ],
-        "release_date": "2026-02-20",
-        "total_tracks": 14,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/4383uHOn6d0N0zyV0mZ1uQ"
-        },
-        "href": "https://api.spotify.com/v1/albums/4383uHOn6d0N0zyV0mZ1uQ?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2732917537da5b5b55552b7f676",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e022917537da5b5b55552b7f676",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048512917537da5b5b55552b7f676",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:4383uHOn6d0N0zyV0mZ1uQ"
       }
     },
     {
@@ -3567,80 +3900,6 @@
       }
     },
     {
-      "added_at": "2016-01-04T06:58:38Z",
-      "album": {
-        "id": "5N2aEkzuTD4twKud6wWQew",
-        "name": "Furulund",
-        "artists": [
-          {
-            "id": "7mVOcdjvBq2ivxf3nOvWiC",
-            "name": "Geir Sundstøl"
-          }
-        ],
-        "release_date": "2015-09-18",
-        "total_tracks": 8,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5N2aEkzuTD4twKud6wWQew"
-        },
-        "href": "https://api.spotify.com/v1/albums/5N2aEkzuTD4twKud6wWQew?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2736ea5751fc30a7c62a193dfb8",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e026ea5751fc30a7c62a193dfb8",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048516ea5751fc30a7c62a193dfb8",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5N2aEkzuTD4twKud6wWQew"
-      }
-    },
-    {
-      "added_at": "2026-02-01T15:28:53Z",
-      "album": {
-        "id": "3Zb3okc6fG3IgrKgdzZhmj",
-        "name": "Misplaced",
-        "artists": [
-          {
-            "id": "2XhkFDEyxeqjEOfPw6BIDu",
-            "name": "Oxy"
-          }
-        ],
-        "release_date": "2024-11-08",
-        "total_tracks": 6,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3Zb3okc6fG3IgrKgdzZhmj"
-        },
-        "href": "https://api.spotify.com/v1/albums/3Zb3okc6fG3IgrKgdzZhmj?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27329d06855a6e09cfdc555c24a",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0229d06855a6e09cfdc555c24a",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485129d06855a6e09cfdc555c24a",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3Zb3okc6fG3IgrKgdzZhmj"
-      }
-    },
-    {
       "added_at": "2025-12-09T09:36:58Z",
       "album": {
         "id": "5NpCujo7sYaHNsR0sbuZOM",
@@ -4130,43 +4389,6 @@
       }
     },
     {
-      "added_at": "2025-03-08T09:12:06Z",
-      "album": {
-        "id": "6UwHiqFX3htgoYFGFk91Zh",
-        "name": "Israelites",
-        "artists": [
-          {
-            "id": "1FcB6xMihhP9Hb6AdGVbWe",
-            "name": "Desmond Dekker"
-          }
-        ],
-        "release_date": "1975-04-14",
-        "total_tracks": 13,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6UwHiqFX3htgoYFGFk91Zh"
-        },
-        "href": "https://api.spotify.com/v1/albums/6UwHiqFX3htgoYFGFk91Zh?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273bf5b8770f55124130172a966",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02bf5b8770f55124130172a966",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851bf5b8770f55124130172a966",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6UwHiqFX3htgoYFGFk91Zh"
-      }
-    },
-    {
       "added_at": "2025-02-27T13:29:25Z",
       "album": {
         "id": "1YabzrupqpV16I18wxlJxP",
@@ -4463,43 +4685,6 @@
       }
     },
     {
-      "added_at": "2024-11-05T09:34:21Z",
-      "album": {
-        "id": "1VGf2S10jrdRo2Nub0OXLp",
-        "name": "Ritual",
-        "artists": [
-          {
-            "id": "6tcOJ8DRI6oaFcXgYBCnRc",
-            "name": "Jean du Voyage"
-          }
-        ],
-        "release_date": "2024-11-01",
-        "total_tracks": 16,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1VGf2S10jrdRo2Nub0OXLp"
-        },
-        "href": "https://api.spotify.com/v1/albums/1VGf2S10jrdRo2Nub0OXLp?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2730b036f9da77658fca6380916",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e020b036f9da77658fca6380916",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048510b036f9da77658fca6380916",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1VGf2S10jrdRo2Nub0OXLp"
-      }
-    },
-    {
       "added_at": "2024-11-02T10:08:01Z",
       "album": {
         "id": "57oYjOsWdRUGOjSX4RbyM4",
@@ -4648,80 +4833,6 @@
       }
     },
     {
-      "added_at": "2024-08-10T13:05:38Z",
-      "album": {
-        "id": "0aYwzFnbFur2SEyJKKS0LD",
-        "name": "Sand",
-        "artists": [
-          {
-            "id": "4oMBP1OWXtmxyDhAj2aRyQ",
-            "name": "Balthazar"
-          }
-        ],
-        "release_date": "2021-02-26",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0aYwzFnbFur2SEyJKKS0LD"
-        },
-        "href": "https://api.spotify.com/v1/albums/0aYwzFnbFur2SEyJKKS0LD?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273f5923a4766a342f82b6e9c57",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02f5923a4766a342f82b6e9c57",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851f5923a4766a342f82b6e9c57",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0aYwzFnbFur2SEyJKKS0LD"
-      }
-    },
-    {
-      "added_at": "2024-07-19T11:55:58Z",
-      "album": {
-        "id": "5dhet1luldVxu21FUspJXV",
-        "name": "Once in a Long, Long While...",
-        "artists": [
-          {
-            "id": "5WoWlP0ihSFIxnppxjwSgE",
-            "name": "Low Roar"
-          }
-        ],
-        "release_date": "2017-04-14",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5dhet1luldVxu21FUspJXV"
-        },
-        "href": "https://api.spotify.com/v1/albums/5dhet1luldVxu21FUspJXV?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27387986e804018697f14194ace",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0287986e804018697f14194ace",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485187986e804018697f14194ace",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5dhet1luldVxu21FUspJXV"
-      }
-    },
-    {
       "added_at": "2024-06-02T13:07:52Z",
       "album": {
         "id": "13xlpKbai3GGoMSr75lOeX",
@@ -4756,43 +4867,6 @@
           }
         ],
         "uri": "spotify:album:13xlpKbai3GGoMSr75lOeX"
-      }
-    },
-    {
-      "added_at": "2024-04-29T14:05:32Z",
-      "album": {
-        "id": "5SqZ5yS7uG7e7lqZHIMLXs",
-        "name": "Let the monster fall",
-        "artists": [
-          {
-            "id": "1tMIosPVEqpXGdD8JW1tIe",
-            "name": "Thomas de Pourquery"
-          }
-        ],
-        "release_date": "2024-03-29",
-        "total_tracks": 14,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5SqZ5yS7uG7e7lqZHIMLXs"
-        },
-        "href": "https://api.spotify.com/v1/albums/5SqZ5yS7uG7e7lqZHIMLXs?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273d0308400c0327027bc8a1961",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02d0308400c0327027bc8a1961",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851d0308400c0327027bc8a1961",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5SqZ5yS7uG7e7lqZHIMLXs"
       }
     },
     {
@@ -4985,43 +5059,6 @@
       }
     },
     {
-      "added_at": "2024-02-08T11:36:44Z",
-      "album": {
-        "id": "2ZwNcWl8h9blysDE8i4juL",
-        "name": "Playing Robots Into Heaven",
-        "artists": [
-          {
-            "id": "53KwLdlmrlCelAZMaLVZqU",
-            "name": "James Blake"
-          }
-        ],
-        "release_date": "2023-09-08",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/2ZwNcWl8h9blysDE8i4juL"
-        },
-        "href": "https://api.spotify.com/v1/albums/2ZwNcWl8h9blysDE8i4juL?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273921f7aa6349a070b6f26b3ff",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02921f7aa6349a070b6f26b3ff",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851921f7aa6349a070b6f26b3ff",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:2ZwNcWl8h9blysDE8i4juL"
-      }
-    },
-    {
       "added_at": "2024-02-05T16:57:02Z",
       "album": {
         "id": "6hmmX5UP4rIvOpGSaPerV8",
@@ -5056,43 +5093,6 @@
           }
         ],
         "uri": "spotify:album:6hmmX5UP4rIvOpGSaPerV8"
-      }
-    },
-    {
-      "added_at": "2024-01-19T08:17:52Z",
-      "album": {
-        "id": "754ju3m25jKqrlevlJibZl",
-        "name": "°1",
-        "artists": [
-          {
-            "id": "0glR494sLIJfgyO03vHgnw",
-            "name": "Champion"
-          }
-        ],
-        "release_date": "2013-05-28",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/754ju3m25jKqrlevlJibZl"
-        },
-        "href": "https://api.spotify.com/v1/albums/754ju3m25jKqrlevlJibZl?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27352a384e8057f40341f29f8ef",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0252a384e8057f40341f29f8ef",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485152a384e8057f40341f29f8ef",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:754ju3m25jKqrlevlJibZl"
       }
     },
     {
@@ -12511,43 +12511,6 @@
       }
     },
     {
-      "added_at": "2017-10-27T14:54:35Z",
-      "album": {
-        "id": "5Apij5l1XrnDjdgkTshqZM",
-        "name": "UN",
-        "artists": [
-          {
-            "id": "5STTEE3TlZg9gb3xNC4RHF",
-            "name": "Malik Djoudi"
-          }
-        ],
-        "release_date": "2017-07-21",
-        "total_tracks": 8,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5Apij5l1XrnDjdgkTshqZM"
-        },
-        "href": "https://api.spotify.com/v1/albums/5Apij5l1XrnDjdgkTshqZM?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2735f4d35ce655cb92441a1054d",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e025f4d35ce655cb92441a1054d",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048515f4d35ce655cb92441a1054d",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5Apij5l1XrnDjdgkTshqZM"
-      }
-    },
-    {
       "added_at": "2017-10-23T15:48:35Z",
       "album": {
         "id": "3smDqYFdgz4c67b1JHFl2u",
@@ -16109,6 +16072,43 @@
           }
         ],
         "uri": "spotify:album:6cideQBTEM8b6pQ40OHQ2P"
+      }
+    },
+    {
+      "added_at": "2016-01-04T06:58:38Z",
+      "album": {
+        "id": "5N2aEkzuTD4twKud6wWQew",
+        "name": "Furulund",
+        "artists": [
+          {
+            "id": "7mVOcdjvBq2ivxf3nOvWiC",
+            "name": "Geir Sundstøl"
+          }
+        ],
+        "release_date": "2015-09-18",
+        "total_tracks": 8,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5N2aEkzuTD4twKud6wWQew"
+        },
+        "href": "https://api.spotify.com/v1/albums/5N2aEkzuTD4twKud6wWQew?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2736ea5751fc30a7c62a193dfb8",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e026ea5751fc30a7c62a193dfb8",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048516ea5751fc30a7c62a193dfb8",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5N2aEkzuTD4twKud6wWQew"
       }
     },
     {
