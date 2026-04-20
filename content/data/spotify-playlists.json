@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-04-13T12:58:16.888Z",
+  "created_at": "2026-04-20T13:02:23.094Z",
   "total_playlists": 17,
   "playlists": [
     {
@@ -16,7 +16,7 @@
         }
       },
       "tracks": {
-        "total": 15,
+        "total": 16,
         "href": "https://api.spotify.com/v1/playlists/5L3ltsrSdrgVgzsaKvs0e9/tracks"
       },
       "external_urls": {
@@ -126,7 +126,7 @@
       "images": [
         {
           "height": null,
-          "url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da844b881b0f67c7a48a1331e051",
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da844b881b0f67c7a48a1331e051",
           "width": null
         }
       ],
