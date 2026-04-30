@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>animated</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      background: #1a1a2e;
+      display: grid;
+      place-content: center;
+      scale: 1 -1;
+    }
+
+    .layout {
+      --size: 80vmin;
+      width: var(--size);
+      height: var(--size);
+      display: grid-lanes;
+      gap: 0;
+      grid-template-columns: repeat(auto-fill, auto);
+      flow-tolerance: 0;
+      /* place-content: center; */
+    }
+
+    .item {
+      width: 50px;
+      aspect-ratio: 1;
+      view-transition-name: match-element;
+      background: #666;
+    }
+
+    .item.removed {
+      position: absolute;
+      top: -500px;
+      left: 50%;
+    }
+
+    .item.adding {
+      position: absolute;
+      bottom: -500px;
+      left: 50%;
+      width: 0;
+      height: 0;
+    }
+
+    ::view-transition-group(*) {
+      animation-duration: .08s;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout"></div>
+  <script>
+    const layout = document.querySelector('.layout');
+
+    async function remove() {
+      const el = layout.firstElementChild;
+      if (!el) {
+        return;
+      }
+
+      const transition = document.startViewTransition(() => {
+        el.classList.add("removed");
+        document.body.appendChild(el);
+      });
+
+      await transition.finished;
+    }
+
+    async function add() {
+      const el = document.createElement("div");
+      el.classList.add("item");
+      el.classList.add("adding");
+      document.body.appendChild(el);
+
+      el.style.height = `${Math.random() * 50 + 20}px`;
+
+      const randomBackground = `hsl(${Math.random() * 360} 70% 60%)`;
+      // el.style.background = randomBackground;
+
+      const transition = document.startViewTransition(() => {
+        el.classList.remove("adding");
+        layout.appendChild(el);
+      });
+
+      await transition.finished;
+
+      el.style.viewTransitionName = "unset";
+    }
+
+    async function main() {
+      for (let i = 0; i < 200; i++) {
+        await add();
+        if (i > 30) {
+          // debugger;
+        }
+      }
+    }
+
+    main();
+  </script>
+</body>
+
+</html>

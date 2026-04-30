@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonials</title>
+  <style>
+    :root {
+      --ff-base: "Satoshi", system-ui, sans-serif;
+      --space-s: clamp(1.125rem, 1.0483rem + .3409vw, 1.3125rem);
+      --space-xs: clamp(.875rem, .8239rem + .2273vw, 1rem);
+      --text-primary: var(--neutral-900);
+      --surface-1: var(--neutral-50);
+      --surface-3: var(--neutral-200);
+      --neutral-50: hsl(214, 5%, 13%);
+      --neutral-200: hsl(214, 3%, 19%);
+      --neutral-900: hsl(214, 4%, 85%);
+      --fs-1: clamp(1.35rem, 1.1865rem + .7265vw, 1.7496rem);
+      --fs--1: clamp(.9375rem, .9182rem + .0857vw, .9846rem);
+      --column-width: 250px;
+    }
+
+    body {
+      min-block-size: 100dvb;
+      font-family: var(--ff-base);
+      background: var(--surface-1);
+      color: var(--text-primary);
+      font-size: var(--fs-1);
+      line-height: 1.6;
+      max-width: 1200px;
+      margin: var(--space-s) auto;
+      padding: 0 var(--space-s);
+    }
+
+    .short-testimonials {
+      font-size: var(--fs--1);
+      font-weight: 500;
+
+      display: grid-lanes;
+      gap: var(--space-xs);
+      grid-template-columns: repeat(auto-fill, minmax(var(--column-width), 1fr));
+
+      @supports not (display: grid-lanes) {
+        columns: var(--column-width);
+      }
+
+      figure {
+        break-inside: avoid;
+        padding: var(--space-s);
+        background: var(--surface-3);
+        border-radius: 12px;
+        display: grid;
+        gap: var(--space-s);
+        margin: 0;
+
+        @supports not (display: grid-lanes) {
+          margin-block-end: var(--space-xs);
+        }
+
+        blockquote {
+          margin: 0;
+        }
+
+        figcaption {
+          font-weight: 800;
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="short-testimonials">
+    <figure>
+      <blockquote>
+        After taking this course I'm more aware of what I'm writing and
+        having CSS work as expected!
+      </blockquote>
+      <figcaption>Georgiana</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        It's worth it. I don't know better source for learn CSS after trying
+        some Youtube or Udemy tutorials or courses.
+      </blockquote>
+      <figcaption>Vašek</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        Even after years working with CSS the approaches are professional
+        and you can take a lot with you.
+      </blockquote>
+      <figcaption>Mario Graf-Schantl</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        I now view CSS as a complex language in its own right which can be
+        leveraged once it is well understood.
+      </blockquote>
+      <figcaption>Joe Sheridan</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        It helped me understand CSS. I know What's going on when looking at
+        CSS.
+      </blockquote>
+      <figcaption>Katara</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        I have gained a better understanding of how to structure the markup
+        for the css, and yes I understand css it's self alot better.
+      </blockquote>
+      <figcaption>JWord</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        You *will* learn to write CSS with confidence. This course makes CSS
+        very accessible. It gives you a structured guide on how to approach
+        CSS by teaching you how to think and by giving you plenty of truly
+        practical tools.
+      </blockquote>
+      <figcaption>Igor dos Reis</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        I learned how to get started, think with the right mindset along the
+        way, and problem solve when the need arises. Feeling much more
+        motivated now. :)
+      </blockquote>
+      <figcaption>Judson</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        You won't regret it, it will change the way you understand CSS.
+      </blockquote>
+      <figcaption>Ciro</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        It resolved a lot of the problems of misunderstanding to the point I
+        feel I could write my own CSS. A major improvement from where I
+        started from.
+      </blockquote>
+      <figcaption>Roddy M</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        It definitely helped a lot! I think I can make much more conscious
+        decisions before even writing the first line of CSS in a project.
+      </blockquote>
+      <figcaption>Balazs</figcaption>
+    </figure>
+    <figure>
+      <blockquote>
+        If they wanted to learn how the browser actually applies CSS, they
+        should start here.
+        <figcaption>thecodeviking</figcaption>
+      </blockquote>
+    </figure>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grid-lanes shape illustration</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="lanes-highlighter.css">
+  <style>
+    .layout-container {
+      grid-template-columns: repeat(auto-fill, var(--lane-size));
+      justify-content: center;
+      width: calc(round(100%, calc(var(--lane-size) + var(--lane-gap))));
+    }
+  </style>
+</head>
+
+<body>
+  <h1><code>grid-lanes-direction: <strong>column</strong>;</code></h1>
+
+  <div class="layout-container"></div>
+
+  <script src="lanes-highlighter.js"></script>
+  <script src="script.js"></script>
+  <script>
+    drawAndHighlightLanes(
+      "column",
+      30,
+      200,
+      () => {
+        const minRatio = 0.5;
+        const maxRatio = 2;
+        const randomHeightRatio = (Math.random() * (maxRatio - minRatio) + minRatio).toFixed(2);
+        return `1 / ${randomHeightRatio}`;
+      },
+      () => {
+        return {
+          row: 1,
+          column: Math.random() < 0.9 ? 1 : 2
+        };
+      }
+    );
+  </script>
+</body>
+
+</html>

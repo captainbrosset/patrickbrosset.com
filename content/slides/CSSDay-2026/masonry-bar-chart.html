@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bar chart</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      font-family: consolas, monospace;
+    }
+
+    .bar-chart {
+      inline-size: 50vw;
+      block-size: 50vh;
+
+      --background-color: white;
+      --line-color: #aaa;
+      --line-width: 2px;
+      --spacing: 10px;
+      --arrow-size: 10px;
+
+      --nb-of-stacks: attr(data-stacks type(<number>));
+      --data-max-value: attr(data-max-value type(<number>));
+
+      display: grid-lanes;
+      grid-lanes-direction: column fill-reverse;
+      grid-template-columns: repeat(var(--nb-of-stacks), 1fr);
+      column-gap: var(--spacing);
+
+      padding: var(--spacing);
+      border: var(--line-width) solid var(--line-color);
+      border-width: 0 0 var(--line-width) var(--line-width);
+      position: relative;
+
+      background: var(--background-color);
+      background-image:
+        linear-gradient(to top,
+          transparent 0 calc(100% - var(--line-width)),
+          var(--line-color) calc(100% - var(--line-width)) 100%),
+        linear-gradient(var(--background-color)),
+        linear-gradient(var(--background-color)),
+        linear-gradient(to right,
+          transparent 0 calc(100% - var(--line-width)),
+          var(--line-color) calc(100% - var(--line-width)) 100%);
+      background-repeat:
+        repeat-y,
+        no-repeat,
+        no-repeat,
+        repeat-x;
+      background-size:
+        calc(var(--spacing) / 2) calc(100% / var(--data-max-value)),
+        var(--spacing) var(--spacing),
+        var(--spacing) var(--spacing),
+        calc((100% - var(--spacing)) / var(--nb-of-stacks)) var(--spacing);
+      background-position:
+        bottom left,
+        bottom left,
+        bottom right,
+        calc(var(--spacing) / 2 + var(--line-width) / 2) bottom;
+    }
+
+    .bar-chart::before {
+      content: "";
+      position: absolute;
+      inset: auto calc(var(--arrow-size) / -2) calc(var(--arrow-size) / -2 - var(--line-width) / 2) auto;
+      background: var(--line-color);
+      inline-size: var(--arrow-size);
+      aspect-ratio: 1;
+      clip-path: shape(from 0 0, line to 100% 50%, line to 0 100%);
+    }
+
+    .bar-chart::after {
+      content: "";
+      position: absolute;
+      inset: calc(var(--arrow-size) / -2) auto auto calc(var(--arrow-size) / -2 - var(--line-width) / 2);
+      background: var(--line-color);
+      inline-size: var(--arrow-size);
+      aspect-ratio: 1;
+      clip-path: shape(from 0 100%, line to 50% 0, line to 100% 100%);
+    }
+
+    .bar {
+      block-size: calc(100% * attr(data-value type(<number>)) / var(--data-max-value));
+      transition: scale ease-in 0.1s;
+      background: #eee;
+    }
+
+    .bar:hover,
+    .bar:focus-visible {
+      scale: 1.02;
+      anchor-name: --selected-bar;
+    }
+
+    .bar:hover::before,
+    .bar:focus-visible::before {
+      content: attr(data-group) " = " attr(data-value);
+      background: white;
+      border: var(--line-width) solid var(--line-color);
+      padding: var(--spacing);
+      position: absolute;
+      position-anchor: --selected-bar;
+      position: fixed;
+      left: anchor(right);
+      align-self: anchor-center;
+      margin-left: 10px;
+    }
+
+    [data-stack="2021"] {
+      grid-column: 1;
+    }
+
+    [data-stack="2022"] {
+      grid-column: 2;
+    }
+
+    [data-stack="2023"] {
+      grid-column: 3;
+    }
+
+    [data-group="yes"] {
+      background-color: #7cc57f;
+    }
+
+    [data-group="maybe"] {
+      background-color: #f4e942;
+    }
+
+    [data-group="no"] {
+      background-color: #f436eb;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bar-chart" data-stacks="3" data-max-value="32">
+
+    <div class="bar" data-stack="2021" data-group="yes" data-value="13" tabindex="0"></div>
+    <div class="bar" data-stack="2021" data-group="maybe" data-value="1" tabindex="0"></div>
+    <div class="bar" data-stack="2021" data-group="no" data-value="7" tabindex="0"></div>
+
+    <div class="bar" data-stack="2022" data-group="yes" data-value="22" tabindex="0"></div>
+    <div class="bar" data-stack="2022" data-group="maybe" data-value="2" tabindex="0"></div>
+    <div class="bar" data-stack="2022" data-group="no" data-value="5" tabindex="0"></div>
+
+    <div class="bar" data-stack="2023" data-group="yes" data-value="4" tabindex="0"></div>
+    <div class="bar" data-stack="2023" data-group="maybe" data-value="3" tabindex="0"></div>
+    <div class="bar" data-stack="2023" data-group="no" data-value="12" tabindex="0"></div>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lego bricks</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    :root {
+      --perspective-origin-x: 100%;
+      --size: 5rem;
+      --gap: 1px;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+    }
+
+    .controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      font: 14px sans-serif;
+    }
+
+    .controls input[type="range"] {
+      width: 200px;
+    }
+
+    .masonry {
+      inline-size: 90vw;
+      block-size: 90vh;
+      display: grid-lanes;
+      gap: var(--gap);
+      grid-template-columns: repeat(auto-fill, auto);
+      grid-lanes-direction: column fill-reverse;
+      justify-content: start;
+      perspective: 1000px;
+      perspective-origin: var(--perspective-origin-x) top;
+    }
+
+    .brick {
+      background: hsl(from red calc(sibling-index() * 50) s l);
+      block-size: var(--size);
+      inline-size: var(--size);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: translate 0.3s ease;
+
+      @starting-style {
+        translate: 0 -200px 0;
+      }
+    }
+
+    .brick:hover {
+      translate: 0 0 calc(var(--size) / -2);
+    }
+
+    .brick.med {
+      inline-size: 100%;
+      grid-column: span 2;
+    }
+    
+    .brick.long {
+      inline-size: 100%;
+      grid-column: span 3;
+    }
+
+    .brick::before,
+    .brick::after {
+      content: "";
+      position: absolute;
+      inline-size: var(--size);
+      block-size: var(--size);
+      inset: 0 0 auto auto;
+      background: inherit;
+      filter: brightness(0.5);
+      transform-origin: top right;
+      transform: rotateY(-90deg);
+    }
+
+    .brick::after {
+      inline-size: 100%;
+      inset: calc(-1 * var(--size)) auto auto 0;
+      transform: rotateX(90deg);
+      transform-origin: bottom left;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <label for="gap-slider">Gap:</label>
+    <input type="range" id="gap-slider" min="0" max="20" value="0" step="1">
+    <span id="gap-value">0px</span>
+    <label for="size-slider" style="margin-left:1rem">Size:</label>
+    <input type="range" id="size-slider" min="1" max="10" value="5" step="0.5">
+    <span id="size-value">5rem</span>
+  </div>
+
+  <div class="masonry"></div>
+
+  <script>
+    const SIZES = ["", "med", "long"];
+    const NB = 50;
+    const DELAY = 50;
+
+    async function addBricks() {
+      const masonry = document.querySelector(".masonry");
+      for (let i = 0; i < NB; i++) {
+        const size = SIZES[Math.floor(Math.random() * SIZES.length)];
+        const div = document.createElement("div");
+        div.className = "brick" + (size ? " " + size : "");
+        masonry.appendChild(div);
+        await new Promise(r => setTimeout(r, DELAY));
+      }
+    }
+
+    addBricks();
+
+    const gapSlider = document.getElementById("gap-slider");
+    const gapValue = document.getElementById("gap-value");
+    gapSlider.addEventListener("input", () => {
+      document.documentElement.style.setProperty("--gap", `${gapSlider.value}px`);
+      gapValue.textContent = `${gapSlider.value}px`;
+    });
+
+    const sizeSlider = document.getElementById("size-slider");
+    const sizeValue = document.getElementById("size-value");
+    sizeSlider.addEventListener("input", () => {
+      document.documentElement.style.setProperty("--size", `${sizeSlider.value}rem`);
+      sizeValue.textContent = `${sizeSlider.value}rem`;
+    });
+  </script>
+</body>
+
+</html>

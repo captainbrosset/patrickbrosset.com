@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravity Balls</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      background: #1a1a2e;
+      display: grid;
+      place-content: center;
+    }
+
+    #pit {
+      --size: 80vmin;
+      /* Keep in sync with JS */
+      --cols: 8;
+
+      width: var(--size);
+      height: var(--size);
+      display: grid-lanes;
+      gap: .5vmin;
+      grid-template-columns: repeat(var(--cols), 1fr);
+      grid-lanes-direction: column fill-reverse;
+
+      background-image:
+        radial-gradient(circle, black 0 calc(var(--size) / var(--cols) / 2 - .5vmin), transparent 0);
+      background-size: calc(var(--size) / var(--cols)) calc(var(--size) / var(--cols));
+      background-repeat: repeat;
+      background-position: top left;
+    }
+
+    .ball {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      cursor: pointer;
+      background: radial-gradient(circle at 35% 35%, var(--hi), var(--c) 60%, var(--lo));
+      box-shadow: inset 0 -4px 8px var(--lo), 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Color palette */
+    .ball.red {
+      --c: #e74c3c;
+      --hi: #ff8a80;
+      --lo: #7f1d1d;
+    }
+
+    .ball.orange {
+      --c: #e67e22;
+      --hi: #ffb74d;
+      --lo: #7f3d00;
+    }
+
+    .ball.yellow {
+      --c: #f1c40f;
+      --hi: #fff176;
+      --lo: #7f6a00;
+    }
+
+    .ball.green {
+      --c: #2ecc71;
+      --hi: #81c784;
+      --lo: #145a32;
+    }
+
+    .ball.teal {
+      --c: #1abc9c;
+      --hi: #80cbc4;
+      --lo: #0d5c4e;
+    }
+
+    .ball.blue {
+      --c: #3498db;
+      --hi: #90caf9;
+      --lo: #1a3a5c;
+    }
+
+    .ball.purple {
+      --c: #9b59b6;
+      --hi: #ce93d8;
+      --lo: #4a1a6b;
+    }
+
+    .ball.pink {
+      --c: #e91e8c;
+      --hi: #f48fb1;
+      --lo: #6d0f42;
+    }
+
+    /* Sucked into the black hole behind */
+    @keyframes sink-in {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+        filter: brightness(1);
+      }
+
+      60% {
+        transform: scale(.35);
+        opacity: .8;
+        filter: brightness(.4);
+      }
+
+      100% {
+        transform: scale(0);
+        opacity: 0;
+        filter: brightness(0);
+      }
+    }
+
+    ::view-transition-old(popping) {
+      animation: sink-in .2s ease-in forwards;
+    }
+
+    /* Gravity-like fall with bounce for repositioning balls */
+    ::view-transition-group(*) {
+      animation-duration: .35s;
+      /* Bounce easing via linear() — fast fall then two bounces */
+      animation-timing-function: linear(
+        0, 0.006, 0.025, 0.056, 0.1, 0.157, 0.225, 0.306, 0.4, 0.506,
+        0.625, 0.756, 0.9, 1, 1.08, 1.12, 1.12, 1.08, 1,
+        0.96, 0.95, 0.96, 1, 1.02, 1.02, 1
+      );
+    }
+
+    /* Don't animate the root snapshot */
+    ::view-transition-group(root) {
+      animation: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="pit"></div>
+  <script>
+    const COLORS = ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'purple', 'pink'];
+    const NB_COLS = 8;
+    const MIN_BALLS_PER_COL = 3;
+    const MAX_BALLS_PER_COL = 8;
+    const pit = document.getElementById('pit');
+    let ballId = 0;
+
+    function randomColor() {
+      return COLORS[Math.floor(Math.random() * COLORS.length)];
+    }
+
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function buildPile() {
+      for (let col = 0; col < NB_COLS; col++) {
+        const count = randomInt(MIN_BALLS_PER_COL, MAX_BALLS_PER_COL);
+        for (let i = 0; i < count; i++) {
+          const ball = document.createElement('div');
+          ball.className = `ball ${randomColor()}`;
+          ball.style.gridColumn = col + 1;
+
+          // Give each ball its own VT name so it gets animated individually.
+          ball.style.viewTransitionName = `ball-${ballId++}`;
+
+          ball.addEventListener('click', popBall);
+          pit.appendChild(ball);
+        }
+      }
+    }
+
+    function popBall(e) {
+      const target = e.currentTarget;
+
+      // Tag the ball so CSS can target ::view-transition-old(popping)
+      target.style.viewTransitionName = 'popping';
+
+      document.startViewTransition(() => {
+        target.remove();
+      });
+    }
+
+    buildPile();
+  </script>
+</body>
+
+</html>

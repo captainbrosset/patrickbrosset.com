@@ -1,0 +1,53 @@
+.lanes-highlight {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  gap: inherit;
+  place-content: inherit;
+  grid-template-columns: inherit;
+  grid-template-rows: auto;
+  column-rule: 2px solid black;
+  border: 2px solid black;
+  border-width: 0 2px;
+  animation: grow 1s ease-out forwards;
+  background:
+    repeating-linear-gradient(to right, #ffffff63 0 var(--lane-size), white var(--lane-size) calc(var(--lane-size) + var(--lane-gap))),
+    repeating-linear-gradient(-45deg, #0005 0 1px, transparent 1px 8px);
+  background-position-x: calc((var(--lane-gap) / 2) - 2px), 0;
+}
+
+.lanes-highlight.row {
+  grid-template-columns: auto;
+  grid-template-rows: inherit;
+  column-rule: unset;
+  row-rule: 2px solid black;
+  border-width: 0;
+
+  animation: grow-row 1s ease-out forwards;
+
+  background:
+    repeating-linear-gradient(to bottom, #ffffff63 0 var(--lane-size), white var(--lane-size) calc(var(--lane-size) + var(--lane-gap))),
+    repeating-linear-gradient(-45deg, #0005 0 1px, transparent 1px 8px);
+  background-position-y: calc((var(--lane-gap) / 2) - 8px), 0;
+}
+
+@keyframes grow {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: calc(100vh - 13rem);
+  }
+}
+
+@keyframes grow-row {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: calc(100vh - 13rem);
+  }
+}

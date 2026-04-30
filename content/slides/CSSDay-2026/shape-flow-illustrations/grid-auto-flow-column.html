@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grid-lanes item flow illustration</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="connectors.css">
+  <style>
+    .layout-container {
+      grid-template-rows: repeat(auto-fill, var(--lane-size));
+      min-height: calc(100vh - 20rem);
+    }
+  </style>
+</head>
+
+<body>
+  <h1><code>grid-auto-flow: <strong>column</strong>;</code></h1>
+
+  <div class="layout-container"></div>
+
+  <script src="connectors.js"></script>
+  <script src="script.js"></script>
+  <script>
+    drawAndConnectItems(
+      "row",
+      50,
+      200,
+      () => {
+        const minRatio = 0.5;
+        const maxRatio = 1.2;
+        const randomHeightRatio = (Math.random() * (maxRatio - minRatio) + minRatio).toFixed(2);
+        return `1 / ${randomHeightRatio}`;
+      },
+      () => {
+        return {
+          row: Math.random() < 0.9 ? 1 : 2,
+          column: 1
+        };
+      }
+    );
+  </script>
+</body>
+
+</html>

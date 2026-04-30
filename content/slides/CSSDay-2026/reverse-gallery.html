@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patrick</title>
+  <style>
+    :root {
+      --font-size: 14pt;
+      --spacing: 4rem;
+      --max-width: 1000px;
+      --back: #0f0f11;
+      --text: white;
+      --dots: #222;
+      --button-back: var(--text);
+      --button-text: var(--back);
+      --secondary-btn-back: #2d2d2d;
+      --secondary-btn-text: var(--text);
+    }
+
+    h1, h2, h3 {
+      font-weight: normal;
+    }
+
+    html {
+      scroll-timeline: --main-scroller-timeline;
+    }
+
+    body {
+      margin: var(--spacing) auto;
+      padding: 0 var(--spacing);
+      font-family: system-ui, sans-serif;
+      font-size: var(--font-size);
+      line-height: 1.6;
+      max-width: var(--max-width);
+      background:
+        radial-gradient(circle, var(--dots) 2px, transparent 2px) 0 0 / calc(var(--spacing) / 2) calc(var(--spacing) / 2),
+        var(--back);
+      color: var(--text);
+    }
+
+    button {
+      border: none;
+      background: var(--button-back);
+      color: var(--button-text);
+      font-size: 1rem;
+      font-family: inherit;
+      margin: 0;
+      padding: 0.5em 1.5em;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        filter: invert(1);
+      }
+
+      &.secondary {
+        background: var(--secondary-btn-back);
+        color: var(--secondary-btn-text);
+        position: relative;
+
+        &.arrow {
+          padding-inline-end: 3rem;
+        }
+
+        &.arrow::after {
+          content: '→';
+          position: absolute;
+          border-radius: 50%;
+          background: var(--secondary-btn-text);
+          color: var(--secondary-btn-back);
+          inline-size: 1rem;
+          block-size: 1rem;
+          inset: 0.7rem 1.5rem auto auto;
+          display: grid;
+          place-content: center;
+          line-height: 0;
+          font-family: math;
+          font-size: 1rem;
+        }
+      }
+    }
+
+    header {
+      display: flex;
+      align-items: baseline;
+      margin-block-end: var(--spacing);
+
+      svg {
+        inline-size: 5rem;
+        height: auto;
+        margin-inline-end: 1rem;
+        align-self: center;
+        flex-shrink: 0;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 3rem;
+        margin-inline-end: auto;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(var(--spacing) / 2);
+
+        a {
+          color: var(--text);
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    main {
+      section {
+        margin-block-end: var(--spacing);
+
+        h2 {
+          margin: 0 0 calc(var(--spacing) / 2) 0;
+        }
+
+        &.hero {
+          text-align: center;
+          max-width: calc(var(--max-width) * 0.75);
+          margin-inline: auto;
+
+          h2 {
+            font-weight: normal;
+            font-size: 4rem;
+          }
+        }
+      }
+    }
+
+    footer {
+      position: fixed;
+      inset: auto auto -5% auto;
+      max-width: calc(var(--max-width) + var(--spacing) * 2);
+      height: 50vh;
+      margin-inline-start: calc(-1 * var(--spacing));
+
+      animation: hide-footer linear forwards;
+      animation-timeline: --main-scroller-timeline;
+      animation-range: 0% 15%;
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        height: 100%;
+
+        display: grid-lanes;
+        gap: calc(var(--spacing) / 4);
+        grid-template-columns: repeat(4, 1fr);
+        grid-lanes-direction: column fill-reverse;
+
+        .photo {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          box-shadow: 0 0 3rem 2rem #000c;
+          border-radius: 20px;
+          overflow: hidden;
+
+          img {
+            inline-size: 100%;
+            block-size: auto;
+            display: block;
+          }
+        }
+      }
+    }
+
+    @keyframes hide-footer {
+      90% {
+        translate: 0 150%;
+      }
+      100% {
+        position: static;
+        max-width: unset;
+        margin: 0;
+        translate: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 590 490" width="590" height="490">
+      <style>
+        .a {
+          fill: none;
+          stroke: var(--text);
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 20;
+        }
+      </style>
+      <path class="a"
+        d="m25 40.9c44 213 540 1 540 103 0 180.3-390.7-65.8-388 40.9 3.3 128.3 302.2-40 297.3 66.7-4.1 91.8-270.2-75.7-235.3 50.4 42 152 360-277 109.1-274.9-186.3 1.6-42.1 382.9 40.9 436.9" />
+    </svg>
+    <h1>Patrick</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Hire me</a>
+      <a href="#">Exhibits</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Welcome to my gallery</h2>
+      <p>Here you can find a selection of my best works, showcasing my creativity and passion for
+        art. Feel free to explore and contact me if you're interested in purchasing any of the pieces or commissioning a
+        custom artwork.</p>
+      <button>Hire me</button>
+      <button class="secondary arrow">Get in touch</button>
+    </section>
+
+    <section class="latest-news">
+      <h2>Latest news</h2>
+      <p>Check out my latest exhibitions and projects. I am constantly creating new pieces and participating in art
+        events around the world. Stay tuned for updates on upcoming shows and collaborations!</p>
+      <button>See more</button>
+    </section>
+
+    <section class="upcoming-exhibits">
+      <h2>Upcoming exhibits</h2>
+      <ul>
+        <li>
+          <strong>Jun 12 – Jul 20, 2026</strong> — <em>Fragments of Light</em>, Musée d'Art Moderne, Paris.
+          A solo exhibition exploring the interplay of natural light and urban landscapes through mixed-media photography.
+        </li>
+        <li>
+          <strong>Aug 3 – Aug 18, 2026</strong> — <em>Summer Open Studios</em>, Kunsthaus Zürich, Switzerland.
+          Live painting sessions and open discussions with visitors every weekend.
+        </li>
+        <li>
+          <strong>Sep 9 – Oct 5, 2026</strong> — <em>Collective Visions</em>, Tate Modern, London.
+          Group show featuring 12 contemporary artists reimagining identity in the digital age.
+        </li>
+        <li>
+          <strong>Nov 14 – Dec 22, 2026</strong> — <em>Still Moving</em>, MoMA PS1, New York.
+          Large-format prints and video installations capturing motion in everyday life.
+        </li>
+      </ul>
+    </section>
+
+    <section class="past-events">
+      <h2>Past events</h2>
+      <ul>
+        <li>
+          <strong>Mar 1 – Apr 10, 2026</strong> — <em>Echoes</em>, Stedelijk Museum, Amsterdam.
+          A retrospective of five years of abstract landscape work, featuring over 40 pieces.
+        </li>
+        <li>
+          <strong>Jan 15, 2026</strong> — <em>Artist Talk: Process & Place</em>, Design Museum, Helsinki.
+          A 90-minute conversation on the relationship between environment and creative output.
+        </li>
+        <li>
+          <strong>Nov 2 – Nov 30, 2025</strong> — <em>Textures of Home</em>, Galerie Perrotin, Seoul.
+          Intimate close-up photography series exploring domestic spaces and personal memory.
+        </li>
+        <li>
+          <strong>Sep 18 – Oct 12, 2025</strong> — <em>Unframed</em>, Centre Pompidou, Paris.
+          Site-specific installation examining how gallery walls shape the perception of art.
+        </li>
+        <li>
+          <strong>Jun 5 – Jul 28, 2025</strong> — <em>Horizons</em>, MACBA, Barcelona.
+          Panoramic seascape photography printed on translucent fabric, suspended across the atrium.
+        </li>
+      </ul>
+    </section>
+
+    <section class="about">
+      <h2>About</h2>
+      <p>Patrick is a multidisciplinary artist based in Amsterdam, working across photography, painting, and digital
+        media. His work draws on architecture, memory, and the textures of everyday life to create images that feel
+        both familiar and otherworldly.</p>
+      <p>With exhibitions in over 15 countries and collaborations with institutions like MoMA, the Tate, and the Centre
+        Pompidou, Patrick's practice continues to push the boundaries between fine art and documentary storytelling.</p>
+      <p>When not in the studio, he leads workshops on visual composition and mentors emerging artists through the
+        European Photography Collective.</p>
+      <button class="secondary arrow">Read full bio</button>
+    </section>
+
+    <section class="testimonials">
+      <h2>What people say</h2>
+      <blockquote>
+        <p>"Patrick's work captures a stillness that feels almost impossible in this era. Every piece invites you to
+          slow down and look closer."</p>
+        <cite>— Marie Dupont, Art Director, Galerie Perrotin</cite>
+      </blockquote>
+      <blockquote>
+        <p>"A rare talent. His photographs don't just document the world — they reimagine it."</p>
+        <cite>— James Whitfield, Curator, Tate Modern</cite>
+      </blockquote>
+      <blockquote>
+        <p>"I commissioned Patrick for a private collection and the result exceeded every expectation. Truly
+          transformative work."</p>
+        <cite>— Elena Marchetti, Private Collector</cite>
+      </blockquote>
+    </section>
+
+    <section class="contact">
+      <h2>Get in touch</h2>
+      <p>Interested in a collaboration, a commission, or just want to say hello? Drop me a line and I'll get back to
+        you within a few days.</p>
+      <button>Contact me</button>
+      <button class="secondary arrow">View press kit</button>
+    </section>
+  </main>
+
+  <footer>
+    <ul>
+      <li class="photo">
+        <img src="/assets/photos/5.webp" alt="Alternative text" width="1500" height="1000">
+      </li>
+      <li class="photo">
+        <img src="/assets/photos/13.webp" alt="Alternative text" width="1500" height="750">
+      </li>
+      <li class="photo">
+        <img src="/assets/photos/37.webp" alt="Alternative text" width="1500" height="1000">
+      </li>
+      <li class="photo">
+        <img src="/assets/photos/12.webp" alt="Alternative text" width="1500" height="1000">
+      </li>
+      <li class="photo">
+        <img src="/assets/photos/7.webp" alt="Alternative text" width="1500" height="1125">
+      </li>
+      <li class="photo">
+        <img src="/assets/photos/1.webp" alt="Alternative text" width="1500" height="750">
+      </li>
+      <li class="photo">
+        <img src="/assets/photos/24.webp" alt="Alternative text" width="1500" height="1000">
+      </li>
+      <li class="photo">
+        <img src="/assets/photos/10.webp" alt="Alternative text" width="1500" height="1000">
+      </li>
+      <li class="photo">
+        <img src="/assets/photos/11.webp" alt="Alternative text" width="1500" height="1125">
+      </li>
+    </ul>
+  </footer>
+</body>
+
+</html>
