@@ -148,6 +148,9 @@
     <div class="input">
       <button onclick="randomize()">Randomize!</button>
     </div>
+    <div class="input">
+      <button id="crazy" onclick="toggleCrazy()">Go crazy!</button>
+    </div>
   </div>
   <div class="container">
     <div class="grid"></div>
@@ -252,6 +255,61 @@
       setStyle(randomStyle);
       setWidth(randomWidth + 'vmin');
       setGap(randomGap + 'vmin');
+    }
+
+    let crazyIntervals = [];
+    let isCrazy = false;
+
+    function toggleCrazy() {
+      const btn = document.getElementById('crazy');
+      if (isCrazy) {
+        crazyIntervals.forEach(id => clearInterval(id));
+        crazyIntervals = [];
+        isCrazy = false;
+        btn.textContent = 'Go crazy!';
+        return;
+      }
+
+      isCrazy = true;
+      btn.textContent = 'Stop!';
+
+      // Use different prime-ish intervals so the controls never sync up.
+      let numberDir = 1;
+      crazyIntervals.push(setInterval(() => {
+        let v = parseInt(numberInput.value) + numberDir;
+        if (v >= NUMBER_MAX) numberDir = -1;
+        if (v <= NUMBER_MIN) numberDir = 1;
+        v = Math.min(NUMBER_MAX, Math.max(NUMBER_MIN, v));
+        numberInput.value = v;
+        setNumberOfGrids(v);
+      }, 370));
+
+      let widthDir = 1;
+      crazyIntervals.push(setInterval(() => {
+        let v = parseFloat(widthInput.value) + widthDir * WIDTH_STEP * 3;
+        if (v >= WIDTH_MAX) widthDir = -1;
+        if (v <= WIDTH_MIN) widthDir = 1;
+        v = Math.min(WIDTH_MAX, Math.max(WIDTH_MIN, parseFloat(v.toFixed(1))));
+        widthInput.value = v;
+        setWidth(v + 'vmin');
+      }, 130));
+
+      let gapDir = 1;
+      crazyIntervals.push(setInterval(() => {
+        let v = parseInt(gapInput.value) + gapDir * 2;
+        if (v >= GAP_MAX) gapDir = -1;
+        if (v <= GAP_MIN) gapDir = 1;
+        v = Math.min(GAP_MAX, Math.max(GAP_MIN, v));
+        gapInput.value = v;
+        setGap(v + 'vmin');
+      }, 210));
+
+      let styleIdx = STYLES.indexOf(styleSelect.value);
+      crazyIntervals.push(setInterval(() => {
+        styleIdx = (styleIdx + 1) % STYLES.length;
+        styleSelect.value = STYLES[styleIdx];
+        setStyle(STYLES[styleIdx]);
+      }, 1700));
     }
 
     initializeControls();

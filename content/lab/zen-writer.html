@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zen Writer</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      background: #fff;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 4rem 2rem;
+    }
+
+    #editor {
+      width: 100%;
+      max-width: 42rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      line-height: 2;
+      color: #222;
+      outline: none;
+      caret-color: #888;
+      min-height: 100%;
+    }
+
+    #editor:empty::before {
+      content: "Start writing\2026";
+      color: #ccc;
+    }
+
+    #status {
+      position: fixed;
+      bottom: 1rem;
+      right: 1.5rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.75rem;
+      color: #ccc;
+      transition: opacity 0.4s;
+    }
+
+    #status.hidden {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="editor" contenteditable="true" spellcheck="false" autocorrect="off"></div>
+  <span id="status"></span>
+
+  <script>
+    const STORAGE_KEY = "zen-writer-content";
+    const editor = document.getElementById("editor");
+    const status = document.getElementById("status");
+    let saveTimeout;
+
+    // Restore saved content on load.
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      editor.innerHTML = saved;
+    }
+
+    // Auto-save on every input, debounced to 500ms.
+    editor.addEventListener("input", () => {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(save, 500);
+    });
+
+    function save() {
+      localStorage.setItem(STORAGE_KEY, editor.innerHTML);
+      showStatus("Saved");
+    }
+
+    function showStatus(message) {
+      status.textContent = message;
+      status.classList.remove("hidden");
+      setTimeout(() => status.classList.add("hidden"), 1500);
+    }
+
+    // Focus the editor on load.
+    editor.focus();
+  </script>
+</body>
+</html>

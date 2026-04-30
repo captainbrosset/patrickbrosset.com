@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkbox Lab</title>
+  <style>
+    @property --inner-radius {
+      syntax: '<percentage>';
+      inherits: true;
+      initial-value: 25%;
+    }
+
+    @property --outer-radius {
+      syntax: '<percentage>';
+      inherits: true;
+      initial-value: 50%;
+    }
+
+    :root {
+      --base-color: #f06;
+      --inner-radius: 25%;
+      --outer-radius: 50%;
+      /* 0 = flatter curves, 1 = current max bend */
+      --curvature: 100%;
+      /* Min: 2, Max: 10 */
+      --points: 6;
+
+      animation:
+        radii 5s ease-in-out infinite alternate;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      display: grid;
+      place-content: center;
+    }
+
+    @function --px(--index, --radius, --points) {
+      result: calc(50% + var(--radius) * cos((var(--index) * pi / var(--points)) - (pi / 2)));
+    }
+
+    @function --py(--index, --radius, --points) {
+      result: calc(50% + var(--radius) * sin((var(--index) * pi / var(--points)) - (pi / 2)));
+    }
+
+    .star {
+      width: 90vmin;
+      aspect-ratio: 1;
+
+      /* Clamp the --points to avoid going beyond the min/max. */
+      /* That's because there's no for loop in CSS. So, below we define */
+      /* all 10 points (well, 20 in reality: 10 peaks + 10 valleys) */
+      /* and going below 10 works fine, you just don't see the other ones */
+      /* however going beyond 10 would create a broken shape. */
+      /* To avoid this, we clamp the number of points. */
+      /* I would love for a for loop to exist in CSS so I can simplify this. */
+      --clamped-points: clamp(2, var(--points), 10);
+
+      background:
+        conic-gradient(oklch(from var(--base-color) l c calc(h + 0)) 0%,
+          oklch(from var(--base-color) l c calc(h + (1 * 360 / var(--clamped-points)))) calc(100% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (2 * 360 / var(--clamped-points)))) calc(200% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (3 * 360 / var(--clamped-points)))) calc(300% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (4 * 360 / var(--clamped-points)))) calc(400% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (5 * 360 / var(--clamped-points)))) calc(500% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (6 * 360 / var(--clamped-points)))) calc(600% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (7 * 360 / var(--clamped-points)))) calc(700% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (8 * 360 / var(--clamped-points)))) calc(800% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (9 * 360 / var(--clamped-points)))) calc(900% / var(--clamped-points)),
+          oklch(from var(--base-color) l c calc(h + (10 * 360 / var(--clamped-points)))) calc(1000% / var(--clamped-points)));
+
+      /* Peak */
+      --p1-x: --px(0, var(--outer-radius), var(--clamped-points));
+      --p1-y: --py(0, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p2-x: --px(1, var(--inner-radius), var(--clamped-points));
+      --p2-y: --py(1, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p3-x: --px(2, var(--outer-radius), var(--clamped-points));
+      --p3-y: --py(2, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p4-x: --px(3, var(--inner-radius), var(--clamped-points));
+      --p4-y: --py(3, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p5-x: --px(4, var(--outer-radius), var(--clamped-points));
+      --p5-y: --py(4, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p6-x: --px(5, var(--inner-radius), var(--clamped-points));
+      --p6-y: --py(5, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p7-x: --px(6, var(--outer-radius), var(--clamped-points));
+      --p7-y: --py(6, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p8-x: --px(7, var(--inner-radius), var(--clamped-points));
+      --p8-y: --py(7, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p9-x: --px(8, var(--outer-radius), var(--clamped-points));
+      --p9-y: --py(8, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p10-x: --px(9, var(--inner-radius), var(--clamped-points));
+      --p10-y: --py(9, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p11-x: --px(10, var(--outer-radius), var(--clamped-points));
+      --p11-y: --py(10, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p12-x: --px(11, var(--inner-radius), var(--clamped-points));
+      --p12-y: --py(11, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p13-x: --px(12, var(--outer-radius), var(--clamped-points));
+      --p13-y: --py(12, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p14-x: --px(13, var(--inner-radius), var(--clamped-points));
+      --p14-y: --py(13, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p15-x: --px(14, var(--outer-radius), var(--clamped-points));
+      --p15-y: --py(14, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p16-x: --px(15, var(--inner-radius), var(--clamped-points));
+      --p16-y: --py(15, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p17-x: --px(16, var(--outer-radius), var(--clamped-points));
+      --p17-y: --py(16, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p18-x: --px(17, var(--inner-radius), var(--clamped-points));
+      --p18-y: --py(17, var(--inner-radius), var(--clamped-points));
+
+      /* Peak */
+      --p19-x: --px(18, var(--outer-radius), var(--clamped-points));
+      --p19-y: --py(18, var(--outer-radius), var(--clamped-points));
+
+      /* Valley */
+      --p20-x: --px(19, var(--inner-radius), var(--clamped-points));
+      --p20-y: --py(19, var(--inner-radius), var(--clamped-points));
+
+      clip-path: shape(
+        from var(--p1-x) var(--p1-y),
+
+        arc to var(--p2-x) var(--p2-y)
+          of 100% cw,
+
+        arc to var(--p3-x) var(--p3-y)
+          of 100% cw,
+
+        arc to var(--p4-x) var(--p4-y)
+          of 100% cw,
+
+        arc to var(--p5-x) var(--p5-y)
+          of 100% cw,
+
+        arc to var(--p6-x) var(--p6-y)
+          of 100% cw,
+
+        arc to var(--p7-x) var(--p7-y)
+          of 100% cw,
+
+        arc to var(--p8-x) var(--p8-y)
+          of 100% cw,
+
+        arc to var(--p9-x) var(--p9-y)
+          of 100% cw,
+
+        arc to var(--p10-x) var(--p10-y)
+          of 100% cw,
+
+        arc to var(--p11-x) var(--p11-y)
+          of 100% cw,
+
+        arc to var(--p12-x) var(--p12-y)
+          of 100% cw,
+
+        arc to var(--p13-x) var(--p13-y)
+          of 100% cw,
+
+        arc to var(--p14-x) var(--p14-y)
+          of 100% cw,
+
+        arc to var(--p15-x) var(--p15-y)
+          of 100% cw,
+
+        arc to var(--p16-x) var(--p16-y)
+          of 100% cw,
+
+        arc to var(--p17-x) var(--p17-y)
+          of 100% cw,
+
+        arc to var(--p18-x) var(--p18-y)
+          of 100% cw,
+
+        arc to var(--p19-x) var(--p19-y)
+          of 100% cw,
+
+        arc to var(--p20-x) var(--p20-y)
+          of 100% cw,
+
+        arc to var(--p1-x) var(--p1-y)
+          of 100% cw);
+    }
+
+    @keyframes radii {
+      /* Animate --inner-radius and --outer-radius
+         to create a morphing star shape. */
+      0% {
+        --inner-radius: 30%;
+        --outer-radius: 50%;
+      }
+      50% {
+        --inner-radius: 50%;
+        --outer-radius: 30%;
+      }
+      100% {
+        --inner-radius: 30%;
+        --outer-radius: 50%;
+      }
+    }
+
+    .controls {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: min-content;
+      background: black;
+      color: white;
+      accent-color: #f06;
+      padding: 1rem;
+      font-family: system-ui;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="star"></div>
+  <div class="controls">
+    <label for="points">Points</label>
+    <input type="range" id="points" name="points" min="2" max="10" value="6" oninput="document.documentElement.style.setProperty('--points', this.value)" />
+  </div>
+</body>
+
+</html>

@@ -1,5 +1,13 @@
 [
   {
+    "url": "shapes",
+    "img": "/assets/star-shape.png",
+    "alt": "A rainbow colored star shape.",
+    "title": "The CSS shape() function",
+    "description": "Morphing star shape using <code>clip-path</code> and the <code>shape()</code> function",
+    "date": "2026-04-30"
+  },
+  {
     "url": "gap-decoration-art",
     "img": "/assets/gap-decoration-art.avif",
     "alt": "Four abstract artworks, made of white lines and dots, in circular shapes, on a black background.",
