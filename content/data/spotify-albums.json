@@ -1,7 +1,81 @@
 {
-  "created_at": "2026-04-27T13:14:51.944Z",
+  "created_at": "2026-05-04T13:19:00.122Z",
   "total_albums": 685,
   "albums": [
+    {
+      "added_at": "2026-04-14T13:06:38Z",
+      "album": {
+        "id": "3DQueEd1Ft9PHWgovDzPKh",
+        "name": "ten days",
+        "artists": [
+          {
+            "id": "4oLeXFyACqeem2VImYeBFe",
+            "name": "Fred again.."
+          }
+        ],
+        "release_date": "2024-09-06",
+        "total_tracks": 20,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3DQueEd1Ft9PHWgovDzPKh"
+        },
+        "href": "https://api.spotify.com/v1/albums/3DQueEd1Ft9PHWgovDzPKh?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2739574df129a4a2f4fa4990286",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e029574df129a4a2f4fa4990286",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048519574df129a4a2f4fa4990286",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3DQueEd1Ft9PHWgovDzPKh"
+      }
+    },
+    {
+      "added_at": "2026-04-14T08:20:15Z",
+      "album": {
+        "id": "6o86bV7TAt5x4exc2qLDqC",
+        "name": "Actual Life (April 14 - December 17 2020)",
+        "artists": [
+          {
+            "id": "4oLeXFyACqeem2VImYeBFe",
+            "name": "Fred again.."
+          }
+        ],
+        "release_date": "2021-04-15",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6o86bV7TAt5x4exc2qLDqC"
+        },
+        "href": "https://api.spotify.com/v1/albums/6o86bV7TAt5x4exc2qLDqC?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273723d4df900fd02eff83579d9",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02723d4df900fd02eff83579d9",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851723d4df900fd02eff83579d9",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6o86bV7TAt5x4exc2qLDqC"
+      }
+    },
     {
       "added_at": "2026-04-17T10:02:04Z",
       "album": {
@@ -148,80 +222,6 @@
           }
         ],
         "uri": "spotify:album:0qWO3SOoAoheiZexjJYV1y"
-      }
-    },
-    {
-      "added_at": "2026-04-14T13:06:38Z",
-      "album": {
-        "id": "3DQueEd1Ft9PHWgovDzPKh",
-        "name": "ten days",
-        "artists": [
-          {
-            "id": "4oLeXFyACqeem2VImYeBFe",
-            "name": "Fred again.."
-          }
-        ],
-        "release_date": "2024-09-06",
-        "total_tracks": 20,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3DQueEd1Ft9PHWgovDzPKh"
-        },
-        "href": "https://api.spotify.com/v1/albums/3DQueEd1Ft9PHWgovDzPKh?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2739574df129a4a2f4fa4990286",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e029574df129a4a2f4fa4990286",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048519574df129a4a2f4fa4990286",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3DQueEd1Ft9PHWgovDzPKh"
-      }
-    },
-    {
-      "added_at": "2026-04-14T08:20:15Z",
-      "album": {
-        "id": "6o86bV7TAt5x4exc2qLDqC",
-        "name": "Actual Life (April 14 - December 17 2020)",
-        "artists": [
-          {
-            "id": "4oLeXFyACqeem2VImYeBFe",
-            "name": "Fred again.."
-          }
-        ],
-        "release_date": "2021-04-15",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6o86bV7TAt5x4exc2qLDqC"
-        },
-        "href": "https://api.spotify.com/v1/albums/6o86bV7TAt5x4exc2qLDqC?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273723d4df900fd02eff83579d9",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02723d4df900fd02eff83579d9",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851723d4df900fd02eff83579d9",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6o86bV7TAt5x4exc2qLDqC"
       }
     },
     {
@@ -2338,43 +2338,6 @@
       }
     },
     {
-      "added_at": "2026-02-03T09:32:28Z",
-      "album": {
-        "id": "0veljMeOyCBKktSQFF28d8",
-        "name": "Freequation",
-        "artists": [
-          {
-            "id": "2XhkFDEyxeqjEOfPw6BIDu",
-            "name": "Oxy"
-          }
-        ],
-        "release_date": "2024-01-12",
-        "total_tracks": 6,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0veljMeOyCBKktSQFF28d8"
-        },
-        "href": "https://api.spotify.com/v1/albums/0veljMeOyCBKktSQFF28d8?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2735eee677679a0437271ef33d5",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e025eee677679a0437271ef33d5",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048515eee677679a0437271ef33d5",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0veljMeOyCBKktSQFF28d8"
-      }
-    },
-    {
       "added_at": "2026-03-09T08:08:09Z",
       "album": {
         "id": "2MHUaRi9OCyTN02SoyRRBJ",
@@ -2412,336 +2375,40 @@
       }
     },
     {
-      "added_at": "2019-08-06T09:19:14Z",
+      "added_at": "2026-02-03T09:32:28Z",
       "album": {
-        "id": "2EkudNdH4hBA7rS21hd5mB",
-        "name": "Scorpio Rising",
+        "id": "0veljMeOyCBKktSQFF28d8",
+        "name": "Freequation",
         "artists": [
           {
-            "id": "5aj3LEYRbuaabjjHkj5oE1",
-            "name": "Death In Vegas"
+            "id": "2XhkFDEyxeqjEOfPw6BIDu",
+            "name": "Oxy"
           }
         ],
-        "release_date": "2003",
-        "total_tracks": 25,
+        "release_date": "2024-01-12",
+        "total_tracks": 6,
         "external_urls": {
-          "spotify": "https://open.spotify.com/album/2EkudNdH4hBA7rS21hd5mB"
+          "spotify": "https://open.spotify.com/album/0veljMeOyCBKktSQFF28d8"
         },
-        "href": "https://api.spotify.com/v1/albums/2EkudNdH4hBA7rS21hd5mB?locale=*",
+        "href": "https://api.spotify.com/v1/albums/0veljMeOyCBKktSQFF28d8?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b273ed8b46b40518858bd1a3929a",
+            "url": "https://i.scdn.co/image/ab67616d0000b2735eee677679a0437271ef33d5",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e02ed8b46b40518858bd1a3929a",
+            "url": "https://i.scdn.co/image/ab67616d00001e025eee677679a0437271ef33d5",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00004851ed8b46b40518858bd1a3929a",
+            "url": "https://i.scdn.co/image/ab67616d000048515eee677679a0437271ef33d5",
             "height": 64,
             "width": 64
           }
         ],
-        "uri": "spotify:album:2EkudNdH4hBA7rS21hd5mB"
-      }
-    },
-    {
-      "added_at": "2020-02-05T08:38:49Z",
-      "album": {
-        "id": "345Qb3eOwDZQ73relorXQE",
-        "name": "Dorothy",
-        "artists": [
-          {
-            "id": "1RNsw4yQImboTy6ScT7cUo",
-            "name": "Diagrams"
-          }
-        ],
-        "release_date": "2017-05-12",
-        "total_tracks": 9,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/345Qb3eOwDZQ73relorXQE"
-        },
-        "href": "https://api.spotify.com/v1/albums/345Qb3eOwDZQ73relorXQE?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273d363dc735ba860120968c632",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02d363dc735ba860120968c632",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851d363dc735ba860120968c632",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:345Qb3eOwDZQ73relorXQE"
-      }
-    },
-    {
-      "added_at": "2020-02-19T14:46:05Z",
-      "album": {
-        "id": "4t4cA9CzlxxbSQlmy3KAN4",
-        "name": "Saubohnen",
-        "artists": [
-          {
-            "id": "7bfe7ceWNJ3OjzmnzcMpdu",
-            "name": "FEATHERED SUN"
-          }
-        ],
-        "release_date": "2015-07-19",
-        "total_tracks": 3,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/4t4cA9CzlxxbSQlmy3KAN4"
-        },
-        "href": "https://api.spotify.com/v1/albums/4t4cA9CzlxxbSQlmy3KAN4?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27325db0333b9ecabf10b54ca44",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0225db0333b9ecabf10b54ca44",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485125db0333b9ecabf10b54ca44",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:4t4cA9CzlxxbSQlmy3KAN4"
-      }
-    },
-    {
-      "added_at": "2020-02-19T14:02:37Z",
-      "album": {
-        "id": "3hSj2KsvjpLvTQJ0pdqAUm",
-        "name": "Bulbo",
-        "artists": [
-          {
-            "id": "7bfe7ceWNJ3OjzmnzcMpdu",
-            "name": "FEATHERED SUN"
-          }
-        ],
-        "release_date": "2016-05-13",
-        "total_tracks": 3,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3hSj2KsvjpLvTQJ0pdqAUm"
-        },
-        "href": "https://api.spotify.com/v1/albums/3hSj2KsvjpLvTQJ0pdqAUm?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2736925736fb9423be7925874e2",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e026925736fb9423be7925874e2",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048516925736fb9423be7925874e2",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3hSj2KsvjpLvTQJ0pdqAUm"
-      }
-    },
-    {
-      "added_at": "2020-02-28T20:37:04Z",
-      "album": {
-        "id": "3yzN5sQahqRFKNtDM2YZSO",
-        "name": "Joshua",
-        "artists": [
-          {
-            "id": "6MJKlN8ya42Agsw3iQZs6e",
-            "name": "French 79"
-          }
-        ],
-        "release_date": "2019-11-08",
-        "total_tracks": 13,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3yzN5sQahqRFKNtDM2YZSO"
-        },
-        "href": "https://api.spotify.com/v1/albums/3yzN5sQahqRFKNtDM2YZSO?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273d8ebf0d2bdf4721a9f027900",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02d8ebf0d2bdf4721a9f027900",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851d8ebf0d2bdf4721a9f027900",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3yzN5sQahqRFKNtDM2YZSO"
-      }
-    },
-    {
-      "added_at": "2020-08-17T07:40:21Z",
-      "album": {
-        "id": "65t3CYOnQXMfKljVInWFpz",
-        "name": "Obsolete",
-        "artists": [
-          {
-            "id": "2OIJq28O1lXrZ2x3NGSk8P",
-            "name": "Pablo Nouvelle"
-          }
-        ],
-        "release_date": "2020-04-02",
-        "total_tracks": 7,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/65t3CYOnQXMfKljVInWFpz"
-        },
-        "href": "https://api.spotify.com/v1/albums/65t3CYOnQXMfKljVInWFpz?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273aae0a621e8019f5b7905b298",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02aae0a621e8019f5b7905b298",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851aae0a621e8019f5b7905b298",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:65t3CYOnQXMfKljVInWFpz"
-      }
-    },
-    {
-      "added_at": "2020-12-11T21:36:12Z",
-      "album": {
-        "id": "0vU8IL5I1YgX1rlTg9oGdC",
-        "name": "In The Silence (Deluxe)",
-        "artists": [
-          {
-            "id": "7xUZ4069zcyBM4Bn10NQ1c",
-            "name": "Ásgeir"
-          }
-        ],
-        "release_date": "2014-11-24",
-        "total_tracks": 35,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0vU8IL5I1YgX1rlTg9oGdC"
-        },
-        "href": "https://api.spotify.com/v1/albums/0vU8IL5I1YgX1rlTg9oGdC?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273f2c3dfd941f19df236d4c098",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02f2c3dfd941f19df236d4c098",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851f2c3dfd941f19df236d4c098",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0vU8IL5I1YgX1rlTg9oGdC"
-      }
-    },
-    {
-      "added_at": "2021-02-26T13:15:20Z",
-      "album": {
-        "id": "61GRfl8jI5rOy9kEnq1eOi",
-        "name": "Sergeï",
-        "artists": [
-          {
-            "id": "0XmzWk0NILMJsOZlDgaSCP",
-            "name": "Lucie Antunes"
-          }
-        ],
-        "release_date": "2019-10-04",
-        "total_tracks": 7,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/61GRfl8jI5rOy9kEnq1eOi"
-        },
-        "href": "https://api.spotify.com/v1/albums/61GRfl8jI5rOy9kEnq1eOi?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273d73e5760fbc74a455dd42a7b",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02d73e5760fbc74a455dd42a7b",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851d73e5760fbc74a455dd42a7b",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:61GRfl8jI5rOy9kEnq1eOi"
-      }
-    },
-    {
-      "added_at": "2021-03-02T10:58:25Z",
-      "album": {
-        "id": "4cIzIfoAhFQTZcpQO0S4NE",
-        "name": "Polaar",
-        "artists": [
-          {
-            "id": "0PyyoamnJX4tdrSf8r6dij",
-            "name": "Maud Geffray"
-          }
-        ],
-        "release_date": "2017-05-12",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/4cIzIfoAhFQTZcpQO0S4NE"
-        },
-        "href": "https://api.spotify.com/v1/albums/4cIzIfoAhFQTZcpQO0S4NE?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273497b58922feafc6df0b7a9be",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02497b58922feafc6df0b7a9be",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851497b58922feafc6df0b7a9be",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:4cIzIfoAhFQTZcpQO0S4NE"
+        "uri": "spotify:album:0veljMeOyCBKktSQFF28d8"
       }
     },
     {
@@ -6518,6 +6185,80 @@
       }
     },
     {
+      "added_at": "2021-03-02T10:58:25Z",
+      "album": {
+        "id": "4cIzIfoAhFQTZcpQO0S4NE",
+        "name": "Polaar",
+        "artists": [
+          {
+            "id": "0PyyoamnJX4tdrSf8r6dij",
+            "name": "Maud Geffray"
+          }
+        ],
+        "release_date": "2017-05-12",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4cIzIfoAhFQTZcpQO0S4NE"
+        },
+        "href": "https://api.spotify.com/v1/albums/4cIzIfoAhFQTZcpQO0S4NE?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273497b58922feafc6df0b7a9be",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02497b58922feafc6df0b7a9be",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851497b58922feafc6df0b7a9be",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:4cIzIfoAhFQTZcpQO0S4NE"
+      }
+    },
+    {
+      "added_at": "2021-02-26T13:15:20Z",
+      "album": {
+        "id": "61GRfl8jI5rOy9kEnq1eOi",
+        "name": "Sergeï",
+        "artists": [
+          {
+            "id": "0XmzWk0NILMJsOZlDgaSCP",
+            "name": "Lucie Antunes"
+          }
+        ],
+        "release_date": "2019-10-04",
+        "total_tracks": 7,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/61GRfl8jI5rOy9kEnq1eOi"
+        },
+        "href": "https://api.spotify.com/v1/albums/61GRfl8jI5rOy9kEnq1eOi?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273d73e5760fbc74a455dd42a7b",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02d73e5760fbc74a455dd42a7b",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851d73e5760fbc74a455dd42a7b",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:61GRfl8jI5rOy9kEnq1eOi"
+      }
+    },
+    {
       "added_at": "2021-02-12T09:17:28Z",
       "album": {
         "id": "3q5XO2WLjKRSJor8HHMcIb",
@@ -6782,6 +6523,43 @@
           }
         ],
         "uri": "spotify:album:0S0Qg6hEuNGEAXJnM5n1zE"
+      }
+    },
+    {
+      "added_at": "2020-12-11T21:36:12Z",
+      "album": {
+        "id": "0vU8IL5I1YgX1rlTg9oGdC",
+        "name": "In The Silence (Deluxe)",
+        "artists": [
+          {
+            "id": "7xUZ4069zcyBM4Bn10NQ1c",
+            "name": "Ásgeir"
+          }
+        ],
+        "release_date": "2014-11-24",
+        "total_tracks": 35,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0vU8IL5I1YgX1rlTg9oGdC"
+        },
+        "href": "https://api.spotify.com/v1/albums/0vU8IL5I1YgX1rlTg9oGdC?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273f2c3dfd941f19df236d4c098",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02f2c3dfd941f19df236d4c098",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851f2c3dfd941f19df236d4c098",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0vU8IL5I1YgX1rlTg9oGdC"
       }
     },
     {
@@ -7263,6 +7041,43 @@
           }
         ],
         "uri": "spotify:album:603lut5ZFjEpJxhhRISjgI"
+      }
+    },
+    {
+      "added_at": "2020-08-17T07:40:21Z",
+      "album": {
+        "id": "65t3CYOnQXMfKljVInWFpz",
+        "name": "Obsolete",
+        "artists": [
+          {
+            "id": "2OIJq28O1lXrZ2x3NGSk8P",
+            "name": "Pablo Nouvelle"
+          }
+        ],
+        "release_date": "2020-04-02",
+        "total_tracks": 7,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/65t3CYOnQXMfKljVInWFpz"
+        },
+        "href": "https://api.spotify.com/v1/albums/65t3CYOnQXMfKljVInWFpz?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273aae0a621e8019f5b7905b298",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02aae0a621e8019f5b7905b298",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851aae0a621e8019f5b7905b298",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:65t3CYOnQXMfKljVInWFpz"
       }
     },
     {
@@ -7784,6 +7599,43 @@
       }
     },
     {
+      "added_at": "2020-02-28T20:37:04Z",
+      "album": {
+        "id": "3yzN5sQahqRFKNtDM2YZSO",
+        "name": "Joshua",
+        "artists": [
+          {
+            "id": "6MJKlN8ya42Agsw3iQZs6e",
+            "name": "French 79"
+          }
+        ],
+        "release_date": "2019-11-08",
+        "total_tracks": 13,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3yzN5sQahqRFKNtDM2YZSO"
+        },
+        "href": "https://api.spotify.com/v1/albums/3yzN5sQahqRFKNtDM2YZSO?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273d8ebf0d2bdf4721a9f027900",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02d8ebf0d2bdf4721a9f027900",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851d8ebf0d2bdf4721a9f027900",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3yzN5sQahqRFKNtDM2YZSO"
+      }
+    },
+    {
       "added_at": "2020-02-27T08:42:06Z",
       "album": {
         "id": "3lETJkavciTauiSyOV1gZC",
@@ -7818,6 +7670,80 @@
           }
         ],
         "uri": "spotify:album:3lETJkavciTauiSyOV1gZC"
+      }
+    },
+    {
+      "added_at": "2020-02-19T14:46:05Z",
+      "album": {
+        "id": "4t4cA9CzlxxbSQlmy3KAN4",
+        "name": "Saubohnen",
+        "artists": [
+          {
+            "id": "7bfe7ceWNJ3OjzmnzcMpdu",
+            "name": "FEATHERED SUN"
+          }
+        ],
+        "release_date": "2015-07-19",
+        "total_tracks": 3,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4t4cA9CzlxxbSQlmy3KAN4"
+        },
+        "href": "https://api.spotify.com/v1/albums/4t4cA9CzlxxbSQlmy3KAN4?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27325db0333b9ecabf10b54ca44",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0225db0333b9ecabf10b54ca44",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485125db0333b9ecabf10b54ca44",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:4t4cA9CzlxxbSQlmy3KAN4"
+      }
+    },
+    {
+      "added_at": "2020-02-19T14:02:37Z",
+      "album": {
+        "id": "3hSj2KsvjpLvTQJ0pdqAUm",
+        "name": "Bulbo",
+        "artists": [
+          {
+            "id": "7bfe7ceWNJ3OjzmnzcMpdu",
+            "name": "FEATHERED SUN"
+          }
+        ],
+        "release_date": "2016-05-13",
+        "total_tracks": 3,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3hSj2KsvjpLvTQJ0pdqAUm"
+        },
+        "href": "https://api.spotify.com/v1/albums/3hSj2KsvjpLvTQJ0pdqAUm?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2736925736fb9423be7925874e2",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e026925736fb9423be7925874e2",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048516925736fb9423be7925874e2",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3hSj2KsvjpLvTQJ0pdqAUm"
       }
     },
     {
@@ -7892,6 +7818,43 @@
           }
         ],
         "uri": "spotify:album:1Y2VwLnorIvA2XdraUnswD"
+      }
+    },
+    {
+      "added_at": "2020-02-05T08:38:49Z",
+      "album": {
+        "id": "345Qb3eOwDZQ73relorXQE",
+        "name": "Dorothy",
+        "artists": [
+          {
+            "id": "1RNsw4yQImboTy6ScT7cUo",
+            "name": "Diagrams"
+          }
+        ],
+        "release_date": "2017-05-12",
+        "total_tracks": 9,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/345Qb3eOwDZQ73relorXQE"
+        },
+        "href": "https://api.spotify.com/v1/albums/345Qb3eOwDZQ73relorXQE?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273d363dc735ba860120968c632",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02d363dc735ba860120968c632",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851d363dc735ba860120968c632",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:345Qb3eOwDZQ73relorXQE"
       }
     },
     {
@@ -8854,6 +8817,43 @@
           }
         ],
         "uri": "spotify:album:4K5E5mWQbECn9aThu6Xnkx"
+      }
+    },
+    {
+      "added_at": "2019-08-06T09:19:14Z",
+      "album": {
+        "id": "2EkudNdH4hBA7rS21hd5mB",
+        "name": "Scorpio Rising",
+        "artists": [
+          {
+            "id": "5aj3LEYRbuaabjjHkj5oE1",
+            "name": "Death In Vegas"
+          }
+        ],
+        "release_date": "2003",
+        "total_tracks": 25,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2EkudNdH4hBA7rS21hd5mB"
+        },
+        "href": "https://api.spotify.com/v1/albums/2EkudNdH4hBA7rS21hd5mB?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273ed8b46b40518858bd1a3929a",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02ed8b46b40518858bd1a3929a",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851ed8b46b40518858bd1a3929a",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2EkudNdH4hBA7rS21hd5mB"
       }
     },
     {
