@@ -1,5 +1,13 @@
 [
   {
+    "url": "https://www.youtube.com/watch?v=Y2BfC7hxazI",
+    "img": "/assets/blinkon21-history-of-web.png",
+    "alt": "The panel, on stage at BlinkOn 21. From left to right: Michael Champion, Brian Kardell, Greg Witworth, Ade Bateman, and myself.",
+    "title": "History of the Web (BlinkOn 21)",
+    "date": "2026-04-21",
+    "description": "I helped moderate a fun and engaging discussion panel about a slice of the history of the web at BlinkOn. For the first ever BlinkOn hosted by Microsoft, we wanted to focus on the times in-between IE and the Chromium-based Edge. Brian Kardell and I had the opportunity to welcome three guests who were at Microsoft during that time, and who had a lot of interesting stories from back then: Michael Champion, Greg Witworth, and Ade Bateman. We talked about the state of the web in the early 2000s, the challenges of that time, and the eventual switch to Chromium."
+  },
+  {
     "url": "/slides/2026-01-FOSDEM.pdf",
     "img": "/assets/fosdem.png",
     "alt": "Title slide of my talk, which is 'Improving the experience of developing for the web, one feature at a time', with he FOSDEM logo.",
