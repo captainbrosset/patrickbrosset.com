@@ -1,7 +1,81 @@
 {
-  "created_at": "2026-05-04T13:19:00.122Z",
-  "total_albums": 685,
+  "created_at": "2026-05-11T14:21:39.642Z",
+  "total_albums": 686,
   "albums": [
+    {
+      "added_at": "2024-08-21T11:32:30Z",
+      "album": {
+        "id": "1LaI3HEJVrsPeaxbrfCCE2",
+        "name": "Blow",
+        "artists": [
+          {
+            "id": "5Wgfp4AXTUcniRynos3K4Q",
+            "name": "Ghinzu"
+          }
+        ],
+        "release_date": "2004-01-01",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1LaI3HEJVrsPeaxbrfCCE2"
+        },
+        "href": "https://api.spotify.com/v1/albums/1LaI3HEJVrsPeaxbrfCCE2?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2730880e97b3add06749d809d12",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e020880e97b3add06749d809d12",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048510880e97b3add06749d809d12",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1LaI3HEJVrsPeaxbrfCCE2"
+      }
+    },
+    {
+      "added_at": "2026-05-04T13:38:28Z",
+      "album": {
+        "id": "34b2JCGkaXuPeYZk1FB4SR",
+        "name": "MOVIE",
+        "artists": [
+          {
+            "id": "4RB2EEsmLhQTOSVQQpDzNg",
+            "name": "Sofiane Pamart"
+          }
+        ],
+        "release_date": "2026-04-17",
+        "total_tracks": 20,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/34b2JCGkaXuPeYZk1FB4SR"
+        },
+        "href": "https://api.spotify.com/v1/albums/34b2JCGkaXuPeYZk1FB4SR?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2738c3354f98ab271c8b14b62e4",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e028c3354f98ab271c8b14b62e4",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048518c3354f98ab271c8b14b62e4",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:34b2JCGkaXuPeYZk1FB4SR"
+      }
+    },
     {
       "added_at": "2026-04-14T13:06:38Z",
       "album": {
@@ -2116,228 +2190,6 @@
       }
     },
     {
-      "added_at": "2014-04-25T11:12:25Z",
-      "album": {
-        "id": "1D900xwFxLRSUBvVyMhR8c",
-        "name": "Songs Of Leonard Cohen",
-        "artists": [
-          {
-            "id": "5l8VQNuIg0turYE1VtM9zV",
-            "name": "Leonard Cohen"
-          }
-        ],
-        "release_date": "1967",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1D900xwFxLRSUBvVyMhR8c"
-        },
-        "href": "https://api.spotify.com/v1/albums/1D900xwFxLRSUBvVyMhR8c?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2731c6d9a5b69a462d9a5d2b796",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e021c6d9a5b69a462d9a5d2b796",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048511c6d9a5b69a462d9a5d2b796",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1D900xwFxLRSUBvVyMhR8c"
-      }
-    },
-    {
-      "added_at": "2014-04-22T10:51:52Z",
-      "album": {
-        "id": "1F8y2bg9V9nRoy8zuxo3Jt",
-        "name": "Heligoland",
-        "artists": [
-          {
-            "id": "6FXMGgJwohJLUSr5nVlf9X",
-            "name": "Massive Attack"
-          }
-        ],
-        "release_date": "2010-02-08",
-        "total_tracks": 14,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1F8y2bg9V9nRoy8zuxo3Jt"
-        },
-        "href": "https://api.spotify.com/v1/albums/1F8y2bg9V9nRoy8zuxo3Jt?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273852aaa233e122f1dbfefcf00",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02852aaa233e122f1dbfefcf00",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851852aaa233e122f1dbfefcf00",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1F8y2bg9V9nRoy8zuxo3Jt"
-      }
-    },
-    {
-      "added_at": "2014-04-21T19:40:03Z",
-      "album": {
-        "id": "3MiiF9utmtGnLVITgl0JP7",
-        "name": "Aleph",
-        "artists": [
-          {
-            "id": "3hteYQFiMFbJY7wS0xDymP",
-            "name": "Gesaffelstein"
-          }
-        ],
-        "release_date": "2013-10-28",
-        "total_tracks": 14,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3MiiF9utmtGnLVITgl0JP7"
-        },
-        "href": "https://api.spotify.com/v1/albums/3MiiF9utmtGnLVITgl0JP7?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27366ed27de1209c960dbe9cbc7",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0266ed27de1209c960dbe9cbc7",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485166ed27de1209c960dbe9cbc7",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3MiiF9utmtGnLVITgl0JP7"
-      }
-    },
-    {
-      "added_at": "2014-04-22T19:31:20Z",
-      "album": {
-        "id": "32HfaMfzcBvEqRAgXLrkDR",
-        "name": "Bleu Pétrole",
-        "artists": [
-          {
-            "id": "6y1aZyP40077De3neGJD2b",
-            "name": "Alain Bashung"
-          }
-        ],
-        "release_date": "2008-01-01",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/32HfaMfzcBvEqRAgXLrkDR"
-        },
-        "href": "https://api.spotify.com/v1/albums/32HfaMfzcBvEqRAgXLrkDR?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273caeeffd33905264fa2a8c7f5",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02caeeffd33905264fa2a8c7f5",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851caeeffd33905264fa2a8c7f5",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:32HfaMfzcBvEqRAgXLrkDR"
-      }
-    },
-    {
-      "added_at": "2019-01-28T15:17:26Z",
-      "album": {
-        "id": "3KZhaWDcqZFY4RUalS6KmB",
-        "name": "The Silver Tree (Extended Edition)",
-        "artists": [
-          {
-            "id": "3C4MmUJYQN9svNdedAR2BK",
-            "name": "Lisa Gerrard"
-          }
-        ],
-        "release_date": "2006-11-20",
-        "total_tracks": 15,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3KZhaWDcqZFY4RUalS6KmB"
-        },
-        "href": "https://api.spotify.com/v1/albums/3KZhaWDcqZFY4RUalS6KmB?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273976ea7ebff1d3e5123dcd881",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02976ea7ebff1d3e5123dcd881",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851976ea7ebff1d3e5123dcd881",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3KZhaWDcqZFY4RUalS6KmB"
-      }
-    },
-    {
-      "added_at": "2025-12-15T16:30:47Z",
-      "album": {
-        "id": "6xuXmpSyh7WqIct3bvsSfg",
-        "name": "THE BPM",
-        "artists": [
-          {
-            "id": "2MPHBxznH1fj59jbOWY38u",
-            "name": "Sudan Archives"
-          }
-        ],
-        "release_date": "2025-10-17",
-        "total_tracks": 15,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6xuXmpSyh7WqIct3bvsSfg"
-        },
-        "href": "https://api.spotify.com/v1/albums/6xuXmpSyh7WqIct3bvsSfg?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273078b6cc632c7bb0031209802",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02078b6cc632c7bb0031209802",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851078b6cc632c7bb0031209802",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6xuXmpSyh7WqIct3bvsSfg"
-      }
-    },
-    {
       "added_at": "2026-03-09T08:08:09Z",
       "album": {
         "id": "2MHUaRi9OCyTN02SoyRRBJ",
@@ -2409,6 +2261,43 @@
           }
         ],
         "uri": "spotify:album:0veljMeOyCBKktSQFF28d8"
+      }
+    },
+    {
+      "added_at": "2025-12-15T16:30:47Z",
+      "album": {
+        "id": "6xuXmpSyh7WqIct3bvsSfg",
+        "name": "THE BPM",
+        "artists": [
+          {
+            "id": "2MPHBxznH1fj59jbOWY38u",
+            "name": "Sudan Archives"
+          }
+        ],
+        "release_date": "2025-10-17",
+        "total_tracks": 15,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6xuXmpSyh7WqIct3bvsSfg"
+        },
+        "href": "https://api.spotify.com/v1/albums/6xuXmpSyh7WqIct3bvsSfg?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273078b6cc632c7bb0031209802",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02078b6cc632c7bb0031209802",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851078b6cc632c7bb0031209802",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6xuXmpSyh7WqIct3bvsSfg"
       }
     },
     {
@@ -3379,43 +3268,6 @@
           }
         ],
         "uri": "spotify:album:3XG5dH7LcDZlkOWmtvLzXB"
-      }
-    },
-    {
-      "added_at": "2024-08-21T11:32:30Z",
-      "album": {
-        "id": "1LaI3HEJVrsPeaxbrfCCE2",
-        "name": "Blow",
-        "artists": [
-          {
-            "id": "5Wgfp4AXTUcniRynos3K4Q",
-            "name": "Ghinzu"
-          }
-        ],
-        "release_date": "2004-01-01",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1LaI3HEJVrsPeaxbrfCCE2"
-        },
-        "href": "https://api.spotify.com/v1/albums/1LaI3HEJVrsPeaxbrfCCE2?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2730880e97b3add06749d809d12",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e020880e97b3add06749d809d12",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048510880e97b3add06749d809d12",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1LaI3HEJVrsPeaxbrfCCE2"
       }
     },
     {
@@ -9343,6 +9195,43 @@
           }
         ],
         "uri": "spotify:album:036k5LgAv0el8Vv3C77V2F"
+      }
+    },
+    {
+      "added_at": "2019-01-28T15:17:26Z",
+      "album": {
+        "id": "3KZhaWDcqZFY4RUalS6KmB",
+        "name": "The Silver Tree (Extended Edition)",
+        "artists": [
+          {
+            "id": "3C4MmUJYQN9svNdedAR2BK",
+            "name": "Lisa Gerrard"
+          }
+        ],
+        "release_date": "2006-11-20",
+        "total_tracks": 15,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3KZhaWDcqZFY4RUalS6KmB"
+        },
+        "href": "https://api.spotify.com/v1/albums/3KZhaWDcqZFY4RUalS6KmB?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273976ea7ebff1d3e5123dcd881",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02976ea7ebff1d3e5123dcd881",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851976ea7ebff1d3e5123dcd881",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3KZhaWDcqZFY4RUalS6KmB"
       }
     },
     {
@@ -24523,6 +24412,43 @@
       }
     },
     {
+      "added_at": "2014-04-25T11:12:25Z",
+      "album": {
+        "id": "1D900xwFxLRSUBvVyMhR8c",
+        "name": "Songs Of Leonard Cohen",
+        "artists": [
+          {
+            "id": "5l8VQNuIg0turYE1VtM9zV",
+            "name": "Leonard Cohen"
+          }
+        ],
+        "release_date": "1967",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1D900xwFxLRSUBvVyMhR8c"
+        },
+        "href": "https://api.spotify.com/v1/albums/1D900xwFxLRSUBvVyMhR8c?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2731c6d9a5b69a462d9a5d2b796",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e021c6d9a5b69a462d9a5d2b796",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048511c6d9a5b69a462d9a5d2b796",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1D900xwFxLRSUBvVyMhR8c"
+      }
+    },
+    {
       "added_at": "2014-04-25T09:14:06Z",
       "album": {
         "id": "1LeBjxguhl0sNpmJSc4aKu",
@@ -25263,6 +25189,43 @@
       }
     },
     {
+      "added_at": "2014-04-22T19:31:20Z",
+      "album": {
+        "id": "32HfaMfzcBvEqRAgXLrkDR",
+        "name": "Bleu Pétrole",
+        "artists": [
+          {
+            "id": "6y1aZyP40077De3neGJD2b",
+            "name": "Alain Bashung"
+          }
+        ],
+        "release_date": "2008-01-01",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/32HfaMfzcBvEqRAgXLrkDR"
+        },
+        "href": "https://api.spotify.com/v1/albums/32HfaMfzcBvEqRAgXLrkDR?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273caeeffd33905264fa2a8c7f5",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02caeeffd33905264fa2a8c7f5",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851caeeffd33905264fa2a8c7f5",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:32HfaMfzcBvEqRAgXLrkDR"
+      }
+    },
+    {
       "added_at": "2014-04-22T10:52:25Z",
       "album": {
         "id": "3VQAmMWmukiPqnlwwdSZfo",
@@ -25297,6 +25260,43 @@
           }
         ],
         "uri": "spotify:album:3VQAmMWmukiPqnlwwdSZfo"
+      }
+    },
+    {
+      "added_at": "2014-04-22T10:51:52Z",
+      "album": {
+        "id": "1F8y2bg9V9nRoy8zuxo3Jt",
+        "name": "Heligoland",
+        "artists": [
+          {
+            "id": "6FXMGgJwohJLUSr5nVlf9X",
+            "name": "Massive Attack"
+          }
+        ],
+        "release_date": "2010-02-08",
+        "total_tracks": 14,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1F8y2bg9V9nRoy8zuxo3Jt"
+        },
+        "href": "https://api.spotify.com/v1/albums/1F8y2bg9V9nRoy8zuxo3Jt?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273852aaa233e122f1dbfefcf00",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02852aaa233e122f1dbfefcf00",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851852aaa233e122f1dbfefcf00",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1F8y2bg9V9nRoy8zuxo3Jt"
       }
     },
     {
@@ -25408,6 +25408,43 @@
           }
         ],
         "uri": "spotify:album:6ocjLooPMZkiXesw4zyX38"
+      }
+    },
+    {
+      "added_at": "2014-04-21T19:40:03Z",
+      "album": {
+        "id": "3MiiF9utmtGnLVITgl0JP7",
+        "name": "Aleph",
+        "artists": [
+          {
+            "id": "3hteYQFiMFbJY7wS0xDymP",
+            "name": "Gesaffelstein"
+          }
+        ],
+        "release_date": "2013-10-28",
+        "total_tracks": 14,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3MiiF9utmtGnLVITgl0JP7"
+        },
+        "href": "https://api.spotify.com/v1/albums/3MiiF9utmtGnLVITgl0JP7?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27366ed27de1209c960dbe9cbc7",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0266ed27de1209c960dbe9cbc7",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485166ed27de1209c960dbe9cbc7",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3MiiF9utmtGnLVITgl0JP7"
       }
     },
     {
