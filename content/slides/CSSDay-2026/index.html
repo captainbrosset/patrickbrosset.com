@@ -1,19 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fun with the Web - CSS Day 2026</title>
-    <style>
-    </style>
-  </head>
-  <body>
-    <h1>Fun with the Web - CSS Day 2026</h1>
+---
+layout: css-day-slides.njk
+title: Fun with grid-lanes - CSSDay 2026 - Hi
+next: ./30-years-ago
+---
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    display: grid;
+    place-content: center;
+  }
 
-    <section>
-      <h2>30 years ago</h2>
-      <p>Thirty years ago, I'm 16 at the time, and I just discovered the Internet.</p>
-      <img src="me-in-96.jpg" alt="A photo of me, in front of an old Macintosh computer, surfing the web with Netscape Navigator 2, in 1996.">
-    </section>
-  </body>
-</html>
+  h1 {
+    inline-size: 90vmin;
+    aspect-ratio: 1;
+    margin: 0;
+    display: grid-lanes;
+    grid-template-columns: 1fr 2fr;
+    gap: 1vmin;
+    font-family: tahoma;
+    text-transform: uppercase;
+
+    span {
+      color: white;
+      background: black;
+      line-height: 0.5;
+      padding: 1vmin;
+      justify-self: baseline;
+
+      /* Fun */
+      &:nth-child(1) {
+        grid-column: span 2;
+        font-size: 30vmin;
+      }
+
+      /* With */
+      &:nth-child(2) {
+        writing-mode: sideways-rl;
+        font-size: 14vmin;
+        grid-column: 1;
+      }
+
+      /* CSS */
+      &:nth-child(3) {
+        grid-column: 2;
+        font-size: 20vmin;
+      }
+      
+      /* Grid */
+      &:nth-child(4) {
+        grid-column: 2;
+        font-size: 14vmin;
+      }
+      
+      /* Lanes */
+      &:nth-child(5) {
+        grid-column: 2;
+        font-size: 21vmin;
+      }
+
+      /* Author */
+      &:nth-child(6) {
+        background: transparent;
+        color: black;
+        font-size: 3vmin;
+        line-height: .9;
+      }
+    }
+  }
+</style>
+<h1>
+  <span>Fun</span>
+  <span>with</span>
+  <span>CSS</span>
+  <span>grid</span>
+  <span>lanes</span>
+  <span>Patrick Brosset<br>CSSDay 2026</span>
+</h1>

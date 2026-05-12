@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .stairs {
+      width: 100vw;
+      height: 100vh;
+      display: grid-lanes;
+      grid-template-rows: repeat(auto-fill, auto);
+      flow-tolerance: infinite;
+      overflow: hidden;
+      border: 2px solid;
+    }
+
+    .item {
+      --base-size: 2px;
+      --min: 1;
+      --max: 100;
+      block-size: var(--base-size);
+      inline-size: calc((var(--max) - abs(mod(sibling-index() - 1, 2 * var(--max)) - var(--max)) + var(--min)) * var(--base-size));
+      background-color: hsl(300 80% calc(20% + mod(sibling-index() - 1, var(--max)) * 60% / var(--max)));
+      
+      animation: rainbowify 10s linear infinite alternate;
+    }
+  </style>
+</head>
+<body>
+  <div class="stairs"></div>
+  <script>
+    const NB = 10000;
+    const stairs = document.querySelector(".stairs");
+    for (let i = 0; i < NB; i++) {
+      const item = document.createElement("div");
+      item.className = "item";
+      stairs.appendChild(item);
+    }
+  </script>
+</body>
+</html>

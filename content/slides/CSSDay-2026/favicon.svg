@@ -1,0 +1,8 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+	<path d="m125 25v225h-100v-225z" />
+	<path d="m375 150v100h-100v-100z" />
+	<path d="m125 275v100h-100v-100z" />
+	<path d="m375 275v100h-100v-100z" />
+	<path d="m250 150v225h-100v-225z" />
+	<path d="m375 25v100h-225v-100z" />
+</svg>

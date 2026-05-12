@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      border-radius: 50%;
+      width: 100vmin;
+      aspect-ratio: 1;
+      display: grid;
+      place-self: center;
+    }
+
+    body {
+      display: grid-lanes;
+      grid-template-columns: repeat(auto-fill, auto);
+      grid-lanes-direction: column fill-reverse;
+      gap: 5px;
+      background: black;
+
+      /* animation: gapify 10s linear infinite alternate; */
+    }
+
+    @keyframes gapify {
+      from {
+        gap: 2px;
+      }
+      to {
+        gap: 10px;
+      }
+    }
+
+    @property --max {
+      syntax: "<number>";
+      inherits: false;
+      initial-value: 1;
+    }
+
+    .item {
+      --base-size: 5px;
+      --min: 1;
+      --max: 1;
+      inline-size: var(--base-size);
+      block-size: calc((mod(sibling-index() - 1, var(--max)) + var(--min)) * var(--base-size));
+      background-color: hsl(from rgb(201 255 69) calc(h + (mod(sibling-index() - 1, var(--max)) * 360 / var(--max))) s l);
+      
+      animation: rainbowify 10s linear infinite alternate;
+    }
+
+    @keyframes rainbowify {
+      from {
+        --max: 20;
+      }
+      to {
+        --max: 500;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const NB = 500;
+    for (let i = 0; i < NB; i++) {
+      const item = document.createElement("div");
+      item.className = "item";
+      document.body.appendChild(item);
+    }
+  </script>
+</body>
+</html>

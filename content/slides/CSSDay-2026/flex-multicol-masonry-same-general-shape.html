@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox / Multicol / Grid-lanes shapes</title>
+  <style>
+    html {
+      block-size: 100%;
+    }
+
+    body {
+      font-size: 15pt;
+      font-family: system-ui;
+
+      margin: 0 auto;
+      max-width: 1000px;
+      padding: 6rem 4rem 4rem 4rem;
+      box-sizing: border-box;
+      block-size: 100%;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4rem;
+    }
+
+    body>div {
+      block-size: 18rem;
+      gap: .5rem;
+      overflow: hidden;
+      anchor-name: --layout;
+      anchor-scope: all;
+
+      &::before {
+        content: attr(class);
+        position: absolute;
+        inset: auto anchor(--layout end) calc(anchor(--layout start) + 1rem) anchor(--layout start);
+        text-align: center;
+        text-transform: capitalize;
+      }
+    }
+
+    .item {
+      border-radius: .5rem;
+      height: 5rem;
+      background-color: hsl(calc(sibling-index() * 36), 70%, 70%);
+    }
+
+    .item:nth-child(2n) {
+      height: 7rem;
+    }
+
+    .item:nth-child(5n) {
+      height: 9rem;
+    }
+
+    .flex {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+    }
+
+    .multicol {
+      column-count: 3;
+
+      .item {
+        margin-block-end: .5rem;
+        break-inside: avoid;
+      }
+    }
+
+    .masonry {
+      display: grid-lanes;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+
+  <div class="multicol">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+
+  <div class="masonry">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+</body>
+
+</html>

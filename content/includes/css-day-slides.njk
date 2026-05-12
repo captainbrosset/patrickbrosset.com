@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/slides/CSSDay-2026/favicon.svg" type="image/svg+xml">
+    <title>Fun with grid-lanes - CSSDay 2026 - {{ title }}</title>
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+
+      #slide-controls {
+        position: fixed;
+        inset: auto 0 0 auto;
+        display: flex;
+        gap: 1ch;
+        padding: 1ch;
+        z-index: 1;
+        background: black;
+        color: white;
+        font-family: system-ui;
+        font-size: 14pt;
+
+        a {
+          color: white;
+        }
+      }
+
+      * {
+        display: none;
+      }
+
+      main {
+        display: contents;
+      }
+
+      main * {
+        display: revert;
+      }
+
+      #slide-controls {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    {{ content | safe }}
+
+    <aside id="slide-controls">
+      {% if prev %}<a href="{{ prev }}" id="prev-slide">Previous</a>{% endif %}
+      {% if next %}<a href="{{ next }}" id="next-slide">Next</a>{% endif %}
+    </aside>
+
+    <script>
+      addEventListener("keydown", (event) => {
+        const prevLink = document.getElementById("prev-slide");
+        const nextLink = document.getElementById("next-slide");
+
+        if (event.key === "ArrowRight" && nextLink) {
+          nextLink.click();
+        } else if (event.key === "ArrowLeft" && prevLink) {
+          prevLink.click();
+        }
+      });
+    </script>
+  </body>
+</html>

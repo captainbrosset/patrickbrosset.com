@@ -104,6 +104,10 @@ Marquee / blink tags.
 Rollover buttons, which I did with Dreamweaver's built-in feature, because I didn't know how to do it in code myself.
 https://www.youtube.com/watch?v=Y-m8m1hjeBM
 
+And sites looked something like this.
+my-90s-site.html
+thick bevels, no responsiveness, lots of images, gifs, etc.
+
 Fancy images was the name of the game. We created very imagery-heavy sites that then had to be sliced up in creative ways to achieve the desired design. Every little header, nav menu, etc. was basically an image.
 
 I mean, at the time, I would buy physical copies of books for inspiration, filled with screenshots of websites.
@@ -115,14 +119,12 @@ We just couldn't write in HTML and CSS all sorts of effects, and then reuse them
 There was no responsive design yet. That came later.
 
 But, we made things happen anyway, with a limited amount of tools.
-And these constraints fueled creativity.
+And these constraints kind of fueled our creativity.
 
 What we had at the time, forced us to find clever solutions to those limitations.
-We were hacking with tables and sliced images, not because it was elegant, but because we were playing with the only tools we had, and achieving amazing designs on a medium that, originally, wasn't made for this kind of things at all.
+We were hacking with tables and sliced images, not because it was elegant, but because we were playing with the only tools we had, and we wanted to achieve amazing designs on a medium that, originally, wasn't made for this kind of things at all.
 
-It was very playful and creative. Again, constraints tend to fuel creativity.
-
-But, also, all of this playing and attempting to do things that weren't possible, was how we pushed the platform forward.
+All this playing and attempting to do things that weren't possible, was how we pushed the platform forward.
 And that's still how things work today.
 
 ### Nostalgic much?
@@ -131,16 +133,18 @@ So, am I just being nostalgic?
 No. Well, maybe a little bit. But really, I love the web of today just as much as the web of the past.
 And I wouldn't go back and leave what we have now for anything.
 
-Today, for a fancy box, we have border-radius, border-image, corner-shape, clip-path, and even border-shape soon.
+Today, for a fancy box, we have border-radius, border-image, corner-shape, clip-path, and even border-shape very soon.
 
 **Visual: The playground got bigger**
 
 The playground got BIGGER, not smaller.
-So we should continue to play. Let's play more, and have fun with the web.
-
-A bigger playground doesn't mean the playground is done. In fact, it can never be done. If it's done, it's dead.
+And, we should continue to play.
+We should continue to have fun with the web, and push the limits of what's possible.
 
 ### Let's have fun
+
+Pro tip: if you want to have fun, create a website. Any site. Even broken, even half finished. Trying stuff out and putting it out there is a great way to join this community.
+Of post things on codepen. The key is, if it's out there, other people can see it, learn from it, and folks who build browsers can see it too, and make the platform better.
 
 So let's have fun for a little bit!
 
@@ -167,6 +171,7 @@ By the way, having fun is the best way to learn!
   https://patrickbrosset.com/articles/2026-01-06-fun-with-the-web/
   Combining mathml with CSS 3D transform animations, to make math fly around the screen.
   A fun way to learn about the mathml language.
+  Just because we can.
 
 **Testing new features**
 
@@ -195,9 +200,10 @@ Pushing the platform to its limits, and sometimes beyond, to find new use cases,
 - Ponggrid
   https://patrickbrosset.com/articles/2026-01-06-fun-with-the-web/
   Making a game rendering engine out of CSS grid only.
+  (TODO: talk about cssdoom here. If it comes after my talk, just hint at it.)
   The ball and paddles are all grid items, and moving just updates their grid positions.
 
-- Popup hell with anchro positioning
+- Popup hell with anchor positioning
   https://patrickbrosset.com/articles/2026-01-06-fun-with-the-web/
   Hundreds of elements anchored to each other.
   Led to bug in Firefox: https://bugzilla.mozilla.org/show_bug.cgi?id=2008698 security bug.
@@ -208,8 +214,7 @@ Pushing the platform to its limits, and sometimes beyond, to find new use cases,
   Great way to learn about how to use the feature, and create something nice in the process.
 
 Now I'm only just scratching the surface here,
-some people, including Lyra here today, have been going way deeper into abusing CSS for fun and art,
-and pushing the limits.
+some people, including Lyra here today, have been going way deeper into abusing CSS for fun and art, and pushing the limits.
 
 ### Why all this?
 
@@ -227,43 +232,36 @@ If all we do is copy/paste from existing tutorials, or use frameworks that abstr
 
 We must keep playing with the web, explore its edges, and even go beyond them.
 
-These demos are just the surface.
-The web platform improves through real usage and feedback.
-Early adoption of features = real-world testing = better standards = more interoperable web.
+I'd go as far as saying that a platform that stagnates is a dead platform. So, we must constantly fight for relevance.
 
-Any platform that stagnates is a dead platform. So, we must constantly fight for relevance.
+And a key part of this is developer engagement, people using features for real, or just playing with them, generating early feedback, use cases, and all taking part in this giant playfield of the web.
 
-And a key part of this is developer engagement, early feedback, use cases, partners, community, all taking part in this giant playfield of the web.
-
-So let's keep pushing.
-
-Take XHR and Fetch as an example:
+Just before we move on to the actual content of this talk, because this has been a long-winded intro, let me make the point again, but taking an example: XHR and Fetch.
 
 XMLHTTP was originally an IE5 ActiveX experiment, in 2000, from the Outlook team.
-`var req = new ActiveXObject("Microsoft.XMLHTTP");`
+`var request = new ActiveXObject("Microsoft.XMLHTTP");`
+
 Was used in weird ways, together with other APIs, making it possible to build GMail, and other Web2.0 apps.
-And that gave us AJAX.
-Coined by Jesse James Garrett in an article titled "AJAX: A New Approach to Web Applications".
-https://designftw.mit.edu/lectures/apis/ajax_adaptive_path.pdf
-It was later reverse‑engineered and implemented by other browsers.
+And that gave us the AJAX era, when everybody became obsessed with re-creating everything in JS.
+
+XMLHTTP was later reverse‑engineered and implemented by other browsers.
 Implemented in Mozilla 1.0 (and Netscape 7), and Safari 1.2.
+
 And it eventually standardized later as XMLHttpRequest.
-Ajax was one of the most important revolutions in web development, ever.
-Much later, it informed fetch().
+
+Much, much later, it informed fetch().
 Now we just have that primitive of the platform, that we couldn't do without, really.
 
-Story shows how an experiment in one browser led to a new use case, which then led to a standard, and then to a better standard.
+Story goes to show that this obscure thing the outlook team needed, then got used in a new way by other devs, leading to new use cases,
+which then led to a standard (XHR),
+and then to a better standard (Fetch).
 
-The web doesn’t improve because we write specs, and sometimes agree on them.
-That's not how things work.
-the web improves because developers try new things, experiment, and complain loudly enough.
-Then, later, specs happen.
+It also shows something which people don't always think about:
+The web doesn’t improves by writing specs in a vacuum, and sometimes agree on them.
+the web improves because developers try new things, experiment, and complain loudly enough, ship experiments, etc.
+Then, later (usually much later), specs happen.
 
-The web platform is also not a finished product.
-It’s a playground that's under active construction at all times.
-It can feel overwhelming, and even tiring, but that's how we keep it alive and relevant.
-
-The wind tunnel analogy:
+It's a bit like a wind tunnel to test planes.
 Engineers don’t standardize airplane designs before testing them.
 They build experimental prototypes.
 They shake them in wind tunnels.
@@ -280,11 +278,14 @@ interop issues never surface early.
 
 ### Fun with Masonry
 
-On that note, there's one feature I'm personally very excited about,
-which is at an early point in its development:
+So now let's switch gears and talk about a feature I'm personally very excited about,
+which is at an early point in its development, which is perfect for collecting feedback:
+
 grid-lanes, aka CSS Masonry.
 
-Let's take grid-lanes to the wind tunnel for a bit, shall we?
+So, to start, let's take grid-lanes to the wind tunnel for a bit, shall we?
+I'm sure you've all seen the pinterest-style masonry layout.
+What I'll show now is going to look nothing like that, but it's still masonry:
 
 - file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/gravity-balls.html
   Filling masonry in reverse, assigning specific lanes to each ball, and combining with view transitions.
@@ -301,6 +302,19 @@ Let's take grid-lanes to the wind tunnel for a bit, shall we?
 - file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/masonry-wtf.html
   Shapes, dense packing.
 
+- file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/many.html
+  Weird little animation.
+  Made me think about the opportunistic nature of the grid-lanes algorithm, which we'll talk about in a bit, which could be used to create a liquid surface effect.
+
+- file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/water.html
+  Ctrl+/- to fill the glass
+  Or resize browser window to make the glass smaller, and water bigger.
+  opportunistic/chaotic nature of the algorithm.
+
+- file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/steps.html
+  Resize screen or change font.
+  Stacked stairs, creating abstract patterns.
+
 ### Serious Masonry
 
 Ok, let's disect this new layout primitive, see how it works, and how you might use it in practice.
@@ -309,22 +323,29 @@ I wasn't invited here just to do cool shit with CSS.
 #### High-level overview
 
 1. There's a new name: grid-lanes, get used to it!
-2. It's not a special grid.
+2. It's not a special grid. It does share some things with CSS grid, but it's fundamentally different.
 3. Grid-lanes is 1D, like flexbox, and unlike grid. You don't get to control the other direction.
-4. Grid-lanes isn't only vertical (or waterfall as some people call it). It can be horizontal too.
+4. Grid-lanes isn't only vertical (or waterfall as some people call it). It can be horizontal too. And also reversed.
 5. Grid-lanes isn't restricted to same-size lanes only. Lanes can be of any size. In fact, you can also use the `repeat()` syntax to define them.
 6. By default, you don't get to control the placement of items. They're placed according to the grid-lanes algorithm.
-7. This algorithm is opportunistic.
-8. But, if you need, you can control the lanes where items get placed.
+7. This algorithm is opportunistic, and sometimes can seem chaotic.
+8. But, if you need, you can still assign an item to a specific lane.
 9. Items can span multiple lanes.
 10. Visual order is not DOM order. Items that appear later in the DOM may appear visually above earlier items.
-11. Keyboard tabbing order follows DOM order, not visual order. Keep in mind.
+11. Keyboard tabbing order follows DOM order, not visual order. Keep that in mind.
 
 #### Naming
 
 Masonry is the way most people have been referring to this way of laying out items, and it's still the most common name for it.
 Masonry is actually also the name of a JS library you can use in browsers today, and which has been very popular for a long time.
-Also, when the very first attempt at implementing this layout natively in browsers was prototyped by Mozilla, it was based off of CSS Grid, and used the "masonry" keyword value.
+Also, when the very first attempt at implementing this layout natively in browsers was prototyped by Mozilla, almost 10 years ago now, it was based off of CSS Grid, and used the "masonry" keyword value.
+
+```css
+layout {
+  display: grid;
+  grid-template-columns: masonry;
+}
+```
 
 However, in the latest version of the spec, the term masonry only appears in prose, not in code or syntax.
 
@@ -332,89 +353,170 @@ The new name, which is also a new display value, is grid-lanes.
 
 `display: grid-lanes`
 
-The other naming thing to get comfortable with is "lanes". We're talking about swim lanes here, or driving lanes, whatever metapho works for you.
+The other naming thing to get comfortable with is "lanes". We're talking about swim lanes here, or driving lanes, whatever metaphor works for you.
 The reason we do this, over say columns and rows like in grid, is that grid-lanes can be used in both directions, but you only get to control one direction. Grid-lanes is 1D.
 
---- also add something about graceful degradation 
-display: grid;
-display: grid-lanes; /* ignored by UAs without support */
-also @supports.
+#### Progressive enhancement
+
+Grid and grid-lanes, for common use cases, can result in similar shapes.
+Grid lanes is better at occupying space, but if you want to use it today, you can still do it by first declaring a grid, and overriding this with grid-lanes, which will be ignored by browsers that don't yet support this display type:
+
+```css
+layout {
+  display: grid;
+  display: grid-lanes; /* ignored by UAs without support */
+}
+```
+
+TODO: show grid-grid-lanes-animation.mp4, in a loop.
+
+The `@supports` rule also works just fine for grid-lanes:
+
+```css
+@supports (display: grid-lanes) {
+  layout {
+    display: grid-lanes;
+  }
+}
+```
 
 #### Shape and orientation
 
-Now let's talk about the shape of 
-First, the shape of your layout is super important because that's what you (or your designer) want to achieve visually.
+Now let's talk about the shape of grid-lanes.
+The shape of your layout is super important because that's what you (or your designer) want to achieve visually.
+
+TODO: walk step by step through this while going over the next few paragraphs.
 file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/grid-lanes-shape-step-by-step.html
 
 In grid-lanes, you reuse some of the same properties as in grid.
-So, first things first, set display:grid;. This won't do anything by default, other than let you use the gap property if you want to space items out.
+So, first things first, set display:grid-lanes;
+This won't do anything by default, other than let you use the gap property if you want to space items out.
 
 Then, to set the orientation for your lanes, you can set either grid-template-columns, for columns (or waterfall) or grid-template-rows for rows (or brick wall). The browser does the right thing for you automatically, just based on which of these properties is set.
-file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/toggle-direction.html
 
-It's important to realize that masonry is 1D, unlike grid.
-In grid, you specify both axes at the same time, and get to position items in both dimensions.
-In masonry, you only define lanes along 1 dimension, and items get placed within them automatically. For example, in a column direction masonry layout, you don't get to control the row placement of your items.
+Again, masonry is 1D, unlike grid.
+In grid, you specify both axes at the same time, and get to position items along both of these dimensions if you want.
+In masonry, you only define lanes along 1 dimension, and items get placed within them automatically.
+For example, in a column direction masonry layout, you don't get to control the row placement of your items.
 
 But you do have control over the shape and number of your lanes.
+grid-template-columns: 2fr 1fr 3fr 1fr for example.
 You can reuse the full power of the grid track sizing syntax, even using the repeat function and auto-fill/fit...
-file:///C:/Users/pabrosse/dev/Demos/css-masonry/nature.html
 
 One other thing we can do to control the shape of our layout, is customize which lanes items get placed in, and how many lanes they span.
 Again, only along the lane axis, not the other axis.
 grid-column and grid-row can be used just like in grid, albeit only along the axis of the lanes.
 For example, you can make items span multiple lanes.
 Or position items onto specific lanes.
-https://microsoftedge.github.io/Demos/css-masonry/new-york.html
-file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/auto-gantt.html (order still determines the succession of tasks, and spanning tasks move things out (no dense packing by filling past slots)). Play with removing and change tasks to see layout in action.
 
+A few examples showing what we just talked about:
+- Switching the direction: file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/toggle-direction.html
+- Multiple sizing options: file:///C:/Users/pabrosse/dev/Demos/css-masonry/nature.html
+- Assign specific lanes and span: https://microsoftedge.github.io/Demos/css-masonry/new-york.html
 
 But that's not all you can do.
 Although this is still in flux on the CSS Working Group, there are discussions for allowing you to set the starting point of the layout.
 This is very similar to how flexbox works:
-In flexbox, which is also 1D, you decide the shape (row or column), and you also get to decide where along that shape the first item gets placed: row-reverse, column-reverse.
+In flexbox, you decide the shape (row or column), and you also get to decide where along that shape the first item gets placed: row or row-reverse, column or column-reverse.
 
-In Masonry, at least in the current chromium implementation, you can reverse things:
+See: file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/flexbox-direction-diagrams.html
+
+In Masonry, at least in the current implementation in chromium, and again this is in discussions in the CSSWG, you can reverse also things:
+
 - grid-lanes-direction: column track-reverse -> start filling from the right-most lane.
 - grid-lanes-direction: column fill-reverse -> start filling from the bottom of the lanes, and then go up.
-These are still in discussions. In fact, we don't know yet if grid-lanes-direction will end up existing at all.
-**Visual needed here, not real-world example (that's later), demo like the other ones**
 
------ also add something about the repeat(auto-fill, auto), which only exists in masonry, and helps make things simple -----
-Level 3 relaxes the <auto-repeat> syntax to allow intrinsic sizes (like auto) inside repeat(auto-fill, ...). This wasn't possible before. auto-fit collapses empty tracks using a heuristic based on explicit placements and total auto-placed item spans.
+See: file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/grid-lanes-direction-diagrams.html
+
+#### Intrinsic lanes
+
+I said before that you can use the full power of the grid track sizing syntax to define your lanes.
+
+So things like this are all possible:
+
+`1fr 1fr`
+`repeat(3, 1fr)`
+`100px 200px auto 1fr`
+`10px 1fr 10px auto`
+`repeat(auto-fill, minmax(100px, 1fr))`
+
+And so on...
+
+But, there's one more thing you can now do with grid-lanes only, which makes it even simpler to create your lanes:
+
+`repeat(auto-fill, auto)`
+
+Grid-lanes spec relaxes the `<auto-repeat>` syntax to allow intrinsic sizes (such as `auto`) inside `repeat(auto-fill, ...)`.
+This wasn't possible before.
+
+**TODO: need explaination from Alison on why. Also needs an example.**
 
 #### Flow
 
 Now let's talk about the flow of items in grid lanes.
+
 Beyond the general shape of the thing you are building, it's very important to consider the order in which items are placed.
-Because the same general shape can be created with different layouts, and it ultimately all depends on how you want your items to flow through these layouts.
+Because the same general shape can be created with different layouts, and it ultimately it all depends on how you want your items to flow through the shape.
 
 Let's compare flexbox, multicolumn, and masonry to understand this better.
+If I wanted this shape, I could create it with all three of these layout types.
+
+file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/flex-multicol-masonry-same-general-shape.html
+
+Same general shapes, but if you look closely, you'll notice the order is kind of different.
+
+In fact, let's now compare them by using the same items.
+
 file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/flex-multicol-masonry-flow.html
+
 Small difference between flexbox and multicol related to fragmentation, but otherwise same thing, you get columns with items flowing down each column one by one.
 Comparing the grid-lanes, we see a big difference in the order of elements.
 
 Masonry is opportunistic. It doesn't like to leave gaps. It'll try to fill the shortest lane first. And this is what gives us this criss-cross pattern.
 
-In fact, you can see this in action when switching between grid and grid-lanes and leaving all other props unchanged. Grid gets you a ... well grid. Which can sometimes lead to gaps when items don't all have the same size. With grid-lanes, these gaps get filled. 
-But it's also very different in the sense that grid-lanes doesn't start from grid and then squishing everything closer together. It fills lanes one by one, always making a decision as to which one is next.
+So, similar shapes, very different flow.
+
+Let's also compare with grid.
+Grid gets you ... well, a grid. Which can sometimes lead to gaps when items don't all have the same size. Because items have to be aligned across both axes at the same time.
+
 file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/grid-without-gap-flow-diff-with-masonry.html
+
+Let's take a look at what a grid without those gaps would look like:
+
+TODO: click grid without gaps.
+
+It's easy to think that this is what grid-lanes is. But be very careful. The placement algorithm is very different in grid-lanes.
+Grid-lanes doesn't start from grid and then squishing everything closer together.
+It fills lanes one by one, always making a decision as to which one is next.
 
 The algorithm runs step by step, making the decision of which lane to pick for each one.
 layout is genuinely algorithmic.
-file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/flow-tolerance.html
+
+TODO: click to compare with grid-lanes now.
+And then show the flow to illustrate that items are placed opportunistically, even if that breaks the 1,2,3 - 1,2,3 order of the grid.
+
+Show file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/flow-tolerance.html
+ (without the flow debugging)
+ Fill first 4 columns, 1 by 1. Obvious because this is a LTR page, filling the next column, which is empty.
+ Once all 4 are filled, we have 2 columns at the same height. Which one will be filled?
+ The first one, because we've reached the end, so we start again from the left, again because this is LTR.
 
 #### Tolerance
 
+This brings us to flow-tolerance.
+Why do we have this somewhat chaotic way of placing items?
+
 Masonry is trying to solve two conflicting goals at once:
-* Preserve DOM flow order
-* Produce visually balanced packing
+1. Produce a result that's visually balanced. Where no one lane is much longer than the others, and where we don't have big gaps.
+2. Preserve the DOM order as much as possible.
 
 Those are not compatible if you always, stricktly, do the mathematically best placement.
 
 Assuming you'd strictly follow the algorithm: if your items are roughly the same size, and you basically want to fill your lanes one after the other, you may run into situations where lanes get filled kind of unpredictably, causing visual jitter.
 
 That's where flow tolerance comes in.
+
+file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/flow-tolerance.html
 
 At tolerance 0: the next item is always placed in the shortest lane.
 
@@ -426,25 +528,32 @@ That's because it can lead to more visual jitter than necessary. Sometimes, when
 That's why the spec defines a 1em default tolerance, which is a good default to start with.
 
 You can set the tolerance to whatever you want.
+
+TODO: demo with 35px tolerance to show that we don't always respect the shortest lane, thanks to this buffer.
+
 Including a special value of "infinite".
 At tolerance infinite: all tracks are always tied, so the algorithm always fills them one after the other.
 This can be helpful if you want to strictly follow lane order, even if it leads to imbalanced lanes.
 
 Tolerance can help improve the perceived reading order. Because grid-lanes visually re-orders items, flow-tolerance can help keep visually adjacent items closer in placement order, which can reduce sudden vertical jumps between siblings.
 
---- If possible, in new h4 section: Talk about fragmentation and subgrid (check with Alison what's ready to be used). Highlight things Apple doesn't have, even if they shipped first. ---
-
 ### Real-world examples
 
-- Kevin Powell's quotes (shape looks the same in multi-col vs. grid-lanes, but order is different, might be better if you want most recent testimonials at the top. Also more natural for users to read in this order, so DOM order should match).
+- Kevin Powell's testimonials for one of his online course. Which is great btw.
 file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/kevin-powell-testimonials.html
+  Kevin implemented this wil multi-column. Which is great, and perfectly valid.
+  And, for a use case like this where the order of these testimonials doesn't really matter, there's no right answer.
+  Grid-lanes can do achieve this very easily too, and the order's different. If you're reading this page, you might visually scan this from left to right and then top to bottom, which masonry would give you by default.
+  This might be nice if your testimonials come from a DB and you're fetching the most recent ones for example.
 
 - Lazy loading gallery
 file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/lazy-gallery.html
+  Masonry works well with lazy loading because ...
+  TODO`
 
-- Infinite gallery
+- Infinite content
 file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/infinite-loading.html
-Replace with images maybe.
+  But we can go further than this, and do an infinite loading page, which continues to load content as you scroll down, until you've loaded everything.
 
 - Blog
 https://microsoftedge.github.io/Demos/css-masonry/blog.html
@@ -452,21 +561,39 @@ https://microsoftedge.github.io/Demos/css-masonry/blog.html
 - News site
 https://microsoftedge.github.io/Demos/css-masonry/blog.html
 
-- Kanban board
-https://microsoftedge.github.io/Demos/css-masonry/kanban.html
-
 - Creative photo galleries
 http://localhost:8080/slides/CSSDay-2026/reverse-gallery
+  Fill-reverse stack of photos at the bottom, coming from the bottom up.
 file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/two-dir-gallery.html
+  Interesting visual layout for photographers, etc.
 
 - Museum artwork collection search:
-file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/artwork-search.html
+http://localhost:8080/slides/CSSDay-2026/artwork-search/
+  Works great for inspiration-style search results, where the order matters less than the overall visual balance of the page.
+  Again, showcasing the infinite loading use case, where things nicely get added to the end without re-layouting anything.
 
-- testimonials
-file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/kevin-powell-testimonials.html
+- file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/auto-gantt.html
+  Showcasing the row-direction layout here.
+  And the ability to assign items to a specific lane.
+  Each team's tasks is assigned to the right lane.
+  With some tasks spanning all lanes, when they're common.
+  The order of the items in the DOM matters here. It determines the succession of the tasks over time, and the common spanning tasks move things out.
+  I can resize or remove some tasks so you can see how things re-arrange.
+  - Make Dashboard implementation smaller to see how Sprint planning gets stuck after all 3 teams are done.
+  - Delete Sprint planning to show how everything moves earlier, in their respective lanes.
 
-- bar chart
-file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/masonry-bar-chart.html
+- Kanban board
+https://microsoftedge.github.io/Demos/css-masonry/kanban.html
+  Items belong to specific lanes here too.
+  And I can move them between lanes, simply by changing their `grid-column` value.
+  You couldn't do this with grid without leaving gaps.
+  You could maybe do this with multicol, but you'd have to change the order of items in the DOM, and make sure your container has exactly the right height to contain the right number of items. Or wrap each column in a div, and avoid fragmentation.
+  You could do this with a row flexbox layout, but you'd have to move items in the DOM. Which is fine.
+  You could also just do this with positioning, or floats.
+
+There's always a number of different ways you can achieve a particular layout in CSS, and that's a good thing. It means you can pick the one that best suits your needs, and that you're most comfortable with.
+
+Depending on how you retrieve content from your backend, depending on how you want users to navigate through them, and obviously depending on the final visual aspect you want to achieve, you might pick one solution over the other.
 
 ### Closing
 
@@ -474,4 +601,4 @@ Inside, I'm still that same 16 year old kid in his coyote's pajamas, playing wit
 
 Playing with the web isn't just fun, it's essential for the platform's survival.
 
-So, go play with CSS grid-lanes, and tell us what you think.
+So, go play with CSS grid-lanes, and tell me what you think.
