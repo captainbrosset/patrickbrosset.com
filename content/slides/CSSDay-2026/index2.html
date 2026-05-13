@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+  <meta charset=UTF-8>
+  <meta content="width=device-width" name="viewport">
+  <title>Fun with CSS Grid Lanes - CSSDay 2026</title>
+  <link rel="stylesheet" href="./Templates/slides.css">
+  <!-- To use the b6+ framework, include this: -->
+  <script src="./Templates/b6plus.js"></script>
+  <!-- To use the Shower framework, remove b6plus above and add these two: -->
+  <!-- <script src="./Templates/shower.js"></script>       -->
+  <!-- <script src="./Templates/iframe-fixup.js"></script> -->
+  <style>
+    iframe.demo {
+      width: 100%;
+      height: 70vh;
+      border: none;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+
+<body class="shower fade-in duration=40">
+
+  <!-- Remove this element if you don't want a progress bar: -->
+  <div class=progress></div>
+
+  <!-- Remove this element if you don't want the remaining time in
+       index mode and on the 2nd screen. If you keep it, you may want
+       to add the class "duration=n" on BODY, where n is the initial
+       number of minutes on the clock. Default is 30. -->
+  <div class=clock></div>
+
+  <!-- Alternative: Show also real time and elapsed time. -->
+  <!-- <div class=fullclock></div> -->
+
+  <!-- What a screen reader should say on leaving slide mode,
+       instead of the default 'Stopped.' -->
+  <div role=region aria-live=assertive>
+    Leaving slide mode.
+  </div>
+
+  <!--=============================================================
+       Title
+  ==============================================================-->
+
+  <section class="slide cover" id="cover">
+    <h1>Fun with CSS Grid Lanes</h1>
+    <address>Patrick Brosset</address>
+    <p>CSSDay 2026<br>Amsterdam</p>
+  </section>
+
+  <section class=comment>
+    <p>Hello everyone. I'm Patrick Brosset, I work at Microsoft on the Edge team.</p>
+    <p>Today I want to talk about having fun with the web, and specifically with CSS grid-lanes, aka masonry.</p>
+  </section>
+
+  <!--=============================================================
+       30 years ago
+  ==============================================================-->
+
+  <section class="slide" id="30-years-ago">
+    <h2>30 years ago</h2>
+    <img src="me-in-96.jpg" alt="Me at 16, in front of the computer, browsing the web in 1996" class="fit">
+  </section>
+
+  <section class=comment>
+    <p>Here is me at 16 years old, exactly 30 years ago, discovering the Internet.</p>
+    <p>I was an absolute fan boy of the web in 1996.</p>
+    <p>I'm rocking my coyote's pajamas. I'm surfing the web and, if you zoom in, you can see the nice Netscape logo. And a book about Netscape.</p>
+    <p>Big fan of the web from the very early days, jumping online as soon as the phone line was free.</p>
+    <p>I wanted to be a part of it. I had never done any programming. My path was a very visual one. I wanted to draw things, make things move and look cool.</p>
+    <p>Tools were Photoshop, creating weird images, finding ways to make them appear on the web. Mostly by exporting sliced up images to create pixel perfect web pages.</p>
+  </section>
+
+  <!--=============================================================
+       The early web
+  ==============================================================-->
+
+  <section class="slide" id="early-web">
+    <h2>The early web</h2>
+    <ul>
+      <li>9-slice divs for rounded corners and fancy borders</li>
+      <li>Framesets</li>
+      <li>Image maps</li>
+      <li>Web-safe color palette</li>
+      <li>Table layouts with spacer gifs</li>
+      <li>Marquee / blink tags</li>
+      <li>Rollover buttons (Dreamweaver!)</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>What was it like to be working on the web in the early 2000s? What was fun with the web back then?</p>
+    <p>Border images and rounded corners did not exist, but that doesn't mean we couldn't have them. Around 2006, I was part of a team that developed a company UI framework. We had a div component, just because it could do rounded corners.</p>
+    <p>Fancy images was the name of the game. Every header, nav menu, etc. was basically an image.</p>
+  </section>
+
+  <section class="slide" id="my-90s-site">
+    <h2>My 90s site</h2>
+    <iframe class="demo" src="my-90s-site.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Sites looked something like this. Thick bevels, no responsiveness, lots of images, gifs, etc.</p>
+    <p>We created very imagery-heavy sites that then had to be sliced up in creative ways to achieve the desired design.</p>
+  </section>
+
+  <!--=============================================================
+       Constraints fueled creativity
+  ==============================================================-->
+
+  <section class="slide" id="constraints">
+    <h2>Constraints fueled creativity</h2>
+    <ul>
+      <li>Heavily constrained by the platform's capabilities</li>
+      <li>No responsive design yet</li>
+      <li>We made things happen with limited tools</li>
+      <li>Hacking with tables and sliced images</li>
+      <li>Playing pushed the platform forward</li>
+      <li>And that's still how things work today</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>We were pretty heavily constrained by the capabilities of the platform at the time. We didn't have all the tools that we now have.</p>
+    <p>But we made things happen anyway, with a limited amount of tools. And these constraints kind of fueled our creativity.</p>
+    <p>We were hacking with tables and sliced images, not because it was elegant, but because we were playing with the only tools we had, and we wanted to achieve amazing designs on a medium that wasn't made for this.</p>
+    <p>All this playing and attempting to do things that weren't possible, was how we pushed the platform forward. And that's still how things work today.</p>
+  </section>
+
+  <!--=============================================================
+       The playground got bigger
+  ==============================================================-->
+
+  <section class="slide" id="playground-bigger">
+    <h2>The playground got bigger</h2>
+    <ul>
+      <li>Today: border-radius, border-image, corner-shape, clip-path, border-shape...</li>
+      <li>The playground got BIGGER, not smaller</li>
+      <li>We should continue to play</li>
+      <li>We should continue to have fun with the web</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Am I just being nostalgic? No. I love the web of today just as much as the web of the past.</p>
+    <p>Today, for a fancy box, we have border-radius, border-image, corner-shape, clip-path, and even border-shape very soon.</p>
+    <p>The playground got BIGGER, not smaller. We should continue to play. We should continue to have fun with the web, and push the limits of what's possible.</p>
+  </section>
+
+  <!--=============================================================
+       Let's have fun - combining primitives
+  ==============================================================-->
+
+  <section class="slide" id="lets-have-fun">
+    <h2>Let's have fun</h2>
+    <ul>
+      <li>Pro tip: create a website. Even broken, even half finished.</li>
+      <li>Post things on CodePen</li>
+      <li>If it's out there, people can see it, learn from it</li>
+      <li>Folks who build browsers can see it too</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>If you want to have fun, create a website. Any site. Trying stuff out and putting it out there is a great way to join this community.</p>
+    <p>My job at Microsoft very often involves being the very first real tester for new features. I do DevRel, which means engineers and PMs come to me with early prototypes. Having fun with new things is literally part of my job.</p>
+  </section>
+
+  <section class="slide" id="combining-primitives">
+    <h2>Combining primitives</h2>
+    <ul>
+      <li>Why write things in JS when the platform's got your back!</li>
+      <li>Use built-in primitives, combine them together</li>
+      <li>Better accessibility, performance, or just for fun</li>
+      <li>Having fun is the best way to learn!</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Using the built-in primitives, and combining them together, for better accessibility, performance, or just for fun!</p>
+  </section>
+
+  <section class="slide" id="demo-solar-system">
+    <h2>Solar system with anchor positioning</h2>
+    <iframe class="demo" src="https://patrickbrosset.com/lab/anchor-system/"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Here, offset-path to animate the planets around their orbits, and anchor positioning to keep the labels next to the planets.</p>
+  </section>
+
+  <section class="slide" id="demo-whack-a-mole">
+    <h2>Whack a mole with &lt;dialog&gt;</h2>
+    <iframe class="demo" src="https://patrickbrosset.com/articles/2026-01-06-fun-with-the-web/"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Using the dialog element to show the moles in their little holes, with dialog.show(). Closing them with the command/commandfor attributes. Dialogs contain a single button which triggers the close.</p>
+  </section>
+
+  <!--=============================================================
+       Testing new features
+  ==============================================================-->
+
+  <section class="slide" id="testing-new-features">
+    <h2>Testing new features</h2>
+    <ul>
+      <li>Playing with new features in early implementations</li>
+      <li>Great way to learn about them</li>
+      <li>Give feedback to the teams building them</li>
+      <li>Push the platform forward with new use cases and edge cases</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Playing with new features in early implementations is a great way to learn about them, but also to give feedback to the teams building them, and to push the platform forward.</p>
+  </section>
+
+  <section class="slide" id="demo-pacman">
+    <h2>Pacman with focusgroup</h2>
+    <iframe class="demo" src="https://patrickbrosset.com/lab/focusgroup-pacman/"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Using focusgroup, amazing upcoming accessibility feature which gives you arrow-key navigation for free if you follow the right accessibility patterns.</p>
+    <p>Here, testing the table pattern, which is very experimental, to implement a pacman game with 0 JS code.</p>
+    <p>Pacman moves with the focusgroup feature. Dots get eaten thanks to a filling forward paused CSS animation hack.</p>
+    <p>Was very useful to learn about focusgroup, and to give feedback to my colleague who's implementing the feature in Chromium.</p>
+  </section>
+
+  <!--=============================================================
+       Cranking things up to 11
+  ==============================================================-->
+
+  <section class="slide" id="cranking-to-11">
+    <h2>Cranking things up to 11</h2>
+    <ul>
+      <li>Pushing the platform to its limits, and sometimes beyond</li>
+      <li>Find new use cases and edge cases</li>
+      <li>Make the implementation better</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Pushing the platform to its limits, and sometimes beyond, to find new use cases, and edge cases that make the implementation better.</p>
+  </section>
+
+  <section class="slide" id="demo-gap-decorations">
+    <h2>Art with gap decorations</h2>
+    <iframe class="demo" src="https://patrickbrosset.com/lab/gap-decoration-art/"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>These are all gap decorations of multiple grids positioned in a circular shape. Great way to learn about how to use the feature, and create something nice in the process.</p>
+  </section>
+
+  <!--=============================================================
+       Why all this?
+  ==============================================================-->
+
+  <section class="slide" id="why-all-this">
+    <h2>Why all this?</h2>
+    <ul>
+      <li>Computers are fun!</li>
+      <li>If we stop playing, we stop pushing the platform forward</li>
+      <li>We need to constantly fill the pipe with new features</li>
+      <li>A platform that stagnates is a dead platform</li>
+      <li>Developer engagement is key</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>If we stop playing, we stop pushing the platform forward, which is bad for everybody.</p>
+    <p>For the web to be capable and interoperable, we all together need to be constantly filling the pipe with new features, so that they can become standardized and interoperable based on actual usage and real feedback.</p>
+    <p>If all we do is copy/paste from existing tutorials, or use frameworks that abstract away the platform, or use AI based on potentially outdated training data, we stop caring about the capabilities of the platform.</p>
+    <p>A platform that stagnates is a dead platform. We must constantly fight for relevance.</p>
+  </section>
+
+  <!--=============================================================
+       XHR / Fetch example
+  ==============================================================-->
+
+  <section class="slide" id="xhr-fetch">
+    <h2>Example: XHR &rarr; Fetch</h2>
+    <ul>
+      <li>XMLHTTP: IE5 ActiveX experiment (2000), from the Outlook team</li>
+      <li>Used in weird ways &rarr; GMail, Web2.0, the AJAX era</li>
+      <li>Reverse-engineered by other browsers</li>
+      <li>Standardized as XMLHttpRequest</li>
+      <li>Much later: informed fetch()</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>XMLHTTP was originally an IE5 ActiveX experiment, in 2000, from the Outlook team.</p>
+    <p>Was used in weird ways, together with other APIs, making it possible to build GMail, and other Web2.0 apps. That gave us the AJAX era.</p>
+    <p>Later reverse-engineered and implemented by other browsers. Eventually standardized as XMLHttpRequest. Much later, it informed fetch().</p>
+    <p>Story shows that this obscure thing the Outlook team needed, then got used in a new way by other devs, leading to new use cases, which led to a standard, and then to a better standard.</p>
+    <p>The web doesn't improve by writing specs in a vacuum. The web improves because developers try new things, experiment, and complain loudly enough. Then, later, specs happen.</p>
+  </section>
+
+  <section class="slide" id="wind-tunnel">
+    <h2>The wind tunnel analogy</h2>
+    <ul>
+      <li>Engineers don't standardize airplane designs before testing them</li>
+      <li>They build experimental prototypes</li>
+      <li>They shake them in wind tunnels</li>
+      <li>They discover turbulences</li>
+      <li>Then they write the rules for safe flight</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>If nobody is experimenting: new features don't get real usage patterns, edge-cases don't get discovered, ergonomics problems stay theoretical, interop issues never surface early.</p>
+  </section>
+
+  <!--=============================================================
+       Fun with Masonry - wind tunnel demos
+  ==============================================================-->
+
+  <section class="slide" id="fun-with-masonry">
+    <h2>Fun with grid-lanes</h2>
+    <p>Let's take grid-lanes to the wind tunnel!</p>
+    <p>I'm sure you've all seen the Pinterest-style masonry layout.<br>
+      What I'll show now is going to look nothing like that.</p>
+  </section>
+
+  <section class=comment>
+    <p>So now let's switch gears and talk about a feature I'm personally very excited about, which is at an early point in its development, which is perfect for collecting feedback: grid-lanes, aka CSS Masonry.</p>
+    <p>Let's take grid-lanes to the wind tunnel for a bit, shall we?</p>
+  </section>
+
+  <section class="slide" id="demo-gravity-balls">
+    <h2>Gravity balls</h2>
+    <iframe class="demo" src="gravity-balls.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Filling masonry in reverse, assigning specific lanes to each ball, and combining with view transitions.</p>
+  </section>
+
+  <section class="slide" id="demo-hello-fresh">
+    <h2>Hello Fresh</h2>
+    <iframe class="demo" src="hello-fresh.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Combining 2 masonry layouts, one at the top going down, one at the bottom going up. And animating items a little bit.</p>
+  </section>
+
+  <section class="slide" id="demo-masonry-lego">
+    <h2>Masonry Lego</h2>
+    <iframe class="demo" src="masonry-lego.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Making a dense masonry layout with items spanning multiple lanes, and using 3D for fun.</p>
+  </section>
+
+  <section class="slide" id="demo-motorway">
+    <h2>Motorway</h2>
+    <iframe class="demo" src="motorway.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Something fun in between. Lanes as driving lanes!</p>
+  </section>
+
+  <section class="slide" id="demo-masonry-wtf">
+    <h2>Masonry WTF</h2>
+    <iframe class="demo" src="masonry-wtf.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Shapes, dense packing.</p>
+  </section>
+
+  <section class="slide" id="demo-many">
+    <h2>Many</h2>
+    <iframe class="demo" src="many.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Weird little animation. Made me think about the opportunistic nature of the grid-lanes algorithm, which could be used to create a liquid surface effect.</p>
+  </section>
+
+  <section class="slide" id="demo-water">
+    <h2>Water</h2>
+    <iframe class="demo" src="water.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Ctrl+/- to fill the glass. Or resize browser window to make the glass smaller, and water bigger. Opportunistic/chaotic nature of the algorithm.</p>
+  </section>
+
+  <section class="slide" id="demo-steps">
+    <h2>Steps</h2>
+    <iframe class="demo" src="steps.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Resize screen or change font. Stacked stairs, creating abstract patterns.</p>
+  </section>
+
+  <!--=============================================================
+       Serious Masonry - Overview
+  ==============================================================-->
+
+  <section class="slide" id="serious-masonry">
+    <h2>Serious masonry</h2>
+    <p>Let's dissect this new layout primitive.</p>
+  </section>
+
+  <section class=comment>
+    <p>Ok, let's dissect this new layout primitive, see how it works, and how you might use it in practice. I wasn't invited here just to do cool shit with CSS.</p>
+  </section>
+
+  <section class="slide" id="high-level-overview">
+    <h2>High-level overview</h2>
+    <ul>
+      <li>New name: <code>grid-lanes</code></li>
+      <li>Not a special grid &mdash; fundamentally different</li>
+      <li>1D, like flexbox (unlike grid)</li>
+      <li>Can be vertical or horizontal, and reversed</li>
+      <li>Lanes can be any size, uses <code>repeat()</code></li>
+      <li>Items placed by the grid-lanes algorithm (opportunistic)</li>
+      <li>Can assign items to specific lanes, span multiple lanes</li>
+      <li>Visual order &ne; DOM order</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>There's a new name: grid-lanes, get used to it! It's not a special grid. It shares some things with CSS grid, but it's fundamentally different.</p>
+    <p>Grid-lanes is 1D, like flexbox, unlike grid. You don't get to control the other direction.</p>
+    <p>It isn't only vertical. It can be horizontal too, and reversed.</p>
+    <p>By default, you don't get to control the placement of items. They're placed according to the grid-lanes algorithm, which is opportunistic and sometimes can seem chaotic.</p>
+    <p>But you can still assign an item to a specific lane, and items can span multiple lanes.</p>
+    <p>Visual order is not DOM order. Items that appear later in the DOM may appear visually above earlier items. Keyboard tabbing order follows DOM order, not visual order.</p>
+  </section>
+
+  <!--=============================================================
+       Naming
+  ==============================================================-->
+
+  <section class="slide" id="naming">
+    <h2>Naming</h2>
+    <ul>
+      <li>"Masonry" &mdash; most common name, also a JS library</li>
+      <li>Mozilla's first prototype (~10 years ago): <code>grid-template-columns: masonry;</code></li>
+      <li>Latest spec: <code>display: grid-lanes</code></li>
+      <li>"Lanes" &mdash; swim lanes, driving lanes</li>
+      <li>Grid-lanes is 1D: you only control one direction</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Masonry is the way most people have been referring to this, and it's still the most common name.</p>
+    <p>When the very first attempt was prototyped by Mozilla, almost 10 years ago, it was based off CSS Grid and used the "masonry" keyword value.</p>
+    <p>However, in the latest spec, the new name is grid-lanes, which is also a new display value.</p>
+    <p>The reason we use "lanes" over "columns and rows" like in grid, is that grid-lanes can be used in both directions, but you only get to control one direction.</p>
+  </section>
+
+  <!--=============================================================
+       Progressive enhancement
+  ==============================================================-->
+
+  <section class="slide" id="progressive-enhancement">
+    <h2>Progressive enhancement</h2>
+    <pre>
+.layout {
+  display: grid;
+  display: grid-lanes; /* ignored by UAs without support */
+}
+
+@supports (display: grid-lanes) {
+  .layout {
+    display: grid-lanes;
+  }
+}</pre>
+  </section>
+
+  <section class=comment>
+    <p>Grid and grid-lanes, for common use cases, can result in similar shapes. Grid-lanes is better at occupying space.</p>
+    <p>If you want to use it today, you can first declare a grid, and override with grid-lanes, which will be ignored by browsers that don't yet support this display type.</p>
+    <p>The @supports rule also works just fine for grid-lanes.</p>
+  </section>
+
+  <!--=============================================================
+       Shape and orientation
+  ==============================================================-->
+
+  <section class="slide" id="shape-orientation">
+    <h2>Shape and orientation</h2>
+    <ul>
+      <li><code>display: grid-lanes;</code></li>
+      <li><code>grid-template-columns</code> &rarr; column/waterfall direction</li>
+      <li><code>grid-template-rows</code> &rarr; row/brick wall direction</li>
+      <li>Full power of grid track sizing syntax</li>
+      <li><code>grid-column</code> / <code>grid-row</code> for placement and spanning</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>In grid-lanes, you reuse some of the same properties as in grid. Set display:grid-lanes, then to set orientation, set either grid-template-columns (for columns/waterfall) or grid-template-rows (for rows/brick wall).</p>
+    <p>Again, masonry is 1D, unlike grid. In grid, you specify both axes. In masonry, you only define lanes along 1 dimension, and items get placed automatically.</p>
+    <p>You do have control over the shape and number of your lanes. grid-template-columns: 2fr 1fr 3fr 1fr for example. You can reuse the full power of the grid track sizing syntax.</p>
+  </section>
+
+  <section class="slide" id="demo-shape-step-by-step">
+    <h2>Shape: step by step</h2>
+    <iframe class="demo" src="grid-lanes-shape-step-by-step.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Walk step by step through how the shape gets built up.</p>
+  </section>
+
+  <section class="slide" id="demo-toggle-direction">
+    <h2>Switching direction</h2>
+    <iframe class="demo" src="toggle-direction.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Switching the direction between column and row layouts.</p>
+  </section>
+
+  <!--=============================================================
+       Direction / reversing
+  ==============================================================-->
+
+  <section class="slide" id="direction">
+    <h2>Direction</h2>
+    <ul>
+      <li>Similar to flexbox: row/row-reverse, column/column-reverse</li>
+      <li><code>grid-lanes-direction: column track-reverse</code> &rarr; fill from right-most lane</li>
+      <li><code>grid-lanes-direction: column fill-reverse</code> &rarr; fill from bottom up</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>This is very similar to how flexbox works. In flexbox, you decide the shape and where the first item gets placed.</p>
+    <p>In masonry, at least in the current Chromium implementation, you can reverse things too.</p>
+  </section>
+
+  <section class="slide" id="demo-direction-diagrams">
+    <h2>Direction diagrams</h2>
+    <iframe class="demo" src="grid-lanes-direction-diagrams.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Visual comparison of the different direction options.</p>
+  </section>
+
+  <!--=============================================================
+       Intrinsic lanes
+  ==============================================================-->
+
+  <section class="slide" id="intrinsic-lanes">
+    <h2>Intrinsic lanes</h2>
+    <pre>
+grid-template-columns: 1fr 1fr;
+grid-template-columns: repeat(3, 1fr);
+grid-template-columns: 100px 200px auto 1fr;
+grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+
+/* New in grid-lanes! */
+grid-template-columns: repeat(auto-fill, auto);</pre>
+  </section>
+
+  <section class=comment>
+    <p>You can use the full power of the grid track sizing syntax to define your lanes.</p>
+    <p>But there's one more thing you can now do with grid-lanes only: repeat(auto-fill, auto). Grid-lanes spec relaxes the auto-repeat syntax to allow intrinsic sizes like auto inside repeat(auto-fill, ...).</p>
+  </section>
+
+  <!--=============================================================
+       Flow
+  ==============================================================-->
+
+  <section class="slide" id="flow">
+    <h2>Flow</h2>
+    <ul>
+      <li>Same shape can be created with different layouts</li>
+      <li>It all depends on how items flow through the shape</li>
+      <li>Flexbox vs. multicolumn vs. grid-lanes</li>
+      <li>Masonry is opportunistic &mdash; fills the shortest lane first</li>
+      <li>Creates a criss-cross pattern</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Beyond the general shape, it's very important to consider the order in which items are placed. The same general shape can be created with different layouts, and it depends on how you want your items to flow.</p>
+    <p>Masonry is opportunistic. It doesn't like to leave gaps. It'll try to fill the shortest lane first. And this is what gives us this criss-cross pattern.</p>
+  </section>
+
+  <section class="slide" id="demo-flow-same-shape">
+    <h2>Same shape, different flow</h2>
+    <iframe class="demo" src="flex-multicol-masonry-same-general-shape.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Same general shapes, but if you look closely, you'll notice the order is kind of different.</p>
+  </section>
+
+  <section class="slide" id="demo-flow-comparison">
+    <h2>Flow comparison</h2>
+    <iframe class="demo" src="flex-multicol-masonry-flow.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Now comparing them using the same items. Small difference between flexbox and multicol, but comparing grid-lanes we see a big difference in the order of elements.</p>
+  </section>
+
+  <section class="slide" id="demo-grid-vs-masonry">
+    <h2>Grid vs. grid-lanes</h2>
+    <iframe class="demo" src="grid-without-gap-flow-diff-with-masonry.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Grid gets you a grid, which can lead to gaps when items don't all have the same size.</p>
+    <p>It's easy to think grid-lanes is just grid with gaps squished together. But the placement algorithm is very different. Grid-lanes fills lanes one by one, always deciding which one is next. The layout is genuinely algorithmic.</p>
+  </section>
+
+  <!--=============================================================
+       Tolerance
+  ==============================================================-->
+
+  <section class="slide" id="tolerance">
+    <h2>Flow tolerance</h2>
+    <ul>
+      <li>Two conflicting goals: visual balance vs. preserve DOM order</li>
+      <li>Tolerance 0: always place in shortest lane</li>
+      <li>Default: <code>1em</code> tolerance</li>
+      <li>Higher tolerance &rarr; more predictable lane order</li>
+      <li><code>infinite</code> &rarr; always fill lanes sequentially</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Masonry is trying to solve two conflicting goals: produce a visually balanced result, and preserve DOM order as much as possible.</p>
+    <p>At tolerance 0: the next item is always placed in the shortest lane. But there could be a tie, in which case the lane after the one last filled is picked.</p>
+    <p>Tolerance 0 is not the default because it can lead to visual jitter. The spec defines a 1em default tolerance.</p>
+    <p>At tolerance infinite: all tracks are always tied, so the algorithm always fills them one after the other. Helpful if you want to strictly follow lane order.</p>
+  </section>
+
+  <section class="slide" id="demo-flow-tolerance">
+    <h2>Flow tolerance demo</h2>
+    <iframe class="demo" src="flow-tolerance.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Interactive demo showing how different tolerance values affect placement.</p>
+  </section>
+
+  <!--=============================================================
+       Real-world examples
+  ==============================================================-->
+
+  <section class="slide" id="real-world">
+    <h2>Real-world examples</h2>
+    <ul>
+      <li>Testimonials</li>
+      <li>Lazy-loading gallery</li>
+      <li>Infinite content</li>
+      <li>Blog / news site</li>
+      <li>Creative photo galleries</li>
+      <li>Artwork collection search</li>
+      <li>Gantt chart</li>
+      <li>Kanban board</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Now let's look at real-world examples of grid-lanes in practice.</p>
+  </section>
+
+  <section class="slide" id="demo-testimonials">
+    <h2>Testimonials</h2>
+    <iframe class="demo" src="kevin-powell-testimonials.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Kevin Powell's testimonials for one of his online courses. Kevin implemented this with multi-column, which is perfectly valid.</p>
+    <p>For a use case like this where the order doesn't really matter, grid-lanes works easily too. If you're reading left to right and top to bottom, masonry gives you that order by default.</p>
+  </section>
+
+  <section class="slide" id="demo-lazy-gallery">
+    <h2>Lazy-loading gallery</h2>
+    <iframe class="demo" src="lazy-gallery.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Masonry works well with lazy loading.</p>
+  </section>
+
+  <section class="slide" id="demo-infinite-loading">
+    <h2>Infinite content</h2>
+    <iframe class="demo" src="infinite-loading.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>We can go further with an infinite loading page, which continues to load content as you scroll down.</p>
+  </section>
+
+  <section class="slide" id="demo-reverse-gallery">
+    <h2>Reverse gallery</h2>
+    <iframe class="demo" src="reverse-gallery.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Fill-reverse stack of photos at the bottom, coming from the bottom up.</p>
+  </section>
+
+  <section class="slide" id="demo-two-dir-gallery">
+    <h2>Two-direction gallery</h2>
+    <iframe class="demo" src="two-dir-gallery.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Interesting visual layout for photographers, etc.</p>
+  </section>
+
+  <section class="slide" id="demo-artwork-search">
+    <h2>Museum artwork search</h2>
+    <iframe class="demo" src="artwork-search.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Works great for inspiration-style search results, where the order matters less than the overall visual balance of the page. Showcasing the infinite loading use case, where things nicely get added to the end without re-layouting anything.</p>
+  </section>
+
+  <section class="slide" id="demo-gantt">
+    <h2>Gantt chart</h2>
+    <iframe class="demo" src="auto-gantt.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Showcasing the row-direction layout and the ability to assign items to a specific lane. Each team's tasks is assigned to the right lane. With some tasks spanning all lanes when they're common.</p>
+    <p>The order of items in the DOM determines the succession of tasks over time. I can resize or remove tasks to see how things re-arrange.</p>
+  </section>
+
+  <section class="slide" id="demo-kanban">
+    <h2>Kanban board</h2>
+    <iframe class="demo" src="https://microsoftedge.github.io/Demos/css-masonry/kanban.html"></iframe>
+  </section>
+
+  <section class=comment>
+    <p>Items belong to specific lanes. I can move them between lanes by changing their grid-column value. You couldn't do this with grid without leaving gaps.</p>
+    <p>There's always a number of different ways you can achieve a particular layout in CSS. Depending on how you retrieve content, how you want users to navigate, and the final visual aspect, you might pick one solution over another.</p>
+  </section>
+
+  <!--=============================================================
+       Closing
+  ==============================================================-->
+
+  <section class="slide" id="closing">
+    <h2>Go play!</h2>
+    <ul>
+      <li>Inside, I'm still that 16 year old kid in his coyote's pajamas</li>
+      <li>Playing with the web isn't just fun &mdash; it's essential for the platform's survival</li>
+      <li>Go play with CSS grid-lanes, and tell me what you think</li>
+    </ul>
+  </section>
+
+  <section class=comment>
+    <p>Inside, I'm still that same 16 year old kid in his coyote's pajamas, playing with the web. And I'm sure many of you are too.</p>
+    <p>Playing with the web isn't just fun, it's essential for the platform's survival.</p>
+    <p>So, go play with CSS grid-lanes, and tell me what you think.</p>
+  </section>
+
+  <section class="slide" id="thanks">
+    <h2>Thank you!</h2>
+    <address>Patrick Brosset</address>
+    <p>CSSDay 2026</p>
+  </section>
+
+  <section class=comment>
+    <p>Thank you!</p>
+  </section>
+
+</body>
+
+</html>
+<!-- Local Variables: -->
+<!-- sgml-basic-offset: 1 -->
+<!-- End: -->

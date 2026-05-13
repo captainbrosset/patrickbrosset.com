@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presenter Board - CSSDay 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      height: 100vh;
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    #sidebar {
+      overflow-y: auto;
+      border-right: 1px solid #333;
+      padding: 1rem;
+    }
+
+    #sidebar h2 {
+      font-size: 1rem;
+      margin-bottom: .75rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    #sidebar ol {
+      padding-left: 1.5rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+
+    #sidebar li {
+      cursor: pointer;
+      padding: .15rem .4rem;
+      border-radius: 3px;
+    }
+
+    #sidebar li:hover {
+      background: #333;
+    }
+
+    #sidebar li.current {
+      background: #005fcc;
+      color: white;
+      font-weight: bold;
+    }
+
+    #main {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      gap: 1rem;
+      overflow: hidden;
+    }
+
+    #controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    #controls button {
+      padding: .5rem 1.2rem;
+      font-size: .95rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background: #005fcc;
+      color: white;
+    }
+
+    #controls button:hover {
+      background: #0070e0;
+    }
+
+    #current-info {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #aaa;
+    }
+
+    #slide-number {
+      color: #666;
+      font-size: .9rem;
+    }
+
+    #notes-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background: #222;
+      border-radius: 8px;
+      font-size: 1.3rem;
+      line-height: 1.7;
+    }
+
+    #notes-area p {
+      margin-bottom: .75rem;
+    }
+
+    #notes-area em {
+      color: #888;
+    }
+
+    #nav-buttons {
+      display: flex;
+      gap: .5rem;
+      flex-shrink: 0;
+    }
+
+    #nav-buttons button {
+      flex: 1;
+      padding: .6rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background: #333;
+      color: #ccc;
+    }
+
+    #nav-buttons button:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h2>Slides</h2>
+    <ol id="list"></ol>
+  </div>
+
+  <div id="main">
+    <div id="controls">
+      <button id="launch">Launch presentation</button>
+      <span id="current-info">No slide active</span>
+      <span id="slide-number"></span>
+    </div>
+
+    <div id="notes-area">
+      <p><em>Notes will appear here when a slide is active.</em></p>
+      <p><em>Click "Launch presentation" to open the presentation window, then use PageDown/PageUp to navigate.</em></p>
+    </div>
+
+    <div id="nav-buttons">
+      <button id="nav-prev">&larr; Previous</button>
+      <button id="nav-next">Next &rarr;</button>
+    </div>
+  </div>
+
+  <script>
+    var BASE = '/slides/CSSDay-2026/';
+    var channel = new BroadcastChannel('cssday-presenter');
+    var sequence = [];
+    var currentIdx = -1;
+
+    fetch(BASE + 'sequence.json')
+      .then(function (r) { return r.json(); })
+      .then(function (seq) {
+        sequence = seq;
+        var list = document.getElementById('list');
+
+        seq.forEach(function (slug, i) {
+          var li = document.createElement('li');
+          li.textContent = (i + 1) + '. ' + (slug || '(title)');
+          li.dataset.slug = slug;
+          li.dataset.index = i;
+          li.addEventListener('click', function () {
+            channel.postMessage({ type: 'navigate', slug: slug });
+          });
+          list.appendChild(li);
+        });
+      });
+
+    // Launch presentation in a new window.
+    document.getElementById('launch').addEventListener('click', function () {
+      var slug = sequence.length > 0 ? sequence[0] : '';
+      window.open(BASE + slug, 'cssday-presentation');
+    });
+
+    // Navigate from presenter board buttons.
+    document.getElementById('nav-prev').addEventListener('click', function () {
+      if (currentIdx > 0) {
+        channel.postMessage({ type: 'navigate', slug: sequence[currentIdx - 1] });
+      }
+    });
+
+    document.getElementById('nav-next').addEventListener('click', function () {
+      if (currentIdx >= 0 && currentIdx < sequence.length - 1) {
+        channel.postMessage({ type: 'navigate', slug: sequence[currentIdx + 1] });
+      }
+    });
+
+    // Also allow keyboard nav on the presenter board itself.
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'PageDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        document.getElementById('nav-next').click();
+      } else if (e.key === 'PageUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        document.getElementById('nav-prev').click();
+      }
+    });
+
+    // Listen for slide changes from the presentation window.
+    channel.onmessage = function (e) {
+      if (e.data.type === 'slide-changed') {
+        updateCurrent(e.data.slug);
+      }
+    };
+
+    function updateCurrent(slug) {
+      var idx = sequence.indexOf(slug);
+      currentIdx = idx;
+
+      // Highlight current slide in the list.
+      var items = document.querySelectorAll('#list li');
+      items.forEach(function (li) {
+        var isCurrent = li.dataset.slug === slug;
+        li.classList.toggle('current', isCurrent);
+        if (isCurrent) {
+          li.scrollIntoView({ block: 'nearest' });
+        }
+      });
+
+      // Update header info.
+      document.getElementById('current-info').textContent = slug || '(title)';
+      document.getElementById('slide-number').textContent =
+        idx >= 0 ? (idx + 1) + ' / ' + sequence.length : '';
+
+      // Fetch the slide page and extract notes.
+      fetch(BASE + slug)
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var notes = doc.querySelector('.notes');
+          var area = document.getElementById('notes-area');
+          if (notes) {
+            area.innerHTML = notes.innerHTML;
+          } else {
+            area.innerHTML = '<p><em>No notes for this slide.</em></p>';
+          }
+        })
+        .catch(function () {
+          document.getElementById('notes-area').innerHTML =
+            '<p><em>Could not load notes.</em></p>';
+        });
+    }
+  </script>
+</body>
+</html>

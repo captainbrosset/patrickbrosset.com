@@ -1,0 +1,18 @@
+---
+layout: css-day-slides.njk
+title: Progressive enhancement
+---
+
+<main>
+  <h1>Progressive enhancement</h1>
+  <pre><code>.layout {
+  display: grid;
+  display: grid-lanes; /* ignored by UAs without support */
+}
+
+@supports (display: grid-lanes) {
+  .layout {
+    display: grid-lanes;
+  }
+}</code></pre>
+</main>
