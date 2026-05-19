@@ -26,10 +26,10 @@
 {% endfor %}
 {% for lab in recentCollectionItems(labs, 2) %}
   <section class="list-section">
-    <h2><a href="/lab/{{ lab.url }}">{{ lab.title | safe }}</a></h2>
+    <h2><a href="{% if lab.url.startsWith('http') %}{{ lab.url }}{% else %}/lab/{{ lab.url }}{% endif %}">{{ lab.title | safe }}</a></h2>
     <time datetime="{{ lab.date }}">{{ lab.date | formattedDateTime }}</time>
     <p>{{ lab.description | safe }}</p>
-    {% if lab.img %}<a href="/lab/{{ lab.url }}" class="thumbnail"><img loading="lazy" src="{{ lab.img }}" alt="{{ lab.alt }}"></a>{% endif %}
+    {% if lab.img %}<a href="{% if lab.url.startsWith('http') %}{{ lab.url }}{% else %}/lab/{{ lab.url }}{% endif %}" class="thumbnail"><img loading="lazy" src="{{ lab.img }}" alt="{{ lab.alt }}"></a>{% endif %}
   </section>
 {% endfor %}
 {% for talk in recentCollectionItems(talks, 2) %}
