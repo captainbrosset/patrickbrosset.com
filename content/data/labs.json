@@ -1,5 +1,13 @@
 [
   {
+    "url": "https://www.npmjs.com/package/web-features-cli",
+    "img": "/assets/wf.png",
+    "alt": "Output of the wf command, showing a feature's name, description, baseline status, docs, and bugs.",
+    "title": "wf - The web-features CLI",
+    "description": "A command-line tool for looking up web platform features. Search by keyword, check Baseline status, find MDN docs, specs, browser bugs, survey results, and more, from your terminal.<br><a href='https://github.com/captainbrosset/wf'>Repo</a>, <a href='https://www.npmjs.com/package/web-features-cli'>NPM</a>.",
+    "date": "2026-05-13"
+  },
+  {
     "url": "shapes",
     "img": "/assets/star-shape.png",
     "alt": "A rainbow colored star shape.",
