@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-25T14:30:03.364Z",
+  "created_at": "2026-06-01T17:12:40.917Z",
   "total_playlists": 17,
   "playlists": [
     {
@@ -16,7 +16,7 @@
         }
       },
       "tracks": {
-        "total": 20,
+        "total": 21,
         "href": "https://api.spotify.com/v1/playlists/5L3ltsrSdrgVgzsaKvs0e9/tracks"
       },
       "external_urls": {
@@ -66,7 +66,7 @@
       "images": [
         {
           "height": null,
-          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da844706bae90680b16aa9c88fe6",
+          "url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da844706bae90680b16aa9c88fe6",
           "width": null
         }
       ],
@@ -126,7 +126,7 @@
       "images": [
         {
           "height": null,
-          "url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da844b881b0f67c7a48a1331e051",
+          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da844b881b0f67c7a48a1331e051",
           "width": null
         }
       ],
@@ -496,7 +496,7 @@
       "images": [
         {
           "height": null,
-          "url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da846ae7f60b426dc7d785ff28d8",
+          "url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da846ae7f60b426dc7d785ff28d8",
           "width": null
         }
       ],
