@@ -3,16 +3,89 @@ layout: css-day-slides.njk
 title: Progressive enhancement
 ---
 
-<main>
-  <h1>Progressive enhancement</h1>
-  <pre><code>.layout {
-  display: grid;
-  display: grid-lanes; /* ignored by UAs without support */
-}
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    align-content: center;
 
-@supports (display: grid-lanes) {
-  .layout {
-    display: grid-lanes;
+    font-family: system-ui;
+    font-size: 2.5vw;
   }
+
+  body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10vw;
+    padding-inline: 5vw;
+  }
+
+  pre {
+    margin: 0;
+    place-self: center;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw;
+  }
+
+  .grid-lanes {
+    display: grid-lanes;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw;
+  }
+
+  .item {
+    background: hsl(calc(sibling-index() * 80deg), 75%, 50%);
+    border-radius: .5vw;
+    block-size: calc(2vw + sibling-index() * 2vw);
+  }
+
+  .selector {
+    color: #20df9f;
+  }
+
+  .property {
+    color: #df209f;
+  }
+
+  .value {
+    color: #df9f20;
+  }
+</style>
+
+<div class="grid">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+<pre><code><span class="selector">.layout</span> {
+  <span class="property">display</span>: <span class="value">grid</span>;
+  <span class="property">display</span>: <span class="value">grid-lanes</span>;
 }</code></pre>
-</main>
+
+<div class="grid-lanes">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+<aside class="notes">
+Grid-lanes is good at occupying empty space.
+But the experience you're designing might not revolve entirely around this.
+And having a slightly less space-efficient alternative may be fine.
+
+If so, then grid-lanes can be a great progressive enhancement.
+
+Define both display:grid and display:grid-lanes, and non supporting browsers will ignore the second.
+</aside>

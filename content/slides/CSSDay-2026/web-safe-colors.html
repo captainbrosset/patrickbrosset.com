@@ -1,0 +1,257 @@
+---
+layout: css-day-slides.njk
+title: Web-safe colors
+---
+
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+  }
+
+  .colors {
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(18, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+
+    [data-color] {
+      --color: attr(data-color type(<color>));
+      background: var(--color);
+      align-content: center;
+
+      &::before {
+        content: attr(data-color);
+        display: block;
+        font-size: 1vw;
+        font-family: monospace;
+        color: contrast-color(var(--color));
+        text-align: center;
+      }
+    }
+  }
+</style>
+
+<div class="colors">
+  <div data-color="#000000"></div>
+  <div data-color="#000033"></div>
+  <div data-color="#000066"></div>
+  <div data-color="#000099"></div>
+  <div data-color="#0000cc"></div>
+  <div data-color="#0000ff"></div>
+  <div data-color="#003300"></div>
+  <div data-color="#003333"></div>
+  <div data-color="#003366"></div>
+  <div data-color="#003399"></div>
+  <div data-color="#0033cc"></div>
+  <div data-color="#0033ff"></div>
+  <div data-color="#006600"></div>
+  <div data-color="#006633"></div>
+  <div data-color="#006666"></div>
+  <div data-color="#006699"></div>
+  <div data-color="#0066cc"></div>
+  <div data-color="#0066ff"></div>
+  <div data-color="#009900"></div>
+  <div data-color="#009933"></div>
+  <div data-color="#009966"></div>
+  <div data-color="#009999"></div>
+  <div data-color="#0099cc"></div>
+  <div data-color="#0099ff"></div>
+  <div data-color="#00cc00"></div>
+  <div data-color="#00cc33"></div>
+  <div data-color="#00cc66"></div>
+  <div data-color="#00cc99"></div>
+  <div data-color="#00cccc"></div>
+  <div data-color="#00ccff"></div>
+  <div data-color="#00ff00"></div>
+  <div data-color="#00ff33"></div>
+  <div data-color="#00ff66"></div>
+  <div data-color="#00ff99"></div>
+  <div data-color="#00ffcc"></div>
+  <div data-color="#00ffff"></div>
+  <div data-color="#330000"></div>
+  <div data-color="#330033"></div>
+  <div data-color="#330066"></div>
+  <div data-color="#330099"></div>
+  <div data-color="#3300cc"></div>
+  <div data-color="#3300ff"></div>
+  <div data-color="#333300"></div>
+  <div data-color="#333333"></div>
+  <div data-color="#333366"></div>
+  <div data-color="#333399"></div>
+  <div data-color="#3333cc"></div>
+  <div data-color="#3333ff"></div>
+  <div data-color="#336600"></div>
+  <div data-color="#336633"></div>
+  <div data-color="#336666"></div>
+  <div data-color="#336699"></div>
+  <div data-color="#3366cc"></div>
+  <div data-color="#3366ff"></div>
+  <div data-color="#339900"></div>
+  <div data-color="#339933"></div>
+  <div data-color="#339966"></div>
+  <div data-color="#339999"></div>
+  <div data-color="#3399cc"></div>
+  <div data-color="#3399ff"></div>
+  <div data-color="#33cc00"></div>
+  <div data-color="#33cc33"></div>
+  <div data-color="#33cc66"></div>
+  <div data-color="#33cc99"></div>
+  <div data-color="#33cccc"></div>
+  <div data-color="#33ccff"></div>
+  <div data-color="#33ff00"></div>
+  <div data-color="#33ff33"></div>
+  <div data-color="#33ff66"></div>
+  <div data-color="#33ff99"></div>
+  <div data-color="#33ffcc"></div>
+  <div data-color="#33ffff"></div>
+  <div data-color="#660000"></div>
+  <div data-color="#660033"></div>
+  <div data-color="#660066"></div>
+  <div data-color="#660099"></div>
+  <div data-color="#6600cc"></div>
+  <div data-color="#6600ff"></div>
+  <div data-color="#663300"></div>
+  <div data-color="#663333"></div>
+  <div data-color="#663366"></div>
+  <div data-color="#663399"></div>
+  <div data-color="#6633cc"></div>
+  <div data-color="#6633ff"></div>
+  <div data-color="#666600"></div>
+  <div data-color="#666633"></div>
+  <div data-color="#666666"></div>
+  <div data-color="#666699"></div>
+  <div data-color="#6666cc"></div>
+  <div data-color="#6666ff"></div>
+  <div data-color="#669900"></div>
+  <div data-color="#669933"></div>
+  <div data-color="#669966"></div>
+  <div data-color="#669999"></div>
+  <div data-color="#6699cc"></div>
+  <div data-color="#6699ff"></div>
+  <div data-color="#66cc00"></div>
+  <div data-color="#66cc33"></div>
+  <div data-color="#66cc66"></div>
+  <div data-color="#66cc99"></div>
+  <div data-color="#66cccc"></div>
+  <div data-color="#66ccff"></div>
+  <div data-color="#66ff00"></div>
+  <div data-color="#66ff33"></div>
+  <div data-color="#66ff66"></div>
+  <div data-color="#66ff99"></div>
+  <div data-color="#66ffcc"></div>
+  <div data-color="#66ffff"></div>
+  <div data-color="#990000"></div>
+  <div data-color="#990033"></div>
+  <div data-color="#990066"></div>
+  <div data-color="#990099"></div>
+  <div data-color="#9900cc"></div>
+  <div data-color="#9900ff"></div>
+  <div data-color="#993300"></div>
+  <div data-color="#993333"></div>
+  <div data-color="#993366"></div>
+  <div data-color="#993399"></div>
+  <div data-color="#9933cc"></div>
+  <div data-color="#9933ff"></div>
+  <div data-color="#996600"></div>
+  <div data-color="#996633"></div>
+  <div data-color="#996666"></div>
+  <div data-color="#996699"></div>
+  <div data-color="#9966cc"></div>
+  <div data-color="#9966ff"></div>
+  <div data-color="#999900"></div>
+  <div data-color="#999933"></div>
+  <div data-color="#999966"></div>
+  <div data-color="#999999"></div>
+  <div data-color="#9999cc"></div>
+  <div data-color="#9999ff"></div>
+  <div data-color="#99cc00"></div>
+  <div data-color="#99cc33"></div>
+  <div data-color="#99cc66"></div>
+  <div data-color="#99cc99"></div>
+  <div data-color="#99cccc"></div>
+  <div data-color="#99ccff"></div>
+  <div data-color="#99ff00"></div>
+  <div data-color="#99ff33"></div>
+  <div data-color="#99ff66"></div>
+  <div data-color="#99ff99"></div>
+  <div data-color="#99ffcc"></div>
+  <div data-color="#99ffff"></div>
+  <div data-color="#cc0000"></div>
+  <div data-color="#cc0033"></div>
+  <div data-color="#cc0066"></div>
+  <div data-color="#cc0099"></div>
+  <div data-color="#cc00cc"></div>
+  <div data-color="#cc00ff"></div>
+  <div data-color="#cc3300"></div>
+  <div data-color="#cc3333"></div>
+  <div data-color="#cc3366"></div>
+  <div data-color="#cc3399"></div>
+  <div data-color="#cc33cc"></div>
+  <div data-color="#cc33ff"></div>
+  <div data-color="#cc6600"></div>
+  <div data-color="#cc6633"></div>
+  <div data-color="#cc6666"></div>
+  <div data-color="#cc6699"></div>
+  <div data-color="#cc66cc"></div>
+  <div data-color="#cc66ff"></div>
+  <div data-color="#cc9900"></div>
+  <div data-color="#cc9933"></div>
+  <div data-color="#cc9966"></div>
+  <div data-color="#cc9999"></div>
+  <div data-color="#cc99cc"></div>
+  <div data-color="#cc99ff"></div>
+  <div data-color="#cccc00"></div>
+  <div data-color="#cccc33"></div>
+  <div data-color="#cccc66"></div>
+  <div data-color="#cccc99"></div>
+  <div data-color="#cccccc"></div>
+  <div data-color="#ccccff"></div>
+  <div data-color="#ccff00"></div>
+  <div data-color="#ccff33"></div>
+  <div data-color="#ccff66"></div>
+  <div data-color="#ccff99"></div>
+  <div data-color="#ccffcc"></div>
+  <div data-color="#ccffff"></div>
+  <div data-color="#ff0000"></div>
+  <div data-color="#ff0033"></div>
+  <div data-color="#ff0066"></div>
+  <div data-color="#ff0099"></div>
+  <div data-color="#ff00cc"></div>
+  <div data-color="#ff00ff"></div>
+  <div data-color="#ff3300"></div>
+  <div data-color="#ff3333"></div>
+  <div data-color="#ff3366"></div>
+  <div data-color="#ff3399"></div>
+  <div data-color="#ff33cc"></div>
+  <div data-color="#ff33ff"></div>
+  <div data-color="#ff6600"></div>
+  <div data-color="#ff6633"></div>
+  <div data-color="#ff6666"></div>
+  <div data-color="#ff6699"></div>
+  <div data-color="#ff66cc"></div>
+  <div data-color="#ff66ff"></div>
+  <div data-color="#ff9900"></div>
+  <div data-color="#ff9933"></div>
+  <div data-color="#ff9966"></div>
+  <div data-color="#ff9999"></div>
+  <div data-color="#ff99cc"></div>
+  <div data-color="#ff99ff"></div>
+  <div data-color="#ffcc00"></div>
+  <div data-color="#ffcc33"></div>
+  <div data-color="#ffcc66"></div>
+  <div data-color="#ffcc99"></div>
+  <div data-color="#ffcccc"></div>
+  <div data-color="#ffccff"></div>
+  <div data-color="#ffff00"></div>
+  <div data-color="#ffff33"></div>
+  <div data-color="#ffff66"></div>
+  <div data-color="#ffff99"></div>
+  <div data-color="#ffffcc"></div>
+  <div data-color="#fffff"></div>
+</div>
+
+<aside class="notes">
+We only had 216 so-called "safe" colors to play with.
+These were garanteed to work across browsers and look the same.
+</aside>

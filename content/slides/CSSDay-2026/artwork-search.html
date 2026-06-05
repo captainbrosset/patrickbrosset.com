@@ -1,394 +1,395 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: css-day-slides.njk
+title: ARTIC search
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARTIC search</title>
-  <style>
-    html,
-    body {
-      block-size: 100%;
-      margin: 0;
-    }
+<style>
+  html,
+  body {
+    block-size: 100%;
+    margin: 0;
+  }
 
-    body {
-      font-size: 11pt;
-      line-height: 1.6;
-      font-family: system-ui, sans-serif;
-    }
+  body {
+    font-size: 11pt;
+    line-height: 1.6;
+    font-family: system-ui, sans-serif;
+  }
 
+  .layout {
+    display: flex;
+    flex-direction: column;
+    block-size: 100%;
+  }
+
+  .left-col {
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
+  .right-col {
+    padding: 2rem;
+    box-sizing: border-box;
+    background: #eee;
+    flex: 1;
+  }
+
+  @media (min-width: 50rem) {
     .layout {
-      display: flex;
-      flex-direction: column;
-      block-size: 100%;
+      flex-direction: row;
     }
 
     .left-col {
-      padding: 2rem;
-      box-sizing: border-box;
+      max-inline-size: 50%;
+      align-self: center;
     }
 
     .right-col {
-      padding: 2rem;
-      box-sizing: border-box;
-      background: #eee;
-      flex: 1;
+      overflow-y: auto;
     }
+  }
 
-    @media (min-width: 50rem) {
-      .layout {
-        flex-direction: row;
-      }
+  h1 {
+    margin: 0 0 1rem 0;
+    max-inline-size: 75%;
+  }
 
-      .left-col {
-        max-inline-size: 50%;
-        align-self: center;
-      }
+  .search-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-block-end: 1.5rem;
+  }
 
-      .right-col {
-        overflow-y: auto;
-      }
+  .search-bar input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+  }
+
+  .search-bar input:focus {
+    border-color: #555;
+  }
+
+  .search-bar button {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .search-bar button:hover {
+    background: #555;
+  }
+
+  .results-info {
+    margin: 0;
+    color: #666;
+  }
+
+  .artworks {
+    display: grid;
+    display: grid-lanes;
+    align-items: start;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: 1rem;
+  }
+
+  .artwork {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    display: block;
+
+    @starting-style {
+      opacity: 0;
     }
+  }
 
-    h1 {
-      margin: 0 0 1rem 0;
-      max-inline-size: 75%;
+  .artwork img {
+    width: 100%;
+    display: block;
+    background: #eee;
+  }
+
+  .artwork .info {
+    padding: 0.75rem;
+    background: white;
+  }
+
+  .artwork .name {
+    font-weight: 600;
+    margin: 0 0 0.15rem 0;
+    font-size: 0.9rem;
+  }
+
+  .artwork .artist {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #888;
+  }
+
+  .load-more-area {
+    text-align: center;
+    margin-block: 2rem;
+    display: none;
+  }
+
+  .load-more-area.visible {
+    display: block;
+  }
+
+  .load-more-area button {
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+    border: 2px solid #333;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .load-more-area button:hover {
+    background: #f0f0f0;
+  }
+
+  .load-more-area button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .spinner {
+    display: none;
+    margin: 2rem auto;
+    text-align: center;
+    color: #666;
+  }
+
+  .spinner.visible {
+    display: block;
+  }
+
+  .spinner::before {
+    content: "";
+    display: inline-block;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 3px solid currentColor;
+    border-inline-end-color: transparent;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-inline-end: 0.5rem;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(1turn);
     }
+  }
 
-    .search-bar {
-      display: flex;
-      gap: 0.5rem;
-      margin-block-end: 1.5rem;
-    }
+  .no-results {
+    text-align: center;
+    color: #999;
+    margin-block-start: 3rem;
+    display: none;
+  }
 
-    .search-bar input {
-      flex: 1;
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      border: 2px solid #ccc;
-      border-radius: 6px;
-      outline: none;
-    }
+  .no-results.visible {
+    display: block;
+  }
 
-    .search-bar input:focus {
-      border-color: #555;
-    }
+  .end-message {
+    text-align: center;
+    margin-block: 2rem;
+    font-weight: bold;
+    display: none;
+  }
 
-    .search-bar button {
-      padding: 0.6rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      background: #333;
-      color: #fff;
-      cursor: pointer;
-    }
+  .end-message.visible {
+    display: block;
+  }
+</style>
 
-    .search-bar button:hover {
-      background: #555;
-    }
+<div class="layout">
+  <div class="left-col">
+    <h1>Search the Art Institute of Chicago collection</h1>
 
-    .results-info {
-      margin: 0;
-      color: #666;
-    }
-
-    .artworks {
-      display: grid;
-      display: grid-lanes;
-      align-items: start;
-      grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-      gap: 1rem;
-    }
-
-    .artwork {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-      opacity: 1;
-      transition: opacity 0.4s ease;
-      display: block;
-
-      @starting-style {
-        opacity: 0;
-      }
-    }
-
-    .artwork img {
-      width: 100%;
-      display: block;
-      background: #eee;
-    }
-
-    .artwork .info {
-      padding: 0.75rem;
-      background: white;
-    }
-
-    .artwork .name {
-      font-weight: 600;
-      margin: 0 0 0.15rem 0;
-      font-size: 0.9rem;
-    }
-
-    .artwork .artist {
-      margin: 0;
-      font-size: 0.8rem;
-      color: #888;
-    }
-
-    .load-more-area {
-      text-align: center;
-      margin-block: 2rem;
-      display: none;
-    }
-
-    .load-more-area.visible {
-      display: block;
-    }
-
-    .load-more-area button {
-      padding: 0.7rem 2rem;
-      font-size: 1rem;
-      border: 2px solid #333;
-      border-radius: 6px;
-      background: #fff;
-      cursor: pointer;
-    }
-
-    .load-more-area button:hover {
-      background: #f0f0f0;
-    }
-
-    .load-more-area button:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-
-    .spinner {
-      display: none;
-      margin: 2rem auto;
-      text-align: center;
-      color: #666;
-    }
-
-    .spinner.visible {
-      display: block;
-    }
-
-    .spinner::before {
-      content: "";
-      display: inline-block;
-      width: 1.4rem;
-      height: 1.4rem;
-      border: 3px solid currentColor;
-      border-inline-end-color: transparent;
-      border-radius: 50%;
-      vertical-align: middle;
-      margin-inline-end: 0.5rem;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(1turn);
-      }
-    }
-
-    .no-results {
-      text-align: center;
-      color: #999;
-      margin-block-start: 3rem;
-      display: none;
-    }
-
-    .no-results.visible {
-      display: block;
-    }
-
-    .end-message {
-      text-align: center;
-      margin-block: 2rem;
-      font-weight: bold;
-      display: none;
-    }
-
-    .end-message.visible {
-      display: block;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="layout">
-    <div class="left-col">
-      <h1>Search the Art Institute of Chicago collection</h1>
-
-      <div class="search-bar">
-        <input type="text" id="search-input">
-        <button id="search-btn">Search</button>
-      </div>
-
-      <p class="results-info" id="results-info"></p>
+    <div class="search-bar">
+      <input type="text" id="search-input">
+      <button id="search-btn">Search</button>
     </div>
 
-    <div class="right-col">
-      <div class="artworks" id="artworks"></div>
-      <div class="spinner" id="spinner">Loading results...</div>
-      <p class="no-results" id="no-results">No results found. Try a different search.</p>
-      <div class="load-more-area" id="load-more-area">
-        <button id="load-more-btn">Load more</button>
-      </div>
-      <p class="end-message" id="end-message">That's everything!</p>
-    </div>
+    <p class="results-info" id="results-info"></p>
   </div>
 
-  <script>
-    const API_BASE = "https://api.artic.edu/api/v1";
-    const PAGE_SIZE = 12;
+  <div class="right-col">
+    <div class="artworks" id="artworks"></div>
+    <div class="spinner" id="spinner">Loading results...</div>
+    <p class="no-results" id="no-results">No results found. Try a different search.</p>
+    <div class="load-more-area" id="load-more-area">
+      <button id="load-more-btn">Load more</button>
+    </div>
+    <p class="end-message" id="end-message">That's everything!</p>
+  </div>
+</div>
 
-    let currentQuery = "";
-    let currentPage = 0;
-    let totalPages = 0;
-    let iiifUrl = "";
+<script>
+  const API_BASE = "https://api.artic.edu/api/v1";
+  const PAGE_SIZE = 12;
 
-    const searchInput = document.getElementById("search-input");
-    const searchBtn = document.getElementById("search-btn");
-    const artworksContainer = document.getElementById("artworks");
-    const spinner = document.getElementById("spinner");
-    const noResults = document.getElementById("no-results");
-    const loadMoreArea = document.getElementById("load-more-area");
-    const loadMoreBtn = document.getElementById("load-more-btn");
-    const resultsInfo = document.getElementById("results-info");
-    const endMessage = document.getElementById("end-message");
+  let currentQuery = "";
+  let currentPage = 0;
+  let totalPages = 0;
+  let iiifUrl = "";
 
-    function showSpinner() { spinner.classList.add("visible"); }
-    function hideSpinner() { spinner.classList.remove("visible"); }
-    function hideAll() {
-      noResults.classList.remove("visible");
-      loadMoreArea.classList.remove("visible");
-      endMessage.classList.remove("visible");
-      resultsInfo.textContent = "";
+  const searchInput = document.getElementById("search-input");
+  const searchBtn = document.getElementById("search-btn");
+  const artworksContainer = document.getElementById("artworks");
+  const spinner = document.getElementById("spinner");
+  const noResults = document.getElementById("no-results");
+  const loadMoreArea = document.getElementById("load-more-area");
+  const loadMoreBtn = document.getElementById("load-more-btn");
+  const resultsInfo = document.getElementById("results-info");
+  const endMessage = document.getElementById("end-message");
+
+  function showSpinner() { spinner.classList.add("visible"); }
+  function hideSpinner() { spinner.classList.remove("visible"); }
+  function hideAll() {
+    noResults.classList.remove("visible");
+    loadMoreArea.classList.remove("visible");
+    endMessage.classList.remove("visible");
+    resultsInfo.textContent = "";
+  }
+
+  async function fetchArtworks(query, page) {
+    const url = `${API_BASE}/artworks/search?q=${encodeURIComponent(query)}&query[term][is_public_domain]=true&fields=id,title,image_id,artist_title,date_display,thumbnail&limit=${PAGE_SIZE}&page=${page}`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error("API request failed");
+    return resp.json();
+  }
+
+  function createCard(artwork) {
+    if (!artwork.image_id) return null;
+
+    const card = document.createElement("div");
+    card.classList.add("artwork");
+
+    const imgUrl = `${iiifUrl}/${artwork.image_id}/full/400,/0/default.jpg`;
+
+    const img = document.createElement("img");
+    img.src = imgUrl;
+    img.alt = artwork.title || "";
+    img.loading = "lazy";
+    card.appendChild(img);
+
+    const info = document.createElement("div");
+    info.className = "info";
+
+    const name = document.createElement("p");
+    name.className = "name";
+    name.textContent = artwork.title || "Untitled";
+    info.appendChild(name);
+
+    if (artwork.artist_title) {
+      const artist = document.createElement("p");
+      artist.className = "artist";
+      artist.textContent = artwork.artist_title + (artwork.date_display ? `, ${artwork.date_display}` : "");
+      info.appendChild(artist);
     }
 
-    async function fetchArtworks(query, page) {
-      const url = `${API_BASE}/artworks/search?q=${encodeURIComponent(query)}&query[term][is_public_domain]=true&fields=id,title,image_id,artist_title,date_display,thumbnail&limit=${PAGE_SIZE}&page=${page}`;
-      const resp = await fetch(url);
-      if (!resp.ok) throw new Error("API request failed");
-      return resp.json();
-    }
+    card.appendChild(info);
 
-    function createCard(artwork) {
-      if (!artwork.image_id) return null;
+    return card;
+  }
 
-      const card = document.createElement("div");
-      card.classList.add("artwork");
+  async function doSearch() {
+    const query = searchInput.value.trim();
+    if (!query) return;
 
-      const imgUrl = `${iiifUrl}/${artwork.image_id}/full/400,/0/default.jpg`;
+    hideAll();
+    artworksContainer.innerHTML = "";
+    currentQuery = query;
+    currentPage = 1;
 
-      const img = document.createElement("img");
-      img.src = imgUrl;
-      img.alt = artwork.title || "";
-      img.loading = "lazy";
-      card.appendChild(img);
+    showSpinner();
 
-      const info = document.createElement("div");
-      info.className = "info";
+    try {
+      const data = await fetchArtworks(query, currentPage);
+      iiifUrl = data.config?.iiif_url || "https://www.artic.edu/iiif/2";
+      totalPages = data.pagination?.total_pages || 0;
+      hideSpinner();
 
-      const name = document.createElement("p");
-      name.className = "name";
-      name.textContent = artwork.title || "Untitled";
-      info.appendChild(name);
-
-      if (artwork.artist_title) {
-        const artist = document.createElement("p");
-        artist.className = "artist";
-        artist.textContent = artwork.artist_title + (artwork.date_display ? `, ${artwork.date_display}` : "");
-        info.appendChild(artist);
-      }
-
-      card.appendChild(info);
-
-      return card;
-    }
-
-    async function doSearch() {
-      const query = searchInput.value.trim();
-      if (!query) return;
-
-      hideAll();
-      artworksContainer.innerHTML = "";
-      currentQuery = query;
-      currentPage = 1;
-
-      showSpinner();
-
-      try {
-        const data = await fetchArtworks(query, currentPage);
-        iiifUrl = data.config?.iiif_url || "https://www.artic.edu/iiif/2";
-        totalPages = data.pagination?.total_pages || 0;
-        hideSpinner();
-
-        const artworks = data.data || [];
-        if (artworks.length === 0) {
-          noResults.classList.add("visible");
-          return;
-        }
-
-        resultsInfo.textContent = `${data.pagination.total.toLocaleString()} results for "${query}"`;
-
-        for (const a of artworks) {
-          const card = createCard(a);
-          if (card) artworksContainer.appendChild(card);
-        }
-
-        if (currentPage < totalPages) {
-          loadMoreArea.classList.add("visible");
-        } else {
-          endMessage.classList.add("visible");
-        }
-      } catch (e) {
-        hideSpinner();
+      const artworks = data.data || [];
+      if (artworks.length === 0) {
         noResults.classList.add("visible");
-        console.error(e);
+        return;
       }
-    }
 
-    async function loadMore() {
-      currentPage++;
-      loadMoreBtn.disabled = true;
-      loadMoreArea.classList.remove("visible");
-      showSpinner();
+      resultsInfo.textContent = `${data.pagination.total.toLocaleString()} results for "${query}"`;
 
-      try {
-        const data = await fetchArtworks(currentQuery, currentPage);
-        hideSpinner();
-
-        for (const a of (data.data || [])) {
-          const card = createCard(a);
-          if (card) artworksContainer.appendChild(card);
-        }
-
-        loadMoreBtn.disabled = false;
-        if (currentPage < totalPages) {
-          loadMoreArea.classList.add("visible");
-        } else {
-          endMessage.classList.add("visible");
-        }
-      } catch (e) {
-        hideSpinner();
-        loadMoreBtn.disabled = false;
-        console.error(e);
+      for (const a of artworks) {
+        const card = createCard(a);
+        if (card) artworksContainer.appendChild(card);
       }
+
+      if (currentPage < totalPages) {
+        loadMoreArea.classList.add("visible");
+      } else {
+        endMessage.classList.add("visible");
+      }
+    } catch (e) {
+      hideSpinner();
+      noResults.classList.add("visible");
+      console.error(e);
     }
+  }
 
-    searchBtn.addEventListener("click", doSearch);
-    searchInput.addEventListener("keydown", e => {
-      if (e.key === "Enter") doSearch();
-    });
-    loadMoreBtn.addEventListener("click", loadMore);
-  </script>
-</body>
+  async function loadMore() {
+    currentPage++;
+    loadMoreBtn.disabled = true;
+    loadMoreArea.classList.remove("visible");
+    showSpinner();
 
-</html>
+    try {
+      const data = await fetchArtworks(currentQuery, currentPage);
+      hideSpinner();
+
+      for (const a of (data.data || [])) {
+        const card = createCard(a);
+        if (card) artworksContainer.appendChild(card);
+      }
+
+      loadMoreBtn.disabled = false;
+      if (currentPage < totalPages) {
+        loadMoreArea.classList.add("visible");
+      } else {
+        endMessage.classList.add("visible");
+      }
+    } catch (e) {
+      hideSpinner();
+      loadMoreBtn.disabled = false;
+      console.error(e);
+    }
+  }
+
+  searchBtn.addEventListener("click", doSearch);
+  searchInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") doSearch();
+  });
+  loadMoreBtn.addEventListener("click", loadMore);
+</script>
+
+<aside class="notes">
+Another example with artwork search results,
+where the order of items is less important than the general visual result,
+and where space is optimized by filling gaps.
+
+Also great for loading more results at the bottom, like we saw before.
+</aside>

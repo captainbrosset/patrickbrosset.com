@@ -1,0 +1,63 @@
+---
+layout: css-day-slides.njk
+title: Intrinsic lanes
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    align-content: center;
+    text-align: center;
+    font-family: system-ui;
+    font-size: 4vmin;
+  }
+
+  h1 {
+    margin: 0 0 5vmin 0;
+  }
+
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2vmin;
+    padding: 0 5vmin;
+  }
+
+  li {
+    margin: 1.5vmin 0;
+    padding: 1.5vmin 3vmin;
+    border-radius: 100vw;
+    background: #eee;
+    inline-size: max-content;
+  }
+
+  li:last-child {
+    grid-row: 3;
+  }
+</style>
+
+<h1>Defining lanes</h1>
+<ul>
+  <li>✅ <code>1fr 1fr</code></li>
+  <li>✅ <code>repeat(3, 1fr)</code></li>
+  <li>✅ <code>100px 200px auto 1fr</code></li>
+  <li>✅ <code>10px 1fr 10px auto</code></li>
+  <li>✅ <code>repeat(auto-fill, minmax(100px, 1fr))</code></li>
+</ul>
+
+<aside class="notes">
+I said before that you can use the full power of the grid track sizing syntax to define your lanes.
+
+So you can do all of the above, mixing units, using fr, using repeat and minmax, etc.
+</aside>

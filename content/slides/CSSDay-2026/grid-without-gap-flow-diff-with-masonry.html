@@ -1,327 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: css-day-slides.njk
+title: "Flow difference between grid without gaps and grid-lanes"
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flow difference between grid without gaps and grid-lanes</title>
-  <style>
-    body {
-      font-size: 15pt;
-      font-family: system-ui;
+<style>
+  body {
+    font-size: 2vmin;
+    font-family: system-ui;
 
-      margin: 4rem auto;
-      max-width: 1000px;
-      padding: 0 4rem;
+    margin: 4vmin auto;
+    max-width: 1000px;
+    padding: 0 4vmin;
+  }
+
+  .controls {
+    margin-block-end: 4vmin;
+    display: flex;
+    gap: 4vmin;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .controls label {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    padding: .5vmin 1vmin;
+    border-radius: .5vmin;
+    cursor: pointer;
+  }
+
+  .controls label:hover {
+    background: rgba(197, 7, 255, .5);
+  }
+
+  .controls input {
+    display: none;
+  }
+
+  .controls label:has(input:checked) {
+    background: rgb(218 103 253);
+  }
+
+  .layout {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vmin;
+  }
+
+  .layout.grid {
+    rule: 2px dashed #aaa;
+  }
+
+  .layout.grid,
+  .layout.grid-no-gaps {
+    display: grid;
+  }
+
+  .layout.grid-lanes {
+    display: grid-lanes;
+  }
+
+  .item {
+    border-radius: .5vmin;
+    counter-increment: item;
+    display: grid;
+    place-content: center;
+    font-weight: bold;
+    --back: hsl(calc(sibling-index() * 36), 70%, 70%);
+    background-color: var(--back);
+    color: contrast-color(var(--back));
+    view-transition-name: match-element;
+    block-size: 15vmin;
+  }
+
+  .item:nth-child(3n) {
+    block-size: 20vmin;
+  }
+
+  .item:nth-child(5n) {
+    block-size: 10vmin;
+  }
+
+  .item::before {
+    content: counter(item);
+  }
+
+  .layout.grid-no-gaps .item:nth-child(4),
+  .layout.grid-no-gaps .item:nth-child(5) {
+    margin-block-start: -5vmin;
+  }
+
+  .layout.grid-no-gaps .item:nth-child(7) {
+    margin-block-start: -10vmin;
+  }
+
+  .layout.grid-no-gaps .item:nth-child(8),
+  .layout.grid-no-gaps .item:nth-child(10) {
+    margin-block-start: -15vmin;
+  }
+
+  .layout.grid-no-gaps .item:nth-child(11) {
+    margin-block-start: -20vmin;
+  }
+
+  .layout {
+    position: relative;
+  }
+
+  /* Connectors */
+  .connectors {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 10;
+  }
+
+  .connectors line {
+    stroke: #333;
+    stroke-width: 2;
+  }
+
+  .connectors line.fade-out {
+    animation: fade-out-connector 1s ease-out forwards;
+  }
+
+  @keyframes fade-out-connector {
+    to {
+      opacity: 0;
     }
+  }
+</style>
 
-    .controls {
-      margin-block-end: 4rem;
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      align-items: center;
-    }
+<div class="controls">
+  <label><input type="radio" name="layout" value="grid" checked> Grid</label>
+  <label><input type="radio" name="layout" value="grid-no-gaps"> Grid without gaps</label>
+  <label><input type="radio" name="layout" value="grid-lanes"> Grid-lanes</label>
+</div>
+<div class="layout">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+<script>
+  const layout = document.querySelector('.layout');
+  const radios = document.querySelectorAll('input[name="layout"]');
 
-    .controls label {
-      display: flex;
-      gap: .5rem;
-      align-items: center;
-      padding: .25rem .5rem;
-      border-radius: .25rem;
-      cursor: pointer;
-    }
+  function applyLayout(value) {
+    layout.style.display = '';
+    layout.style.flexDirection = '';
+    layout.style.flexWrap = '';
+    layout.style.columnCount = '';
+    layout.style.gridTemplateRows = '';
 
-    .controls label:hover {
-      background: rgba(197, 7, 255, .5);
-    }
+    layout.className = `layout ${value}`;
+  }
 
-    .controls input {
-      display: none;
-    }
-
-    .controls label:has(input:checked) {
-      background: rgb(197, 7, 255);
-    }
-
-    .layout {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    .layout.grid {
-      rule: 2px dashed #aaa;
-    }
-    
-    .layout.grid,
-    .layout.grid-no-gaps {
-      display: grid;
-    }
-
-    .layout.grid-lanes {
-      display: grid-lanes;
-    }
-
-    .item {
-      border-radius: .5rem;
-      counter-increment: item;
-      height: 10rem;
-      display: grid;
-      place-content: center;
-      font-weight: bold;
-      --back: hsl(calc(sibling-index() * 36), 70%, 70%);
-      background-color: var(--back);
-      color: contrast-color(var(--back));
-      view-transition-name: match-element;
-    }
-
-    .item:nth-child(3n) {
-      height: 15rem;
-    }
-
-    .item:nth-child(5n) {
-      height: 5rem;
-    }
-
-    .item::before {
-      content: counter(item);
-    }
-
-    .layout.grid-no-gaps .item:nth-child(4),
-    .layout.grid-no-gaps .item:nth-child(5) {
-      margin-block-start: -5rem;
-    }
-
-    .layout.grid-no-gaps .item:nth-child(7) {
-      margin-block-start: -10rem;
-    }
-
-    .layout.grid-no-gaps .item:nth-child(8),
-    .layout.grid-no-gaps .item:nth-child(10) {
-      margin-block-start: -15rem;
-    }
-
-    .layout.grid-no-gaps .item:nth-child(11) {
-      margin-block-start: -20rem;
-    }
-
-    .show-flow-btn {
-      display: block;
-      margin: 2rem auto;
-      padding: .5rem 1.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      border: 2px solid #333;
-      border-radius: .5rem;
-      background: #fff;
-    }
-
-    .show-flow-btn:hover {
-      background: rgba(197, 7, 255, .5);
-    }
-
-    .show-flow-btn:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
-
-    .layout {
-      position: relative;
-    }
-
-    /* Connectors */
-    .connectors {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: visible;
-      z-index: 10;
-    }
-
-    .connectors line {
-      stroke: #333;
-      stroke-width: 2;
-    }
-
-    .connectors line.fade-out {
-      animation: fade-out-connector 1s ease-out forwards;
-    }
-
-    @keyframes fade-out-connector {
-      to {
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="controls">
-    <label><input type="radio" name="layout" value="grid" checked> Grid</label>
-    <label><input type="radio" name="layout" value="grid-no-gaps"> Grid without gaps</label>
-    <label><input type="radio" name="layout" value="grid-lanes"> Grid-lanes</label>
-  </div>
-  <div class="layout">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-  </div>
-  <button class="show-flow-btn">Show flow</button>
-  <script>
-    const layout = document.querySelector('.layout');
-    const radios = document.querySelectorAll('input[name="layout"]');
-
-    function applyLayout(value) {
-      layout.style.display = '';
-      layout.style.flexDirection = '';
-      layout.style.flexWrap = '';
-      layout.style.columnCount = '';
-      layout.style.gridTemplateRows = '';
-
-      layout.className = `layout ${value}`;
-    }
-
-    radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        const transition = document.startViewTransition(() => applyLayout(radio.value));
-      });
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      const transition = document.startViewTransition(() => applyLayout(radio.value));
     });
+  });
 
-    applyLayout('grid');
+  applyLayout('grid');
+</script>
 
-    // --- Connectors ---
-    const SVG_NS = 'http://www.w3.org/2000/svg';
-    let connectorSvg = null;
-    let previousConnector = null;
+<aside class="notes">
+We can also compare this to grid.
 
-    function initConnectors(parent) {
-      if (connectorSvg) {
-        connectorSvg.remove();
-        connectorSvg = null;
-      }
+Grid gets you ... well, a grid.
+Which can sometimes lead to gaps
+when items don't all have the same size.
 
-      connectorSvg = document.createElementNS(SVG_NS, 'svg');
-      connectorSvg.setAttribute('class', 'connectors');
+It's easy to think that grid-lanes is basically a grid without the gaps.
+So let's remove the gaps, virtually, from this grid.
 
-      const defs = document.createElementNS(SVG_NS, 'defs');
-      const marker = document.createElementNS(SVG_NS, 'marker');
-      marker.setAttribute('id', 'arrowhead');
-      marker.setAttribute('markerWidth', '10');
-      marker.setAttribute('markerHeight', '7');
-      marker.setAttribute('refX', '9');
-      marker.setAttribute('refY', '3.5');
-      marker.setAttribute('orient', 'auto');
+And now let's switch the grid-lanes.
+Again, big difference in the flow of items.
 
-      const polygon = document.createElementNS(SVG_NS, 'polygon');
-      polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
-      polygon.setAttribute('fill', '#333');
+The placement algorithm is very different between grid-lanes and grid.
 
-      marker.appendChild(polygon);
-      defs.appendChild(marker);
-      connectorSvg.appendChild(defs);
-
-      parent.appendChild(connectorSvg);
-    }
-
-    function drawConnector(fromEl, toEl, container) {
-      if (!connectorSvg) return;
-
-      fadeOutConnector(previousConnector);
-
-      const fromRect = fromEl.getClientRects()[0];
-      const toRect = toEl.getClientRects()[0];
-      const containerRect = container.getClientRects()[0];
-
-      const x1 = fromRect.left + fromRect.width / 2 - containerRect.left;
-      const y1 = fromRect.top + fromRect.height / 2 - containerRect.top;
-      const x2 = toRect.left + toRect.width / 2 - containerRect.left;
-      const y2 = toRect.top + toRect.height / 2 - containerRect.top;
-
-      const line = document.createElementNS(SVG_NS, 'line');
-      line.setAttribute('x1', x1);
-      line.setAttribute('y1', y1);
-      line.setAttribute('x2', x2);
-      line.setAttribute('y2', y2);
-      line.setAttribute('marker-end', 'url(#arrowhead)');
-
-      connectorSvg.appendChild(line);
-      previousConnector = line;
-
-      return line;
-    }
-
-    function fadeOutConnector(line) {
-      if (!line) return;
-      line.classList.add('fade-out');
-      line.addEventListener('animationend', (e) => {
-        e.target.remove();
-      });
-    }
-
-    function tearDownConnectors() {
-      fadeOutConnector(previousConnector);
-      previousConnector = null;
-    }
-
-    // --- Show flow ---
-    let flowRunning = false;
-    let flowAbort = null;
-
-    const showFlowBtn = document.querySelector('.show-flow-btn');
-    showFlowBtn.addEventListener('click', async () => {
-      if (flowRunning) {
-        // Abort current flow
-        if (flowAbort) flowAbort.abort();
-        return;
-      }
-
-      flowRunning = true;
-      showFlowBtn.textContent = 'Stop flow';
-      flowAbort = new AbortController();
-
-      const items = layout.querySelectorAll('.item');
-      initConnectors(layout);
-
-      try {
-        for (let i = 1; i < items.length; i++) {
-          if (flowAbort.signal.aborted) break;
-          drawConnector(items[i - 1], items[i], layout);
-          await new Promise((resolve, reject) => {
-            const timer = setTimeout(resolve, 200);
-            flowAbort.signal.addEventListener('abort', () => {
-              clearTimeout(timer);
-              resolve();
-            }, { once: true });
-          });
-        }
-      } finally {
-        tearDownConnectors();
-        if (connectorSvg) {
-          // Wait for fade-out then remove SVG
-          setTimeout(() => {
-            if (connectorSvg) {
-              connectorSvg.remove();
-              connectorSvg = null;
-            }
-          }, 1100);
-        }
-        flowRunning = false;
-        flowAbort = null;
-        showFlowBtn.textContent = 'Show flow';
-      }
-    });
-  </script>
-</body>
-
-</html>
+So, keep in mind, grid-lanes doesn't start from grid and then squishes everything closer together.
+It fills lanes item by item, always making a decision as to which lane is shortest.
+</aside>

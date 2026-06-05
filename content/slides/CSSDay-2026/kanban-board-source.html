@@ -1,0 +1,76 @@
+---
+layout: css-day-slides.njk
+title: Kanban board source
+---
+
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100vh;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    font-size: 2.2vmin;
+    background: #f06;
+    color: black;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+    gap: 4vmin;
+    padding: 4vmin;
+    box-sizing: border-box;
+    align-content: start;
+    overflow: auto;
+  }
+
+  pre {
+    margin: 0;
+    padding: 4vmin;
+    border-radius: 1vmin;
+    box-shadow: 0 0 3vmin 0 #0005;
+    background: white;
+    line-height: 1.55;
+    block-size: max-content;
+  }
+
+  .selector {
+    color: #00c180;
+    font-weight: bold;
+  }
+
+  .property {
+    color: #df209f;
+    font-weight: bold;
+  }
+
+  .value {
+    color: #275c73;
+  }
+
+  .comment {
+    color: #999;
+    font-style: italic;
+  }
+</style>
+
+<pre><code><span class="selector">.kanban-board</span> {
+  <span class="property">display</span>: <span class="value">grid-lanes</span>;
+  <span class="property">grid-template-columns</span>: <span class="value">1fr repeat(2, 1.5fr) 1fr</span>;
+  <span class="property">gap</span>: <span class="value">1rem 2rem</span>;
+}
+
+<span class="selector">[data-column="backlog"]</span> { <span class="property">grid-column</span>: <span class="value">1</span>; }
+<span class="selector">[data-column="doing"]</span>   { <span class="property">grid-column</span>: <span class="value">2</span>; }
+<span class="selector">[data-column="review"]</span>  { <span class="property">grid-column</span>: <span class="value">3</span>; }
+<span class="selector">[data-column="done"]</span>    { <span class="property">grid-column</span>: <span class="value">4</span>; }
+</code></pre>
+
+<aside class="notes">
+Again, display:grid-lanes with columns.
+Here columns have different widths, just for fun.
+
+And each item has a data-column attribute which determines which lane it belongs to.
+So the code doesn't change the grid-column property directly. It changes the data attribute.
+</aside>

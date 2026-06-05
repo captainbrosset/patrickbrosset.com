@@ -13,6 +13,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/slides/2025-10-CSS-Masonry.pdf");
   eleventyConfig.addPassthroughCopy("content/slides/2026-01-FOSDEM.pdf");
   eleventyConfig.addPassthroughCopy("content/slides/CSSDay-2026/**/*.{png,jpg,gif,GIF,svg,webp,avif,mp4,css,js,json}");
+  eleventyConfig.addWatchTarget("content/slides/CSSDay-2026/");
   eleventyConfig.addPassthroughCopy("content/lab/**/*");
   eleventyConfig.addPassthroughCopy(
     "content/lab/notification-lab-manifest.json"
@@ -64,7 +65,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addTransform("presenter-nav", function (content) {
-    if (this.inputPath && this.inputPath.includes("/slides/CSSDay-2026/") && this.outputPath && this.outputPath.endsWith(".html")) {
+    if (this.inputPath && this.inputPath.includes("/slides/CSSDay-2026/") && !this.inputPath.includes("presenter-board") && this.outputPath && this.outputPath.endsWith(".html")) {
       const script = '<script src="/slides/CSSDay-2026/presenter.js" defer><\/script>';
       if (content.includes('</body>')) {
         content = content.replace('</body>', script + '</body>');

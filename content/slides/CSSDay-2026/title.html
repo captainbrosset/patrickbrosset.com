@@ -1,0 +1,129 @@
+---
+layout: css-day-slides.njk
+title: "Fun with grid-lanes"
+---
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    display: grid;
+    place-content: center;
+  }
+
+  h1 {
+    inline-size: 90vmin;
+    aspect-ratio: 1;
+    margin: 0;
+    display: grid-lanes;
+    grid-template-columns: 1fr 2fr;
+    gap: 1vmin;
+    font-family: tahoma;
+    text-transform: uppercase;
+    align-content: center;
+
+    span {
+      color: white;
+      background: black;
+      line-height: 0.8;
+      padding: 1vmin;
+      justify-self: baseline;
+      transform: translate(0, 0);
+      transition: transform 500ms cubic-bezier(.2, .9, .2, 1), opacity 350ms ease-out;
+      transition-delay: calc(sibling-index() * 200ms);
+      opacity: 1;
+
+      /* Fun */
+      &:nth-child(1) {
+        grid-column: span 2;
+        font-size: 30vmin;
+      }
+
+      /* With */
+      &:nth-child(2) {
+        writing-mode: sideways-rl;
+        font-size: 14vmin;
+        grid-column: 1;
+      }
+
+      /* CSS */
+      &:nth-child(3) {
+        grid-column: 2;
+        font-size: 20vmin;
+      }
+
+      /* Grid */
+      &:nth-child(4) {
+        grid-column: 2;
+        font-size: 14vmin;
+      }
+
+      /* Lanes */
+      &:nth-child(5) {
+        grid-column: 2;
+        font-size: 21vmin;
+      }
+
+      /* Author */
+      &:nth-child(6) {
+        background: transparent;
+        color: black;
+        font-size: 3vmin;
+        line-height: .9;
+      }
+
+      @starting-style {
+        /* Fun */
+        &:nth-child(1) {
+          transform: translate(0, -50vmin);
+          opacity: 0;
+        }
+
+        /* With */
+        &:nth-child(2) {
+          transform: translate(-50vmin, 0);
+          opacity: 0;
+        }
+
+        /* CSS */
+        &:nth-child(3) {
+          transform: translate(50vmin, 0);
+          opacity: 0;
+        }
+
+        /* Grid */
+        &:nth-child(4) {
+          transform: translate(50vmin, 0);
+          opacity: 0;
+        }
+
+        /* Lanes */
+        &:nth-child(5) {
+          transform: translate(50vmin, 0);
+          opacity: 0;
+        }
+
+        /* Author */
+        &:nth-child(6) {
+          transform: translate(0, 50vmin);
+          opacity: 0;
+        }
+      }
+    }
+  }
+</style>
+<h1>
+  <span>Fun</span>
+  <span>with</span>
+  <span>CSS</span>
+  <span>grid</span>
+  <span>lanes</span>
+  <span>Patrick Brosset<br>CSSDay 2026</span>
+</h1>
+
+<aside class="notes">
+Hi,
+it's great to be here.
+Fun with CSS grid-lanes, let's get started.
+</aside>

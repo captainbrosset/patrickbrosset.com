@@ -1,0 +1,138 @@
+---
+layout: css-day-slides.njk
+title: Let's conclude on grid-lanes
+---
+
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100%;
+    font-family: system-ui;
+    align-content: center;
+    background:
+      radial-gradient(circle at 20% 15%, rgb(0 180 255 / 0.2), transparent 22%),
+      radial-gradient(circle at 80% 25%, rgb(163 73 255 / 0.22), transparent 26%),
+      radial-gradient(circle at 50% 85%, rgb(35 224 192 / 0.14), transparent 24%),
+      linear-gradient(145deg in oklab, rgb(4 6 16), rgb(10 8 28) 45%, rgb(2 3 10));
+    overflow: hidden;
+  }
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: true;
+  }
+
+  .key-points {
+    display: grid-lanes;
+    grid-template-columns: 1fr 1fr 1fr;
+    flow-tolerance: infinite;
+    gap: 2vmin;
+    margin: 20vmin;
+    --angle: 0deg;
+
+    p {
+      margin: 0;
+      text-fit: grow;
+      line-height: 1;
+      padding: 2vmin;
+      background: linear-gradient(200deg, rgb(255 255 255 / 0.95), rgb(232 240 255 / 0.9)) padding-box,
+        conic-gradient(from var(--angle) in oklch,
+          oklch(0.92 0.18 235),
+          oklch(0.8 0.27 290),
+          oklch(0.78 0.24 340),
+          oklch(0.84 0.23 180),
+          oklch(0.95 0.16 110),
+          oklch(0.92 0.18 235)) border-box;
+      border: .5vmin solid transparent;
+      background-clip: padding-box, border-box;
+      box-shadow: 0 0 0.8vmin rgb(138 92 255 / 0.3),
+        0 1.2vmin 2.4vmin rgb(28 34 90 / 0.18);
+      border-radius: 2vmin;
+      text-align: center;
+      font-weight: bold;
+      opacity: 0;
+      transform: translateY(70vh);
+      transition:
+        transform .75s cubic-bezier(.2, .8, .2, 1),
+        opacity .45s ease;
+      animation: rotate 2s ease-in-out infinite;
+      animation-delay: calc(sibling-index() * .5s);
+    }
+
+    p.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    p:nth-child(2n) {
+      animation-direction: reverse;
+    }
+
+    p:last-child {
+      grid-column: 1 / -1;
+      margin-inline: 30vmin;
+    }
+  }
+
+  @keyframes rotate {
+    to {
+      --angle: 360deg;
+    }
+  }
+</style>
+
+<div class="key-points">
+  <p>Not just Pinterest<br>in CSS</p>
+  <p>Very creative</p>
+  <p>Power of<br>grid track sizing</p>
+  <p>Fundamentally<br>1D</p>
+  <p>Opportunistic<br>placement</p>
+  <p>Allows for<br>design decisions</p>
+  <p>Try it today</p>
+</div>
+
+<script>
+  const points = [...document.querySelectorAll('.key-points p')];
+  let revealedCount = 0;
+
+  function revealNextPoint() {
+    if (revealedCount >= points.length) {
+      return;
+    }
+
+    points[revealedCount].classList.add('is-visible');
+    revealedCount += 1;
+  }
+
+  document.addEventListener('click', event => {
+    if (revealedCount >= points.length) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    revealNextPoint();
+  }, true);
+</script>
+
+<aside class="notes">
+Let's summarize on grid-lanes:
+
+(CLICK FOR EACH BOX)
+
+High-level:
+- It's not just Pinterest in CSS.
+- It can be very creative and lead to new layout possibilities.
+
+Key points:
+- It inherits the power of grid's track sizing, for lanes.
+- But it's fundamentally 1D, lane-based.
+  You don't get to control the other dimension.
+- Placement is opportunistic.
+  Excellent for visual density.
+- But, you can still make strong design decisions
+  with DOM order, lane assignment and flow-tolerance.
+- You can use it as aprogressive enhancement today.
+</aside>

@@ -1,31 +1,31 @@
 ---
 layout: css-day-slides.njk
 title: The year is 1996
-prev: ../
-next: ../30-years-ago-netscape
 ---
 
-The year is 1996.
-I'm 16 at the time, discovering the Internet, and becoming an absolute fan of the web.
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+  img {
+    background: white;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+  }
+</style>
 
-<main>
-  <style>
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-    }
-    img {
-      width: 95vw;
-      height: 95vh;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-3deg);
-      object-fit: contain;
-      filter: drop-shadow(0 0 1vmin #0004);
-    }
-  </style>
-  <img src="/slides/CSSDay-2026/me-in-96.jpg" alt="Me, in front of the computer, browsing the web, in 1996" loading="lazy">
-</main>
+<img src="/slides/CSSDay-2026/me-in-96.jpg" alt="Me, in front of the computer, browsing the web, in 1996" loading="lazy">
+
+<aside class="notes">
+I'm gonna date myself a little bit here.
+
+The year is 1996, I'm 16 at the time.
+
+I'm discovering the Internet, becoming an absolute fan of the web at first sight.
+
+You can see me sitting in front of the family computer, browsing the web.
+</aside>

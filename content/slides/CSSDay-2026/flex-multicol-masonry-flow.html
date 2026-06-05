@@ -1,316 +1,327 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: css-day-slides.njk
+title: "Flexbox, Multicol, and Masonry: same general shape, different flow"
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flexbox / Multicol / Grid-lanes flow</title>
-  <style>
-    body {
-      font-size: 15pt;
-      font-family: system-ui;
+<style>
+  body {
+    font-size: 15pt;
+    font-family: system-ui;
 
-      margin: 4rem auto;
-      max-width: 1000px;
-      padding: 0 4rem;
+    margin: 4rem auto;
+    max-width: 1000px;
+    padding: 0 4rem;
+  }
+
+  .controls {
+    margin-block-end: 4rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .controls label {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    cursor: pointer;
+  }
+
+  .controls label:hover {
+    background: rgba(197, 7, 255, .5);
+  }
+
+  .controls input {
+    display: none;
+  }
+
+  .controls label:has(input:checked) {
+    background: rgb(197, 7, 255);
+  }
+
+  .layout {
+    overflow: auto;
+    gap: 1rem;
+  }
+
+  .layout.flexbox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 39rem;
+  }
+
+  .layout.multicol {
+    column-count: 3;
+  }
+
+  .layout.grid-lanes {
+    display: grid-lanes;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .item {
+    border-radius: .5rem;
+    counter-increment: item;
+    height: 8rem;
+    display: grid;
+    place-content: center;
+    font-weight: bold;
+    --back: hsl(calc(sibling-index() * 36), 70%, 70%);
+    background-color: var(--back);
+    color: contrast-color(var(--back));
+    view-transition-name: match-element;
+  }
+
+  .layout.multicol .item {
+    margin-block-end: 1rem;
+  }
+
+  .item:nth-child(3n) {
+    height: 13rem;
+  }
+
+  .item:nth-child(5n) {
+    height: 3rem;
+  }
+
+  .item::before {
+    content: counter(item);
+  }
+
+  .show-flow-btn {
+    display: block;
+    margin: 2rem auto;
+    padding: .5rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid #333;
+    border-radius: .5rem;
+    background: #fff;
+  }
+
+  .show-flow-btn:hover {
+    background: rgba(197, 7, 255, .5);
+  }
+
+  .show-flow-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  .layout {
+    position: relative;
+  }
+
+  /* Connectors */
+  .connectors {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 10;
+  }
+
+  .connectors line {
+    stroke: #333;
+    stroke-width: 2;
+  }
+
+  .connectors line.fade-out {
+    animation: fade-out-connector 1s ease-out forwards;
+  }
+
+  @keyframes fade-out-connector {
+    to {
+      opacity: 0;
     }
+  }
+</style>
 
-    .controls {
-      margin-block-end: 4rem;
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      align-items: center;
-    }
+<div class="controls">
+  <label><input type="radio" name="layout" value="flexbox" checked> Flexbox</label>
+  <label><input type="radio" name="layout" value="multicol"> Multicol</label>
+  <label><input type="radio" name="layout" value="grid-lanes"> Grid-lanes</label>
+</div>
+<div class="layout">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+<button class="show-flow-btn">Show flow</button>
+<script>
+  const layout = document.querySelector('.layout');
+  const radios = document.querySelectorAll('input[name="layout"]');
 
-    .controls label {
-      display: flex;
-      gap: .5rem;
-      align-items: center;
-      padding: .25rem .5rem;
-      border-radius: .25rem;
-      cursor: pointer;
-    }
+  function applyLayout(value) {
+    layout.style.display = '';
+    layout.style.flexDirection = '';
+    layout.style.flexWrap = '';
+    layout.style.columnCount = '';
+    layout.style.gridTemplateRows = '';
 
-    .controls label:hover {
-      background: rgba(197, 7, 255, .5);
-    }
+    layout.className = `layout ${value}`;
+  }
 
-    .controls input {
-      display: none;
-    }
-
-    .controls label:has(input:checked) {
-      background: rgb(197, 7, 255);
-    }
-
-    .layout {
-      overflow: auto;
-      gap: 1rem;
-    }
-    
-    .layout.flexbox {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      max-height: 50rem;
-    }
-
-    .layout.multicol {
-      column-count: 3;
-    }
-
-    .layout.grid-lanes {
-      display: grid-lanes;
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .item {
-      border-radius: .5rem;
-      counter-increment: item;
-      height: 10rem;
-      display: grid;
-      place-content: center;
-      font-weight: bold;
-      --back: hsl(calc(sibling-index() * 36), 70%, 70%);
-      background-color: var(--back);
-      color: contrast-color(var(--back));
-      view-transition-name: match-element;
-    }
-
-    .layout.multicol .item {
-      margin-block-end: 1rem;
-    }
-
-    .item:nth-child(3n) {
-      height: 15rem;
-    }
-
-    .item:nth-child(5n) {
-      height: 5rem;
-    }
-
-    .item::before {
-      content: counter(item);
-    }
-
-    .show-flow-btn {
-      display: block;
-      margin: 2rem auto;
-      padding: .5rem 1.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      border: 2px solid #333;
-      border-radius: .5rem;
-      background: #fff;
-    }
-
-    .show-flow-btn:hover {
-      background: rgba(197, 7, 255, .5);
-    }
-
-    .show-flow-btn:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
-
-    .layout {
-      position: relative;
-    }
-
-    /* Connectors */
-    .connectors {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: visible;
-      z-index: 10;
-    }
-
-    .connectors line {
-      stroke: #333;
-      stroke-width: 2;
-    }
-
-    .connectors line.fade-out {
-      animation: fade-out-connector 1s ease-out forwards;
-    }
-
-    @keyframes fade-out-connector {
-      to {
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="controls">
-    <label><input type="radio" name="layout" value="flexbox" checked> Flexbox</label>
-    <label><input type="radio" name="layout" value="multicol"> Multicol</label>
-    <label><input type="radio" name="layout" value="grid-lanes"> Grid-lanes</label>
-  </div>
-  <div class="layout">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-  </div>
-  <button class="show-flow-btn">Show flow</button>
-  <script>
-    const layout = document.querySelector('.layout');
-    const radios = document.querySelectorAll('input[name="layout"]');
-
-    function applyLayout(value) {
-      layout.style.display = '';
-      layout.style.flexDirection = '';
-      layout.style.flexWrap = '';
-      layout.style.columnCount = '';
-      layout.style.gridTemplateRows = '';
-
-      layout.className = `layout ${value}`;
-    }
-
-    radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        const transition = document.startViewTransition(() => applyLayout(radio.value));
-      });
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      const transition = document.startViewTransition(() => applyLayout(radio.value));
     });
+  });
 
-    applyLayout('flexbox');
+  applyLayout('flexbox');
 
-    // --- Connectors ---
-    const SVG_NS = 'http://www.w3.org/2000/svg';
-    let connectorSvg = null;
-    let previousConnector = null;
+  // --- Connectors ---
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  let connectorSvg = null;
+  let previousConnector = null;
 
-    function initConnectors(parent) {
+  function initConnectors(parent) {
+    if (connectorSvg) {
+      connectorSvg.remove();
+      connectorSvg = null;
+    }
+
+    connectorSvg = document.createElementNS(SVG_NS, 'svg');
+    connectorSvg.setAttribute('class', 'connectors');
+
+    const defs = document.createElementNS(SVG_NS, 'defs');
+    const marker = document.createElementNS(SVG_NS, 'marker');
+    marker.setAttribute('id', 'arrowhead');
+    marker.setAttribute('markerWidth', '10');
+    marker.setAttribute('markerHeight', '7');
+    marker.setAttribute('refX', '9');
+    marker.setAttribute('refY', '3.5');
+    marker.setAttribute('orient', 'auto');
+
+    const polygon = document.createElementNS(SVG_NS, 'polygon');
+    polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
+    polygon.setAttribute('fill', '#333');
+
+    marker.appendChild(polygon);
+    defs.appendChild(marker);
+    connectorSvg.appendChild(defs);
+
+    parent.appendChild(connectorSvg);
+  }
+
+  function drawConnector(fromEl, toEl, container) {
+    if (!connectorSvg) return;
+
+    fadeOutConnector(previousConnector);
+
+    const fromRect = fromEl.getClientRects()[0];
+    const toRect = toEl.getClientRects()[0];
+    const containerRect = container.getClientRects()[0];
+
+    const x1 = fromRect.left + fromRect.width / 2 - containerRect.left;
+    const y1 = fromRect.top + fromRect.height / 2 - containerRect.top;
+    const x2 = toRect.left + toRect.width / 2 - containerRect.left;
+    const y2 = toRect.top + toRect.height / 2 - containerRect.top;
+
+    const line = document.createElementNS(SVG_NS, 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('marker-end', 'url(#arrowhead)');
+
+    connectorSvg.appendChild(line);
+    previousConnector = line;
+
+    return line;
+  }
+
+  function fadeOutConnector(line) {
+    if (!line) return;
+    line.classList.add('fade-out');
+    line.addEventListener('animationend', (e) => {
+      e.target.remove();
+    });
+  }
+
+  function tearDownConnectors() {
+    fadeOutConnector(previousConnector);
+    previousConnector = null;
+  }
+
+  // --- Show flow ---
+  let flowRunning = false;
+  let flowAbort = null;
+
+  const showFlowBtn = document.querySelector('.show-flow-btn');
+  showFlowBtn.addEventListener('click', async () => {
+    if (flowRunning) {
+      // Abort current flow
+      if (flowAbort) flowAbort.abort();
+      return;
+    }
+
+    flowRunning = true;
+    showFlowBtn.textContent = 'Stop flow';
+    flowAbort = new AbortController();
+
+    const items = layout.querySelectorAll('.item');
+    initConnectors(layout);
+
+    try {
+      for (let i = 1; i < items.length; i++) {
+        if (flowAbort.signal.aborted) break;
+        drawConnector(items[i - 1], items[i], layout);
+        await new Promise((resolve, reject) => {
+          const timer = setTimeout(resolve, 200);
+          flowAbort.signal.addEventListener('abort', () => {
+            clearTimeout(timer);
+            resolve();
+          }, { once: true });
+        });
+      }
+    } finally {
+      tearDownConnectors();
       if (connectorSvg) {
-        connectorSvg.remove();
-        connectorSvg = null;
+        // Wait for fade-out then remove SVG
+        setTimeout(() => {
+          if (connectorSvg) {
+            connectorSvg.remove();
+            connectorSvg = null;
+          }
+        }, 1100);
       }
-
-      connectorSvg = document.createElementNS(SVG_NS, 'svg');
-      connectorSvg.setAttribute('class', 'connectors');
-
-      const defs = document.createElementNS(SVG_NS, 'defs');
-      const marker = document.createElementNS(SVG_NS, 'marker');
-      marker.setAttribute('id', 'arrowhead');
-      marker.setAttribute('markerWidth', '10');
-      marker.setAttribute('markerHeight', '7');
-      marker.setAttribute('refX', '9');
-      marker.setAttribute('refY', '3.5');
-      marker.setAttribute('orient', 'auto');
-
-      const polygon = document.createElementNS(SVG_NS, 'polygon');
-      polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
-      polygon.setAttribute('fill', '#333');
-
-      marker.appendChild(polygon);
-      defs.appendChild(marker);
-      connectorSvg.appendChild(defs);
-
-      parent.appendChild(connectorSvg);
+      flowRunning = false;
+      flowAbort = null;
+      showFlowBtn.textContent = 'Show flow';
     }
+  });
+</script>
 
-    function drawConnector(fromEl, toEl, container) {
-      if (!connectorSvg) return;
+<aside class="notes">
+Here is another way to illustrate the difference.
 
-      fadeOutConnector(previousConnector);
+Here we have flex, and I can show the flow of items
+going down predictably one column after the other.
 
-      const fromRect = fromEl.getClientRects()[0];
-      const toRect = toEl.getClientRects()[0];
-      const containerRect = container.getClientRects()[0];
+Next, multicolumn, which is almost the same shape
+the only difference here is that multico supports fragmentation.
+So certain items start in one column and end in the next.
+But the flow of items is the same.
 
-      const x1 = fromRect.left + fromRect.width / 2 - containerRect.left;
-      const y1 = fromRect.top + fromRect.height / 2 - containerRect.top;
-      const x2 = toRect.left + toRect.width / 2 - containerRect.left;
-      const y2 = toRect.top + toRect.height / 2 - containerRect.top;
-
-      const line = document.createElementNS(SVG_NS, 'line');
-      line.setAttribute('x1', x1);
-      line.setAttribute('y1', y1);
-      line.setAttribute('x2', x2);
-      line.setAttribute('y2', y2);
-      line.setAttribute('marker-end', 'url(#arrowhead)');
-
-      connectorSvg.appendChild(line);
-      previousConnector = line;
-
-      return line;
-    }
-
-    function fadeOutConnector(line) {
-      if (!line) return;
-      line.classList.add('fade-out');
-      line.addEventListener('animationend', (e) => {
-        e.target.remove();
-      });
-    }
-
-    function tearDownConnectors() {
-      fadeOutConnector(previousConnector);
-      previousConnector = null;
-    }
-
-    // --- Show flow ---
-    let flowRunning = false;
-    let flowAbort = null;
-
-    const showFlowBtn = document.querySelector('.show-flow-btn');
-    showFlowBtn.addEventListener('click', async () => {
-      if (flowRunning) {
-        // Abort current flow
-        if (flowAbort) flowAbort.abort();
-        return;
-      }
-
-      flowRunning = true;
-      showFlowBtn.textContent = 'Stop flow';
-      flowAbort = new AbortController();
-
-      const items = layout.querySelectorAll('.item');
-      initConnectors(layout);
-
-      try {
-        for (let i = 1; i < items.length; i++) {
-          if (flowAbort.signal.aborted) break;
-          drawConnector(items[i - 1], items[i], layout);
-          await new Promise((resolve, reject) => {
-            const timer = setTimeout(resolve, 200);
-            flowAbort.signal.addEventListener('abort', () => {
-              clearTimeout(timer);
-              resolve();
-            }, { once: true });
-          });
-        }
-      } finally {
-        tearDownConnectors();
-        if (connectorSvg) {
-          // Wait for fade-out then remove SVG
-          setTimeout(() => {
-            if (connectorSvg) {
-              connectorSvg.remove();
-              connectorSvg = null;
-            }
-          }, 1100);
-        }
-        flowRunning = false;
-        flowAbort = null;
-        showFlowBtn.textContent = 'Show flow';
-      }
-    });
-  </script>
-</body>
-
-</html>
+But now, switching to grid-lanes, you can see the
+difference.
+Items get re-order quite drastically.
+And the flow is this criss-cross pattern.
+Very different from the previous two.
+</aside>

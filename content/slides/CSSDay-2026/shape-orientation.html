@@ -3,13 +3,60 @@ layout: css-day-slides.njk
 title: Shape and orientation
 ---
 
-<main>
-  <h1>Shape and orientation</h1>
-  <ul>
-    <li><code>display: grid-lanes;</code></li>
-    <li><code>grid-template-columns</code> → column / waterfall</li>
-    <li><code>grid-template-rows</code> → row / brick wall</li>
-    <li>Full power of grid track sizing syntax</li>
-    <li><code>grid-column</code> / <code>grid-row</code> for placement and spanning</li>
-  </ul>
-</main>
+<style>
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    font-size: 9vmin;
+    line-height: 1;
+    font-family: system-ui;
+    background: black;
+    color: white;
+    text-align: center;
+    align-content: center;
+    overflow: hidden;
+  }
+
+  h1 {
+    display: grid-lanes;
+    grid-template-rows: 1fr 1fr;
+    gap: 9vmin;
+  }
+
+  span {
+    background: #111;
+    padding: 5vmin;
+    text-transform: lowercase;
+    box-shadow: 2vmin 2vmin;
+    animation: rotate 3s ease-in-out infinite;
+    transform-origin: bottom right;
+  }
+
+  @keyframes rotate {
+    0%,
+    35% {
+      transform: rotate(0deg);
+    }
+
+    50%,
+    65% {
+      transform: rotate(90deg) scale(.8);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+</style>
+
+<h1>
+  <span>Shape</span>
+  <span>&amp;</span>
+  <span>orientation</span>
+</h1>
+
+<aside class="notes">
+Let's talk about shape and orientation first.
+That's what defines the visual aspect of your layout.
+</aside>

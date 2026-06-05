@@ -3,13 +3,88 @@ layout: css-day-slides.njk
 title: Flow
 ---
 
-<main>
-  <h1>Flow</h1>
-  <ul>
-    <li>Same shape can be created with different layouts</li>
-    <li>It all depends on how items flow through the shape</li>
-    <li>Flexbox vs. multicolumn vs. grid-lanes</li>
-    <li>Masonry is opportunistic — fills the shortest lane first</li>
-    <li>Creates a criss-cross pattern</li>
-  </ul>
-</main>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    font-size: 12vmin;
+    line-height: 1;
+    font-family: system-ui;
+    font-style: italic;
+    background: black;
+    color: white;
+    text-align: center;
+    align-content: center;
+  }
+
+  h1 {
+    margin: 0;
+    display: grid-lanes;
+    grid-template-columns: repeat(10, 1fr);
+
+    border: 1px solid #d094ea;
+    border-width: 1px 0;
+    background-image: 
+      linear-gradient(to right, transparent 0 calc(100% - 1px), #d094ea calc(100% - 1px) 100%);
+    background-size: 10% 100%;
+  }
+
+  strong {
+    grid-column: 4 / span 4;
+  }
+
+  span {
+    display: inline-block;
+    animation: flow 2s linear infinite;
+    transform-origin: center;
+    animation-delay: calc(sibling-index() * -0.7s);
+    vertical-align: middle;
+  }
+
+  @keyframes flow {
+    from {
+      transform: rotateX(0deg);
+    }
+    to {
+      transform: rotateX(360deg);
+    }
+  }
+</style>
+
+<h1>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <strong>flow</strong>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+  <span>~</span>
+</h1>
+
+<aside class="notes">
+Now that we have a shape for the layout,
+let's talk about flow.
+
+Beyond the general shape of the thing you are building,
+it's very important to consider the order in which items are placed.
+</aside>

@@ -1,0 +1,47 @@
+---
+layout: css-day-slides.njk
+title: The evolution of the Fetch API
+---
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    text-align: center;
+    font-size: 3vw;
+    display: grid;
+    place-content: center;
+    place-items: center;
+    gap: 10vw;
+    background: black;
+    color: white;
+  }
+</style>
+
+<p>
+  <code>var request = new ActiveXObject("Microsoft.XMLHTTP");</code>
+</p>
+
+<aside class="notes">
+Quick example with Fetch:
+
+Back in 2000, the Outlook team at Microsoft needed some way to do background requests from JS.
+They made an ActiveX experiment called XMLHTTP, which came with IE5.
+
+Later, it got used in weird ways, together with other APIs,
+And that's what made GMail possible, and the whole Web 2.0 era.
+
+The XMLHTTP ActiveX was later reverse-engineered and implemented in other browsers.
+And this eventually standardized later as XMLHttpRequest.
+
+And it doesn't end here, because then, much later, we got a new, better version, as the Fetch API.
+And now we just have that primitive of the platform, that we just couldn't do without.
+
+It goes to show that this obscure thing which the outlook team needed
+and then got used in a new way by other devs, leading to new use cases,
+which then led to a standard (XHR),
+and then to a better standard (Fetch).
+</aside>

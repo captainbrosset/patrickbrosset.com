@@ -1,247 +1,162 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: css-day-slides.njk
+title: Motorway
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Motorway</title>
-  <style>
-    :root {
-      --lane-width: 5rem;
-      --bumper-distance: 1rem;
-      --road-side: 5rem;
+<style>
+  :root {
+    --lane-width: 15vw;
+    --bumper-distance: 2vw;
+    --road-side: 8vw;
+    --lane-gap: 1vw;
+    scrollbar-width: none;
+  }
 
-      --lane-gap: calc(var(--lane-width) / 15);
+  body {
+    margin: 0 var(--road-side);
+    background: black;
+  }
 
-      scrollbar-width: none;
+  .motorway {
+    width: calc(round(100%, calc(var(--lane-width) + var(--lane-gap))) - var(--lane-gap));
+    min-height: 100vh;
+    display: grid-lanes;
+    grid-template-columns: repeat(auto-fill, var(--lane-width));
+    flow-tolerance: 0;
+    gap: var(--bumper-distance) var(--lane-gap);
+    border: var(--lane-gap) solid transparent;
+    border-width: 0 var(--lane-gap);
+  }
+
+  body .motorway {
+    background-image:
+      conic-gradient(at var(--lane-width) calc(var(--lane-width) / 2), #fffc 0deg 90deg, transparent 0),
+      url(/slides/CSSDay-2026/motorway/road.avif);
+    background-size:
+      calc(var(--lane-width) + var(--lane-gap)) calc(var(--lane-width)),
+      calc((var(--lane-width) + var(--lane-gap)) / 5) auto;
+    background-attachment: fixed;
+    background-position: calc(var(--road-side) + var(--lane-gap));
+    border-color: #fefc7b;
+  }
+
+  .car {
+    background-size: 100% 100%;
+    padding: 0 calc(var(--lane-gap) / 2);
+    background-origin: content-box;
+    background-repeat: no-repeat;
+  }
+
+  @keyframes animate-car {
+    100% {
+      translate: 0 0;
     }
+  }
 
-    body {
-      margin: 0 var(--road-side);
-    }
+  .car.car-1 {
+    aspect-ratio: 111 / 179;
+  }
 
-    body:not(.debug) {
-      background: #46545c;
-    }
+  body .car.car-1 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-1.avif);
+  }
 
-    .motorway {
-      width: calc(round(100%, calc(var(--lane-width) + var(--lane-gap))) - var(--lane-gap));
-      min-height: 100vh;
-      display: grid-lanes;
-      grid-template-columns: repeat(auto-fill, var(--lane-width));
-      flow-tolerance: 0;
-      gap: var(--bumper-distance) var(--lane-gap);
-      border: var(--lane-gap) solid transparent;
-      border-width: 0 var(--lane-gap);
-    }
+  .car.car-2 {
+    aspect-ratio: 110 / 174;
+  }
 
-    body:not(.debug) .motorway {
-      background-image:
-        conic-gradient(at var(--lane-width) calc(var(--lane-width) / 2), #fffc 0deg 90deg, transparent 0),
-        url(./motorway/road.avif);
-      background-size:
-        calc(var(--lane-width) + var(--lane-gap)) calc(var(--lane-width)),
-        calc(var(--lane-width) + var(--lane-gap)) auto;
-      background-attachment: fixed;
-      background-position: calc(var(--road-side) + var(--lane-gap));
-      border-color: #fefc7b;
-    }
+  body .car.car-2 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-2.avif);
+  }
 
-    .debug .motorway {
-      position: relative;
-      box-shadow: 0 0 0 3px magenta;
-    }
+  .car.car-3 {
+    aspect-ratio: 116 / 255;
+  }
 
-    /* Ugly hack to get gap decorations. */
-    .debug .motorway::before {
-      content: "";
-      pointer-events: none;
-      position: absolute;
-      inset: 0 0 0 0;
-      display: grid;
-      grid-template-columns: inherit;
-      gap: inherit;
-      column-rule: 3px dashed magenta;
-    }
+  body .car.car-3 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-3.avif);
+  }
 
-    .car {
-      background-size: 100% 100%;
-      padding: 0 calc(var(--lane-gap) / 2);
-      background-origin: content-box;
-      background-repeat: no-repeat;
-    }
+  .car.car-4 {
+    aspect-ratio: 127 / 157;
+  }
 
-    .debug .car {
-      counter-increment: car-count;
-      position: relative;
+  body .car.car-4 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-4.avif);
+  }
 
-      --car-hue: calc(sibling-index() * 137.5deg);
-      background: hsl(var(--car-hue) 70% 80%);
-    }
+  .car.car-5 {
+    aspect-ratio: 121 / 441;
+  }
 
-    .debug .car::before {
-      content: counter(car-count);
-      font-size: 2rem;
-      font-family: monospace;
-      position: absolute;
-      z-index: 1;
-      text-align: center;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-    }
+  body .car.car-5 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-5.avif);
+  }
 
-    @keyframes animate-car {
-      100% {
-        translate: 0 0;
+  .car.car-6 {
+    aspect-ratio: 124 / 233;
+  }
+
+  body .car.car-6 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-6.avif);
+  }
+
+  .car.car-7 {
+    aspect-ratio: 119 / 178;
+  }
+
+  body .car.car-7 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-7.avif);
+  }
+
+  .car.car-8 {
+    aspect-ratio: 126 / 374;
+  }
+
+  body .car.car-8 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-8.avif);
+  }
+
+  .car.car-9 {
+    aspect-ratio: 119 / 179;
+  }
+
+  body .car.car-9 {
+    background-image: url(/slides/CSSDay-2026/motorway/car-9.avif);
+  }
+</style>
+
+<div class="motorway"></div>
+
+<script>
+  const NB = 100;
+  const CAR_TYPES = ['car-1', 'car-2', 'car-4', 'car-6', 'car-7', 'car-9'];
+  const TRUCK_TYPES = ['car-3', 'car-5', 'car-8'];
+
+  const motorway = document.querySelector('.motorway');
+
+  async function main() {
+    for (let i = 0; i < NB; i++) {
+      const car = document.createElement('div');
+
+      const randomCar = Math.floor(Math.random() * CAR_TYPES.length) + 1;
+      const randomTruck = Math.floor(Math.random() * TRUCK_TYPES.length) + 1;
+      if (Math.random() < 0.1) {
+        car.className = `car ${TRUCK_TYPES[randomTruck - 1]}`;
+      } else {
+        car.className = `car ${CAR_TYPES[randomCar - 1]}`;
       }
+
+      motorway.appendChild(car);
     }
+  }
 
-    .debug::before {
-      content: "";
-      position: absolute;
-      top: var(--next-car-pos, 0);
-      left: 0;
-      width: 100vw;
-      z-index: 2;
-      height: 0;
-      border: 3px dashed magenta;
-      border-width: 3px 0 0 0;
-    }
-    
-    .debug::after {
-      content: "";
-      position: absolute;
-      top: calc(var(--next-car-pos, 0) + var(--next-car-size, 0));
-      left: 0;
-      width: 100vw;
-      z-index: 2;
-      height: 0;
-      border: 3px dashed magenta;
-      border-width: 3px 0 0 0;
-    }
+  main();
+</script>
 
-    .car.car-1 {
-      aspect-ratio: 111 / 179;
-    }
-
-    body:not(.debug) .car.car-1 {
-      background-image: url(./motorway/car-1.avif);
-    }
-
-    .car.car-2 {
-      aspect-ratio: 110 / 174;
-    }
-
-    body:not(.debug) .car.car-2 {
-      background-image: url(./motorway/car-2.avif);
-    }
-
-    .car.car-3 {
-      aspect-ratio: 116 / 255;
-    }
-
-    body:not(.debug) .car.car-3 {
-      background-image: url(./motorway/car-3.avif);
-    }
-
-    .car.car-4 {
-      aspect-ratio: 127 / 157;
-    }
-
-    body:not(.debug) .car.car-4 {
-      background-image: url(./motorway/car-4.avif);
-    }
-
-    .car.car-5 {
-      aspect-ratio: 121 / 441;
-    }
-
-    body:not(.debug) .car.car-5 {
-      background-image: url(./motorway/car-5.avif);
-    }
-
-    .car.car-6 {
-      aspect-ratio: 124 / 233;
-    }
-
-    body:not(.debug) .car.car-6 {
-      background-image: url(./motorway/car-6.avif);
-    }
-
-    .car.car-7 {
-      aspect-ratio: 119 / 178;
-    }
-
-    body:not(.debug) .car.car-7 {
-      background-image: url(./motorway/car-7.avif);
-    }
-
-    .car.car-8 {
-      aspect-ratio: 126 / 374;
-    }
-
-    body:not(.debug) .car.car-8 {
-      background-image: url(./motorway/car-8.avif);
-    }
-
-    .car.car-9 {
-      aspect-ratio: 119 / 179;
-    }
-
-    body:not(.debug) .car.car-9 {
-      background-image: url(./motorway/car-9.avif);
-    }
-  </style>
-</head>
-
-<body>
-  <div class="motorway"></div>
-
-  <script>
-    const NB = 100;
-    const CAR_TYPES = ['car-1', 'car-2', 'car-4', 'car-6', 'car-7', 'car-9'];
-    const TRUCK_TYPES = ['car-3', 'car-5', 'car-8'];
-
-    const motorway = document.querySelector('.motorway');
-
-    async function main(isDebug, debugTimeout) {
-      for (let i = 0; i < NB; i++) {
-        const car = document.createElement('div');
-
-        const randomCar = Math.floor(Math.random() * CAR_TYPES.length) + 1;
-        const randomTruck = Math.floor(Math.random() * TRUCK_TYPES.length) + 1;
-        if (Math.random() < 0.1) {
-          car.className = `car ${TRUCK_TYPES[randomTruck - 1]}`;
-        } else {
-          car.className = `car ${CAR_TYPES[randomCar - 1]}`;
-        }
-
-        motorway.appendChild(car);
-
-        if (isDebug) {
-          document.body.style.setProperty('--next-car-pos', `${car.offsetTop}px`);
-          document.body.style.setProperty('--next-car-size', `${car.offsetHeight}px`);
-
-          await new Promise(resolve => setTimeout(resolve, debugTimeout));
-        }
-      }
-    }
-
-    const params = new URLSearchParams(window.location.search);
-    const isDebug = params.get('debug') === '1';
-    const debugTimeout = parseInt(params.get('timeout'), 10) || 0;
-
-    if (isDebug) {
-      document.body.classList.add('debug');
-    }
-
-    main(isDebug, debugTimeout);
-  </script>
-</body>
-
-</html>
+<aside class="notes">
+And then this classic example of the motorway
+which is how most masonry layout look like
+with items stacking in separate lanes, trying to be as close to the top as they can.
+and then I can scroll down to make it look like a busy motorway.
+</aside>

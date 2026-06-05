@@ -1,112 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: css-day-slides.njk
+title: "Flexbox, Multicol, and Masonry: same general shape, different flow"
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flexbox / Multicol / Grid-lanes shapes</title>
-  <style>
-    html {
-      block-size: 100%;
+<style>
+  html {
+    block-size: 100%;
+  }
+
+  body {
+    font-size: 6vmin;
+    font-family: system-ui;
+
+    align-content: center;
+
+    margin: 0 auto;
+    padding: 20vmin;
+    box-sizing: border-box;
+    block-size: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4rem;
+  }
+
+  body>div {
+    block-size: 35vmin;
+    gap: 1vmin;
+    overflow: hidden;
+    anchor-name: --layout;
+    anchor-scope: all;
+    counter-reset: nb;
+
+    &::before {
+      content: attr(class);
+      position: absolute;
+      inset: auto anchor(--layout end) calc(anchor(--layout start) + 1rem) anchor(--layout start);
+      text-align: center;
+      text-transform: capitalize;
     }
+  }
 
-    body {
-      font-size: 15pt;
-      font-family: system-ui;
+  .item {
+    border-radius: 1vmin;
+    height: 10vmin;
+    background-color: hsl(calc(sibling-index() * 36), 70%, 70%);
+    counter-increment: nb;
+    display: grid;
+    place-content: center;
+  }
 
-      margin: 0 auto;
-      max-width: 1000px;
-      padding: 6rem 4rem 4rem 4rem;
-      box-sizing: border-box;
-      block-size: 100%;
+  .item::before {
+    content: counter(nb);
+    font-size: 3vmin;
+  }
 
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 4rem;
-    }
+  .item:nth-child(2n) {
+    height: 13vmin;
+  }
 
-    body>div {
-      block-size: 18rem;
-      gap: .5rem;
-      overflow: hidden;
-      anchor-name: --layout;
-      anchor-scope: all;
+  .item:nth-child(5n) {
+    height: 17vmin;
+  }
 
-      &::before {
-        content: attr(class);
-        position: absolute;
-        inset: auto anchor(--layout end) calc(anchor(--layout start) + 1rem) anchor(--layout start);
-        text-align: center;
-        text-transform: capitalize;
-      }
-    }
+  .flex {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .multicol {
+    column-count: 3;
 
     .item {
-      border-radius: .5rem;
-      height: 5rem;
-      background-color: hsl(calc(sibling-index() * 36), 70%, 70%);
+      margin-block-end: 1vmin;
+      break-inside: avoid;
     }
+  }
 
-    .item:nth-child(2n) {
-      height: 7rem;
-    }
+  .masonry {
+    display: grid-lanes;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+</style>
 
-    .item:nth-child(5n) {
-      height: 9rem;
-    }
+<div class="flex">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
 
-    .flex {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-    }
+<div class="multicol">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
 
-    .multicol {
-      column-count: 3;
+<div class="masonry">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
 
-      .item {
-        margin-block-end: .5rem;
-        break-inside: avoid;
-      }
-    }
+<aside class="notes">
+The same general shape can be created by using different layout types,
+so, ultimately it all depends on how you want your items to flow through that shape.
 
-    .masonry {
-      display: grid-lanes;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-  </style>
-</head>
+Here is flex, multicol, and grid-lanes.
 
-<body>
-  <div class="flex">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-  </div>
+flexbox and multicol: same thing
+you get columns with items flowing down each column one by one.
 
-  <div class="multicol">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-  </div>
+grid-lanes: a big difference in the order of elements.
 
-  <div class="masonry">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-  </div>
-</body>
+Because grid-lanes is opportunistic.
+It doesn't like to leave gaps.
+It'll try to fill the shortest lane first.
+And this is what gives us this criss-cross pattern.
+Almost like rows in this case.
 
-</html>
+So, similar shapes, very different flow.
+</aside>

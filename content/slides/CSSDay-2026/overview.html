@@ -3,16 +3,98 @@ layout: css-day-slides.njk
 title: High-level overview
 ---
 
-<main>
-  <h1>High-level overview</h1>
-  <ul>
-    <li>New name: <code>grid-lanes</code>, get used to it!</li>
-    <li>Not a special grid — fundamentally different</li>
-    <li>1D, like flexbox (unlike grid)</li>
-    <li>Can be vertical or horizontal, and reversed</li>
-    <li>Lanes can be any size, uses <code>repeat()</code></li>
-    <li>Items placed by the grid-lanes algorithm (opportunistic)</li>
-    <li>Can assign items to specific lanes, span multiple lanes</li>
-    <li>Visual order ≠ DOM order</li>
-  </ul>
-</main>
+<style>
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    align-content: center;
+  }
+
+  body {
+    margin-inline: 10vw;
+    font-family: system-ui;
+    font-size: 2.5vw;
+  }
+
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  ul {
+    column-count: 2;
+    column-rule: 0.4vw solid #d9d9d9;
+    gap: 10vw;
+    column-rule-inset: 5vw;
+  }
+
+  code {
+    background: #d9d9d9;
+    border-radius: .5vw;
+    padding: .25vw .5vw;
+  }
+
+  li {
+    margin-block: 3vw;
+    margin-inline-start: 3vw;
+    padding-inline-start: 2vw;
+  }
+
+  li::marker {
+    content: "👉";
+  }
+
+  li:first-child {
+    margin-block-start: 0;
+  }
+
+  li:last-child {
+    margin-block-end: 0;
+  }
+</style>
+
+<ul>
+  <li>Get used to the new name: <code>grid-lanes</code></li>
+  <li>Not a special grid</li>
+  <li>1D</li>
+  <li>Not only vertical<br>Not only top to bottom</li>
+  <li>Different size lanes</li>
+  <li>Opportunistic placement algorithm</li>
+  <li>You can still control placement</li>
+  <li>Beware of visual order vs. DOM order</li>
+</ul>
+
+<aside class="notes">
+In CSS, here's what masonry is, at a high level:
+
+1. There's a new name: grid-lanes, get used to it!
+
+2. It's not a special kind of grid.
+   It does share some things with CSS grid, but it's fundamentally different in how things are placed.
+
+3. Grid-lanes is more like 1D, like flexbox.
+   You only control the lanes of your layout, not the other direction.
+
+4. Grid-lanes isn't only vertical
+   It can be horizontal too.
+   And it's not only top to bottom. It can be reversed.
+
+5. You don't have to have same-size lanes only.
+   Lanes can be of any size and different from each other.
+  In fact, the full power of the `repeat()` function and fr units can be used.
+
+6. This algorithm is opportunistic, and sometimes can seem chaotic.
+   That's the default placement.
+   But you can still control the placement of items if you want.
+   You can assign items to specific lanes.
+   Or make them span multiple lanes.
+
+7. Visual order is not DOM order.
+   Items that appear later in the DOM may appear visually above earlier items.
+   Same with flexbox and grid.
+   So beware of keyboard tabbing order.
+</aside>

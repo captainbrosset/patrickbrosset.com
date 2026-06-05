@@ -1,0 +1,500 @@
+---
+layout: css-day-slides.njk
+title: Grid-lanes with view transitions
+---
+
+<style>
+  :root {
+    --page-bg: hsl(215 33% 10%);
+    --panel-bg: hsl(214 24% 16% / .82);
+    --panel-border: hsl(214 30% 100% / .12);
+    --text: hsl(210 20% 94%);
+    --muted: hsl(210 14% 74%);
+    --accent: hsl(32 89% 60%);
+    --accent-2: hsl(198 89% 62%);
+    --feed-columns: 5;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    margin: 0;
+  }
+
+  body {
+    color: var(--text);
+    font-family: "Aptos", "Segoe UI", sans-serif;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at top left, hsl(188 85% 28% / .45), transparent 26%),
+      radial-gradient(circle at top right, hsl(33 90% 45% / .28), transparent 28%),
+      linear-gradient(180deg, hsl(216 38% 14%), var(--page-bg));
+  }
+
+  main {
+    inline-size: 96vw;
+    block-size: 92vh;
+    margin: 4vh auto;
+    padding: 1.2vmin;
+    border: 1px solid var(--panel-border);
+    border-radius: 1.8vmin;
+    background: linear-gradient(180deg, hsl(214 28% 18% / .78), hsl(214 24% 12% / .9));
+    backdrop-filter: blur(18px);
+    box-shadow: 0 2vmin 5vmin hsl(220 40% 2% / .4);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 1.2vmin;
+    overflow: hidden;
+  }
+
+  .masthead {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.6vmin;
+  }
+
+  .eyebrow {
+    margin: 0 0 .5vmin;
+    color: var(--accent);
+    font-size: 1.2vmin;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 3.2vmin;
+    line-height: .95;
+    max-inline-size: 34vw;
+    text-wrap: balance;
+  }
+
+  .intro {
+    margin: .8vmin 0 0;
+    color: var(--muted);
+    max-inline-size: 34vw;
+    font-size: 1.45vmin;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7vmin;
+    justify-content: end;
+    max-inline-size: 40vw;
+  }
+
+  .controls button {
+    appearance: none;
+    border: 1px solid hsl(0 0% 100% / .12);
+    border-radius: 999px;
+    background: hsl(216 20% 22% / .75);
+    color: var(--text);
+    padding: .8vmin 1.2vmin;
+    font: inherit;
+    font-size: 1.35vmin;
+    cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+  }
+
+  .controls button:hover,
+  .controls button:focus-visible {
+    background: hsl(216 20% 28% / .9);
+    border-color: hsl(0 0% 100% / .25);
+    transform: translateY(-1px);
+  }
+
+  .controls button[aria-pressed="true"] {
+    background: linear-gradient(135deg, var(--accent), hsl(12 90% 62%));
+    border-color: transparent;
+    color: hsl(220 45% 11%);
+    font-weight: 700;
+  }
+
+  .feed {
+    display: grid-lanes;
+    grid-template-columns: repeat(var(--feed-columns), minmax(0, 1fr));
+    gap: .9vmin;
+    align-items: start;
+    block-size: 100%;
+    overflow: hidden;
+  }
+
+  @supports not (display: grid-lanes) {
+    .feed {
+      display: grid;
+      grid-template-columns: repeat(var(--feed-columns), minmax(0, 1fr));
+      align-items: start;
+    }
+  }
+
+  .story {
+    overflow: clip;
+    border: 1px solid hsl(0 0% 100% / .08);
+    border-radius: 1.3vmin;
+    background: var(--panel-bg);
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / .05);
+  }
+
+  .story.featured {
+    grid-column: span 2;
+  }
+
+  .visual {
+    aspect-ratio: 4 / 3;
+    position: relative;
+    background: var(--visual-bg);
+    overflow: hidden;
+  }
+
+  .visual::after {
+    content: "";
+    position: absolute;
+    inset: auto -10% -35% auto;
+    width: 60%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: hsl(0 0% 100% / .08);
+    filter: blur(8px);
+  }
+
+  .story-body {
+    padding: 1vmin;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1vmin;
+    color: var(--muted);
+    font-size: 1vmin;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .meta strong {
+    color: var(--accent-2);
+    font-weight: 700;
+  }
+
+  .story h2 {
+    margin: .8vmin 0 .6vmin;
+    font-size: 1.55vmin;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  .story p {
+    margin: 0;
+    color: hsl(210 17% 84%);
+    font-size: 1.1vmin;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  .stats {
+    display: flex;
+    gap: 1vmin;
+    margin-block-start: 1vmin;
+    color: var(--muted);
+    font-size: 1.05vmin;
+  }
+
+  .stats span {
+    display: inline-flex;
+    gap: .35vmin;
+    align-items: center;
+  }
+
+  .story:nth-child(4n + 2) .visual,
+  .story:nth-child(5n + 3) .visual {
+    aspect-ratio: 4 / 4.8;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-group(*) {
+    animation-duration: 700ms;
+    animation-timing-function: cubic-bezier(.2, .85, .2, 1);
+  }
+
+  @media (max-width: 1050px) {
+    :root {
+      --feed-columns: 4;
+    }
+  }
+
+  @media (max-width: 820px) {
+    :root {
+      --feed-columns: 4;
+    }
+
+    main {
+      inline-size: 98vw;
+      padding: 1vmin;
+    }
+
+    .masthead {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .controls {
+      justify-content: start;
+      max-inline-size: 100%;
+    }
+  }
+
+  @media (max-width: 560px) {
+    :root {
+      --feed-columns: 3;
+    }
+
+    .story.featured {
+      grid-column: span 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*) {
+      animation-duration: 0ms;
+    }
+
+    .controls button {
+      transition: none;
+    }
+  }
+</style>
+
+<main>
+  <section class="masthead">
+    <div>
+      <p class="eyebrow">Same-document view transitions</p>
+      <h1>Reshuffle a grid-lanes newsroom</h1>
+      <p class="intro">Newest stories float to the top by default. Switch the sorting order and each card keeps its identity while flying to its new lane.</p>
+    </div>
+
+    <div class="controls" role="toolbar" aria-label="Sort stories">
+      <button type="button" data-sort="recent" aria-pressed="true">Most recent</button>
+      <button type="button" data-sort="oldest" aria-pressed="false">Oldest first</button>
+      <button type="button" data-sort="title" aria-pressed="false">A to Z</button>
+      <button type="button" data-sort="popular" aria-pressed="false">Most popular</button>
+    </div>
+  </section>
+
+  <section class="feed" aria-live="polite"></section>
+</main>
+
+<script>
+  const stories = [
+    {
+      id: 1,
+      title: 'Sculpting poster layouts with clip-path and gradients',
+      category: 'Design systems',
+      date: '2026-05-18',
+      readers: 98,
+      comments: 12,
+      featured: true,
+      visual: 'linear-gradient(135deg, hsl(23 96% 61%), hsl(348 78% 48%)), radial-gradient(circle at top left, hsl(0 0% 100% / .35), transparent 40%)',
+      excerpt: 'A poster-like card layout built from nothing but CSS primitives, with masks and layered gradients doing the heavy lifting.'
+    },
+    {
+      id: 2,
+      title: 'Shipping a camera UI with anchor positioning only',
+      category: 'Layout',
+      date: '2026-05-25',
+      readers: 143,
+      comments: 18,
+      featured: false,
+      visual: 'linear-gradient(160deg, hsl(196 87% 60%), hsl(232 63% 42%)), radial-gradient(circle at 30% 30%, hsl(0 0% 100% / .22), transparent 28%)',
+      excerpt: 'A walkthrough of overlays, controls, and floating labels that stay attached while the underlying layout changes.'
+    },
+    {
+      id: 3,
+      title: 'Field test: scroll-driven animations in a newsroom feed',
+      category: 'Animation',
+      date: '2026-04-30',
+      readers: 84,
+      comments: 9,
+      featured: false,
+      visual: 'linear-gradient(135deg, hsl(154 67% 46%), hsl(185 82% 30%)), radial-gradient(circle at top, hsl(0 0% 100% / .2), transparent 34%)',
+      excerpt: 'When every card has a different height, scroll-linked effects expose the rhythm of the layout in a really satisfying way.'
+    },
+    {
+      id: 4,
+      title: 'The accidental art direction of a dense masonry algorithm',
+      category: 'Grid-lanes',
+      date: '2026-05-12',
+      readers: 121,
+      comments: 14,
+      featured: true,
+      visual: 'linear-gradient(145deg, hsl(267 78% 63%), hsl(223 61% 32%)), radial-gradient(circle at 70% 20%, hsl(48 100% 80% / .25), transparent 30%)',
+      excerpt: 'Dense packing changes where your eye lands first. That turns a utilitarian layout feature into a surprisingly expressive visual tool.'
+    },
+    {
+      id: 5,
+      title: 'A photo essay on debugging layout overlap in DevTools',
+      category: 'DevTools',
+      date: '2026-05-07',
+      readers: 71,
+      comments: 6,
+      featured: false,
+      visual: 'linear-gradient(160deg, hsl(41 92% 62%), hsl(22 84% 38%)), radial-gradient(circle at 20% 20%, hsl(0 0% 100% / .22), transparent 26%)',
+      excerpt: 'Screenshots, overlays, and a few hidden DevTools panels make masonry debugging much easier than people expect.'
+    },
+    {
+      id: 6,
+      title: 'Local-first image placeholders that never jiggle',
+      category: 'Performance',
+      date: '2026-05-22',
+      readers: 132,
+      comments: 22,
+      featured: false,
+      visual: 'linear-gradient(135deg, hsl(334 82% 62%), hsl(14 78% 48%)), radial-gradient(circle at top left, hsl(0 0% 100% / .2), transparent 32%)',
+      excerpt: 'Aspect ratio, contain-intrinsic-size, and tiny placeholders combine to keep the layout solid while content streams in.'
+    },
+    {
+      id: 7,
+      title: 'Why one-dimensional thinking unlocks better masonry demos',
+      category: 'Grid-lanes',
+      date: '2026-04-12',
+      readers: 57,
+      comments: 4,
+      featured: false,
+      visual: 'linear-gradient(135deg, hsl(189 73% 56%), hsl(153 70% 30%)), radial-gradient(circle at 75% 25%, hsl(0 0% 100% / .18), transparent 28%)',
+      excerpt: 'Treating grid-lanes like a new primitive, not a grid patch, opens up better mental models and much weirder experiments.'
+    },
+    {
+      id: 8,
+      title: 'The browser bug that only appeared after 400 anchored popovers',
+      category: 'Platform testing',
+      date: '2026-05-27',
+      readers: 165,
+      comments: 29,
+      featured: false,
+      visual: 'linear-gradient(140deg, hsl(198 90% 58%), hsl(271 66% 42%)), radial-gradient(circle at 35% 18%, hsl(0 0% 100% / .24), transparent 34%)',
+      excerpt: 'The fastest way to improve a platform is still to push it until it bends, file a bug, and come back with a sharper demo.'
+    },
+    {
+      id: 9,
+      title: 'Rebuilding magazine rails with gap decorations',
+      category: 'CSS art',
+      date: '2026-03-24',
+      readers: 63,
+      comments: 5,
+      featured: false,
+      visual: 'linear-gradient(135deg, hsl(46 97% 66%), hsl(18 85% 46%)), radial-gradient(circle at center, hsl(0 0% 100% / .16), transparent 40%)',
+      excerpt: 'A decorative layout detail becomes the whole illustration once you start stacking multiple grids and rotating them.'
+    },
+    {
+      id: 10,
+      title: 'Sorting cards with view transitions feels like cheating',
+      category: 'View transitions',
+      date: '2026-05-29',
+      readers: 176,
+      comments: 31,
+      featured: true,
+      visual: 'linear-gradient(135deg, hsl(27 93% 64%), hsl(204 77% 52%)), radial-gradient(circle at top right, hsl(0 0% 100% / .2), transparent 32%)',
+      excerpt: 'Once every card has a stable identity, resorting the feed feels less like a DOM mutation and more like physical objects moving around.'
+    }
+  ];
+
+  const feed = document.querySelector('.feed');
+  const buttons = [...document.querySelectorAll('[data-sort]')];
+
+  const formatDate = new Intl.DateTimeFormat('en', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  });
+
+  const sorters = {
+    recent: (left, right) => right.date.localeCompare(left.date),
+    oldest: (left, right) => left.date.localeCompare(right.date),
+    title: (left, right) => left.title.localeCompare(right.title),
+    popular: (left, right) => right.readers - left.readers || right.comments - left.comments
+  };
+
+  let currentSort = 'recent';
+
+  function render(list) {
+    const markup = list.map((story) => {
+      const dateText = formatDate.format(new Date(story.date));
+      const featured = story.featured ? ' featured' : '';
+
+      return `
+        <article class="story${featured}" style="view-transition-name: card-${story.id}; --visual-bg: ${story.visual};">
+          <div class="visual" aria-hidden="true"></div>
+          <div class="story-body">
+            <div class="meta">
+              <span><strong>${story.category}</strong></span>
+              <time datetime="${story.date}">${dateText}</time>
+            </div>
+            <h2>${story.title}</h2>
+            <p>${story.excerpt}</p>
+            <div class="stats">
+              <span>${story.readers}k reads</span>
+              <span>${story.comments} comments</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    feed.innerHTML = markup;
+  }
+
+  function sortStories(mode) {
+    return [...stories].sort(sorters[mode]);
+  }
+
+  function setPressedButton(mode) {
+    for (const button of buttons) {
+      button.setAttribute('aria-pressed', String(button.dataset.sort === mode));
+    }
+  }
+
+  function updateSort(mode) {
+    currentSort = mode;
+    setPressedButton(mode);
+
+    const next = sortStories(mode);
+    if (!document.startViewTransition) {
+      render(next);
+      return;
+    }
+
+    document.startViewTransition(() => {
+      render(next);
+    });
+  }
+
+  for (const button of buttons) {
+    button.addEventListener('click', () => {
+      const mode = button.dataset.sort;
+      if (!mode || mode === currentSort) {
+        return;
+      }
+
+      updateSort(mode);
+    });
+  }
+
+  render(sortStories(currentSort));
+</script>
+
+<aside class="notes">
+  Same-document view transitions make sorting feel physical. Each card keeps a stable identity and flies to its next lane.
+</aside>

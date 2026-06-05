@@ -1,0 +1,80 @@
+---
+layout: css-day-slides.njk
+title: A lot of mansonry items
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    width: 100vmin;
+    aspect-ratio: 1;
+    display: grid;
+    place-self: center;
+  }
+
+  body {
+    display: grid-lanes;
+    grid-template-columns: repeat(auto-fill, auto);
+    grid-lanes-direction: column fill-reverse;
+    gap: 5px;
+    background: black;
+
+    /* animation: gapify 10s linear infinite alternate; */
+  }
+
+  @keyframes gapify {
+    from {
+      gap: 2px;
+    }
+
+    to {
+      gap: 10px;
+    }
+  }
+
+  @property --max {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 1;
+  }
+
+  .item {
+    --base-size: 5px;
+    --min: 1;
+    --max: 1;
+    inline-size: var(--base-size);
+    block-size: calc((mod(sibling-index() - 1, var(--max)) + var(--min)) * var(--base-size));
+    background-color: hsl(from rgb(201 255 69) calc(h + (mod(sibling-index() - 1, var(--max)) * 360 / var(--max))) s l);
+
+    animation: rainbowify 20s linear infinite alternate;
+  }
+
+  @keyframes rainbowify {
+    from {
+      --max: 1;
+    }
+
+    to {
+      --max: 250;
+    }
+  }
+</style>
+
+<script>
+  addEventListener("DOMContentLoaded", () => {
+    const NB = 500;
+    for (let i = 0; i < NB; i++) {
+      const item = document.createElement("div");
+      item.className = "item";
+      document.body.appendChild(item);
+    }
+  });
+</script>
+
+<aside class="notes">
+First, what if we pushed it to its limits?
+Here is a grid-lanes layout with 500 items.
+Just for fun, their height is also being animated.
+</aside>

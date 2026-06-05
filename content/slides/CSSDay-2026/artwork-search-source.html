@@ -1,0 +1,76 @@
+---
+layout: css-day-slides.njk
+title: Artwork search source
+---
+
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100vh;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    font-size: 2.2vmin;
+    background: #f06;
+    color: black;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+    gap: 4vmin;
+    padding: 4vmin;
+    box-sizing: border-box;
+    align-content: start;
+    overflow: auto;
+  }
+
+  pre {
+    margin: 0;
+    padding: 4vmin;
+    border-radius: 1vmin;
+    box-shadow: 0 0 3vmin 0 #0005;
+    background: white;
+    line-height: 1.55;
+    block-size: max-content;
+  }
+
+  .selector {
+    color: #00c180;
+    font-weight: bold;
+  }
+
+  .property {
+    color: #df209f;
+    font-weight: bold;
+  }
+
+  .value {
+    color: #275c73;
+  }
+
+  .comment {
+    color: #999;
+    font-style: italic;
+  }
+</style>
+
+<pre><code><span class="selector">.artworks</span> {
+  <span class="property">display</span>: <span class="value">grid-lanes</span>;
+  <span class="property">grid-template-columns</span>: <span class="value">repeat(auto-fill, minmax(10rem, 1fr))</span>;
+  <span class="property">gap</span>: <span class="value">1rem</span>;
+}
+
+<span class="selector">.artwork</span> {
+  <span class="property">opacity</span>: <span class="value">1</span>;
+  <span class="property">transition</span>: <span class="value">opacity 0.4s ease</span>;
+
+  <span class="selector">@starting-style</span> {
+    <span class="property">opacity</span>: <span class="value">0</span>;
+  }
+}</code></pre>
+
+<aside class="notes">
+Interesting bit is the fade-in of newly added artworks,
+which is done with the new @starting-style at-rule.
+</aside>

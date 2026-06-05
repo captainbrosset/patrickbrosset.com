@@ -1,335 +1,341 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: css-day-slides.njk
+title: Auto-gantt chart
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    :root {
-      font-family: system-ui;
-      font-size: 1.3em;
+<style>
+  :root {
+    font-family: system-ui;
+    font-size: 1.3em;
 
-      --days-to-width: 45px;
-      --row-header-width: 5rem;
-      --row-height: 4rem;
-      --timeline-height: .5rem;
+    --days-to-width: 45px;
+    --row-header-width: 5rem;
+    --row-height: 4rem;
+    --timeline-height: .5rem;
 
-      --timeline-tick-color: #aaa;
-      --workstream-all-color: rgb(222, 244, 151);
-      --workstream-frontend-color: rgb(129, 161, 190);
-      --workstream-backend-color: rgb(196, 147, 212);
-      --workstream-devops-color: rgb(129, 161, 129);
+    --timeline-tick-color: #aaa;
+    --workstream-all-color: rgb(222, 244, 151);
+    --workstream-frontend-color: rgb(129, 161, 190);
+    --workstream-backend-color: rgb(196, 147, 212);
+    --workstream-devops-color: rgb(129, 161, 129);
+  }
+
+  body {
+    margin: 2rem;
+  }
+
+  .gantt {
+    inline-size: max-content;
+
+    display: grid-lanes;
+    grid-template-rows:
+      [timeline] var(--timeline-height) [frontend] var(--row-height) [backend] var(--row-height) [devops] var(--row-height);
+
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+    .timeline {
+      grid-row: timeline;
+      inline-size: 100%;
+      margin-inline-start: var(--row-header-width);
+      background:
+        linear-gradient(to right, var(--timeline-tick-color) 1px, transparent 0);
+      background-size: var(--days-to-width) 100%;
     }
 
-    body {
-      margin: 2rem;
+    [data-workstreams="frontend"] {
+      grid-row: frontend;
+      --color: var(--workstream-frontend-color);
     }
 
-    .gantt {
-      inline-size: max-content;
+    [data-workstreams="backend"] {
+      grid-row: backend;
+      --color: var(--workstream-backend-color);
+    }
 
-      display: grid-lanes;
-      grid-template-rows:
-        [timeline] var(--timeline-height) [frontend] var(--row-height) [backend] var(--row-height) [devops] var(--row-height);
+    [data-workstreams="devops"] {
+      grid-row: devops;
+      --color: var(--workstream-devops-color);
+    }
 
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    [data-workstreams="all"] {
+      grid-row: 2 / -1;
+      --color: var(--workstream-all-color);
+    }
 
-      .timeline {
-        grid-row: timeline;
-        inline-size: 100%;
-        margin-inline-start: var(--row-header-width);
-        background:
-          linear-gradient(to right, var(--timeline-tick-color) 1px, transparent 0);
-        background-size: var(--days-to-width) 100%;
-      }
+    .header,
+    .task {
+      box-sizing: border-box;
+    }
 
-      [data-workstreams="frontend"] {
-        grid-row: frontend;
-        --color: var(--workstream-frontend-color);
-      }
+    .header {
+      font-weight: bold;
+      inline-size: var(--row-header-width);
+      place-content: center end;
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: white;
+      box-shadow: 0.3rem 0.3rem 0.5rem 0rem #0004;
 
-      [data-workstreams="backend"] {
-        grid-row: backend;
-        --color: var(--workstream-backend-color);
-      }
-
-      [data-workstreams="devops"] {
-        grid-row: devops;
-        --color: var(--workstream-devops-color);
-      }
-
-      [data-workstreams="all"] {
-        grid-row: 2 / -1;
-        --color: var(--workstream-all-color);
-      }
-
-      .header,
-      .task {
-        box-sizing: border-box;
-      }
-
-      .header {
-        font-weight: bold;
-        inline-size: var(--row-header-width);
-        place-content: center end;
-        position: sticky;
-        left: 0;
-        z-index: 1;
-        background: white;
-        box-shadow: 0.3rem 0.3rem 0.5rem 0rem #0004;
-
-        .label {
-          text-align: end;
-          padding-inline-end: 1rem;
-        }
-      }
-
-      .task {
-        inline-size: calc(attr(data-length type(<number>)) * var(--days-to-width));
-        position: relative;
-        view-transition-name: match-element;
-
-        .label {
-          overflow: hidden;
-          background: var(--color);
-          white-space: nowrap;
-          position: absolute;
-          inset: .25rem;
-          padding: .25rem;
-          display: grid;
-          place-content: center start;
-          border-radius: .25rem;
-        }
-
-        .delete {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 1.2rem;
-          height: 1.2rem;
-          border-radius: 50%;
-          background: #c00;
-          color: white;
-          border: none;
-          font-size: .7rem;
-          line-height: 1;
-          display: grid;
-          place-content: center;
-          cursor: pointer;
-          z-index: 2;
-          opacity: 0;
-          transition: opacity .15s;
-        }
-
-        &:hover .delete,
-        &:focus-within .delete {
-          opacity: 1;
-        }
-
-        .resizer {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: .5rem;
-          height: 100%;
-          cursor: ew-resize;
-          z-index: 2;
-          opacity: 0;
-          transition: opacity .15s;
-          background: rgba(0,0,0,.3);
-          border-radius: 0 .25rem .25rem 0;
-        }
-
-        &:hover .resizer {
-          opacity: 1;
-        }
-      }
-
-      [data-length="1"] .label span {
-        writing-mode: sideways-rl;
+      .label {
+        text-align: end;
+        padding-inline-end: 1rem;
       }
     }
-  </style>
-</head>
 
-<body>
-  <div class="gantt">
-    <div class="timeline"></div>
+    .task {
+      inline-size: calc(attr(data-length type(<number>)) * var(--days-to-width));
+      position: relative;
+      view-transition-name: match-element;
 
-    <div class="header" data-workstreams="frontend">
-      <div class="label"><span>Frontend</span></div>
-    </div>
-    <div class="header" data-workstreams="backend">
-      <div class="label"><span>Backend</span></div>
-    </div>
-    <div class="header" data-workstreams="devops">
-      <div class="label"><span>DevOps</span></div>
-    </div>
+      .label {
+        overflow: hidden;
+        background: var(--color);
+        white-space: nowrap;
+        position: absolute;
+        inset: .25rem;
+        padding: .25rem;
+        display: grid;
+        place-content: center start;
+        border-radius: .25rem;
+      }
 
-    <div class="task" data-workstreams="all" data-length="1" tabindex="0">
-      <div class="label"><span>Kick-off meeting</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="frontend" data-length="5" tabindex="0">
-      <div class="label"><span>Design system setup</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="backend" data-length="4" tabindex="0">
-      <div class="label"><span>Database schema design</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="devops" data-length="3" tabindex="0">
-      <div class="label"><span>CI/CD pipeline setup</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="frontend" data-length="3" tabindex="0">
-      <div class="label"><span>Auth UI flows</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="backend" data-length="6" tabindex="0">
-      <div class="label"><span>REST API endpoints</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="devops" data-length="5" tabindex="0">
-      <div class="label"><span>Cloud provisioning</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="frontend" data-length="8" tabindex="0">
-      <div class="label"><span>Dashboard implementation</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="backend" data-length="3" tabindex="0">
-      <div class="label"><span>Auth service integration</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="devops" data-length="4" tabindex="0">
-      <div class="label"><span>Monitoring &amp; alerting</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="all" data-length="1" tabindex="0">
-      <div class="label"><span>Sprint planning</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="frontend" data-length="5" tabindex="0">
-      <div class="label"><span>Settings page</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="backend" data-length="7" tabindex="0">
-      <div class="label"><span>Data migration scripts</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="devops" data-length="6" tabindex="0">
-      <div class="label"><span>Load testing framework</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="frontend" data-length="4" tabindex="0">
-      <div class="label"><span>Notification system UI</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="backend" data-length="5" tabindex="0">
-      <div class="label"><span>Rate limiting &amp; caching</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="devops" data-length="3" tabindex="0">
-      <div class="label"><span>Staging env setup</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="all" data-length="1" tabindex="0">
-      <div class="label"><span>Mid-project retro</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="frontend" data-length="6" tabindex="0">
-      <div class="label"><span>Accessibility audit fixes</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="backend" data-length="4" tabindex="0">
-      <div class="label"><span>Webhook system</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="devops" data-length="5" tabindex="0">
-      <div class="label"><span>Security hardening</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="all" data-length="2" tabindex="0">
-      <div class="label"><span>Integration testing</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
-    <div class="task" data-workstreams="all" data-length="1" tabindex="0">
-      <div class="label"><span>Final retro &amp; launch review</span></div>
-      <button class="delete" aria-label="Delete task">&times;</button>
-      <div class="resizer"></div>
-    </div>
+      .delete {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        background: #c00;
+        color: white;
+        border: none;
+        font-size: .7rem;
+        line-height: 1;
+        display: grid;
+        place-content: center;
+        cursor: pointer;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity .15s;
+      }
+
+      &:hover .delete,
+      &:focus-within .delete {
+        opacity: 1;
+      }
+
+      .resizer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: .5rem;
+        height: 100%;
+        cursor: ew-resize;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity .15s;
+        background: rgba(0, 0, 0, .3);
+        border-radius: 0 .25rem .25rem 0;
+      }
+
+      &:hover .resizer {
+        opacity: 1;
+      }
+    }
+
+    [data-length="1"] .label span {
+      writing-mode: sideways-rl;
+    }
+  }
+</style>
+
+<div class="gantt">
+  <div class="timeline"></div>
+
+  <div class="header" data-workstreams="frontend">
+    <div class="label"><span>Frontend</span></div>
+  </div>
+  <div class="header" data-workstreams="backend">
+    <div class="label"><span>Backend</span></div>
+  </div>
+  <div class="header" data-workstreams="devops">
+    <div class="label"><span>DevOps</span></div>
   </div>
 
-  <div class="demo-controls"></div>
+  <div class="task" data-workstreams="all" data-length="1" tabindex="0">
+    <div class="label"><span>Kick-off meeting</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="frontend" data-length="5" tabindex="0">
+    <div class="label"><span>Design system setup</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="backend" data-length="4" tabindex="0">
+    <div class="label"><span>Database schema design</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="devops" data-length="3" tabindex="0">
+    <div class="label"><span>CI/CD pipeline setup</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="frontend" data-length="3" tabindex="0">
+    <div class="label"><span>Auth UI flows</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="backend" data-length="6" tabindex="0">
+    <div class="label"><span>REST API endpoints</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="devops" data-length="5" tabindex="0">
+    <div class="label"><span>Cloud provisioning</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="frontend" data-length="8" tabindex="0">
+    <div class="label"><span>Dashboard implementation</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="backend" data-length="3" tabindex="0">
+    <div class="label"><span>Auth service integration</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="devops" data-length="4" tabindex="0">
+    <div class="label"><span>Monitoring &amp; alerting</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="all" data-length="1" tabindex="0">
+    <div class="label"><span>Sprint planning</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="frontend" data-length="5" tabindex="0">
+    <div class="label"><span>Settings page</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="backend" data-length="7" tabindex="0">
+    <div class="label"><span>Data migration scripts</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="devops" data-length="6" tabindex="0">
+    <div class="label"><span>Load testing framework</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="frontend" data-length="4" tabindex="0">
+    <div class="label"><span>Notification system UI</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="backend" data-length="5" tabindex="0">
+    <div class="label"><span>Rate limiting &amp; caching</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="devops" data-length="3" tabindex="0">
+    <div class="label"><span>Staging env setup</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="all" data-length="1" tabindex="0">
+    <div class="label"><span>Mid-project retro</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="frontend" data-length="6" tabindex="0">
+    <div class="label"><span>Accessibility audit fixes</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="backend" data-length="4" tabindex="0">
+    <div class="label"><span>Webhook system</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="devops" data-length="5" tabindex="0">
+    <div class="label"><span>Security hardening</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="all" data-length="2" tabindex="0">
+    <div class="label"><span>Integration testing</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+  <div class="task" data-workstreams="all" data-length="1" tabindex="0">
+    <div class="label"><span>Final retro &amp; launch review</span></div>
+    <button class="delete" aria-label="Delete task">&times;</button>
+    <div class="resizer"></div>
+  </div>
+</div>
 
-  <script>
-    addEventListener('click', e => {
-      const deleteTaskButton = e.target.closest('.delete');
-      if (!deleteTaskButton) {
-        return;
-      }
+<div class="demo-controls"></div>
+
+<script>
+  addEventListener('click', e => {
+    const deleteTaskButton = e.target.closest('.delete');
+    if (!deleteTaskButton) {
+      return;
+    }
+
+    document.startViewTransition(() => {
+      deleteTaskButton.closest('.task').remove();
+    });
+  });
+
+  // Resize tasks by dragging the resizer handle
+  const dayWidth = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--days-to-width'));
+
+  document.querySelector('.gantt').addEventListener('pointerdown', e => {
+    const resizer = e.target.closest('.resizer');
+    if (!resizer) return;
+
+    const task = resizer.closest('.task');
+    const startX = e.clientX;
+    const startLength = parseInt(task.dataset.length, 10);
+
+    resizer.setPointerCapture(e.pointerId);
+
+    const onMove = (ev) => {
+      const dx = ev.clientX - startX;
+      const daysDelta = Math.round(dx / dayWidth);
+      const newLength = Math.max(1, startLength + daysDelta);
 
       document.startViewTransition(() => {
-        deleteTaskButton.closest('.task').remove();
+        task.dataset.length = newLength;
       });
-    });
+    };
 
-    // Resize tasks by dragging the resizer handle
-    const dayWidth = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--days-to-width'));
+    const onUp = () => {
+      resizer.removeEventListener('pointermove', onMove);
+      resizer.removeEventListener('pointerup', onUp);
+    };
 
-    document.querySelector('.gantt').addEventListener('pointerdown', e => {
-      const resizer = e.target.closest('.resizer');
-      if (!resizer) return;
+    resizer.addEventListener('pointermove', onMove);
+    resizer.addEventListener('pointerup', onUp);
+  });
+</script>
 
-      const task = resizer.closest('.task');
-      const startX = e.clientX;
-      const startLength = parseInt(task.dataset.length, 10);
+<aside class="notes">
+One more, this time to show the a row orientation grid-lanes layout.
+Each team here is a separate lane, and items are assigned to specific lanes.
+Certain tasks, like sprint planning span all lanes.
 
-      resizer.setPointerCapture(e.pointerId);
+What's cool about this one is how these spanning tasks end up pushing or pulling other tasks.
+If I make a task from team A longer, it ends up pushing the sprint planning, resulting in a planning change for all teams.
+Conversely, if I remove tasks from team B, the sprint planning can happen sooner.
+Same if I delete the sprint planning task, tasks for all teams can be scheduled sooner.
 
-      const onMove = (ev) => {
-        const dx = ev.clientX - startX;
-        const daysDelta = Math.round(dx / dayWidth);
-        const newLength = Math.max(1, startLength + daysDelta);
-
-        document.startViewTransition(() => {
-          task.dataset.length = newLength;
-        });
-      };
-
-      const onUp = () => {
-        resizer.removeEventListener('pointermove', onMove);
-        resizer.removeEventListener('pointerup', onUp);
-      };
-
-      resizer.addEventListener('pointermove', onMove);
-      resizer.addEventListener('pointerup', onUp);
-    });
-  </script>
-</body>
-
-</html>
+Grid-lanes does this balancing act on its own, simply by its very nature of trying to fill lanes.
+</aside>

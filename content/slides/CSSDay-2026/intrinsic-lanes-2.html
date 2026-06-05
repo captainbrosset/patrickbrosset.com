@@ -1,0 +1,98 @@
+---
+layout: css-day-slides.njk
+title: Intrinsic lanes
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    align-content: center;
+    text-align: center;
+    font-family: system-ui;
+    font-size: 5vmin;
+  }
+
+  h1 {
+    margin: 0 0 5vmin 0;
+  }
+  
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2vmin;
+    padding: 0 5vmin;
+    margin: 0 0 5vmin 0;
+  }
+
+  li {
+    margin: 1.5vmin 0;
+    padding: 1.5vmin 3vmin;
+    border-radius: 100vw;
+    background: #eee;
+    inline-size: max-content;
+  }
+
+  li:last-child {
+    grid-row: 3;
+  }
+
+  .intrinsic-layout {
+    display: grid-lanes;
+    margin-inline: 5vmin;
+    grid-template-columns: repeat(auto-fill, auto);
+    justify-content: center;
+    gap: 20px;
+  }
+</style>
+
+<h1>Intrinsic lanes</h1>
+<ul>
+  <li>🆕 <code>repeat(auto-fill, auto)</code></li>
+</ul>
+
+<div class="intrinsic-layout">
+  <img src="/slides/CSSDay-2026/nature/plant01.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant03.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant10.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant04.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant05.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant06.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant07.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant08.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant02.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant09.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant11.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant12.jpg" width="200" alt="Image of a plant">
+  <img src="/slides/CSSDay-2026/nature/plant13.jpg" width="200" alt="Image of a plant">
+</div>
+
+<aside class="notes">
+But, there's one more thing you can do, which isn't possible with grid:
+intrinsic sizing of lanes.
+
+The grid-lanes spec relaxes the auto-repeat syntax to allow intrinstic sizes, such as `auto` inside repeat() syntax.
+
+In regular grid, repeat(auto-fill, ...) requires definite track sizes (like 200px)
+to calculate how many repetitions fit.
+
+Grid-lanes (CSS Grid Level 3) relaxes this.
+Lanes can have content-dependent sizes.
+
+This can be very useful:
+when you don't know the size of your items ahead of time
+when writing the stylesheet.
+
+This creates as many columns as fit, where each column sizes to its content
+(e.g., images of natural width).
+</aside>

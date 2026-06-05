@@ -1,169 +1,173 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: css-day-slides.njk
+title: Grid-lanes orientation and starting position
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grid-lanes direction and starting position</title>
-  <style>
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-    }
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
 
-    body {
-      font-size: 1.2vmin;
-      padding: 2vmin;
-      box-sizing: border-box;
-      font-family: system-ui;
-      display: grid;
-      place-content: center;
-    }
+  body {
+    font-size: 1.2vmin;
+    padding: 2vmin;
+    box-sizing: border-box;
+    font-family: system-ui;
+    display: grid;
+    place-content: center;
+  }
 
-    .playground {
-      display: grid;
-      gap: 2vmin;
-      rule: 2px dashed #aaa;
-      grid-template-columns: 45vw 45vw;
-      grid-template-rows: 45vmin 45vmin;
-      place-items: center;
-      place-content: center;
-    }
+  .playground {
+    display: grid;
+    gap: 2vmin;
+    rule: 2px dashed #aaa;
+    grid-template-columns: 45vw 45vw;
+    grid-template-rows: 45vmin 45vmin;
+    place-items: center;
+    place-content: center;
+  }
 
-    .masonry {
-      display: grid-lanes;
-      anchor-name: --masonry;
-      anchor-scope: all;
-      gap: 3px;
+  .masonry {
+    display: grid-lanes;
+    anchor-name: --masonry;
+    anchor-scope: all;
+    gap: 3px;
 
-      --line-dir: to bottom;
-    }
+    --line-dir: to bottom;
+  }
 
-    .masonry[data-dir^="row"] {
-      grid-template-rows: 1fr 1fr 1fr;
-      grid-lanes-direction: row;
-    }
+  .masonry[data-dir^="row"] {
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-lanes-direction: row;
+  }
 
-    .masonry[data-dir="row fill-reverse"] {
-      grid-lanes-direction: row fill-reverse;
-    }
+  .masonry[data-dir="row fill-reverse"] {
+    grid-lanes-direction: row fill-reverse;
+  }
 
-    .masonry[data-dir^="column"] {
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-lanes-direction: column;
-    }
+  .masonry[data-dir^="column"] {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-lanes-direction: column;
+  }
 
-    .masonry[data-dir="column fill-reverse"] {
-      grid-lanes-direction: column fill-reverse;
-    }
+  .masonry[data-dir="column fill-reverse"] {
+    grid-lanes-direction: column fill-reverse;
+  }
 
-    .masonry::before {
-      position: absolute;
-      content: attr(data-dir) " ➡️";
-      font-size: 1.7vmin;
-      inset:
-        auto anchor(--masonry end) calc(anchor(--masonry start) + 1vmin) anchor(--masonry start);
-    }
+  .masonry::before {
+    position: absolute;
+    content: attr(data-dir) " ➡️";
+    font-size: 1.7vmin;
+    inset:
+      auto anchor(--masonry end) calc(anchor(--masonry start) + 1vmin) anchor(--masonry start);
+  }
 
-    .masonry[data-dir="row fill-reverse"]::before {
-      content: "⬅️ " attr(data-dir);
-      text-align: end;
-    }
+  .masonry[data-dir="row fill-reverse"]::before {
+    content: "⬅️ " attr(data-dir);
+    text-align: end;
+  }
 
-    .masonry[data-dir="column"]::before {
-      content: attr(data-dir) " ➡️";
-      writing-mode: sideways-rl;
-      inset:
-        anchor(--masonry start) calc(anchor(--masonry start) + 1vmin) anchor(--masonry end) auto;
-    }
+  .masonry[data-dir="column"]::before {
+    content: attr(data-dir) " ➡️";
+    writing-mode: sideways-rl;
+    inset:
+      anchor(--masonry start) calc(anchor(--masonry start) + 1vmin) anchor(--masonry end) auto;
+  }
 
-    .masonry[data-dir="column fill-reverse"]::before {
-      content: attr(data-dir) " ➡️";
-      writing-mode: sideways-lr;
-      inset:
-        anchor(--masonry start) calc(anchor(--masonry start) + 1vmin) anchor(--masonry end) auto;
-    }
+  .masonry[data-dir="column fill-reverse"]::before {
+    content: attr(data-dir) " ➡️";
+    writing-mode: sideways-lr;
+    inset:
+      anchor(--masonry start) calc(anchor(--masonry start) + 1vmin) anchor(--masonry end) auto;
+  }
 
-    .masonry[data-dir="row fill-reverse"] {
-      flex-direction: row fill-reverse;
-    }
+  .masonry[data-dir="row fill-reverse"] {
+    flex-direction: row fill-reverse;
+  }
 
-    .masonry[data-dir="column"] {
-      flex-direction: column;
-    }
+  .masonry[data-dir="column"] {
+    flex-direction: column;
+  }
 
-    .masonry[data-dir="column fill-reverse"] {
-      flex-direction: column fill-reverse;
-    }
+  .masonry[data-dir="column fill-reverse"] {
+    flex-direction: column fill-reverse;
+  }
 
-    .masonry>div {
-      background-color: hsl(from rgb(189 221 113) calc(360 * sibling-index() / 5) s l);
-      padding: 3vmin;
-      border-radius: 1vmin;
-    }
+  .masonry>div {
+    background-color: hsl(from rgb(189 221 113) calc(360 * sibling-index() / 5) s l);
+    padding: 3vmin;
+    border-radius: 1vmin;
+  }
 
-    .masonry[data-dir^="row"]>div:nth-child(2n) {
-      padding-inline: 4vmin;
-    }
+  .masonry[data-dir^="row"]>div:nth-child(2n) {
+    padding-inline: 4vmin;
+  }
 
-    .masonry[data-dir^="row"]>div:nth-child(3n) {
-      padding-inline: 5vmin;
-    }
+  .masonry[data-dir^="row"]>div:nth-child(3n) {
+    padding-inline: 5vmin;
+  }
 
-    .masonry[data-dir^="col"]>div:nth-child(2n) {
-      padding-block: 4vmin;
-    }
+  .masonry[data-dir^="col"]>div:nth-child(2n) {
+    padding-block: 4vmin;
+  }
 
-    .masonry[data-dir^="col"]>div:nth-child(3n) {
-      padding-block: 5vmin;
-    }
-  </style>
-</head>
+  .masonry[data-dir^="col"]>div:nth-child(3n) {
+    padding-block: 5vmin;
+  }
+</style>
 
-<body>
-  <div class="playground">
-    <div class="masonry" data-dir="row">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="masonry" data-dir="row fill-reverse">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="masonry" data-dir="column">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="masonry" data-dir="column fill-reverse">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+<div class="playground">
+  <div class="masonry" data-dir="row">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-</body>
+  <div class="masonry" data-dir="row fill-reverse">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="masonry" data-dir="column">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="masonry" data-dir="column fill-reverse">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
 
-</html>
+<aside class="notes">
+But that's not all you can do.
+There are ongoing discussions for adding more options to control the direction of your layout.
+
+This is very similar to flexbox where you can choose an orientation, and a starting position
+with row/column or row-reverse/column-reverse.
+
+With grid-lanes, same idea, you pick an orientation: row/column.
+And a direction to fill the layout: left/right for row, or top/bottom for column.
+</aside>

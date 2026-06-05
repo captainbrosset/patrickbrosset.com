@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: css-day-slides.njk
+title: Masonry flow tolerance
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Masonry flow</title>
   <style>
     html, body {
       margin: 0;
@@ -16,7 +14,7 @@
       font-size: 12pt;
       line-height: 1.6;
       font-family: system-ui;
-      padding: 2rem;
+      padding: 5rem 2rem 2rem 2rem;
       box-sizing: border-box;
     }
 
@@ -36,8 +34,6 @@
       padding: 1rem 2rem;
       flex-wrap: wrap;
       background: #fff;
-      z-index: 100;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .controls label {
@@ -72,7 +68,6 @@
     }
 
     .tolerance-controls {
-      display: none;
       align-items: center;
       gap: 1rem;
     }
@@ -172,14 +167,9 @@
       pointer-events: none;
     }
   </style>
-</head>
-
-<body>
-  <h1>Masonry flow</h1>
 
   <div class="controls">
     <button id="btn-step">⏭ Step</button>
-    <button id="btn-toggle-tolerance">Show tolerance</button>
     <div class="tolerance-controls" id="tolerance-controls">
       <label for="tolerance-range">Tolerance:</label>
       <input type="range" id="tolerance-range" min="0" max="200" value="16" step="1">
@@ -204,10 +194,7 @@
     const btn1em = document.getElementById("btn-1em");
     const btnInfinite = document.getElementById("btn-infinite");
     const btnStep = document.getElementById("btn-step");
-    const btnToggleTolerance = document.getElementById("btn-toggle-tolerance");
     const toleranceControlsEl = document.getElementById("tolerance-controls");
-
-    let toleranceVisible = false;
 
     const COLS = 4;
 
@@ -294,16 +281,6 @@
       setTolerance("infinite");
     });
 
-    // --- Toggle tolerance visibility ---
-
-    btnToggleTolerance.addEventListener("click", () => {
-      toleranceVisible = !toleranceVisible;
-      btnToggleTolerance.textContent = toleranceVisible ? "Hide tolerance" : "Show tolerance";
-      btnToggleTolerance.classList.toggle("active", toleranceVisible);
-      toleranceControlsEl.classList.toggle("visible", toleranceVisible);
-      updateDebugOverlay();
-    });
-
     // --- Debug overlay ---
 
     function getTolerancePx() {
@@ -364,7 +341,7 @@
       const tolerancePx = getTolerancePx();
       const toleranceActual = tolerancePx === Infinity ? (maxHeight - minHeight) : tolerancePx;
 
-      if (toleranceVisible && minHeight > 0 && minHeight < Infinity) {
+      if (minHeight > 0 && minHeight < Infinity) {
         // Tolerance band.
         const band = document.createElement("div");
         band.className = "debug-tolerance-band";
@@ -441,6 +418,44 @@
     rangeInput.value = 16;
     valueDisplay.textContent = "1em";
   </script>
-</body>
 
-</html>
+<aside class="notes">
+This brings us to something quite important, called flow-tolerance.
+
+Why do we have this somewhat chaotic way of placing items?
+Going back and forth between lanes?
+
+Masonry is trying to solve two conflicting goals at once:
+
+1. Produce a result that's visually balanced.
+   Where no one lane is much much longer than the others, and where we don't have big gaps.
+   So, attempting to fill lanes that aren't yet filled.
+2. Preserve the DOM order as much as possible.
+   So, attempting to place items predictably, from left to right for example.
+
+These are not always compatible.
+
+If you went strictly one lane after the other,
+you might end up with a very unbalanced layout, with one very long lane for example.
+
+On the other hand, if you always picked exactly the shortest lane,
+you might end up with a very chaotic layout, with items placed in a seemingly random order.
+
+That's where flow-tolerance comes in.
+And where you have control.
+
+With a flow-tolerance value of 0, you get the most strict placement.
+The overall layout is balanced because you _always_ pick the shortest lane.
+But you also get the most DOM order disruption.
+
+With a flow-tolerance value of infinite, you get no disruption at all
+you always pick the next lane, because they're always considered tied.
+But you also get the most visually unbalanced results, with long lanes.
+
+The 1em value is a default value that tries to strike a balance between the two.
+Because this way, very tiny differences in height are ignored,
+which helps keep the flow a little more predictable.
+
+You can set the value of the `flow-tolerance` property to whatever works best
+for your content and design.
+</aside>

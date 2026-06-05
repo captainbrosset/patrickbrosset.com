@@ -3,20 +3,73 @@ layout: css-day-slides.njk
 title: Constraints fueled creativity
 ---
 
-<main>
-  <h1>Constraints fueled creativity</h1>
-  <ul>
-    <li>Heavily constrained by the platform</li>
-    <li>No responsive design yet</li>
-    <li>We made things happen with limited tools</li>
-    <li>Hacking with tables and sliced images</li>
-    <li>Playing pushed the platform forward</li>
-    <li>That's still how things work today</li>
-  </ul>
-</main>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    align-content: center;
+  }
+
+  @property --phase {
+    syntax: '<angle>';
+    inherits: true;
+    initial-value: 0deg;
+  }
+
+  h1 {
+    --phase: 0deg;
+
+    text-align: center;
+    font-size: 12vw;
+    font-family: system-ui, sans-serif;
+    line-height: .8;
+    color: #2b7072;
+    letter-spacing: -.5vw;
+    font-weight: normal;
+
+    animation: slide linear infinite 2s;
+
+    span {
+      font-size: 20vw;
+      color: #f06;
+      font-weight: bold;
+
+      position: relative;
+      top: calc(sin(sibling-index() * 45deg + var(--phase)) * 4vw);
+
+      z-index: -1;
+    }
+  }
+
+  @keyframes slide {
+    to {
+      --phase: 360deg;
+    }
+  }
+</style>
+<h1>constraints fuel <span>c</span><span>r</span><span>e</span><span>a</span><span>t</span><span>i</span><span>v</span><span>i</span><span>t</span><span>y</span></h1>
+
 <aside class="notes">
-  <p>We were pretty heavily constrained by the capabilities of the platform at the time. We didn't have all the tools that we now have.</p>
-  <p>But we made things happen anyway, with a limited amount of tools. And these constraints kind of fueled our creativity.</p>
-  <p>We were hacking with tables and sliced images, not because it was elegant, but because we were playing with the only tools we had.</p>
-  <p>All this playing and attempting to do things that weren't possible, was how we pushed the platform forward. And that's still how things work today.</p>
+Because hacking with tables and sliced images,
+was maybe not elegant,
+but it was the only tools we had.
+
+And these constraints of fueled our creativity.
+
+All this playing and attempting to do things that weren't possible,
+was how we pushed the platform forward.
+And that's still how things work today.
+
+Today, obviously, things have changed a lot.
+
+For a fancy CSS box, you can use:
+- background-image
+- border-radius
+- border-image
+- corner-shape
+- clip-path
+- border-shape
 </aside>

@@ -3,13 +3,45 @@ layout: css-day-slides.njk
 title: The wind tunnel
 ---
 
-<main>
-  <h1>The wind tunnel</h1>
-  <ul>
-    <li>Engineers don't standardize airplane designs before testing them</li>
-    <li>They build experimental prototypes</li>
-    <li>They shake them in wind tunnels</li>
-    <li>They discover turbulences</li>
-    <li>Then they write the rules for safe flight</li>
-  </ul>
-</main>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    text-align: center;
+    font-size: 3vw;
+    display: grid;
+    place-content: center;
+    place-items: center;
+    gap: 10vw;
+    background: black;
+    color: white;
+  }
+
+  img {
+    filter: invert(1);
+  }
+</style>
+
+<img src="/slides/CSSDay-2026/wind-tunnel.png"
+  alt="A wind tunnel, with a plane inside, and smoke showing the air flow around it.">
+
+<aside class="notes">
+I want to give a quick analogy on this:
+
+The web doesn't evolve by writing specs in a vacuum, and sometimes agree on them.
+The web evolves because developers ask for things,
+try new things and experiment, and then complain loudly enough about them
+Specs happen later.
+
+It's a bit like a wind tunnel to test planes.
+Engineers who work on planes don't start by standardizing how to build them
+First, they build experimental prototypes.
+They shake them in wind tunnels.
+They see where things break in the real world, and discover turbulences.
+Only then do they write the rules for safe flight.
+
+The more we can be the web's wind tunnel, the better for our industry.
+</aside>

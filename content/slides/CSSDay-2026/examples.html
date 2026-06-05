@@ -1,0 +1,72 @@
+---
+layout: css-day-slides.njk
+title: Grid-lanes examples
+---
+
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100vh;
+    align-content: center;
+    font-family: system-ui;
+    font-size: 9vmin;
+    text-align: center;
+    line-height: 1;
+    overflow: hidden;
+  }
+
+  h1 {
+    margin: 0 6vmin;
+    display: grid-lanes;
+    grid-template-columns: repeat(10, 1fr);
+    font-weight: normal;
+    gap: 10vmin 0;
+  }
+
+  span {
+    text-align: center;
+  }
+
+  span:nth-child(2n) {
+    font-size: 23vmin;
+  }
+
+  span:nth-child(3n) {
+    font-weight: bold;
+  }
+
+  span:nth-child(4n) {
+    font-family: "Comic Sans MS", cursive;
+  }
+
+  span:nth-child(2n + 1) {
+    color: hsl(0, 0%, 24%);
+  }
+</style>
+
+<h1>
+  <span>G</span>
+  <span>r</span>
+  <span>i</span>
+  <span>d</span>
+  <span>-</span>
+  <span>l</span>
+  <span>a</span>
+  <span>n</span>
+  <span>e</span>
+  <span>s</span>
+  <span> </span>
+  <span>e</span>
+  <span>x</span>
+  <span>a</span>
+  <span>m</span>
+  <span>p</span>
+  <span>l</span>
+  <span>e</span>
+  <span>s</span>
+</h1>
+
+<aside class="notes">
+Examples
+</aside>

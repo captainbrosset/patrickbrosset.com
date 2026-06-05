@@ -1,8 +1,6 @@
 ---
 layout: css-day-slides.njk
 title: Netscape Navigator, in 1996
-prev: ../30-years-ago
-next: ../30-years-ago-book
 ---
 <style>
   html,
@@ -10,21 +8,60 @@ next: ../30-years-ago-book
     height: 100%;
     margin: 0;
     overflow: hidden;
+    background: white;
+    text-align: center;
+    align-content: center;
   }
 
-  img {
-    width: 100vw;
-    height: 100vh;
+  .screen {
+    inline-size: 100vmin;
+    block-size: 100vmin;
+  }
+
+  .logo {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: contain;
+    top: calc(50% - 35vmin);
+    height: 5vmin;
+    left: calc(50% + 40.2vmin);
+    transform: rotate(1deg);
+    opacity: 0.7;
+    mix-blend-mode: screen;
+    filter: blur(1px);
+  }
+
+  .site-background,
+  .site {
+    position: absolute;
+    top: calc(50% - 24vmin);
+    left: calc(50% - 45.7vmin);
+    border: none;
+    width: 88vmin;
+    height: 63.6vmin;
+    transform: rotate(1.4deg) skew(-0.1deg, 0.2deg);
+  }
+
+  .site-background {
+    background: black;
+  }
+
+  .site {
+    filter: brightness(1.1) contrast(0.9) blur(1px);
   }
 </style>
-<img src="/slides/CSSDay-2026/me-in-96-netscape.jpg" alt="Netscape navigator, in 1996." loading="lazy">
 
-<div class="notes">
-  But also, I'm surfing the web on the family computer. If you zoom in, you can see the Netscape logo.<br>
-  Big fan of Netscape at the time, and I still have a lot of nostalgia for that animated logo.
-</div>
+<img class="logo" src="/slides/CSSDay-2026/netscape.gif" alt="Netscape navigator animated logo.">
+
+<div class="site-background"></div>
+<iframe class="site" src="/slides/CSSDay-2026/my-90s-site"></iframe>
+
+<img class="screen" src="/slides/CSSDay-2026/me-in-96-netscape.jpg"
+  alt="Computer screen with Netscape navigator, in 1996.">
+
+<aside class="notes">
+Anyway, if you zoom in on the screen,
+you might recognize Netscape, the dominant web browser of the time,
+with its unmistakable animated logo.
+
+I'm browsing some random site here,
+Sites in 96 were quite the work of art.
+</aside>

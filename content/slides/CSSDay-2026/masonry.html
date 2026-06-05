@@ -1,0 +1,92 @@
+---
+layout: css-day-slides.njk
+title: Masonry
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    display: grid;
+    place-content: center;
+  }
+
+  h1 {
+    margin: 0;
+    display: grid-lanes;
+    gap: 3vw .3vw;
+    grid-template-columns: repeat(10, 1fr);
+    flow-tolerance: infinite;
+  }
+
+  span {
+    width: 8vw;
+    height: 7vw;
+    font-family: system-ui;
+    background: hsl(calc(sibling-index() * 20), 80%, 70%);
+    text-align: center;
+    align-content: center;
+    font-weight: normal;
+    font-size: 4vw;
+  }
+
+  span.newline {
+    grid-column: 1;
+  }
+
+  span.fill {
+    grid-column: span attr(data-fill type(<number>));
+  }
+
+  span:nth-child(2n) {
+    height: 8vw;
+  }
+
+  span:nth-child(3n) {
+    height: 9vw;
+  }
+
+  span.smaller {
+    font-size: 3vw;
+    height: 6vw;
+  }
+</style>
+
+<h1>
+  <span class="newline">M</span>
+  <span>a</span>
+  <span>s</span>
+  <span>o</span>
+  <span>n</span>
+  <span>r</span>
+  <span class="fill" data-fill="4">y</span>
+  <span class="smaller newline fill" data-fill="3">a</span>
+  <span class="smaller fill" data-fill="3">k</span>
+  <span class="smaller fill" data-fill="4">a</span>
+  <span class="newline">g</span>
+  <span>r</span>
+  <span>i</span>
+  <span>d</span>
+  <span>-</span>
+  <span>l</span>
+  <span>a</span>
+  <span>n</span>
+  <span>e</span>
+  <span>s</span>
+</h1>
+
+
+<aside class="notes">
+Now let's switch gears.
+And talk about another feature which appeared a long time ago on websites,
+before any browser had support.
+then got prototyped in 1 browser years ago.
+And it's only now getting standardized and implemented in multiple browsers.
+Based on actual usage and feedback.
+
+Masonry, aka grid-lanes.
+</aside>

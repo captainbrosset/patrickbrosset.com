@@ -3,13 +3,50 @@ layout: css-day-slides.njk
 title: Naming
 ---
 
-<main>
-  <h1>Naming</h1>
-  <ul>
-    <li>"Masonry" — most common name, also a JS library</li>
-    <li>Mozilla's first prototype (~10 years ago): <code>grid-template-columns: masonry;</code></li>
-    <li>Latest spec: <code>display: grid-lanes</code></li>
-    <li>"Lanes" — swim lanes, driving lanes</li>
-    <li>Grid-lanes is 1D: you only control one direction</li>
-  </ul>
-</main>
+<style>
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    align-content: center;
+    text-align: center;
+    background: black;
+    color: white;
+    font-family: system-ui;
+    font-size: 8vw;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  img {
+    filter: invert(1);
+    inline-size: 30vw;
+    vertical-align: -4vw;
+  }
+</style>
+
+grid - <img src="/slides/CSSDay-2026/swim-lane.png" alt="Diagram of a person swimming in a pool with swim lanes">
+
+<aside class="notes">
+First, let's talk about naming here.
+-> Lanes
+
+This might be new to some of you.
+
+Masonry is the way that most people have come to know about this type of layout.
+It's still the most common name for it.
+
+But, it actually comes from a popular JS library by David DeSandro.
+You can use this lib in browsers today, and it's been very popular for a long time.
+
+Mozilla was the first to provide an experimental implementation of this layout,
+right after they implemented CSS grid, so almost 10 years ago now.
+When they did, they preserved the name "masonry"
+
+But now, in a crazy turn of events,
+the latest spec, and current implementations, don't use that term anymore.
+The new name grid-lanes.
+
+Think of it as swim lanes, or maybe traffic lanes.
+And the reason for this is that masonry is 1D, you only define layout along one axis.
+</aside>

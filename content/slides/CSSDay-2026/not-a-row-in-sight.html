@@ -1,0 +1,124 @@
+---
+layout: css-day-slides.njk
+title: Not a row in sight
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    font-family: system-ui;
+    align-items: center;
+  }
+
+  body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5vmin 15vmin;
+    justify-content: center;
+    align-content: center;
+  }
+
+  h1 {
+    margin: 0;
+    flex-basis: 100%;
+    text-align: center;
+    font-size: 10vmin;
+  }
+
+  .almost-rows,
+  .no-rows {
+    display: grid-lanes;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1vmin;
+    inline-size: 40vmin;
+    block-size: 50vmin;
+    flow-tolerance: 2vmin;
+  }
+
+  span {
+    border-radius: 1vmin;
+    border: .3vmin dashed #ccc;
+    background: #eee;
+    display: grid;
+    place-content: center;
+    font-weight: bold;
+  }
+
+  span:nth-child(5),
+  span:nth-child(6),
+  span:nth-child(7),
+  span:nth-child(8) {
+    background-color: hsl(calc(sibling-index() * 36), 70%, 70%);
+    border-color: hsl(calc(sibling-index() * 36), 70%, 70%);
+  }
+
+  .almost-rows span {
+    block-size: 10vmin;
+  }
+
+  .almost-rows span:nth-child(2n) {
+    block-size: 12vmin;
+  }
+
+  .no-rows span {
+    block-size: 10vmin;
+  }
+
+  .no-rows span:nth-child(2n) {
+    block-size: 16vmin;
+  }
+
+  .no-rows span:nth-child(3n) {
+    block-size: 7vmin;
+  }
+</style>
+
+<h1>Not a row in sight</h1>
+
+<div class="almost-rows">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span>Look!</span>
+  <span>Almost</span>
+  <span>a</span>
+  <span>row!</span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="no-rows">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span>Definitely</span>
+  <span>not</span>
+  <span>a</span>
+  <span>row</span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<aside class="notes">
+But, while I just said that the previous grid-lanes
+which had 3 columns, created "rows" of items,
+
+I want to make sure you take this away: there are no rows to speak of
+in a column orientation grid-lanes layout.
+
+Here is an illustration of this.
+On the left, items have mostly the same height, and therefore
+they are placed in a way that looks like rows.
+
+On the right, items have very different heights,
+and you can see how rows are nowhere to be seen.
+Not only are things not aligned, but they're out of order too.
+</aside>

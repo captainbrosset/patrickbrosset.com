@@ -1,0 +1,78 @@
+---
+layout: css-day-slides.njk
+title: Grid-lanes syntax summary
+---
+
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100vh;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    font-size: 2.5vmin;
+    background: #f06;
+    color: black;
+  }
+
+  pre {
+    position: absolute;
+    inset: 4vmin 45vmin;
+    margin: 0;
+    padding: 4vmin;
+    border-radius: 1vmin;
+    box-shadow: 0 0 3vmin 0 #0005;
+    background: white;
+    line-height: 3.5vmin;
+  }
+
+  .selector {
+    color: #00c180;
+    font-weight: bold;
+  }
+
+  .property {
+    color: #df209f;
+    font-weight: bold;
+  }
+
+  .value {
+    color: #275c73;
+  }
+
+  .comment {
+    color: #999;
+    font-style: italic;
+  }
+</style>
+
+<pre><code><span class="selector">.my-layout</span> {
+  <span class="comment">// Define the layout as grid-lanes.</span>
+  <span class="property">display</span>: <span class="value">grid-lanes</span>;
+
+  <span class="comment">// Set the orientation of the layout</span>
+  <span class="comment">// and the sizes of the lanes.</span>
+  <span class="property">grid-template-columns</span>: <span class="value">200px repeat(auto-fill, auto)</span>;
+
+  <span class="comment">// Set the gap between lanes.</span>
+  <span class="property">gap</span>: <span class="value">1lh</span>;
+
+  <span class="comment">// Set a custom flow tolerance.</span>
+  <span class="property">flow-tolerance</span>: <span class="value">2lh</span>;
+}
+
+<span class="selector">.wide-item</span> {
+  <span class="comment">// Make items span multiple lanes.</span>
+  <span class="property">grid-column</span>: <span class="value">span 2</span>;
+}
+
+<span class="selector">.positioned-item</span> {
+  <span class="comment">// Place items in specific lanes.</span>
+  <span class="property">grid-column</span>: <span class="value">1</span>;
+}</code></pre>
+
+<aside class="notes">
+Let's summarize what we just learned.
+</aside>

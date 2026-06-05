@@ -1,0 +1,85 @@
+---
+layout: css-day-slides.njk
+title: Infinite loading source
+---
+
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100vh;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    font-size: 2.2vmin;
+    background: #f06;
+    color: black;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+    gap: 4vmin;
+    padding: 4vmin;
+    box-sizing: border-box;
+    align-content: start;
+    overflow: auto;
+  }
+
+  pre {
+    margin: 0;
+    padding: 4vmin;
+    border-radius: 1vmin;
+    box-shadow: 0 0 3vmin 0 #0005;
+    background: white;
+    line-height: 1.55;
+    block-size: max-content;
+  }
+
+  .selector {
+    color: #00c180;
+    font-weight: bold;
+  }
+
+  .property {
+    color: #df209f;
+    font-weight: bold;
+  }
+
+  .value {
+    color: #275c73;
+  }
+
+  .comment {
+    color: #999;
+    font-style: italic;
+  }
+</style>
+
+<pre><code><span class="selector">.infinite</span> {
+  <span class="property">display</span>: <span class="value">grid-lanes</span>;
+  <span class="property">grid-template-columns</span>: <span class="value">repeat(auto-fill, minmax(40vmin, 1fr))</span>;
+  <span class="property">gap</span>: <span class="value">3vmin</span>;
+}
+
+<span class="selector">.item.loading</span> {
+  <span class="property">grid-column</span>: <span class="value">1 / -1</span>;
+}</code></pre>
+
+<pre><code><span class="comment">// Load more when the last card intersects the viewport.</span>
+<span class="property">const</span> observer = <span class="value">new IntersectionObserver(async entries =&gt; {</span>
+  if (entries.some(e =&gt; e.isIntersecting)) {
+    <span class="property">const</span> items = <span class="value">await Promise.all(Array.from({ length: BULK_LOAD_SIZE }, () =&gt; fetchAndCreateItem()))</span>;
+    items.forEach(item =&gt; container.appendChild(item));
+    observer.observe(container.lastChild);
+  }
+<span class="value">}, { threshold: 0.25 })</span>;</code></pre>
+
+<aside class="notes">
+Simple display:grid-lanes,
+with some auto-repeating columns and some gap.
+
+Items have nothing special
+except the last one that's used for the loading indicator, and that spans all columns.
+
+And then, over in JS, we have our IntersectionObserver
+</aside>

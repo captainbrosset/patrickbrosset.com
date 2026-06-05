@@ -8,7 +8,7 @@ Use a narrative arc
 Personal anecdotes
 Humor
 (semi-)live demos
-Narraitve about the evolution of the web, of the platform.
+Narrative about the evolution of the web, of the platform.
 
 * Overarching:
 
@@ -143,11 +143,6 @@ We should continue to have fun with the web, and push the limits of what's possi
 
 ### Let's have fun
 
-Pro tip: if you want to have fun, create a website. Any site. Even broken, even half finished. Trying stuff out and putting it out there is a great way to join this community.
-Of post things on codepen. The key is, if it's out there, other people can see it, learn from it, and folks who build browsers can see it too, and make the platform better.
-
-So let's have fun for a little bit!
-
 My job at Microsoft very often involves being the very first real tester for new features.
 I do DevRel, which means engineers and PMs come to me with early prototypes, and get to test them early.
 I'm very fortunate because that means having fun with new things, and learning about them, is literally part of my job.
@@ -276,12 +271,16 @@ edge‑cases don’t get discovered.
 ergonomics problems stay theoretical.
 interop issues never surface early.
 
+### Masonry
+
+Now let's switch gears.
+And talk about another feature which appeared a long time ago on websites.
+then got prototyped in browsers.
+And only now is getting standardized and implemented.
+
+Masonry, aka grid-lanes.
+
 ### Fun with Masonry
-
-So now let's switch gears and talk about a feature I'm personally very excited about,
-which is at an early point in its development, which is perfect for collecting feedback:
-
-grid-lanes, aka CSS Masonry.
 
 So, to start, let's take grid-lanes to the wind tunnel for a bit, shall we?
 I'm sure you've all seen the pinterest-style masonry layout.
@@ -559,7 +558,7 @@ file:///C:/Users/pabrosse/dev/patrickbrosset.com/content/slides/CSSDay-2026/infi
 https://microsoftedge.github.io/Demos/css-masonry/blog.html
 
 - News site
-https://microsoftedge.github.io/Demos/css-masonry/blog.html
+https://microsoftedge.github.io/Demos/css-masonry/news.html
 
 - Creative photo galleries
 http://localhost:8080/slides/CSSDay-2026/reverse-gallery
@@ -596,6 +595,16 @@ There's always a number of different ways you can achieve a particular layout in
 Depending on how you retrieve content from your backend, depending on how you want users to navigate through them, and obviously depending on the final visual aspect you want to achieve, you might pick one solution over the other.
 
 ### Closing
+
+TODO: talk about the fact that all of the demos, and entire deck runs in Edge/Chrome.
+Based on latest implementation of grid-lanes in Chromium.
+Say which version and flag.
+Also talk about Safari shipping, but lacking some key parts (such as?)
+Go and play with grid-lanes. Again, progressive enhancement in a lot of cases.
+Let me know what you think.
+Add links to social media, etc.
+
+
 
 Inside, I'm still that same 16 year old kid in his coyote's pajamas, playing with the web. And I'm sure many of you are too.
 

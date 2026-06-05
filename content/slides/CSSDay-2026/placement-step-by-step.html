@@ -1,0 +1,290 @@
+---
+layout: css-day-slides.njk
+title: Masonry placement algorithm step by step
+---
+
+<style>
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.6;
+    font-family: system-ui;
+    padding: 5rem 2rem 2rem 2rem;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    margin: 0 0 1rem 0;
+    padding-top: 4rem;
+  }
+
+  .controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+    background: #fff;
+  }
+
+  .controls button {
+    padding: 0.3rem 0.8rem;
+    border: 1px solid #999;
+    border-radius: 4px;
+    background: #f5f5f5;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .controls button:hover {
+    background: #e5e5e5;
+  }
+
+  .grid-wrapper {
+    position: relative;
+    inline-size: 70%;
+    min-block-size: 100vh;
+  }
+
+  .grid {
+    display: grid-lanes;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    flow-tolerance: 1em;
+  }
+
+  .item {
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    --back: hsl(calc(sibling-index() * 36), 70%, 70%);
+    background-color: var(--back);
+    color: contrast-color(var(--back));
+  }
+
+  .item .number {
+    font-weight: 700;
+  }
+
+  /* Debug overlay */
+  .debug-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .debug-col-bg {
+    position: absolute;
+    inset: 0 auto;
+    background: #ddd;
+  }
+
+  .debug-col {
+    position: absolute;
+    inset: 0 auto auto auto;
+  }
+
+  .debug-col .debug-height {
+    position: absolute;
+    inset: calc(100% + 4px) 0 auto 0;
+    font-weight: 700;
+    color: #c00;
+    text-align: center;
+    background: white;
+    margin-inline: auto;
+    inline-size: max-content;
+    padding: 0 4px;
+  }
+
+  .debug-arrow {
+    position: absolute;
+    text-align: center;
+    color: #c00;
+    font-size: 2rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+</style>
+
+<div class="controls">
+  <button id="btn-step">⏭ Step</button>
+</div>
+
+<div class="grid-wrapper">
+  <div class="grid" id="grid"></div>
+  <div class="debug-overlay" id="debug-overlay"></div>
+</div>
+
+<script>
+  const grid = document.getElementById("grid");
+  const overlay = document.getElementById("debug-overlay");
+  const btnStep = document.getElementById("btn-step");
+
+  const COLS = 4;
+
+  const ITEMS = [
+    "Short text.",
+    "A bit more content here so this card is taller than the first one.",
+    "This card has a moderate amount of text. Enough to make it noticeably taller than the short ones, but not the tallest overall.",
+    "Medium length content for variety.",
+    "This is the tallest card in the set. It has quite a lot of text so it takes up significantly more vertical space than any of the other cards. The idea is to show how flow-tolerance affects where the next item is placed when column heights differ.",
+    "Another short one.",
+    "Three lines of text, maybe four depending on the column width. Let's see how it goes.",
+    "Brief.",
+    "A card with a fair amount of content. Not the longest, not the shortest, right in the middle of the pack.",
+    "Small.",
+    "One more medium-sized card to round things out nicely.",
+    "Tiny.",
+    "This card is deliberately long. It contains enough text to really stretch the column height and create a visible imbalance between the columns in the layout.",
+    "Just a few words.",
+    "Here we have a card with a moderate paragraph. It sits comfortably in the middle range of heights, adding some visual rhythm to the grid.",
+    "Done!",
+  ];
+
+  // --- Helpers ---
+
+  function createItemEl(index) {
+    const item = document.createElement("div");
+    item.classList.add("item");
+    item.innerHTML = `<div class="number">#${index + 1}</div><p>${ITEMS[index]}</p>`;
+    return item;
+  }
+
+  function clearItems() {
+    grid.querySelectorAll(".item").forEach(el => el.remove());
+  }
+
+  // --- Debug overlay ---
+
+  function getColData() {
+    const gridRect = grid.getBoundingClientRect();
+    const items = grid.querySelectorAll(".item");
+    const colData = Array.from({ length: COLS }, () => ({ left: Infinity, right: 0, bottom: 0 }));
+
+    items.forEach(item => {
+      const r = item.getBoundingClientRect();
+      const col = Math.round((r.left - gridRect.left) / (gridRect.width / COLS));
+      const c = Math.min(Math.max(col, 0), COLS - 1);
+      colData[c].left = Math.min(colData[c].left, r.left - gridRect.left);
+      colData[c].right = Math.max(colData[c].right, r.right - gridRect.left);
+      colData[c].bottom = Math.max(colData[c].bottom, r.bottom - gridRect.top);
+    });
+
+    return { colData, gridRect };
+  }
+
+  function getColPositions() {
+    const gridRect = grid.getBoundingClientRect();
+    const gap = parseFloat(getComputedStyle(grid).gap) || 0;
+    const colWidth = (gridRect.width - (COLS - 1) * gap) / COLS;
+    return Array.from({ length: COLS }, (_, i) => ({
+      left: i * (colWidth + gap),
+      width: colWidth
+    }));
+  }
+
+  function updateDebugOverlay() {
+    overlay.innerHTML = "";
+
+    // Always draw faded column backgrounds.
+    const colPositions = getColPositions();
+    colPositions.forEach(cp => {
+      const bg = document.createElement("div");
+      bg.className = "debug-col-bg";
+      bg.style.left = `${cp.left}px`;
+      bg.style.width = `${cp.width}px`;
+      overlay.appendChild(bg);
+    });
+
+    const items = grid.querySelectorAll(".item");
+    if (items.length === 0) return;
+
+    const { colData, gridRect } = getColData();
+    const activeCols = colData.filter(c => c.bottom > 0);
+    if (activeCols.length === 0) return;
+
+    const minHeight = Math.min(...activeCols.map(c => c.bottom));
+
+    // Column indicators.
+    colData.forEach((c, i) => {
+      if (c.bottom === 0) return;
+      const div = document.createElement("div");
+      div.className = "debug-col";
+      div.style.left = `${c.left}px`;
+      div.style.width = `${c.right - c.left}px`;
+      div.style.height = `${c.bottom}px`;
+      div.innerHTML = `<span class="debug-height">${Math.round(c.bottom)}px</span>`;
+      overlay.appendChild(div);
+    });
+
+    // Arrows below the shortest column(s).
+    if (items.length < COLS) return;
+    colData.forEach((c, i) => {
+      if (c.bottom === 0) return;
+      if (c.bottom > minHeight) return;
+      const arrow = document.createElement("div");
+      arrow.className = "debug-arrow";
+      arrow.style.left = `${c.left}px`;
+      arrow.style.width = `${c.right - c.left}px`;
+      arrow.style.top = `${c.bottom + 20}px`;
+      arrow.textContent = "\u2191";
+      overlay.appendChild(arrow);
+    });
+  }
+
+  // --- Replay / Step ---
+
+  let replayIndex = 0;
+
+  function resetReplay() {
+    replayIndex = 0;
+    clearItems();
+    updateDebugOverlay();
+  }
+
+  function updateStepButton() {
+    btnStep.textContent = replayIndex >= ITEMS.length ? "Done!" : "⏭ Step";
+  }
+
+  // Manual step: user clicks to add one item at a time.
+  btnStep.addEventListener("click", () => {
+    if (replayIndex >= ITEMS.length) {
+      return;
+    }
+
+    const item = createItemEl(replayIndex);
+    grid.appendChild(item);
+    replayIndex++;
+    requestAnimationFrame(() => updateDebugOverlay());
+    updateStepButton();
+  });
+
+  // --- Init ---
+
+  window.addEventListener("resize", () => updateDebugOverlay());
+  new ResizeObserver(() => updateDebugOverlay()).observe(grid);
+</script>
+
+
+<aside class="notes">
+In fact, let's go through the placement algorithm step by step
+to understand this a little better.
+
+Every time I click the Step button, a new item is added, and the total height
+of each column is displayed.
+
+2 things to remember:
+- always pick the shortest lane
+- writing direction: ltr -> go through lanes in this order and then wrap around.
+</aside>

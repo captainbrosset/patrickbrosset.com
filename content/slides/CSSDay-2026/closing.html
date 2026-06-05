@@ -3,9 +3,124 @@ layout: css-day-slides.njk
 title: Go play!
 ---
 
-<main>
-  <h1>Go play!</h1>
-  <p>Inside, I'm still that 16 year old kid in his coyote's pajamas.</p>
-  <p>Playing with the web isn't just fun — it's essential for the platform's survival.</p>
-  <p>Go play with CSS grid-lanes, and tell me what you think.</p>
-</main>
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100%;
+    overflow: hidden;
+    align-content: center;
+    text-align: center;
+    color: white;
+    font-size: 10vmin;
+    font-family: "Comic Sans MS", cursive;
+  }
+
+  :root {
+    --rings: radial-gradient(circle at center,
+        /* Dark center hole */
+        #051025, #050e1f 15vmin, #030a1a 17vmin,
+        /* Rings */
+        #cc4e13 17vmin, #910f12 22vmin, #68020a 23vmin,
+        #cc4e13 23vmin, #910f12 30vmin, #68020a 32vmin,
+        #cc4e13 32vmin, #910f12 42vmin, #68020a 46vmin,
+        #cc4e13 46vmin, #910f12 60vmin, #68020a 67vmin,
+        #cc4e13 67vmin, #910f12 85vmin, #68020a 100vmin);
+  }
+
+  @property --black-radius {
+    syntax: '<length>';
+    initial-value: 100vmin;
+    inherits: true;
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle at center, transparent, black var(--black-radius)),
+      var(--rings);
+    transition: --black-radius .5s ease-out;
+    --black-radius: 100vmin;
+
+    @starting-style {
+      --black-radius: 0vmin;
+    }
+  }
+
+  p {
+    text-shadow: 0 1vmin 2vmin #000b;
+    position: absolute;
+    inset: 50% auto auto 50%;
+    inline-size: 1ch;
+    block-size: 2ch;
+    margin: 0;
+    line-height: 1;
+    translate: -.5ch -1ch;
+
+    scale: 1;
+    transition: scale .1s ease-out;
+
+    @starting-style {
+      scale: 0;
+    }
+  }
+
+  span {
+    white-space: pre;
+    position: absolute;
+    inset: 0 auto auto 0;
+    block-size: 43vmin;
+    transform-origin: bottom center;
+    rotate: calc(sibling-index() * 9deg - 69deg);
+    translate: 0 -38vmin;
+    inline-size: 1ch;
+    z-index: 2;
+    font-weight: bold;
+  }
+
+  img {
+    width: 85vmin;
+    translate: 0 -3vmin;
+    filter: drop-shadow(0 0 1vmin #000c);
+
+    transition: width .1s ease-out;
+
+    @starting-style {
+      width: 5vmin;
+    }
+  }
+</style>
+
+<p>
+  <span>T</span>
+  <span>h</span>
+  <span>a</span>
+  <span>t</span>
+  <span>'</span>
+  <span>s</span>
+  <span> </span>
+  <span>a</span>
+  <span>l</span>
+  <span>l</span>
+  <span> </span>
+  <span>f</span>
+  <span>r</span>
+  <span>i</span>
+  <span>e</span>
+  <span>n</span>
+  <span>d</span>
+  <span>s</span>
+  <span>!</span>
+</p>
+
+<img src="/slides/CSSDay-2026/me-cartoon-cut-off.png" alt="Me">
+
+<aside class="notes">
+That's all friends!
+
+Remember to have fun with the web.
+Entertain your inner kid.
+Go play.
+And push the web forward.
+
+Thank you.
+</aside>

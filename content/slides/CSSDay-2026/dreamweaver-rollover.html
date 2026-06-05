@@ -1,0 +1,82 @@
+---
+layout: css-day-slides.njk
+title: Making rollover buttons with Dreamweaver
+---
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    display: grid;
+    place-content: center;
+  }
+
+  .rollover {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: max-content;
+
+    li {
+      margin: .5vw 0;
+      padding: 1vw 2vw;
+      font-weight: 5vw;
+      font-family: system-ui, sans-serif;
+      font-size: 2vw;
+      text-align: center;
+      color: white;
+      border-radius: 1vw;
+      background: linear-gradient(to bottom, #ff4d8a, #d4145a);
+      box-shadow: 0 4px 0 #8b0a30, inset 0 1px 0 rgba(255,255,255,0.3);
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+      top: 0;
+      transition: all 0.1s ease;
+
+      &:hover {
+        background: linear-gradient(to bottom, #c0103f, #ff4d8a);
+        box-shadow: 0 1px 0 #8b0a30, inset 0 2px 3px rgba(0,0,0,0.3);
+        top: 3px;
+      }
+
+      &:active {
+        background: linear-gradient(to bottom, #a00c35, #d4145a);
+        box-shadow: 0 0 0 #8b0a30, inset 0 3px 5px rgba(0,0,0,0.5);
+        top: 4px;
+      }
+    }
+  }
+</style>
+
+<ul class="rollover">
+  <li>Home</li>
+  <li>Tips</li>
+  <li>Sign my guestbook</li>
+  <li>About</li>
+</ul>
+
+<aside class="notes">
+NOTE: HOVER OVER AND CLICK THE BUTTONS.
+
+And for buttons like these,
+that have hover and active states,
+you'd have to make custom images,
+for each button and each button state (normal, hover, active),
+and include the text in the images, if you wanted a fancy font.
+And then handle the swapping of images in JavaScript.
+
+I personally used Dreamweaver because it had a cool image rollover feature
+that wrote the code for me.
+
+Again, images were the name of the game.
+
+We'd often create sites from images,
+slice them up into little pieces to achieve the desired design.
+
+And then position everything with absolute pixel values, using tables
+to make the end result look exactly like the initial image design.
+</aside>

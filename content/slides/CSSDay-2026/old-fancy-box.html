@@ -1,0 +1,168 @@
+---
+layout: css-day-slides.njk
+title: A fancy box in 2000
+---
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .box {
+    --border: 1vmin solid #0f2b2c;
+    --back: #2b7072;
+    color: white;
+
+    width: 90vmin;
+    aspect-ratio: 16 / 9;
+
+    font-family: system-ui, sans-serif;
+    font-size: 9vmin;
+    text-align: center;
+
+    display: grid;
+    grid-template-columns: 10vmin 1fr 10vmin;
+    grid-template-rows: 10vmin 1fr 10vmin;
+
+    div div {
+      background: var(--back);
+      border: var(--border);
+      transition: transform .3s ease;
+    }
+
+    .top, .middle, .bottom {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: subgrid;
+    }
+
+    .top {
+      .left {
+        border-radius: 100% 0 0 0;
+        border-width: 1vmin 0 0 1vmin;
+      }
+
+      .center {
+        border-width: 1vmin 0 0
+      }
+
+      .right {
+        border-radius: 0 100% 0 0;
+        border-width: 1vmin 1vmin 0 0;
+      }
+    }
+    
+    .middle {
+      .left {
+        border-width: 0 0 0 1vmin;
+      }
+
+      .center {
+        border-width: 0;
+        align-content: center;
+      }
+
+      .right {
+        border-width: 0 1vmin 0 0;
+      }
+    }
+
+    .bottom {
+      .left {
+        border-radius: 0 0 0 100%;
+        border-width: 0 0 1vmin 1vmin;
+      }
+
+      .center {
+        border-width: 0 0 1vmin;
+      }
+
+      .right {
+        border-radius: 0 0 100% 0;
+        border-width: 0 1vmin 1vmin 0;
+      }
+    }
+
+    &:hover {
+      .top {
+        .left {
+          transform: translate(-4vmin, -4vmin);
+        }
+
+        .center {
+          transform: translateY(-4vmin);
+        }
+
+        .right {
+          transform: translate(4vmin, -4vmin);
+        }
+      }
+
+      .middle {
+        .left {
+          transform: translateX(-4vmin);
+        }
+
+        .right {
+          transform: translateX(4vmin);
+        }
+      }
+
+      .bottom {
+        .left {
+          transform: translate(-4vmin, 4vmin);
+        }
+
+        .center {
+          transform: translateY(4vmin);
+        }
+
+        .right {
+          transform: translate(4vmin, 4vmin);
+        }
+      }
+    }
+  }
+</style>
+
+<div class="box">
+  <div class="top">
+    <div class="left"></div>
+    <div class="center"></div>
+    <div class="right"></div>
+  </div>
+  <div class="middle">
+    <div class="left"></div>
+    <div class="center">
+      I am a fancy box!
+    </div>
+    <div class="right"></div>
+  </div>
+  <div class="bottom">
+    <div class="left"></div>
+    <div class="center"></div>
+    <div class="right"></div>
+  </div>
+</div>
+
+<aside class="notes">
+Before we do, let's take a moment to appreciate where we come from.
+
+You see, to create any part of these sites
+at the time, we needed a lot of images.
+
+Even just for a fancy box like this,
+we'd have to create a div with 9 children elements,
+and make custom images for each of the corners and sides,
+repeating them as needed, to create the illusion of a single box.
+
+NOTE: hover over the box.
+</aside>

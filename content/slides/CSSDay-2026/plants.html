@@ -1,0 +1,184 @@
+---
+layout: css-day-slides.njk
+title: Plant stories
+---
+
+<style>
+  body {
+    background: url(/slides/CSSDay-2026/plants-background.png) center/cover;
+    font-size: 1.5vmin;
+    font-family: georgia, serif;
+    color: #251f1b;
+    margin: 0;
+    text-wrap-style: balance;
+  }
+
+  header {
+    background: white;
+    padding: 2vmin 4vmin;
+
+    display: flex;
+    align-items: center;
+    gap: 4vmin;
+    justify-content: space-between;
+
+    h1 {
+      text-transform: uppercase;
+      margin: 0;
+      font-weight: normal;
+      letter-spacing: 1vmin;
+      font-size: 2vmin;
+    }
+
+    nav {
+      display: flex;
+      gap: 4vmin;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    search {
+      input {
+        padding: 0.5vmin 1vmin;
+        border: 1px solid #0003;
+        border-radius: 4px;
+        font-size: inherit;
+      }
+    }
+  }
+
+  .stories {
+    display: grid-lanes;
+    grid-template-columns: repeat(5, 1fr);
+    background: white;
+    mix-blend-mode: screen;
+
+    &>div {
+      padding: 8vmin;
+      min-block-size: 20vmin
+    }
+
+    .opaque {
+      padding-block: 10vmin;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      font-family: verdana, sans-serif;
+      font-size: 1.2vmin;
+
+      &::after {
+        content: " →";
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+
+    .see-through {
+      position: relative;
+      min-block-size: 20vmin;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 2vmin;
+        background: black;
+        border-radius: 1vmin;
+      }
+    }
+
+    h2,
+    h3 {
+      margin: 0 0 2vmin 0;
+      font-weight: normal;
+      font-size: 4vmin;
+
+    }
+
+    h3 {
+      font-size: 2.5vmin;
+    }
+
+    p {
+      margin: 0 0 2vmin 0;
+      line-height: 1.8;
+    }
+  }
+</style>
+
+<header>
+  <h1>Plant stories</h1>
+  <nav>
+    <a href="#">Stories</a>
+    <a href="#">Journal</a>
+    <a href="#">Gallery</a>
+    <a href="#">About</a>
+  </nav>
+  <search>
+    <input type="search" placeholder="Search">
+  </search>
+</header>
+
+<div class="stories">
+  <div class="opaque">
+    <div class="wrapper">
+      <h2>Rooted in quiet beauty.</h2>
+      <a href="#">Read more</a>
+    </div>
+  </div>
+  <div class="see-through"></div>
+  <div class="opaque">
+    <div class="wrapper">
+      <p>Nature does not hurry, yet everything is accomplished.</p>
+    </div>
+  </div>
+  <div class="see-through"></div>
+  <div class="opaque">
+    <div class="wrapper">
+      <h3>The language of leaves.</h3>
+      <p>Every shape, every curve, every vein holds a story older than words.</p>
+      <a href="#">Read the journal</a>
+    </div>
+  </div>
+  <div class="see-through wide"></div>
+  <div class="see-through"></div>
+  <div class="opaque">
+    <div class="wrapper">
+      <p>Look deep into nature, and then you will understand everything better.</p>
+    </div>
+  </div>
+  <div class="opaque">
+    <div class="wrapper">
+      <h3>Fragments of a large story.</h3>
+      <p>Moments captured, connected by something greater than we see.</p>
+      <a href="#">Explore gallery</a>
+    </div>
+  </div>
+  <div class="see-through"></div>
+  <div class="opaque">
+    <div class="wrapper">
+      <h3>The art of becoming.</h3>
+      <p>Growth is not always visible. Sometimes it happens beneath the surface.</p>
+      <a href="#">Discover more</a>
+    </div>
+  </div>
+  <div class="see-through"></div>
+</div>
+
+<aside class="notes">
+
+</aside>

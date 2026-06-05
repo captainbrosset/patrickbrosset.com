@@ -1,0 +1,83 @@
+---
+layout: css-day-slides.njk
+title: Masonry browser support
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0 5vmin;
+    align-content: center;
+    font-family: system-ui;
+    font-size: 2.5vw;
+
+    background: #311427;
+    color: white;
+  }
+
+  h1 {
+    margin: 0 0 4vmin 0;
+  }
+
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    --icon: url(/slides/CSSDay-2026/icons/edge.svg);
+    padding-inline-start: 5vmin;
+    background: var(--icon), radial-gradient(circle, white 1.6vmin, transparent 1.7vmin);
+    background-size: 3vmin 3vmin, 4vmin;
+    background-position: 0.4vmin center, left center;
+    background-repeat: no-repeat;
+    line-height: 1.6;
+  }
+
+  li.chrome {
+    --icon: url(/slides/CSSDay-2026/icons/chrome.svg);
+  }
+
+  li.safari {
+    --icon: url(/slides/CSSDay-2026/icons/safari.svg);
+  }
+
+  li.firefox {
+    --icon: url(/slides/CSSDay-2026/icons/firefox.svg);
+  }
+
+  a, code {
+    background: #fff3;
+    padding: .25vmin 1vmin;
+    border-radius: .5vmin;
+    font-family: monospace;
+    color: white;
+  }
+</style>
+
+<h1>Browser support</h1>
+<ul>
+  <li class="safari"><strong>Safari</strong> → Shipped in March, with 26.4</li>
+  <li class="edge"><strong>Edge</strong> → Behind flag <code>#css-grid-lanes-layout</code> at
+    <code>about://flags</code></li>
+  <li class="chrome"><strong>Chrome</strong> → Behind flag <code>#css-grid-lanes-layout</code> at
+    <code>about://flags</code></li>
+  <li class="firefox"><strong>Firefox</strong> → First ever prototype, years ago. Follow at <a href="https://bugzil.la/grid-lanes">bugzil.la/grid-lanes</a></li>
+</ul>
+
+<aside class="notes">
+First, where can you use this?
+
+Pretty much everwhere, but with caveats:
+
+Safari has shipped it back in March.
+
+Chrome and Edge, my team is working on the implementation right now, and we're nearing the finish line.
+You can use it by enabling the #css-grid-lanes-layout flag on the about://flags page.
+
+Firefox has had a prototype for a long time. But the spec has evolved since then.
+You can follow their implementation progress on bugzil.la/grid-lanes.
+</aside>

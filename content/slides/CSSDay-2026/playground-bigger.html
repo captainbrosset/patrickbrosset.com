@@ -3,10 +3,54 @@ layout: css-day-slides.njk
 title: The playground got bigger
 ---
 
-<main>
-  <h1>The playground got bigger</h1>
-  <p>Today, for a fancy box:</p>
-  <p>border-radius · border-image · corner-shape · clip-path · border-shape</p>
-  <p>The playground got BIGGER, not smaller.</p>
-  <p>We should continue to play.</p>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  text-align: center;
+  background: black;
+}
+
+h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 8vw;
+  color: white;
+
+  span {
+    text-transform: uppercase;
+    font-size: 20vw;
+    color: #e0ff3e;
+    z-index: -1;
+    transform-origin: top center;
+    display: block;
+    font-family: arial black;
+    position: relative;
+    line-height: 0.7;
+
+    animation: bigger .5s 1s cubic-bezier(0.5, 1.8, 0.5, 0.7) forwards;
+  }
+}
+
+@keyframes bigger {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(4);
+  }
+}
+</style>
+
+<h1>The playground got <span>bigger</span></h1>
+
+<aside class="notes">
+The playground got BIGGER, much much bigger.
+
+But it's still a playground
+It's fun to make things
+and discover new use cases.
 </main>

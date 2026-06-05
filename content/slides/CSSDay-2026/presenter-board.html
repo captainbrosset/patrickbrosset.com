@@ -100,6 +100,7 @@
       border-radius: 8px;
       font-size: 1.3rem;
       line-height: 1.7;
+      white-space: pre-line;
     }
 
     #notes-area p {
@@ -170,11 +171,11 @@
 
         seq.forEach(function (slug, i) {
           var li = document.createElement('li');
-          li.textContent = (i + 1) + '. ' + (slug || '(title)');
+          li.textContent = slug || '(title)';
           li.dataset.slug = slug;
           li.dataset.index = i;
           li.addEventListener('click', function () {
-            channel.postMessage({ type: 'navigate', slug: slug });
+            navigateTo(slug);
           });
           list.appendChild(li);
         });
@@ -186,16 +187,21 @@
       window.open(BASE + slug, 'cssday-presentation');
     });
 
+    function navigateTo(slug) {
+      channel.postMessage({ type: 'navigate', slug: slug });
+      updateCurrent(slug);
+    }
+
     // Navigate from presenter board buttons.
     document.getElementById('nav-prev').addEventListener('click', function () {
       if (currentIdx > 0) {
-        channel.postMessage({ type: 'navigate', slug: sequence[currentIdx - 1] });
+        navigateTo(sequence[currentIdx - 1]);
       }
     });
 
     document.getElementById('nav-next').addEventListener('click', function () {
       if (currentIdx >= 0 && currentIdx < sequence.length - 1) {
-        channel.postMessage({ type: 'navigate', slug: sequence[currentIdx + 1] });
+        navigateTo(sequence[currentIdx + 1]);
       }
     });
 
