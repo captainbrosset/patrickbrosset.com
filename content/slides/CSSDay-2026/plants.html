@@ -4,9 +4,12 @@ title: Plant stories
 ---
 
 <style>
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
-    background: url(/slides/CSSDay-2026/plants-background.png) center/cover;
-    font-size: 1.5vmin;
+    background: url(/slides/CSSDay-2026/images/plants-background.png) top left / cover;
     font-family: georgia, serif;
     color: #251f1b;
     margin: 0;
@@ -15,24 +18,24 @@ title: Plant stories
 
   header {
     background: white;
-    padding: 2vmin 4vmin;
+    padding: 2.5rem;
 
     display: flex;
     align-items: center;
-    gap: 4vmin;
+    gap: 2.5rem;
     justify-content: space-between;
 
     h1 {
       text-transform: uppercase;
       margin: 0;
       font-weight: normal;
-      letter-spacing: 1vmin;
-      font-size: 2vmin;
+      letter-spacing: .5rem;
+      font-size: 1.2rem;
     }
 
     nav {
       display: flex;
-      gap: 4vmin;
+      gap: 2rem;
 
       a {
         color: inherit;
@@ -46,34 +49,34 @@ title: Plant stories
 
     search {
       input {
-        padding: 0.5vmin 1vmin;
+        padding: .25rem .5rem;
         border: 1px solid #0003;
-        border-radius: 4px;
+        border-width: 0 0 1px 0;
         font-size: inherit;
+        font-family: inherit;
+        border-radius: 0;
       }
     }
   }
 
   .stories {
     display: grid-lanes;
-    grid-template-columns: repeat(5, 1fr);
-    background: white;
-    mix-blend-mode: screen;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    flow-tolerance: infinite;
 
     &>div {
-      padding: 8vmin;
-      min-block-size: 20vmin
-    }
-
-    .opaque {
-      padding-block: 10vmin;
+      padding: 4rem;
+      box-sizing: border-box;
+      min-block-size: 25rem;
+      background: white;
+      align-content: center;
     }
 
     a {
       color: inherit;
       text-decoration: none;
       font-family: verdana, sans-serif;
-      font-size: 1.2vmin;
+      font-size: .7rem;
 
       &::after {
         content: " →";
@@ -88,34 +91,69 @@ title: Plant stories
       grid-column: span 2;
     }
 
-    .see-through {
-      position: relative;
-      min-block-size: 20vmin;
+    .extra-wide {
+      grid-column: span 3;
+    }
 
-      &::before {
-        content: "";
-        position: absolute;
-        inset: 2vmin;
-        background: black;
-        border-radius: 1vmin;
-      }
+    .plant {
+      position: relative;
+      clip-path: shape(
+        from -1px -1px,
+        line to 2rem 1rem,
+        line to calc(100% - 2rem) 1rem,
+        arc to calc(100% - 1rem) 2rem of 6% cw,
+        line to calc(100% - 1rem) calc(100% - 2rem),
+        arc to calc(100% - 2rem) calc(100% - 1rem) of 6% cw,
+        line to 2rem calc(100% - 1rem),
+        arc to 1rem calc(100% - 2rem) of 6% cw,
+        line to 1rem 2rem,
+        arc to 2rem 1rem of 6% cw,
+        line to -1px -1px,
+        line to -1px calc(100% + 1px),
+        line to calc(100% + 1px) calc(100% + 1px),
+        line to calc(100% + 1px) -1px,
+        line to -1px -1px
+      );
+    }
+
+    .semi-transparent {
+      background: #fffe;
+    }
+
+    .short {
+      min-block-size: 20rem;
+    }
+
+    .long {
+      min-block-size: 30rem;
     }
 
     h2,
     h3 {
-      margin: 0 0 2vmin 0;
+      margin: 0 0 1.5rem 0;
       font-weight: normal;
-      font-size: 4vmin;
+      font-size: 2.75rem;
 
     }
 
     h3 {
-      font-size: 2.5vmin;
+      font-size: 1.5rem;
     }
 
-    p {
-      margin: 0 0 2vmin 0;
+    p, q {
+      margin: 0 0 1.5rem 0;
       line-height: 1.8;
+    }
+
+    q::after {
+      content: none;
+    }
+
+    q::before {
+      font-size: 2.5rem;
+      display: block;
+      font-weight: bold;
+      line-height: 0.5;
     }
   }
 </style>
@@ -134,49 +172,49 @@ title: Plant stories
 </header>
 
 <div class="stories">
-  <div class="opaque">
-    <div class="wrapper">
-      <h2>Rooted in quiet beauty.</h2>
-      <a href="#">Read more</a>
-    </div>
+  <div class="text wide">
+    <h2>Rooted in quiet beauty.</h2>
+    <a href="#">Read more</a>
   </div>
-  <div class="see-through"></div>
-  <div class="opaque">
-    <div class="wrapper">
-      <p>Nature does not hurry, yet everything is accomplished.</p>
-    </div>
+  <div class="plant wide short"></div>
+  <div class="text semi-transparent wide long">
+    <q>Nature does not hurry, yet everything is accomplished.</q>
   </div>
-  <div class="see-through"></div>
-  <div class="opaque">
-    <div class="wrapper">
-      <h3>The language of leaves.</h3>
-      <p>Every shape, every curve, every vein holds a story older than words.</p>
-      <a href="#">Read the journal</a>
-    </div>
+  <div class="plant wide long"></div>
+  <div class="text"></div>
+  <div class="plant wide"></div>
+  <div class="text wide long">
+    <h3>The language of leaves.</h3>
+    <p>Every shape, every curve, every vein holds a story older than words.</p>
+    <a href="#">Read the journal</a>
   </div>
-  <div class="see-through wide"></div>
-  <div class="see-through"></div>
-  <div class="opaque">
-    <div class="wrapper">
-      <p>Look deep into nature, and then you will understand everything better.</p>
-    </div>
+  <div class="plant short"></div>
+  <div class="text extra-wide short">
+    <q>Look deep into nature, and then you will understand everything better.</q>
   </div>
-  <div class="opaque">
-    <div class="wrapper">
-      <h3>Fragments of a large story.</h3>
-      <p>Moments captured, connected by something greater than we see.</p>
-      <a href="#">Explore gallery</a>
-    </div>
+  <div class="plant"></div>
+  <div class="text semi-transparent extra-wide short">
+    <h3>Where light teaches patience.</h3>
+    <p>In the soft rhythm of mornings and seasons, each stem learns to turn, adapt, and rise toward what keeps it alive.</p>
+    <a href="#">Read this story</a>
   </div>
-  <div class="see-through"></div>
-  <div class="opaque">
-    <div class="wrapper">
-      <h3>The art of becoming.</h3>
-      <p>Growth is not always visible. Sometimes it happens beneath the surface.</p>
-      <a href="#">Discover more</a>
-    </div>
+  <div class="plant extra-wide short"></div>
+  <div class="text extra-wide">
+    <q>To tend a plant is to practice a slower kind of hope, one rooted in daily care, quiet attention, and trust in unseen progress.</q>
   </div>
-  <div class="see-through"></div>
+  <div class="plant"></div>
+  <div class="text wide">
+    <h3>Fragments of a large story.</h3>
+    <p>Moments captured, connected by something greater than we see.</p>
+    <a href="#">Explore gallery</a>
+  </div>
+  <div class="plant"></div>
+  <div class="text wide">
+    <h3>The art of becoming.</h3>
+    <p>Growth is not always visible. Sometimes it happens beneath the surface.</p>
+    <a href="#">Discover more</a>
+  </div>
+  <div class="text short semi-transparent extra-wide"></div>
 </div>
 
 <aside class="notes">
