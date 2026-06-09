@@ -1,7 +1,599 @@
 {
-  "created_at": "2026-06-01T17:12:40.677Z",
-  "total_albums": 686,
+  "created_at": "2026-06-08T15:23:54.842Z",
+  "total_albums": 687,
   "albums": [
+    {
+      "added_at": "2022-12-30T14:14:36Z",
+      "album": {
+        "id": "35UJLpClj5EDrhpNIi4DFg",
+        "name": "The Bends",
+        "artists": [
+          {
+            "id": "4Z8W4fKeB5YxbusRsdQVPb",
+            "name": "Radiohead"
+          }
+        ],
+        "release_date": "1995-03-13",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/35UJLpClj5EDrhpNIi4DFg"
+        },
+        "href": "https://api.spotify.com/v1/albums/35UJLpClj5EDrhpNIi4DFg?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2739293c743fa542094336c5e12",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e029293c743fa542094336c5e12",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048519293c743fa542094336c5e12",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:35UJLpClj5EDrhpNIi4DFg"
+      }
+    },
+    {
+      "added_at": "2026-06-02T08:02:08Z",
+      "album": {
+        "id": "5aBPeuPhodBHzP8VYGiJMI",
+        "name": "Identity",
+        "artists": [
+          {
+            "id": "5NCKpzuowtihcIrIHFjKbJ",
+            "name": "Nitin Sawhney"
+          }
+        ],
+        "release_date": "2023-10-20",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5aBPeuPhodBHzP8VYGiJMI"
+        },
+        "href": "https://api.spotify.com/v1/albums/5aBPeuPhodBHzP8VYGiJMI?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273a54bcb3d9da45f9e7bad3b73",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02a54bcb3d9da45f9e7bad3b73",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851a54bcb3d9da45f9e7bad3b73",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5aBPeuPhodBHzP8VYGiJMI"
+      }
+    },
+    {
+      "added_at": "2015-01-20T09:27:55Z",
+      "album": {
+        "id": "5bNn3KPcrlgLmhRXj4d2EX",
+        "name": "OK Computer (Collector's Edition)",
+        "artists": [
+          {
+            "id": "4Z8W4fKeB5YxbusRsdQVPb",
+            "name": "Radiohead"
+          }
+        ],
+        "release_date": "1997-06-17",
+        "total_tracks": 27,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5bNn3KPcrlgLmhRXj4d2EX"
+        },
+        "href": "https://api.spotify.com/v1/albums/5bNn3KPcrlgLmhRXj4d2EX?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27332118d6d924fbd6d8b9bdaa0",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0232118d6d924fbd6d8b9bdaa0",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485132118d6d924fbd6d8b9bdaa0",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5bNn3KPcrlgLmhRXj4d2EX"
+      }
+    },
+    {
+      "added_at": "2015-01-22T13:57:21Z",
+      "album": {
+        "id": "5BUAGz5ymsRe3FEswFtmXQ",
+        "name": "Human",
+        "artists": [
+          {
+            "id": "5NCKpzuowtihcIrIHFjKbJ",
+            "name": "Nitin Sawhney"
+          }
+        ],
+        "release_date": "2003-01-01",
+        "total_tracks": 13,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5BUAGz5ymsRe3FEswFtmXQ"
+        },
+        "href": "https://api.spotify.com/v1/albums/5BUAGz5ymsRe3FEswFtmXQ?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27333b0ec86e61f41b0c3da8a9e",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0233b0ec86e61f41b0c3da8a9e",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485133b0ec86e61f41b0c3da8a9e",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5BUAGz5ymsRe3FEswFtmXQ"
+      }
+    },
+    {
+      "added_at": "2015-01-23T10:55:42Z",
+      "album": {
+        "id": "0pWFTu1xIs6fcY4dWjrMp7",
+        "name": "I Feel Cream",
+        "artists": [
+          {
+            "id": "1gkSl4XpHIHI4I1WQbfXOE",
+            "name": "Peaches"
+          }
+        ],
+        "release_date": "2009-05-04",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0pWFTu1xIs6fcY4dWjrMp7"
+        },
+        "href": "https://api.spotify.com/v1/albums/0pWFTu1xIs6fcY4dWjrMp7?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2732d0dbfa2bc28f126593dbb44",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e022d0dbfa2bc28f126593dbb44",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048512d0dbfa2bc28f126593dbb44",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0pWFTu1xIs6fcY4dWjrMp7"
+      }
+    },
+    {
+      "added_at": "2015-02-22T21:56:03Z",
+      "album": {
+        "id": "2qw23g6GkQ361ylFusX9uU",
+        "name": "Minneapolis",
+        "artists": [
+          {
+            "id": "3zz4BITBs6xvnzw2vtQi2D",
+            "name": "Michel Portal"
+          }
+        ],
+        "release_date": "2001-01-01",
+        "total_tracks": 14,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2qw23g6GkQ361ylFusX9uU"
+        },
+        "href": "https://api.spotify.com/v1/albums/2qw23g6GkQ361ylFusX9uU?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27310ffa6c2c80f275323986993",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0210ffa6c2c80f275323986993",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485110ffa6c2c80f275323986993",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2qw23g6GkQ361ylFusX9uU"
+      }
+    },
+    {
+      "added_at": "2015-04-10T07:35:42Z",
+      "album": {
+        "id": "6IH6co1QUS7uXoyPDv0rIr",
+        "name": "Jungle",
+        "artists": [
+          {
+            "id": "59oA5WbbQvomJz2BuRG071",
+            "name": "Jungle"
+          }
+        ],
+        "release_date": "2014-07-14",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6IH6co1QUS7uXoyPDv0rIr"
+        },
+        "href": "https://api.spotify.com/v1/albums/6IH6co1QUS7uXoyPDv0rIr?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273a41a6c65f0428c84e556d396",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02a41a6c65f0428c84e556d396",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851a41a6c65f0428c84e556d396",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6IH6co1QUS7uXoyPDv0rIr"
+      }
+    },
+    {
+      "added_at": "2015-11-09T14:05:01Z",
+      "album": {
+        "id": "4DJ4aAkiEnDFuGCmJNZDGz",
+        "name": "Let It Glow",
+        "artists": [
+          {
+            "id": "0kPQnkxRCKloZQfgXfrqQO",
+            "name": "Rover"
+          }
+        ],
+        "release_date": "2015-11-06",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4DJ4aAkiEnDFuGCmJNZDGz"
+        },
+        "href": "https://api.spotify.com/v1/albums/4DJ4aAkiEnDFuGCmJNZDGz?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273a46109f890723cf0cb3672e1",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02a46109f890723cf0cb3672e1",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851a46109f890723cf0cb3672e1",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:4DJ4aAkiEnDFuGCmJNZDGz"
+      }
+    },
+    {
+      "added_at": "2015-08-12T08:53:05Z",
+      "album": {
+        "id": "5Ukc6kTFxraBCMGY686oZs",
+        "name": "Sho-Bro",
+        "artists": [
+          {
+            "id": "6vgw0jwJkUnW2NR1rzsQU3",
+            "name": "Chinese Man"
+          }
+        ],
+        "release_date": "2015-03-30",
+        "total_tracks": 7,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5Ukc6kTFxraBCMGY686oZs"
+        },
+        "href": "https://api.spotify.com/v1/albums/5Ukc6kTFxraBCMGY686oZs?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27392a0d245d894511433b43e21",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0292a0d245d894511433b43e21",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485192a0d245d894511433b43e21",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5Ukc6kTFxraBCMGY686oZs"
+      }
+    },
+    {
+      "added_at": "2017-07-26T15:46:26Z",
+      "album": {
+        "id": "64KgJASKLgpYQVbYc6kcZj",
+        "name": "IV",
+        "artists": [
+          {
+            "id": "1sO9ntLAQIxk8zkqrAubuu",
+            "name": "Arman Méliès"
+          }
+        ],
+        "release_date": "2013-03-25",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/64KgJASKLgpYQVbYc6kcZj"
+        },
+        "href": "https://api.spotify.com/v1/albums/64KgJASKLgpYQVbYc6kcZj?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27387334d292177b8466fd371e7",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0287334d292177b8466fd371e7",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485187334d292177b8466fd371e7",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:64KgJASKLgpYQVbYc6kcZj"
+      }
+    },
+    {
+      "added_at": "2016-07-04T09:13:13Z",
+      "album": {
+        "id": "6b7Br97xuon3xXlvElFBts",
+        "name": "Songs for the Old Man",
+        "artists": [
+          {
+            "id": "2A8lfnul2PK2wGs1Rgsb95",
+            "name": "Yom"
+          }
+        ],
+        "release_date": "2016-04-15",
+        "total_tracks": 9,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6b7Br97xuon3xXlvElFBts"
+        },
+        "href": "https://api.spotify.com/v1/albums/6b7Br97xuon3xXlvElFBts?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2730d694cceb3773768d98eee47",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e020d694cceb3773768d98eee47",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048510d694cceb3773768d98eee47",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6b7Br97xuon3xXlvElFBts"
+      }
+    },
+    {
+      "added_at": "2021-02-26T13:15:20Z",
+      "album": {
+        "id": "61GRfl8jI5rOy9kEnq1eOi",
+        "name": "Sergeï",
+        "artists": [
+          {
+            "id": "0XmzWk0NILMJsOZlDgaSCP",
+            "name": "Lucie Antunes"
+          }
+        ],
+        "release_date": "2019-10-04",
+        "total_tracks": 7,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/61GRfl8jI5rOy9kEnq1eOi"
+        },
+        "href": "https://api.spotify.com/v1/albums/61GRfl8jI5rOy9kEnq1eOi?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273d73e5760fbc74a455dd42a7b",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02d73e5760fbc74a455dd42a7b",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851d73e5760fbc74a455dd42a7b",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:61GRfl8jI5rOy9kEnq1eOi"
+      }
+    },
+    {
+      "added_at": "2020-08-17T07:40:21Z",
+      "album": {
+        "id": "65t3CYOnQXMfKljVInWFpz",
+        "name": "Obsolete",
+        "artists": [
+          {
+            "id": "2OIJq28O1lXrZ2x3NGSk8P",
+            "name": "Pablo Nouvelle"
+          }
+        ],
+        "release_date": "2020-04-02",
+        "total_tracks": 7,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/65t3CYOnQXMfKljVInWFpz"
+        },
+        "href": "https://api.spotify.com/v1/albums/65t3CYOnQXMfKljVInWFpz?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273aae0a621e8019f5b7905b298",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02aae0a621e8019f5b7905b298",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851aae0a621e8019f5b7905b298",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:65t3CYOnQXMfKljVInWFpz"
+      }
+    },
+    {
+      "added_at": "2019-08-06T09:19:14Z",
+      "album": {
+        "id": "2EkudNdH4hBA7rS21hd5mB",
+        "name": "Scorpio Rising",
+        "artists": [
+          {
+            "id": "5aj3LEYRbuaabjjHkj5oE1",
+            "name": "Death In Vegas"
+          }
+        ],
+        "release_date": "2003",
+        "total_tracks": 25,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2EkudNdH4hBA7rS21hd5mB"
+        },
+        "href": "https://api.spotify.com/v1/albums/2EkudNdH4hBA7rS21hd5mB?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273ed8b46b40518858bd1a3929a",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02ed8b46b40518858bd1a3929a",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851ed8b46b40518858bd1a3929a",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2EkudNdH4hBA7rS21hd5mB"
+      }
+    },
+    {
+      "added_at": "2026-02-03T09:32:28Z",
+      "album": {
+        "id": "0veljMeOyCBKktSQFF28d8",
+        "name": "Freequation",
+        "artists": [
+          {
+            "id": "2XhkFDEyxeqjEOfPw6BIDu",
+            "name": "Oxy"
+          }
+        ],
+        "release_date": "2024-01-12",
+        "total_tracks": 6,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0veljMeOyCBKktSQFF28d8"
+        },
+        "href": "https://api.spotify.com/v1/albums/0veljMeOyCBKktSQFF28d8?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2735eee677679a0437271ef33d5",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e025eee677679a0437271ef33d5",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048515eee677679a0437271ef33d5",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0veljMeOyCBKktSQFF28d8"
+      }
+    },
+    {
+      "added_at": "2026-05-04T13:38:28Z",
+      "album": {
+        "id": "34b2JCGkaXuPeYZk1FB4SR",
+        "name": "MOVIE",
+        "artists": [
+          {
+            "id": "4RB2EEsmLhQTOSVQQpDzNg",
+            "name": "Sofiane Pamart"
+          }
+        ],
+        "release_date": "2026-04-17",
+        "total_tracks": 20,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/34b2JCGkaXuPeYZk1FB4SR"
+        },
+        "href": "https://api.spotify.com/v1/albums/34b2JCGkaXuPeYZk1FB4SR?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2738c3354f98ab271c8b14b62e4",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e028c3354f98ab271c8b14b62e4",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048518c3354f98ab271c8b14b62e4",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:34b2JCGkaXuPeYZk1FB4SR"
+      }
+    },
     {
       "added_at": "2025-11-07T07:56:54Z",
       "album": {
@@ -111,43 +703,6 @@
           }
         ],
         "uri": "spotify:album:2FJj7NVoRCAwjFus0O1BXd"
-      }
-    },
-    {
-      "added_at": "2026-05-04T13:38:28Z",
-      "album": {
-        "id": "34b2JCGkaXuPeYZk1FB4SR",
-        "name": "MOVIE",
-        "artists": [
-          {
-            "id": "4RB2EEsmLhQTOSVQQpDzNg",
-            "name": "Sofiane Pamart"
-          }
-        ],
-        "release_date": "2026-04-17",
-        "total_tracks": 20,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/34b2JCGkaXuPeYZk1FB4SR"
-        },
-        "href": "https://api.spotify.com/v1/albums/34b2JCGkaXuPeYZk1FB4SR?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2738c3354f98ab271c8b14b62e4",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e028c3354f98ab271c8b14b62e4",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048518c3354f98ab271c8b14b62e4",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:34b2JCGkaXuPeYZk1FB4SR"
       }
     },
     {
@@ -1187,43 +1742,6 @@
       }
     },
     {
-      "added_at": "2026-02-01T15:28:53Z",
-      "album": {
-        "id": "3Zb3okc6fG3IgrKgdzZhmj",
-        "name": "Misplaced",
-        "artists": [
-          {
-            "id": "2XhkFDEyxeqjEOfPw6BIDu",
-            "name": "Oxy"
-          }
-        ],
-        "release_date": "2024-11-08",
-        "total_tracks": 6,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3Zb3okc6fG3IgrKgdzZhmj"
-        },
-        "href": "https://api.spotify.com/v1/albums/3Zb3okc6fG3IgrKgdzZhmj?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27329d06855a6e09cfdc555c24a",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0229d06855a6e09cfdc555c24a",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485129d06855a6e09cfdc555c24a",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3Zb3okc6fG3IgrKgdzZhmj"
-      }
-    },
-    {
       "added_at": "2026-03-09T08:08:09Z",
       "album": {
         "id": "2MHUaRi9OCyTN02SoyRRBJ",
@@ -1261,40 +1779,40 @@
       }
     },
     {
-      "added_at": "2026-02-03T09:32:28Z",
+      "added_at": "2026-02-01T15:28:53Z",
       "album": {
-        "id": "0veljMeOyCBKktSQFF28d8",
-        "name": "Freequation",
+        "id": "3Zb3okc6fG3IgrKgdzZhmj",
+        "name": "Misplaced",
         "artists": [
           {
             "id": "2XhkFDEyxeqjEOfPw6BIDu",
             "name": "Oxy"
           }
         ],
-        "release_date": "2024-01-12",
+        "release_date": "2024-11-08",
         "total_tracks": 6,
         "external_urls": {
-          "spotify": "https://open.spotify.com/album/0veljMeOyCBKktSQFF28d8"
+          "spotify": "https://open.spotify.com/album/3Zb3okc6fG3IgrKgdzZhmj"
         },
-        "href": "https://api.spotify.com/v1/albums/0veljMeOyCBKktSQFF28d8?locale=*",
+        "href": "https://api.spotify.com/v1/albums/3Zb3okc6fG3IgrKgdzZhmj?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b2735eee677679a0437271ef33d5",
+            "url": "https://i.scdn.co/image/ab67616d0000b27329d06855a6e09cfdc555c24a",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e025eee677679a0437271ef33d5",
+            "url": "https://i.scdn.co/image/ab67616d00001e0229d06855a6e09cfdc555c24a",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d000048515eee677679a0437271ef33d5",
+            "url": "https://i.scdn.co/image/ab67616d0000485129d06855a6e09cfdc555c24a",
             "height": 64,
             "width": 64
           }
         ],
-        "uri": "spotify:album:0veljMeOyCBKktSQFF28d8"
+        "uri": "spotify:album:3Zb3okc6fG3IgrKgdzZhmj"
       }
     },
     {
@@ -3312,43 +3830,6 @@
       }
     },
     {
-      "added_at": "2022-12-30T14:14:36Z",
-      "album": {
-        "id": "35UJLpClj5EDrhpNIi4DFg",
-        "name": "The Bends",
-        "artists": [
-          {
-            "id": "4Z8W4fKeB5YxbusRsdQVPb",
-            "name": "Radiohead"
-          }
-        ],
-        "release_date": "1995-03-13",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/35UJLpClj5EDrhpNIi4DFg"
-        },
-        "href": "https://api.spotify.com/v1/albums/35UJLpClj5EDrhpNIi4DFg?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2739293c743fa542094336c5e12",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e029293c743fa542094336c5e12",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048519293c743fa542094336c5e12",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:35UJLpClj5EDrhpNIi4DFg"
-      }
-    },
-    {
       "added_at": "2022-12-09T08:48:05Z",
       "album": {
         "id": "0qxsfpy2VU0i4eDR9RTaAU",
@@ -5186,43 +5667,6 @@
       }
     },
     {
-      "added_at": "2021-02-26T13:15:20Z",
-      "album": {
-        "id": "61GRfl8jI5rOy9kEnq1eOi",
-        "name": "Sergeï",
-        "artists": [
-          {
-            "id": "0XmzWk0NILMJsOZlDgaSCP",
-            "name": "Lucie Antunes"
-          }
-        ],
-        "release_date": "2019-10-04",
-        "total_tracks": 7,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/61GRfl8jI5rOy9kEnq1eOi"
-        },
-        "href": "https://api.spotify.com/v1/albums/61GRfl8jI5rOy9kEnq1eOi?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273d73e5760fbc74a455dd42a7b",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02d73e5760fbc74a455dd42a7b",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851d73e5760fbc74a455dd42a7b",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:61GRfl8jI5rOy9kEnq1eOi"
-      }
-    },
-    {
       "added_at": "2021-02-12T09:17:28Z",
       "album": {
         "id": "3q5XO2WLjKRSJor8HHMcIb",
@@ -6042,43 +6486,6 @@
           }
         ],
         "uri": "spotify:album:603lut5ZFjEpJxhhRISjgI"
-      }
-    },
-    {
-      "added_at": "2020-08-17T07:40:21Z",
-      "album": {
-        "id": "65t3CYOnQXMfKljVInWFpz",
-        "name": "Obsolete",
-        "artists": [
-          {
-            "id": "2OIJq28O1lXrZ2x3NGSk8P",
-            "name": "Pablo Nouvelle"
-          }
-        ],
-        "release_date": "2020-04-02",
-        "total_tracks": 7,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/65t3CYOnQXMfKljVInWFpz"
-        },
-        "href": "https://api.spotify.com/v1/albums/65t3CYOnQXMfKljVInWFpz?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273aae0a621e8019f5b7905b298",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02aae0a621e8019f5b7905b298",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851aae0a621e8019f5b7905b298",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:65t3CYOnQXMfKljVInWFpz"
       }
     },
     {
@@ -7818,43 +8225,6 @@
           }
         ],
         "uri": "spotify:album:4K5E5mWQbECn9aThu6Xnkx"
-      }
-    },
-    {
-      "added_at": "2019-08-06T09:19:14Z",
-      "album": {
-        "id": "2EkudNdH4hBA7rS21hd5mB",
-        "name": "Scorpio Rising",
-        "artists": [
-          {
-            "id": "5aj3LEYRbuaabjjHkj5oE1",
-            "name": "Death In Vegas"
-          }
-        ],
-        "release_date": "2003",
-        "total_tracks": 25,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/2EkudNdH4hBA7rS21hd5mB"
-        },
-        "href": "https://api.spotify.com/v1/albums/2EkudNdH4hBA7rS21hd5mB?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273ed8b46b40518858bd1a3929a",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02ed8b46b40518858bd1a3929a",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851ed8b46b40518858bd1a3929a",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:2EkudNdH4hBA7rS21hd5mB"
       }
     },
     {
@@ -11294,43 +11664,6 @@
       }
     },
     {
-      "added_at": "2017-07-26T15:46:26Z",
-      "album": {
-        "id": "64KgJASKLgpYQVbYc6kcZj",
-        "name": "IV",
-        "artists": [
-          {
-            "id": "1sO9ntLAQIxk8zkqrAubuu",
-            "name": "Arman Méliès"
-          }
-        ],
-        "release_date": "2013-03-25",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/64KgJASKLgpYQVbYc6kcZj"
-        },
-        "href": "https://api.spotify.com/v1/albums/64KgJASKLgpYQVbYc6kcZj?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27387334d292177b8466fd371e7",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0287334d292177b8466fd371e7",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485187334d292177b8466fd371e7",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:64KgJASKLgpYQVbYc6kcZj"
-      }
-    },
-    {
       "added_at": "2017-07-21T16:03:12Z",
       "album": {
         "id": "74VmDpx1yWY5sOYA1KkWmZ",
@@ -13596,43 +13929,6 @@
       }
     },
     {
-      "added_at": "2016-07-04T09:13:13Z",
-      "album": {
-        "id": "6b7Br97xuon3xXlvElFBts",
-        "name": "Songs for the Old Man",
-        "artists": [
-          {
-            "id": "2A8lfnul2PK2wGs1Rgsb95",
-            "name": "Yom"
-          }
-        ],
-        "release_date": "2016-04-15",
-        "total_tracks": 9,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6b7Br97xuon3xXlvElFBts"
-        },
-        "href": "https://api.spotify.com/v1/albums/6b7Br97xuon3xXlvElFBts?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2730d694cceb3773768d98eee47",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e020d694cceb3773768d98eee47",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048510d694cceb3773768d98eee47",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6b7Br97xuon3xXlvElFBts"
-      }
-    },
-    {
       "added_at": "2016-07-03T16:28:26Z",
       "album": {
         "id": "4QEJmA3Lt3xfPqO12NEZ87",
@@ -15113,43 +15409,6 @@
       }
     },
     {
-      "added_at": "2015-11-09T14:05:01Z",
-      "album": {
-        "id": "4DJ4aAkiEnDFuGCmJNZDGz",
-        "name": "Let It Glow",
-        "artists": [
-          {
-            "id": "0kPQnkxRCKloZQfgXfrqQO",
-            "name": "Rover"
-          }
-        ],
-        "release_date": "2015-11-06",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/4DJ4aAkiEnDFuGCmJNZDGz"
-        },
-        "href": "https://api.spotify.com/v1/albums/4DJ4aAkiEnDFuGCmJNZDGz?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273a46109f890723cf0cb3672e1",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02a46109f890723cf0cb3672e1",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851a46109f890723cf0cb3672e1",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:4DJ4aAkiEnDFuGCmJNZDGz"
-      }
-    },
-    {
       "added_at": "2015-11-09T08:26:47Z",
       "album": {
         "id": "72I0o81JMGAbL80yVF5dP9",
@@ -15924,43 +16183,6 @@
           }
         ],
         "uri": "spotify:album:24E6rDvGDuYFjlGewp4ntF"
-      }
-    },
-    {
-      "added_at": "2015-08-12T08:53:05Z",
-      "album": {
-        "id": "5Ukc6kTFxraBCMGY686oZs",
-        "name": "Sho-Bro",
-        "artists": [
-          {
-            "id": "6vgw0jwJkUnW2NR1rzsQU3",
-            "name": "Chinese Man"
-          }
-        ],
-        "release_date": "2015-03-30",
-        "total_tracks": 7,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5Ukc6kTFxraBCMGY686oZs"
-        },
-        "href": "https://api.spotify.com/v1/albums/5Ukc6kTFxraBCMGY686oZs?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27392a0d245d894511433b43e21",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0292a0d245d894511433b43e21",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485192a0d245d894511433b43e21",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5Ukc6kTFxraBCMGY686oZs"
       }
     },
     {
@@ -17296,43 +17518,6 @@
       }
     },
     {
-      "added_at": "2015-04-10T07:35:42Z",
-      "album": {
-        "id": "6IH6co1QUS7uXoyPDv0rIr",
-        "name": "Jungle",
-        "artists": [
-          {
-            "id": "59oA5WbbQvomJz2BuRG071",
-            "name": "Jungle"
-          }
-        ],
-        "release_date": "2014-07-14",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6IH6co1QUS7uXoyPDv0rIr"
-        },
-        "href": "https://api.spotify.com/v1/albums/6IH6co1QUS7uXoyPDv0rIr?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273a41a6c65f0428c84e556d396",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02a41a6c65f0428c84e556d396",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851a41a6c65f0428c84e556d396",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6IH6co1QUS7uXoyPDv0rIr"
-      }
-    },
-    {
       "added_at": "2015-04-09T15:39:22Z",
       "album": {
         "id": "3rYLFM6dxYs40W8VCBAHPp",
@@ -17814,43 +17999,6 @@
       }
     },
     {
-      "added_at": "2015-02-22T21:56:03Z",
-      "album": {
-        "id": "2qw23g6GkQ361ylFusX9uU",
-        "name": "Minneapolis",
-        "artists": [
-          {
-            "id": "3zz4BITBs6xvnzw2vtQi2D",
-            "name": "Michel Portal"
-          }
-        ],
-        "release_date": "2001-01-01",
-        "total_tracks": 14,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/2qw23g6GkQ361ylFusX9uU"
-        },
-        "href": "https://api.spotify.com/v1/albums/2qw23g6GkQ361ylFusX9uU?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27310ffa6c2c80f275323986993",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0210ffa6c2c80f275323986993",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485110ffa6c2c80f275323986993",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:2qw23g6GkQ361ylFusX9uU"
-      }
-    },
-    {
       "added_at": "2015-02-22T21:55:00Z",
       "album": {
         "id": "07Fr36M0hRPJrSJMFWGnvD",
@@ -18110,80 +18258,6 @@
       }
     },
     {
-      "added_at": "2015-01-23T10:55:42Z",
-      "album": {
-        "id": "0pWFTu1xIs6fcY4dWjrMp7",
-        "name": "I Feel Cream",
-        "artists": [
-          {
-            "id": "1gkSl4XpHIHI4I1WQbfXOE",
-            "name": "Peaches"
-          }
-        ],
-        "release_date": "2009-05-04",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0pWFTu1xIs6fcY4dWjrMp7"
-        },
-        "href": "https://api.spotify.com/v1/albums/0pWFTu1xIs6fcY4dWjrMp7?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2732d0dbfa2bc28f126593dbb44",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e022d0dbfa2bc28f126593dbb44",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048512d0dbfa2bc28f126593dbb44",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0pWFTu1xIs6fcY4dWjrMp7"
-      }
-    },
-    {
-      "added_at": "2015-01-22T13:57:21Z",
-      "album": {
-        "id": "5BUAGz5ymsRe3FEswFtmXQ",
-        "name": "Human",
-        "artists": [
-          {
-            "id": "5NCKpzuowtihcIrIHFjKbJ",
-            "name": "Nitin Sawhney"
-          }
-        ],
-        "release_date": "2003-01-01",
-        "total_tracks": 13,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5BUAGz5ymsRe3FEswFtmXQ"
-        },
-        "href": "https://api.spotify.com/v1/albums/5BUAGz5ymsRe3FEswFtmXQ?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27333b0ec86e61f41b0c3da8a9e",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0233b0ec86e61f41b0c3da8a9e",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485133b0ec86e61f41b0c3da8a9e",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5BUAGz5ymsRe3FEswFtmXQ"
-      }
-    },
-    {
       "added_at": "2015-01-21T13:17:47Z",
       "album": {
         "id": "5xsOgTp8jHugOGwtWc50xu",
@@ -18255,43 +18329,6 @@
           }
         ],
         "uri": "spotify:album:2fBG8Mvo5rHPxuYpQ8Drrz"
-      }
-    },
-    {
-      "added_at": "2015-01-20T09:27:55Z",
-      "album": {
-        "id": "5bNn3KPcrlgLmhRXj4d2EX",
-        "name": "OK Computer (Collector's Edition)",
-        "artists": [
-          {
-            "id": "4Z8W4fKeB5YxbusRsdQVPb",
-            "name": "Radiohead"
-          }
-        ],
-        "release_date": "1997-06-17",
-        "total_tracks": 27,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5bNn3KPcrlgLmhRXj4d2EX"
-        },
-        "href": "https://api.spotify.com/v1/albums/5bNn3KPcrlgLmhRXj4d2EX?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27332118d6d924fbd6d8b9bdaa0",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0232118d6d924fbd6d8b9bdaa0",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485132118d6d924fbd6d8b9bdaa0",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5bNn3KPcrlgLmhRXj4d2EX"
       }
     },
     {
@@ -22387,7 +22424,7 @@
             "name": "Air"
           }
         ],
-        "release_date": "2001-05-28",
+        "release_date": "2001-05-29",
         "total_tracks": 11,
         "external_urls": {
           "spotify": "https://open.spotify.com/album/2WNI378JH55k63eXBHbjbI"
