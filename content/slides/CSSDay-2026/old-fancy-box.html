@@ -4,7 +4,8 @@ title: A fancy box in 2000
 ---
 
 <style>
-  html, body {
+  html,
+  body {
     height: 100%;
     margin: 0;
     overflow: hidden;
@@ -18,10 +19,12 @@ title: A fancy box in 2000
 
   .box {
     --border: 1vmin solid #0f2b2c;
-    --back: #2b7072;
-    color: white;
+    --back-1: #109498;
+    --back-2: #0ea8ae;
+    --back-3: #977ada;
+    --back-4: #e097fc;
 
-    width: 90vmin;
+    color: white;
     aspect-ratio: 16 / 9;
 
     font-family: system-ui, sans-serif;
@@ -31,138 +34,115 @@ title: A fancy box in 2000
     display: grid;
     grid-template-columns: 10vmin 1fr 10vmin;
     grid-template-rows: 10vmin 1fr 10vmin;
+    grid-template-areas:
+      "tl tc tr"
+      "ml mc mr"
+      "bl bc br";
+    gap: 0;
+    transition: gap 0.2s ease;
 
-    div div {
-      background: var(--back);
+    &>div {
       border: var(--border);
-      transition: transform .3s ease;
     }
 
-    .top, .middle, .bottom {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: subgrid;
+    .top-left,
+    .top-center,
+    .top-right {
+      background: linear-gradient(to bottom, var(--back-1), var(--back-2));
     }
 
-    .top {
-      .left {
-        border-radius: 100% 0 0 0;
-        border-width: 1vmin 0 0 1vmin;
-      }
-
-      .center {
-        border-width: 1vmin 0 0
-      }
-
-      .right {
-        border-radius: 0 100% 0 0;
-        border-width: 1vmin 1vmin 0 0;
-      }
-    }
-    
-    .middle {
-      .left {
-        border-width: 0 0 0 1vmin;
-      }
-
-      .center {
-        border-width: 0;
-        align-content: center;
-      }
-
-      .right {
-        border-width: 0 1vmin 0 0;
-      }
+    .top-left {
+      border-radius: 100% 0 0 0;
+      border-width: 1vmin 0 0 1vmin;
+      grid-area: tl;
     }
 
-    .bottom {
-      .left {
-        border-radius: 0 0 0 100%;
-        border-width: 0 0 1vmin 1vmin;
-      }
+    .top-center {
+      border-width: 1vmin 0 0;
+      grid-area: tc;
+    }
 
-      .center {
-        border-width: 0 0 1vmin;
-      }
+    .top-right {
+      border-radius: 0 100% 0 0;
+      border-width: 1vmin 1vmin 0 0;
+      grid-area: tr;
+    }
 
-      .right {
-        border-radius: 0 0 100% 0;
-        border-width: 0 1vmin 1vmin 0;
-      }
+    .middle-left,
+    .middle-center,
+    .middle-right {
+      background: linear-gradient(to bottom, var(--back-2), var(--back-3));
+    }
+
+    .middle-left {
+      border-width: 0 0 0 1vmin;
+      grid-area: ml;
+    }
+
+    .middle-center {
+      border-width: 0;
+      align-content: center;
+      grid-area: mc;
+    }
+
+    .middle-right {
+      border-width: 0 1vmin 0 0;
+      grid-area: mr;
+    }
+
+    .bottom-left,
+    .bottom-center,
+    .bottom-right {
+      background: linear-gradient(to bottom, var(--back-3), var(--back-4));
+    }
+
+    .bottom-left {
+      border-radius: 0 0 0 100%;
+      border-width: 0 0 1vmin 1vmin;
+      grid-area: bl;
+    }
+
+    .bottom-center {
+      border-width: 0 0 1vmin;
+      grid-area: bc;
+    }
+
+    .bottom-right {
+      border-radius: 0 0 100% 0;
+      border-width: 0 1vmin 1vmin 0;
+      grid-area: br;
     }
 
     &:hover {
-      .top {
-        .left {
-          transform: translate(-4vmin, -4vmin);
-        }
-
-        .center {
-          transform: translateY(-4vmin);
-        }
-
-        .right {
-          transform: translate(4vmin, -4vmin);
-        }
-      }
-
-      .middle {
-        .left {
-          transform: translateX(-4vmin);
-        }
-
-        .right {
-          transform: translateX(4vmin);
-        }
-      }
-
-      .bottom {
-        .left {
-          transform: translate(-4vmin, 4vmin);
-        }
-
-        .center {
-          transform: translateY(4vmin);
-        }
-
-        .right {
-          transform: translate(4vmin, 4vmin);
-        }
-      }
+      gap: 3vmin;
+      rule: .5vmin dashed #778283;
+      rule-inset: -5vmin;
     }
   }
 </style>
 
 <div class="box">
-  <div class="top">
-    <div class="left"></div>
-    <div class="center"></div>
-    <div class="right"></div>
-  </div>
-  <div class="middle">
-    <div class="left"></div>
-    <div class="center">
-      I am a fancy box!
-    </div>
-    <div class="right"></div>
-  </div>
-  <div class="bottom">
-    <div class="left"></div>
-    <div class="center"></div>
-    <div class="right"></div>
-  </div>
+  <div class="top-left"></div>
+  <div class="top-center"></div>
+  <div class="top-right"></div>
+  <div class="middle-left"></div>
+  <div class="middle-center">I'm a fancy box!</div>
+  <div class="middle-right"></div>
+  <div class="bottom-left"></div>
+  <div class="bottom-center"></div>
+  <div class="bottom-right"></div>
 </div>
 
 <aside class="notes">
-Before we do, let's take a moment to appreciate where we come from.
+  Before we do, let's take a moment to appreciate where we come from.
 
-You see, to create any part of these sites
-at the time, we needed a lot of images.
+  You see, to create any part of these sites
+  at the time, we needed a lot of images.
 
-Even just for a fancy box like this,
-we'd have to create a div with 9 children elements,
-and make custom images for each of the corners and sides,
-repeating them as needed, to create the illusion of a single box.
+  Even just for a fancy box like this,
+  we'd have to create a div with 9 children elements,
+  and make custom images for each of the corners and sides,
+  repeating them as needed, to create the illusion of a single box.
 
-NOTE: hover over the box.
+  NOTE: hover over the box.
 </aside>

@@ -1,0 +1,231 @@
+---
+layout: css-day-slides.njk
+title: "Amsterdam"
+---
+
+<style>
+  body {
+    background: #eae4da;
+    color: #272624;
+    font-size: 1rem;
+    font-family: georgia, serif;
+    margin: 2rem;
+  }
+
+  main {
+    display: grid-lanes;
+    grid-template-columns: repeat(auto-fit, minmax(4em, 1fr));
+    gap: .5rem;
+    flow-tolerance: 11em;
+  }
+
+  main > * {
+    grid-column: span 3;
+    rotate: calc(sin((sibling-index() - 1) * 90deg - 90deg) * 2deg);
+  }
+
+  .medium {
+    grid-column: span 4;
+  }
+
+  .wide {
+    grid-column: span 5;
+  }
+
+  h1, h2, p {
+    font-weight: normal;
+    margin: 0;
+  }
+
+  h1 {
+    margin-block-end: 2em;
+    font-size: .9em;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+  }
+
+  figure {
+    background: #eee9e2;
+    margin: 0;
+    padding: .5em;
+    border-radius: .5em;
+    box-shadow: 0 1em 1.4em 0em #0002;
+    
+    img {
+      inline-size: 100%;
+      display: block;
+      border-radius: .25em;
+      overflow: hidden;
+    }
+
+    figcaption {
+      margin-block-start: .5em;
+      margin-inline-start: 1em;
+      font-style: italic;
+      font-size: .9em;
+      color: #625e5b;
+    }
+  }
+  
+  article {
+    background-color: #ede6dc;
+    border-radius: .5em;
+    box-shadow: 0 1em 1.4em 0em #0002;
+    padding: 1em;
+    min-block-size: 15em;
+    align-content: center;
+
+    p {
+      font-size: .85em;
+      line-height: 1.7;
+      margin-block-start: 1em;
+      padding-block-start: 1em;
+      background: linear-gradient(to bottom, #b5895c, #b5895c);
+      background-position: top left;
+      background-repeat: no-repeat;
+      background-size: 4em 2px;
+    }
+  }
+</style>
+
+<h1>Amsterdam diary</h1>
+
+<main>
+  <figure class="medium">
+    <img src="/slides/CSSDay-2026/amsterdam/am13.jpg" alt="Passing by.">
+    <figcaption>Passing by.</figcaption>
+  </figure>
+
+  <article>
+    <h2>Cutting corners</h2>
+    <p>Seriously, be careful out there! Bikes will <em>not</em> stop for you, or slow down. They'll just keep going. Rules are different here, bikes are almighty. I mean, you've made it to the church, right? So, you know.</p>
+  </article>
+
+  <figure class="medium">
+    <img src="/slides/CSSDay-2026/amsterdam/am1.jpg" alt="The Amsterdam tracks.">
+    <figcaption>The Amsterdam tracks.</figcaption>
+  </figure>
+
+  <article>
+    <h2>Late nights</h2>
+    <p>Jake had a slide in his talk yesterday with placeholder text that was hilarious. You were not supposed to read
+      it. But I did, and had a good laugh. Thanks Jake!</p>
+  </article>
+
+  <figure class="medium">
+    <img src="/slides/CSSDay-2026/amsterdam/am2.jpg" alt="Black and white street curb, with someone walking.">
+    <figcaption>Black and white street curb, with someone walking.</figcaption>
+  </figure>
+
+  <article class="medium">
+    <h2>Little details</h2>
+    <p>Seriously, why would you read this. Jake's thing was way better than this one, and I'm totally just stealing his joke at this point.</p>
+  </article>
+
+  <figure class="medium">
+    <img src="/slides/CSSDay-2026/amsterdam/am3.jpg" alt="Flowers at the Estherea hotel.">
+    <figcaption>Flowers at the Estherea hotel.</figcaption>
+  </figure>
+
+  <article class="medium">
+    <h2>Inspiration</h2>
+    <p>Maximalist, old-world, canal-house grandma... except your grandma is secretly a glamorous aristocrat with a glitter addiction.</p>
+  </article>
+
+  <figure class="wide">
+    <img src="/slides/CSSDay-2026/amsterdam/am4.jpg" alt="Bikes, bikes, and more bikes.">
+    <figcaption>Bikes, bikes, and more bikes.</figcaption>
+  </figure>
+
+  <article class="">
+    <h2>Biking much?</h2>
+    <p>Park your bike, come back two minutes later, and it's now a 400-bike abstract sculpture. Is this one even mine? Looking for more? Just go fishing in the canals.</p>
+  </article>
+
+  <figure class="wide">
+    <img src="/slides/CSSDay-2026/amsterdam/am5.jpg" alt="The face statue fountain.">
+    <figcaption>The face statue fountain.</figcaption>
+  </figure>
+
+  <article>
+    <h2>Fountain diplomacy</h2>
+    <p>The statue was giving strong administrative energy, like it had just approved a permit for one very dramatic splash and then immediately needed a lunch break.</p>
+  </article>
+
+  <figure class="medium">
+    <img src="/slides/CSSDay-2026/amsterdam/am7.jpg" alt="The lonely Coke bottle.">
+    <figcaption>The lonely Coke bottle.</figcaption>
+  </figure>
+
+  <article class="medium">
+    <h2>Carbonated loneliness</h2>
+    <p>That bottle has the exact posture of someone waiting for a tram that only exists in the imagination of a pigeon.</p>
+  </article>
+
+  <figure class="wide">
+    <img src="/slides/CSSDay-2026/amsterdam/am8.jpg" alt="Chemtrails?">
+    <figcaption>Chemtrails?</figcaption>
+  </figure>
+
+  <article>
+    <h2>Sky paperwork</h2>
+    <p>Those lines overhead are clearly a memo from the clouds, written in a language that only damp bread can fully understand.</p>
+  </article>
+
+  <figure class="medium">
+    <img src="/slides/CSSDay-2026/amsterdam/am10.jpg" alt="Under the bridge. We've all been there.">
+    <figcaption>Under the bridge. We've all been there.</figcaption>
+  </figure>
+
+  <article class="wide">
+    <h2>Underpass philosophy</h2>
+    <p>Being under a bridge is just nature's way of saying, please pause here and reconsider your entire relationship with geometry.</p>
+  </article>
+
+  <figure class="medium">
+    <img src="/slides/CSSDay-2026/amsterdam/am11.jpg" alt="Man, where are the cars?">
+    <figcaption>Man, where are the cars?</figcaption>
+  </figure>
+
+  <article class="medium">
+    <h2>Vehicle migration</h2>
+    <p>There are no cars because they have all gone to a secret meeting about how to look important while standing still.</p>
+  </article>
+
+  <figure class="wide">
+    <img src="/slides/CSSDay-2026/amsterdam/am12.jpg" alt="And the sun sets here too.">
+    <figcaption>And the sun sets here too.</figcaption>
+  </figure>
+
+  <article>
+    <h2>Evening calibration</h2>
+    <p>The sun here does not set so much as file a final report, nod politely, and exit through the most photogenic door available.</p>
+  </article>
+
+  <figure class="medium">
+    <img src="/slides/CSSDay-2026/amsterdam/am15.jpg" alt="The church and the light.">
+    <figcaption>The church and the light.</figcaption>
+  </figure>
+
+  <article class="medium">
+    <h2>Church of photons</h2>
+    <p>That light is doing cathedral work. It arrived early, adjusted the mood, and then refused to explain its methods.</p>
+  </article>
+
+  <figure class="wide">
+    <img src="/slides/CSSDay-2026/amsterdam/am18.jpg" alt="Who loves a good sticker?">
+    <figcaption>Who loves a good sticker?</figcaption>
+  </figure>
+
+  <article class="medium">
+    <h2>All the stickers</h2>
+    <p>Seriously what's up with the stickers?!</p>
+  </article>
+</main>
+
+<aside class="notes">
+  Grid Lanes doesn't always have to look like masonry.
+  Again, it's great at occupying space, and you can put this to your advantage
+  to create something something a little more unstructured, less rigid than a grid,
+  more like something you'd actually create yourself, in real life.
+</aside>

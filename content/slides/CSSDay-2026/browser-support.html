@@ -30,9 +30,9 @@ title: Masonry browser support
   li {
     --icon: url(/slides/CSSDay-2026/icons/edge.svg);
     padding-inline-start: 5vmin;
-    background: var(--icon), radial-gradient(circle, white 1.6vmin, transparent 1.7vmin);
+    background: var(--icon);
     background-size: 3vmin 3vmin, 4vmin;
-    background-position: 0.4vmin center, left center;
+    background-position: 0 2vmin;
     background-repeat: no-repeat;
     line-height: 1.6;
   }
@@ -49,7 +49,8 @@ title: Masonry browser support
     --icon: url(/slides/CSSDay-2026/icons/firefox.svg);
   }
 
-  a, code {
+  a,
+  code {
     background: #fff3;
     padding: .25vmin 1vmin;
     border-radius: .5vmin;
@@ -62,16 +63,19 @@ title: Masonry browser support
 <ul>
   <li class="safari"><strong>Safari</strong> → Shipped in March, with 26.4</li>
   <li class="edge"><strong>Edge</strong> → Behind flag <code>#css-grid-lanes-layout</code> at
-    <code>about://flags</code></li>
+    <code>about://flags</code>
+  </li>
   <li class="chrome"><strong>Chrome</strong> → Behind flag <code>#css-grid-lanes-layout</code> at
-    <code>about://flags</code></li>
-  <li class="firefox"><strong>Firefox</strong> → First ever prototype, years ago. Follow at <a href="https://bugzil.la/grid-lanes">bugzil.la/grid-lanes</a></li>
+    <code>about://flags</code>
+  </li>
+  <li class="firefox"><strong>Firefox</strong> → First ever prototype, years ago. Follow at <a
+      href="https://bugzil.la/grid-lanes">bugzil.la/grid-lanes</a></li>
 </ul>
 
 <aside class="notes">
 First, where can you use this?
 
-Pretty much everwhere, but with caveats:
+Pretty much everywhere, but with caveats:
 
 Safari has shipped it back in March.
 

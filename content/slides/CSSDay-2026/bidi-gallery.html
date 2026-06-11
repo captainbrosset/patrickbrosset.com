@@ -4,10 +4,15 @@ title: "Bi-directional gallery"
 ---
 
 <style>
+  :root {
+    view-transition-name: none;
+    overflow-x: hidden;
+  }
+
   body {
     font-family: system-ui;
     display: grid;
-    grid-template-rows: 100vh 7.7vw 100vh;
+    grid-template-rows: 90vh 7.7vw 90vh;
     max-inline-size: 80vw;
     margin: 2rem auto;
     padding: 0 2rem;
@@ -21,8 +26,15 @@ title: "Bi-directional gallery"
   }
 
   .photo {
-    outline: 1.5vmin solid white;
+    outline: .5vmin solid white;
+    outline-offset: -.5vmin;
+    cursor: pointer;
+    view-transition-class: gallery-photo;
+  }
+
+  .photo:hover {
     outline-offset: -1.5vmin;
+    outline-width: 1.5vmin;
   }
 
   .photos.bottom-up {
@@ -39,6 +51,10 @@ title: "Bi-directional gallery"
     display: block;
   }
 
+  .lightbox-open .photos .photo {
+    opacity: .1;
+  }
+
   h1 {
     margin: 0;
     text-fit: grow;
@@ -49,7 +65,57 @@ title: "Bi-directional gallery"
     color: white;
     font-family: arial black;
   }
+
+  .lightbpox-open h1 {
+    opacity: 0;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .lightbox::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / .72);
+  }
+
+  .lightbox-image {
+    block-size: 86vh;
+  }
+
+  .lightbox-open .lightbox {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  ::view-transition-group(highlighted) {
+    animation-duration: 200ms;
+    animation-timing-function: ease-in-out;
+  }
+
+  ::view-transition-old(highlighted),
+  ::view-transition-new(highlighted) {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  ::view-transition-group(.gallery-photo) {
+    animation-duration: 150ms;
+    animation-timing-function: ease-in-out;
+  }
 </style>
+
+<div class="lightbox" aria-hidden="true">
+  <img class="lightbox-image" alt="">
+</div>
 
 <div class="photos bottom-up">
   <div class="photo"><img src="/slides/CSSDay-2026/seattle/seattle-10.JPG" alt="Seattle" width="667" height="1000">
@@ -85,6 +151,87 @@ title: "Bi-directional gallery"
   </div>
 </div>
 
-<aside class="notes">
+<script>
+  const lightBoxEl = document.querySelector(".lightbox");
+  const lightboxImageEl = lightBoxEl.querySelector(".lightbox-image");
+  const photos = [...document.querySelectorAll(".photo")];
+  let selectedImg = null;
 
+  photos.forEach((photo, index) => {
+    photo.style.viewTransitionName = `photo-${index}`;
+  });
+
+  function openLightbox(img) {
+    const photo = img.closest(".photo");
+    if (!photo) {
+      return;
+    }
+
+    selectedImg = img;
+    selectedImg.style.viewTransitionName = "highlighted";
+
+    document.startViewTransition({
+      update: () => {
+        document.body.classList.add("lightbox-open");
+        lightboxImageEl.src = img.src;
+        selectedImg.style.viewTransitionName = "none";
+        lightboxImageEl.style.viewTransitionName = "highlighted";
+      },
+      types: ["open"]
+    });
+  }
+
+  function closeLightbox() {
+    if (!selectedImg) {
+      return;
+    }
+
+    lightboxImageEl.style.viewTransitionName = "highlighted";
+
+    const transition = document.startViewTransition({
+      update: () => {
+        document.body.classList.remove("lightbox-open");
+        lightboxImageEl.style.viewTransitionName = "none";
+        selectedImg.style.viewTransitionName = "highlighted";
+      }, types: ["close"]
+    });
+
+    const cleanup = () => {
+      if (selectedImg) {
+        selectedImg.style.viewTransitionName = "none";
+        const selectedPhoto = selectedImg.closest(".photo");
+      }
+      lightboxImageEl.removeAttribute("src");
+      selectedImg = null;
+    };
+
+    if (transition) {
+      transition.finished.finally(cleanup);
+    } else {
+      cleanup();
+    }
+  }
+
+  addEventListener("click", e => {
+    const gridImg = e.target.closest(".photo img");
+    if (gridImg) {
+      openLightbox(gridImg);
+      return;
+    }
+
+    if (document.body.classList.contains("lightbox-open") && !e.target.closest(".lightbox-image")) {
+      closeLightbox();
+    }
+  });
+
+  addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      closeLightbox();
+    }
+  });
+</script>
+
+<aside class="notes">
+  Using both bottom up and top down grid lane filling to create two photo strips.
+  Combined with view transitions for a nice lightbox effect.
 </aside>

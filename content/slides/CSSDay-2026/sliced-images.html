@@ -1,0 +1,69 @@
+---
+layout: css-day-slides.njk
+title: Sliced images and tables
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    background: black;
+    color: white;
+    font-size: 5vw;
+    font-family: system-ui;
+  }
+  
+  body {
+    text-align: center;
+    display: grid;
+    grid-template-rows: 1fr 2fr 2fr 3fr 2fr;
+    grid-template-columns: 4fr 3fr 4fr 2fr 8fr;
+    gap: 3px;
+    rule: 3px dashed #333;
+    rule-break: none;
+
+    background-image:
+      url("/slides/CSSDay-2026/images/scissors.svg"),
+      url("/slides/CSSDay-2026/images/scissors.svg"),
+      url("/slides/CSSDay-2026/images/scissors.svg"),
+      url("/slides/CSSDay-2026/images/scissors.svg"),
+      url("/slides/CSSDay-2026/images/scissors-down.svg"),
+      url("/slides/CSSDay-2026/images/scissors-down.svg"),
+      url("/slides/CSSDay-2026/images/scissors-down.svg"),
+      url("/slides/CSSDay-2026/images/scissors-down.svg");
+    background-size: 40px;
+    background-position:
+      3vmin 8.4%,
+      3vmin 29.3%,
+      3vmin 50%,
+      3vmin 81.4%,
+      17.6% 3vmin,
+      32.7% 3vmin,
+      52.7% 3vmin,
+      62.8% 3vmin;
+    background-repeat: no-repeat;
+  }
+  
+  h1 {
+    grid-area: 1 / 1 / -1 / -1;
+    font-weight: normal;
+    padding: 4vmin;
+    text-wrap: balance;
+    align-content: center;
+  }
+</style>
+
+<h1>Images were the name of the game</h1>
+
+<aside class="notes">
+Images were the name of the game.
+
+We'd create sites in photoshop,
+slice them up in tiny little pieces,
+place everything in tables inside of tables inside of tables,
+position everything with pixel values,
+to make the end result look exactly like the initial design.
+
+It wasn't elegant, but it was all we had.
+</aside>
