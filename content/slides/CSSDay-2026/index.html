@@ -12,16 +12,14 @@ title: "Fun with grid-lanes"
   }
 
   p {
-    display: none;
-  }
-
-  p {
-    inline-size: 30vmin;
+    inline-size: 50vw;
     margin-inline: auto;
+    margin-block: 1em;
     text-fit: grow;
+    height: auto;
   }
 
-  kbd {
+  kbd, code {
     display: inline-block;
     height: auto;
     padding: 0.15em 0.5em 0.2em;
@@ -31,8 +29,11 @@ title: "Fun with grid-lanes"
     color: hsl(0 0% 20%);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 2.5vmin;
-    font-weight: 700;
     text-shadow: 0 0.04em 0 hsl(0 0% 100% / 0.8);
+  }
+
+  kbd {
+    font-weight: 700;
     box-shadow: 0 0.08em 0 hsl(0 0% 60%),
       0 0.14em 0.2em hsl(0 0% 0% / 0.2),
       inset 0 0.08em 0 hsl(0 0% 100% / 0.85);
@@ -40,6 +41,7 @@ title: "Fun with grid-lanes"
 </style>
 
 <p>Press <kbd>PageDown</kbd> to start!</p>
+<p>(Also, use a Chromium-based browser, with the <code>#enable-experimental-web-platform-features</code> and <code>#css-grid-lanes-layout</code> flags turned on)</p>
 
 <aside class="notes">
   Empty slide, press PageDown to start the presentation.
