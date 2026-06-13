@@ -17,5 +17,11 @@
   </head>
   <body>
     {{ content | safe }}
+
+    {% if notes %}
+      <aside class="notes">
+        {{ notes | safe }}
+      </aside>
+    {% endif %}
   </body>
 </html>

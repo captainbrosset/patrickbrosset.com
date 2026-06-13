@@ -1,6 +1,15 @@
 ---
 layout: css-day-slides.njk
 title: Infinite loading board
+notes: |
+  Infinite loading of content while the user scrolls works great with grid-lanes.
+
+  On this demo, I'm using an IntersectionObserver to detect when the user is getting close to the
+  end of the list, and then I add a few more items to it.
+
+  Because grid-lanes fills lanes, trying to balance them as much as possible,
+  the new items get nicely added to the end of the layout, without leaving gaps,
+  and without any JS code needed.
 ---
 
 <style>
@@ -253,14 +262,3 @@ title: Infinite loading board
 
   main();
 </script>
-
-<aside class="notes">
-Infinite loading of content while the user scrolls works great with grid-lanes.
-
-On this demo, I'm using an IntersectionObserver to detect when the user is getting close to the
-end of the list, and then I add a few more items to it.
-
-Because grid-lanes fills lanes, trying to balance them as much as possible,
-the new items get nicely added to the end of the layout, without leaving gaps,
-and without any JS code needed.
-</aside>

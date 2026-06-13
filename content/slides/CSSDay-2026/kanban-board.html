@@ -1,6 +1,25 @@
 ---
 layout: css-day-slides.njk
 title: Kanban board
+notes: |
+  This sample demonstrates specific lane placement.
+  Each item has a `grid-column` value that's set to the column it belongs to.
+
+  All I have to do when I want to move an item is change the grid-column value.
+  It's combined with view transitions to get a smooth animation for free.
+
+  - You couldn't do this with CSS grid without leaving gaps between sticky notes.
+  - You could do this with CSS multicol.
+    But for this, you'd have to make sure the items are contained in column wrapper divs,
+    and prevent fragmentation, which happens with multicolumn.
+    And then you'd have to change the order of items in the DOM when moving them between columns.
+    But you'd want to do this anyway with grid-lanes too, to make sure DOM order matches visual order.
+  - You could also do this with flexbox, also by using wrapping column divs.
+  - Finally, you could also just do this with absolute positioning, or floats.
+
+  You have choice with CSS.
+  For this simple demo, grid-lanes is a great fit because it gives us the flexibility
+  of column definition. like grid.
 ---
 
 <style>
@@ -273,24 +292,3 @@ title: Kanban board
     });
   });
 </script>
-
-<aside class="notes">
-This sample demonstrates specific lane placement.
-Each item has a `grid-column` value that's set to the column it belongs to.
-
-All I have to do when I want to move an item is change the grid-column value.
-It's combined with view transitions to get a smooth animation for free.
-
-- You couldn't do this with CSS grid without leaving gaps between sticky notes.
-- You could do this with CSS multicol.
-  But for this, you'd have to make sure the items are contained in column wrapper divs,
-  and prevent fragmentation, which happens with multicolumn.
-  And then you'd have to change the order of items in the DOM when moving them between columns.
-  But you'd want to do this anyway with grid-lanes too, to make sure DOM order matches visual order.
-- You could also do this with flexbox, also by using wrapping column divs.
-- Finally, you could also just do this with absolute positioning, or floats.
-
-You have choice with CSS.
-For this simple demo, grid-lanes is a great fit because it gives us the flexibility
-of column definition. like grid.
-</aside>

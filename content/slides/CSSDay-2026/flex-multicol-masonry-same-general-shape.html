@@ -1,6 +1,24 @@
 ---
 layout: css-day-slides.njk
 title: "Flexbox, Multicol, and Masonry: same general shape, different flow"
+notes: |
+  The same general shape can be created by using different layout types,
+  so, ultimately it all depends on how you want your items to flow through that shape.
+
+  Here is flex, multicol, and grid-lanes.
+
+  flexbox and multicol: same thing
+  you get columns with items flowing down each column one by one.
+
+  grid-lanes: a big difference in the order of elements.
+
+  Because grid-lanes is opportunistic.
+  It doesn't like to leave gaps.
+  It'll try to fill the shortest lane first.
+  And this is what gives us this criss-cross pattern.
+  Almost like rows in this case.
+
+  So, similar shapes, very different flow.
 ---
 
 <style>
@@ -113,23 +131,3 @@ title: "Flexbox, Multicol, and Masonry: same general shape, different flow"
   <div class="item"></div>
   <div class="item"></div>
 </div>
-
-<aside class="notes">
-The same general shape can be created by using different layout types,
-so, ultimately it all depends on how you want your items to flow through that shape.
-
-Here is flex, multicol, and grid-lanes.
-
-flexbox and multicol: same thing
-you get columns with items flowing down each column one by one.
-
-grid-lanes: a big difference in the order of elements.
-
-Because grid-lanes is opportunistic.
-It doesn't like to leave gaps.
-It'll try to fill the shortest lane first.
-And this is what gives us this criss-cross pattern.
-Almost like rows in this case.
-
-So, similar shapes, very different flow.
-</aside>

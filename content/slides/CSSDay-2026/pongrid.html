@@ -1,6 +1,11 @@
 ---
 layout: css-day-slides.njk
 title: pongrid
+notes: |
+  In the same theme of doing things that weren't intended, here's pongrid.
+  Super simple game, where the rendering is done in CSS grid.
+  Each pixel is a grid cell.
+  And re-drawing the game at each step of the loop means updating the grid-area of the various game entities.
 ---
 
 <style>
@@ -282,10 +287,3 @@ title: pongrid
   // start the game
   requestAnimationFrame(loop);
 </script>
-
-<aside class="notes">
-In the same theme of doing things that weren't intended, here's pongrid.
-Super simple game, where the rendering is done in CSS grid.
-Each pixel is a grid cell.
-And re-drawing the game at each step of the loop means updating the grid-area of the various game entities.
-</aside>

@@ -1,6 +1,22 @@
 ---
 layout: css-day-slides.njk
 title: Testimonials from Kevin Powell's CSS course
+notes: |
+  Testimonials are a great use case for grid-lanes.
+
+  These ones here are from Kevin Powell's CSS course website.
+  Which, by the way, you should totally check out if you haven't.
+
+  Kevin implemented this with multi-column, which is great, and perfectly valid.
+  There's no one right answer, here the order of content isn't super important.
+
+  Grid-lanes can do this very easily too, but the order's going to be different than multicol.
+  Again, multicolumn fills columns entirely before moving to the next, whereas grid-lanes fills them
+  one by one.
+
+  The implication here is that you might be pulling these quotes from a database,
+  and you might want to always see the latest ones first, near the top.
+  Grid-lanes would give you this for free.
 ---
 
 <style>
@@ -160,21 +176,3 @@ title: Testimonials from Kevin Powell's CSS course
     </blockquote>
   </figure>
 </div>
-
-<aside class="notes">
-Testimonials are a great use case for grid-lanes.
-
-These ones here are from Kevin Powell's CSS course website.
-Which, by the way, you should totally check out if you haven't.
-
-Kevin implemented this with multi-column, which is great, and perfectly valid.
-There's no one right answer, here the order of content isn't super important.
-
-Grid-lanes can do this very easily too, but the order's going to be different than multicol.
-Again, multicolumn fills columns entirely before moving to the next, whereas grid-lanes fills them
-one by one.
-
-The implication here is that you might be pulling these quotes from a database,
-and you might want to always see the latest ones first, near the top.
-Grid-lanes would give you this for free.
-</aside>

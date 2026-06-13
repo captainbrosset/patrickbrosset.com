@@ -1,6 +1,22 @@
 ---
 layout: css-day-slides.njk
 title: "Flexbox, Multicol, and Masonry: same general shape, different flow"
+notes: |
+  Here is another way to illustrate the difference.
+
+  Here we have flex, and I can show the flow of items
+  going down predictably one column after the other.
+
+  Next, multicolumn, which is almost the same shape
+  the only difference here is that multico supports fragmentation.
+  So certain items start in one column and end in the next.
+  But the flow of items is the same.
+
+  But now, switching to grid-lanes, you can see the
+  difference.
+  Items get re-order quite drastically.
+  And the flow is this criss-cross pattern.
+  Very different from the previous two.
 ---
 
 <style>
@@ -307,21 +323,3 @@ title: "Flexbox, Multicol, and Masonry: same general shape, different flow"
     }
   });
 </script>
-
-<aside class="notes">
-Here is another way to illustrate the difference.
-
-Here we have flex, and I can show the flow of items
-going down predictably one column after the other.
-
-Next, multicolumn, which is almost the same shape
-the only difference here is that multico supports fragmentation.
-So certain items start in one column and end in the next.
-But the flow of items is the same.
-
-But now, switching to grid-lanes, you can see the
-difference.
-Items get re-order quite drastically.
-And the flow is this criss-cross pattern.
-Very different from the previous two.
-</aside>

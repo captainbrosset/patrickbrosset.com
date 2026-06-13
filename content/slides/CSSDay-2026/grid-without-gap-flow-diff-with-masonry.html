@@ -1,6 +1,23 @@
 ---
 layout: css-day-slides.njk
 title: "Flow difference between grid without gaps and grid-lanes"
+notes: |
+  We can also compare this to grid.
+
+  Grid gets you ... well, a grid.
+  Which can sometimes lead to gaps
+  when items don't all have the same size.
+
+  It's easy to think that grid-lanes is basically a grid without the gaps.
+  So let's remove the gaps, virtually, from this grid.
+
+  And now let's switch the grid-lanes.
+  Again, big difference in the flow of items.
+
+  The placement algorithm is very different between grid-lanes and grid.
+
+  So, keep in mind, grid-lanes doesn't start from grid and then squishes everything closer together.
+  It fills lanes item by item, always making a decision as to which lane is shortest.
 ---
 
 <style>
@@ -175,22 +192,3 @@ title: "Flow difference between grid without gaps and grid-lanes"
 
   applyLayout('grid');
 </script>
-
-<aside class="notes">
-We can also compare this to grid.
-
-Grid gets you ... well, a grid.
-Which can sometimes lead to gaps
-when items don't all have the same size.
-
-It's easy to think that grid-lanes is basically a grid without the gaps.
-So let's remove the gaps, virtually, from this grid.
-
-And now let's switch the grid-lanes.
-Again, big difference in the flow of items.
-
-The placement algorithm is very different between grid-lanes and grid.
-
-So, keep in mind, grid-lanes doesn't start from grid and then squishes everything closer together.
-It fills lanes item by item, always making a decision as to which lane is shortest.
-</aside>

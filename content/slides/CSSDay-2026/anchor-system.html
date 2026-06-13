@@ -1,6 +1,12 @@
 ---
 layout: css-day-slides.njk
 title: Anchor system
+notes: |
+  Like here, I'm combining offset-path to animate the planets along their orbits.
+  And anchor positioning to keep the labels next to the planets.
+  No JS, no other markup needed.
+
+  Fun: make them go super fast.
 ---
 
 <style>
@@ -316,11 +322,3 @@ title: Anchor system
     root.style.setProperty('--speed-multiplier', currentMultiplier * 0.8);
   });
 </script>
-
-<aside class="notes">
-Like here, I'm combining offset-path to animate the planets along their orbits.
-And anchor positioning to keep the labels next to the planets.
-No JS, no other markup needed.
-
-Fun: make them go super fast.
-</aside>

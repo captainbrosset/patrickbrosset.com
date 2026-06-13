@@ -1,6 +1,14 @@
 ---
 layout: css-day-slides.njk
 title: Progressive enhancement
+notes: |
+  Grid-lanes is good at occupying empty space.
+  But the experience you're designing might not revolve entirely around this.
+  And having a slightly less space-efficient alternative may be fine.
+
+  If so, then grid-lanes can be a great progressive enhancement.
+
+  Define both display:grid and display:grid-lanes, and non supporting browsers will ignore the second.
 ---
 
 <style>
@@ -79,13 +87,3 @@ title: Progressive enhancement
   <div class="item"></div>
   <div class="item"></div>
 </div>
-
-<aside class="notes">
-Grid-lanes is good at occupying empty space.
-But the experience you're designing might not revolve entirely around this.
-And having a slightly less space-efficient alternative may be fine.
-
-If so, then grid-lanes can be a great progressive enhancement.
-
-Define both display:grid and display:grid-lanes, and non supporting browsers will ignore the second.
-</aside>

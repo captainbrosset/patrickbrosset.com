@@ -1,6 +1,17 @@
 ---
 layout: css-day-slides.njk
 title: Auto-gantt chart
+notes: |
+  One more, this time to show the a row orientation grid-lanes layout.
+  Each team here is a separate lane, and items are assigned to specific lanes.
+  Certain tasks, like sprint planning span all lanes.
+
+  What's cool about this one is how these spanning tasks end up pushing or pulling other tasks.
+  If I make a task from team A longer, it ends up pushing the sprint planning, resulting in a planning change for all teams.
+  Conversely, if I remove tasks from team B, the sprint planning can happen sooner.
+  Same if I delete the sprint planning task, tasks for all teams can be scheduled sooner.
+
+  Grid-lanes does this balancing act on its own, simply by its very nature of trying to fill lanes.
 ---
 
 <style>
@@ -333,16 +344,3 @@ title: Auto-gantt chart
     resizer.addEventListener('pointerup', onUp);
   });
 </script>
-
-<aside class="notes">
-One more, this time to show the a row orientation grid-lanes layout.
-Each team here is a separate lane, and items are assigned to specific lanes.
-Certain tasks, like sprint planning span all lanes.
-
-What's cool about this one is how these spanning tasks end up pushing or pulling other tasks.
-If I make a task from team A longer, it ends up pushing the sprint planning, resulting in a planning change for all teams.
-Conversely, if I remove tasks from team B, the sprint planning can happen sooner.
-Same if I delete the sprint planning task, tasks for all teams can be scheduled sooner.
-
-Grid-lanes does this balancing act on its own, simply by its very nature of trying to fill lanes.
-</aside>

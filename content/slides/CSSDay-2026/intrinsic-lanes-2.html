@@ -1,6 +1,24 @@
 ---
 layout: css-day-slides.njk
 title: Intrinsic lanes
+notes: |
+  But, there's one more thing you can do, which isn't possible with grid:
+  intrinsic sizing of lanes.
+
+  The grid-lanes spec relaxes the auto-repeat syntax to allow intrinstic sizes, such as `auto` inside repeat() syntax.
+
+  In regular grid, repeat(auto-fill, ...) requires definite track sizes (like 200px)
+  to calculate how many repetitions fit.
+
+  Grid-lanes (CSS Grid Level 3) relaxes this.
+  Lanes can have content-dependent sizes.
+
+  This can be very useful:
+  when you don't know the size of your items ahead of time
+  when writing the stylesheet.
+
+  This creates as many columns as fit, where each column sizes to its content
+  (e.g., images of natural width).
 ---
 
 <style>
@@ -76,23 +94,3 @@ title: Intrinsic lanes
   <img src="/slides/CSSDay-2026/nature/plant12.jpg" width="200" alt="Image of a plant">
   <img src="/slides/CSSDay-2026/nature/plant13.jpg" width="200" alt="Image of a plant">
 </div>
-
-<aside class="notes">
-But, there's one more thing you can do, which isn't possible with grid:
-intrinsic sizing of lanes.
-
-The grid-lanes spec relaxes the auto-repeat syntax to allow intrinstic sizes, such as `auto` inside repeat() syntax.
-
-In regular grid, repeat(auto-fill, ...) requires definite track sizes (like 200px)
-to calculate how many repetitions fit.
-
-Grid-lanes (CSS Grid Level 3) relaxes this.
-Lanes can have content-dependent sizes.
-
-This can be very useful:
-when you don't know the size of your items ahead of time
-when writing the stylesheet.
-
-This creates as many columns as fit, where each column sizes to its content
-(e.g., images of natural width).
-</aside>

@@ -1,6 +1,18 @@
 ---
 layout: css-day-slides.njk
 title: Masonry browser support
+notes: |
+  First, where can you use this?
+
+  Pretty much everywhere, but with caveats:
+
+  Safari has shipped it back in March.
+
+  Chrome and Edge, my team is working on the implementation right now, and we're nearing the finish line.
+  You can use it by enabling the #css-grid-lanes-layout flag on the about://flags page.
+
+  Firefox has had a prototype for a long time. But the spec has evolved since then.
+  You can follow their implementation progress on bugzil.la/grid-lanes.
 ---
 
 <style>
@@ -71,17 +83,3 @@ title: Masonry browser support
   <li class="firefox"><strong>Firefox</strong> → First ever prototype, years ago. Follow at <a
       href="https://bugzil.la/grid-lanes">bugzil.la/grid-lanes</a></li>
 </ul>
-
-<aside class="notes">
-First, where can you use this?
-
-Pretty much everywhere, but with caveats:
-
-Safari has shipped it back in March.
-
-Chrome and Edge, my team is working on the implementation right now, and we're nearing the finish line.
-You can use it by enabling the #css-grid-lanes-layout flag on the about://flags page.
-
-Firefox has had a prototype for a long time. But the spec has evolved since then.
-You can follow their implementation progress on bugzil.la/grid-lanes.
-</aside>

@@ -1,6 +1,16 @@
 ---
 layout: css-day-slides.njk
 title: Masonry placement algorithm step by step
+notes: |
+  In fact, let's go through the placement algorithm step by step
+  to understand this a little better.
+
+  Every time I click the Step button, a new item is added, and the total height
+  of each column is displayed.
+
+  2 things to remember:
+  - always pick the shortest lane
+  - writing direction: ltr -> go through lanes in this order and then wrap around.
 ---
 
 <style>
@@ -275,16 +285,3 @@ title: Masonry placement algorithm step by step
   window.addEventListener("resize", () => updateDebugOverlay());
   new ResizeObserver(() => updateDebugOverlay()).observe(grid);
 </script>
-
-
-<aside class="notes">
-In fact, let's go through the placement algorithm step by step
-to understand this a little better.
-
-Every time I click the Step button, a new item is added, and the total height
-of each column is displayed.
-
-2 things to remember:
-- always pick the shortest lane
-- writing direction: ltr -> go through lanes in this order and then wrap around.
-</aside>

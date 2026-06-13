@@ -1,461 +1,460 @@
 ---
 layout: css-day-slides.njk
 title: Masonry flow tolerance
+notes: |
+  This brings us to something quite important, called flow-tolerance.
+
+  Why do we have this somewhat chaotic way of placing items?
+  Going back and forth between lanes?
+
+  Masonry is trying to solve two conflicting goals at once:
+
+  1. Produce a result that's visually balanced.
+    Where no one lane is much much longer than the others, and where we don't have big gaps.
+    So, attempting to fill lanes that aren't yet filled.
+  2. Preserve the DOM order as much as possible.
+    So, attempting to place items predictably, from left to right for example.
+
+  These are not always compatible.
+
+  If you went strictly one lane after the other,
+  you might end up with a very unbalanced layout, with one very long lane for example.
+
+  On the other hand, if you always picked exactly the shortest lane,
+  you might end up with a very chaotic layout, with items placed in a seemingly random order.
+
+  That's where flow-tolerance comes in.
+  And where you have control.
+
+  With a flow-tolerance value of 0, you get the most strict placement.
+  The overall layout is balanced because you _always_ pick the shortest lane.
+  But you also get the most DOM order disruption.
+
+  With a flow-tolerance value of infinite, you get no disruption at all
+  you always pick the next lane, because they're always considered tied.
+  But you also get the most visually unbalanced results, with long lanes.
+
+  The 1em value is a default value that tries to strike a balance between the two.
+  Because this way, very tiny differences in height are ignored,
+  which helps keep the flow a little more predictable.
+
+  You can set the value of the `flow-tolerance` property to whatever works best
+  for your content and design.
 ---
 
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      overflow: hidden;
-    }
+<style>
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+  }
 
-    body {
-      font-size: 12pt;
-      line-height: 1.6;
-      font-family: system-ui;
-      padding: 5rem 2rem 2rem 2rem;
-      box-sizing: border-box;
-    }
+  body {
+    font-size: 12pt;
+    line-height: 1.6;
+    font-family: system-ui;
+    padding: 5rem 2rem 2rem 2rem;
+    box-sizing: border-box;
+  }
 
-    h1 {
-      margin: 0 0 1rem 0;
-      padding-top: 4rem;
-    }
+  h1 {
+    margin: 0 0 1rem 0;
+    padding-top: 4rem;
+  }
 
-    .controls {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 2rem;
-      flex-wrap: wrap;
-      background: #fff;
-    }
+  .controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+    background: #fff;
+  }
 
-    .controls label {
-      font-weight: 600;
-    }
+  .controls label {
+    font-weight: 600;
+  }
 
-    .controls input[type="range"] {
-      width: 12rem;
-    }
+  .controls input[type="range"] {
+    width: 12rem;
+  }
 
-    .controls #tolerance-value {
-      min-inline-size: 4em;
-    }
+  .controls #tolerance-value {
+    min-inline-size: 4em;
+  }
 
-    .controls button {
-      padding: 0.3rem 0.8rem;
-      border: 1px solid #999;
-      border-radius: 4px;
-      background: #f5f5f5;
-      cursor: pointer;
-      font: inherit;
-    }
+  .controls button {
+    padding: 0.3rem 0.8rem;
+    border: 1px solid #999;
+    border-radius: 4px;
+    background: #f5f5f5;
+    cursor: pointer;
+    font: inherit;
+  }
 
-    .controls button:hover {
-      background: #e5e5e5;
-    }
+  .controls button:hover {
+    background: #e5e5e5;
+  }
 
-    .controls button.active {
-      background: #333;
-      color: #fff;
-      border-color: #333;
-    }
+  .controls button.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+  }
 
-    .tolerance-controls {
-      align-items: center;
-      gap: 1rem;
-    }
+  .tolerance-controls {
+    align-items: center;
+    gap: 1rem;
+  }
 
-    .tolerance-controls.visible {
-      display: flex;
-    }
+  .tolerance-controls.visible {
+    display: flex;
+  }
 
-    .grid-wrapper {
-      position: relative;
-      inline-size: 70%;
-      min-block-size: 100vh;
-    }
+  .grid-wrapper {
+    position: relative;
+    inline-size: 70%;
+    min-block-size: 100vh;
+  }
 
-    .grid {
-      display: grid-lanes;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-      flow-tolerance: var(--tolerance, 1em);
-    }
+  .grid {
+    display: grid-lanes;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    flow-tolerance: var(--tolerance, 1em);
+  }
 
-    .item {
-      padding: 1rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      --back: hsl(calc(sibling-index() * 36), 70%, 70%);
-      background-color: var(--back);
-      color: contrast-color(var(--back));
-    }
+  .item {
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    --back: hsl(calc(sibling-index() * 36), 70%, 70%);
+    background-color: var(--back);
+    color: contrast-color(var(--back));
+  }
 
-    .item .number {
-      font-weight: 700;
-    }
+  .item .number {
+    font-weight: 700;
+  }
 
-    /* Debug overlay */
-    .debug-overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
+  /* Debug overlay */
+  .debug-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
 
-    .debug-col-bg {
-      position: absolute;
-      inset: 0 auto;
-      background: #ddd;
-    }
+  .debug-col-bg {
+    position: absolute;
+    inset: 0 auto;
+    background: #ddd;
+  }
 
-    .debug-col {
-      position: absolute;
-      inset: 0 auto auto auto;
-    }
+  .debug-col {
+    position: absolute;
+    inset: 0 auto auto auto;
+  }
 
-    .debug-col .debug-height {
-      position: absolute;
-      inset: calc(100% + 4px) 0 auto 0;
-      font-weight: 700;
-      color: #c00;
-      text-align: center;
-      background: white;
-      margin-inline: auto;
-      inline-size: max-content;
-      padding: 0 4px;
-    }
+  .debug-col .debug-height {
+    position: absolute;
+    inset: calc(100% + 4px) 0 auto 0;
+    font-weight: 700;
+    color: #c00;
+    text-align: center;
+    background: white;
+    margin-inline: auto;
+    inline-size: max-content;
+    padding: 0 4px;
+  }
 
-    .debug-tolerance-band {
-      position: absolute;
-      inset: auto -4em;
-      --stripe: rgb(59 208 110);
-      background: repeating-linear-gradient(45deg,
-          var(--stripe),
-          var(--stripe) 6px,
-          transparent 6px,
-          transparent 12px);
-    }
+  .debug-tolerance-band {
+    position: absolute;
+    inset: auto -4em;
+    --stripe: rgb(59 208 110);
+    background: repeating-linear-gradient(45deg,
+        var(--stripe),
+        var(--stripe) 6px,
+        transparent 6px,
+        transparent 12px);
+  }
 
-    .tolerance-infinite .debug-tolerance-band {}
+  .tolerance-infinite .debug-tolerance-band {}
 
-    .debug-tolerance-label {
-      position: absolute;
-      inset: 50% auto auto calc(100% + 1rem);
-      transform: translateY(-50%);
-      font-weight: 700;
-      color: #c00;
-      background: rgba(255, 255, 255, 0.85);
-      padding: 1px 4px;
-      border-radius: 3px;
-      white-space: nowrap;
-    }
+  .debug-tolerance-label {
+    position: absolute;
+    inset: 50% auto auto calc(100% + 1rem);
+    transform: translateY(-50%);
+    font-weight: 700;
+    color: #c00;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 1px 4px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
 
-    .debug-arrow {
-      position: absolute;
-      text-align: center;
-      color: #c00;
-      font-size: 2rem;
-      line-height: 1;
-      pointer-events: none;
-    }
-  </style>
+  .debug-arrow {
+    position: absolute;
+    text-align: center;
+    color: #c00;
+    font-size: 2rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+</style>
 
-  <div class="controls">
-    <button id="btn-step">⏭ Step</button>
-    <div class="tolerance-controls" id="tolerance-controls">
-      <label for="tolerance-range">Tolerance:</label>
-      <input type="range" id="tolerance-range" min="0" max="200" value="16" step="1">
-      <span id="tolerance-value">16px</span>
-      <button id="btn-zero">0</button>
-      <button id="btn-1em">1em (default)</button>
-      <button id="btn-infinite">infinite</button>
-    </div>
+<div class="controls">
+  <button id="btn-step">⏭ Step</button>
+  <div class="tolerance-controls" id="tolerance-controls">
+    <label for="tolerance-range">Tolerance:</label>
+    <input type="range" id="tolerance-range" min="0" max="200" value="16" step="1">
+    <span id="tolerance-value">16px</span>
+    <button id="btn-zero">0</button>
+    <button id="btn-1em">1em (default)</button>
+    <button id="btn-infinite">infinite</button>
   </div>
+</div>
 
-  <div class="grid-wrapper">
-    <div class="grid" id="grid"></div>
-    <div class="debug-overlay" id="debug-overlay"></div>
-  </div>
+<div class="grid-wrapper">
+  <div class="grid" id="grid"></div>
+  <div class="debug-overlay" id="debug-overlay"></div>
+</div>
 
-  <script>
-    const grid = document.getElementById("grid");
-    const overlay = document.getElementById("debug-overlay");
-    const rangeInput = document.getElementById("tolerance-range");
-    const valueDisplay = document.getElementById("tolerance-value");
-    const btnZero = document.getElementById("btn-zero");
-    const btn1em = document.getElementById("btn-1em");
-    const btnInfinite = document.getElementById("btn-infinite");
-    const btnStep = document.getElementById("btn-step");
-    const toleranceControlsEl = document.getElementById("tolerance-controls");
+<script>
+  const grid = document.getElementById("grid");
+  const overlay = document.getElementById("debug-overlay");
+  const rangeInput = document.getElementById("tolerance-range");
+  const valueDisplay = document.getElementById("tolerance-value");
+  const btnZero = document.getElementById("btn-zero");
+  const btn1em = document.getElementById("btn-1em");
+  const btnInfinite = document.getElementById("btn-infinite");
+  const btnStep = document.getElementById("btn-step");
+  const toleranceControlsEl = document.getElementById("tolerance-controls");
 
-    const COLS = 4;
+  const COLS = 4;
 
-    const ITEMS = [
-      "Short text.",
-      "A bit more content here so this card is taller than the first one.",
-      "This card has a moderate amount of text. Enough to make it noticeably taller than the short ones, but not the tallest overall.",
-      "Medium length content for variety.",
-      "This is the tallest card in the set. It has quite a lot of text so it takes up significantly more vertical space than any of the other cards. The idea is to show how flow-tolerance affects where the next item is placed when column heights differ.",
-      "Another short one.",
-      "Three lines of text, maybe four depending on the column width. Let's see how it goes.",
-      "Brief.",
-      "A card with a fair amount of content. Not the longest, not the shortest, right in the middle of the pack.",
-      "Small.",
-      "One more medium-sized card to round things out nicely.",
-      "Tiny.",
-      "This card is deliberately long. It contains enough text to really stretch the column height and create a visible imbalance between the columns in the layout.",
-      "Just a few words.",
-      "Here we have a card with a moderate paragraph. It sits comfortably in the middle range of heights, adding some visual rhythm to the grid.",
-      "Done!",
-    ];
+  const ITEMS = [
+    "Short text.",
+    "A bit more content here so this card is taller than the first one.",
+    "This card has a moderate amount of text. Enough to make it noticeably taller than the short ones, but not the tallest overall.",
+    "Medium length content for variety.",
+    "This is the tallest card in the set. It has quite a lot of text so it takes up significantly more vertical space than any of the other cards. The idea is to show how flow-tolerance affects where the next item is placed when column heights differ.",
+    "Another short one.",
+    "Three lines of text, maybe four depending on the column width. Let's see how it goes.",
+    "Brief.",
+    "A card with a fair amount of content. Not the longest, not the shortest, right in the middle of the pack.",
+    "Small.",
+    "One more medium-sized card to round things out nicely.",
+    "Tiny.",
+    "This card is deliberately long. It contains enough text to really stretch the column height and create a visible imbalance between the columns in the layout.",
+    "Just a few words.",
+    "Here we have a card with a moderate paragraph. It sits comfortably in the middle range of heights, adding some visual rhythm to the grid.",
+    "Done!",
+  ];
 
-    // --- Helpers ---
+  // --- Helpers ---
 
-    function createItemEl(index) {
-      const item = document.createElement("div");
-      item.classList.add("item");
-      item.innerHTML = `<div class="number">#${index + 1}</div><p>${ITEMS[index]}</p>`;
-      return item;
-    }
+  function createItemEl(index) {
+    const item = document.createElement("div");
+    item.classList.add("item");
+    item.innerHTML = `<div class="number">#${index + 1}</div><p>${ITEMS[index]}</p>`;
+    return item;
+  }
 
-    function clearItems() {
-      grid.querySelectorAll(".item").forEach(el => el.remove());
-    }
+  function clearItems() {
+    grid.querySelectorAll(".item").forEach(el => el.remove());
+  }
 
-    // --- Tolerance controls ---
+  // --- Tolerance controls ---
 
-    let currentMode = "custom";
+  let currentMode = "custom";
 
-    function setTolerance(value) {
-      document.body.className = `tolerance-${value}`;
-      grid.style.setProperty("--tolerance", value);
-      updateDebugOverlay();
-    }
+  function setTolerance(value) {
+    document.body.className = `tolerance-${value}`;
+    grid.style.setProperty("--tolerance", value);
+    updateDebugOverlay();
+  }
 
-    function clearActiveButtons() {
-      btnZero.classList.remove("active");
-      btn1em.classList.remove("active");
-      btnInfinite.classList.remove("active");
-    }
+  function clearActiveButtons() {
+    btnZero.classList.remove("active");
+    btn1em.classList.remove("active");
+    btnInfinite.classList.remove("active");
+  }
 
-    rangeInput.addEventListener("input", () => {
-      const px = rangeInput.value;
-      valueDisplay.textContent = `${px}px`;
-      currentMode = "custom";
-      clearActiveButtons();
-      setTolerance(`${px}px`);
-    });
+  rangeInput.addEventListener("input", () => {
+    const px = rangeInput.value;
+    valueDisplay.textContent = `${px}px`;
+    currentMode = "custom";
+    clearActiveButtons();
+    setTolerance(`${px}px`);
+  });
 
-    btnZero.addEventListener("click", () => {
-      currentMode = "zero";
-      clearActiveButtons();
-      btnZero.classList.add("active");
-      rangeInput.value = 0;
-      valueDisplay.textContent = "0px";
-      setTolerance("0px");
-    });
+  btnZero.addEventListener("click", () => {
+    currentMode = "zero";
+    clearActiveButtons();
+    btnZero.classList.add("active");
+    rangeInput.value = 0;
+    valueDisplay.textContent = "0px";
+    setTolerance("0px");
+  });
 
-    btn1em.addEventListener("click", () => {
-      currentMode = "1em";
-      clearActiveButtons();
-      btn1em.classList.add("active");
-      rangeInput.value = 16;
-      valueDisplay.textContent = "1em";
-      setTolerance("1em");
-    });
-
-    btnInfinite.addEventListener("click", () => {
-      currentMode = "infinite";
-      clearActiveButtons();
-      btnInfinite.classList.add("active");
-      rangeInput.value = 200;
-      valueDisplay.textContent = "infinite";
-      setTolerance("infinite");
-    });
-
-    // --- Debug overlay ---
-
-    function getTolerancePx() {
-      if (currentMode === "infinite") return Infinity;
-      if (currentMode === "1em") return parseFloat(getComputedStyle(grid).fontSize);
-      return parseFloat(rangeInput.value);
-    }
-
-    function getColData() {
-      const gridRect = grid.getBoundingClientRect();
-      const items = grid.querySelectorAll(".item");
-      const colData = Array.from({ length: COLS }, () => ({ left: Infinity, right: 0, bottom: 0 }));
-
-      items.forEach(item => {
-        const r = item.getBoundingClientRect();
-        const col = Math.round((r.left - gridRect.left) / (gridRect.width / COLS));
-        const c = Math.min(Math.max(col, 0), COLS - 1);
-        colData[c].left = Math.min(colData[c].left, r.left - gridRect.left);
-        colData[c].right = Math.max(colData[c].right, r.right - gridRect.left);
-        colData[c].bottom = Math.max(colData[c].bottom, r.bottom - gridRect.top);
-      });
-
-      return { colData, gridRect };
-    }
-
-    function getColPositions() {
-      const gridRect = grid.getBoundingClientRect();
-      const gap = parseFloat(getComputedStyle(grid).gap) || 0;
-      const colWidth = (gridRect.width - (COLS - 1) * gap) / COLS;
-      return Array.from({ length: COLS }, (_, i) => ({
-        left: i * (colWidth + gap),
-        width: colWidth
-      }));
-    }
-
-    function updateDebugOverlay() {
-      overlay.innerHTML = "";
-
-      // Always draw faded column backgrounds.
-      const colPositions = getColPositions();
-      colPositions.forEach(cp => {
-        const bg = document.createElement("div");
-        bg.className = "debug-col-bg";
-        bg.style.left = `${cp.left}px`;
-        bg.style.width = `${cp.width}px`;
-        overlay.appendChild(bg);
-      });
-
-      const items = grid.querySelectorAll(".item");
-      if (items.length === 0) return;
-
-      const { colData, gridRect } = getColData();
-      const activeCols = colData.filter(c => c.bottom > 0);
-      if (activeCols.length === 0) return;
-
-      const minHeight = Math.min(...activeCols.map(c => c.bottom));
-      const maxHeight = Math.max(...activeCols.map(c => c.bottom));
-      const tolerancePx = getTolerancePx();
-      const toleranceActual = tolerancePx === Infinity ? (maxHeight - minHeight) : tolerancePx;
-
-      if (minHeight > 0 && minHeight < Infinity) {
-        // Tolerance band.
-        const band = document.createElement("div");
-        band.className = "debug-tolerance-band";
-        band.style.top = `${minHeight}px`;
-        band.style.height = tolerancePx === Infinity ? "100vh" : `${toleranceActual}px`;
-        const label = tolerancePx === Infinity ? "tolerance: infinite" : `tolerance: ${Math.round(tolerancePx)}px`;
-        band.innerHTML = `<span class="debug-tolerance-label">${label}</span>`;
-        overlay.appendChild(band);
-      }
-
-      // Column indicators.
-      const tiedCount = colData.filter(c => c.bottom > 0 && c.bottom <= minHeight + toleranceActual).length;
-      colData.forEach((c, i) => {
-        if (c.bottom === 0) return;
-        const isTied = c.bottom <= minHeight + toleranceActual;
-        const div = document.createElement("div");
-        div.className = "debug-col";
-        div.style.left = `${c.left}px`;
-        div.style.width = `${c.right - c.left}px`;
-        div.style.height = `${c.bottom}px`;
-        div.innerHTML = `<span class="debug-height">${Math.round(c.bottom)}px${isTied && tiedCount > 1 ? " (tied)" : ""}</span>`;
-        overlay.appendChild(div);
-      });
-
-      // Arrows below tied columns (only once all columns have at least one item).
-      if (items.length < COLS) return;
-      colData.forEach((c, i) => {
-        if (c.bottom === 0) return;
-        if (c.bottom > minHeight + toleranceActual) return;
-        const arrow = document.createElement("div");
-        arrow.className = "debug-arrow";
-        arrow.style.left = `${c.left}px`;
-        arrow.style.width = `${c.right - c.left}px`;
-        arrow.style.top = `${c.bottom + 20}px`;
-        arrow.textContent = "\u2191";
-        overlay.appendChild(arrow);
-      });
-    }
-
-    // --- Replay / Step ---
-
-    let replayIndex = 0;
-
-    function resetReplay() {
-      replayIndex = 0;
-      clearItems();
-      updateDebugOverlay();
-    }
-
-    function updateStepButton() {
-      btnStep.textContent = replayIndex >= ITEMS.length ? "Done!" : "⏭ Step";
-    }
-
-    // Manual step: user clicks to add one item at a time.
-    btnStep.addEventListener("click", () => {
-      if (replayIndex >= ITEMS.length) {
-        return;
-      }
-
-      const item = createItemEl(replayIndex);
-      grid.appendChild(item);
-      replayIndex++;
-      requestAnimationFrame(() => updateDebugOverlay());
-      updateStepButton();
-    });
-
-    // --- Init ---
-
-    window.addEventListener("resize", () => updateDebugOverlay());
-    new ResizeObserver(() => updateDebugOverlay()).observe(grid);
-    setTolerance("1em");
+  btn1em.addEventListener("click", () => {
     currentMode = "1em";
+    clearActiveButtons();
     btn1em.classList.add("active");
     rangeInput.value = 16;
     valueDisplay.textContent = "1em";
-  </script>
+    setTolerance("1em");
+  });
 
-<aside class="notes">
-This brings us to something quite important, called flow-tolerance.
+  btnInfinite.addEventListener("click", () => {
+    currentMode = "infinite";
+    clearActiveButtons();
+    btnInfinite.classList.add("active");
+    rangeInput.value = 200;
+    valueDisplay.textContent = "infinite";
+    setTolerance("infinite");
+  });
 
-Why do we have this somewhat chaotic way of placing items?
-Going back and forth between lanes?
+  // --- Debug overlay ---
 
-Masonry is trying to solve two conflicting goals at once:
+  function getTolerancePx() {
+    if (currentMode === "infinite") return Infinity;
+    if (currentMode === "1em") return parseFloat(getComputedStyle(grid).fontSize);
+    return parseFloat(rangeInput.value);
+  }
 
-1. Produce a result that's visually balanced.
-   Where no one lane is much much longer than the others, and where we don't have big gaps.
-   So, attempting to fill lanes that aren't yet filled.
-2. Preserve the DOM order as much as possible.
-   So, attempting to place items predictably, from left to right for example.
+  function getColData() {
+    const gridRect = grid.getBoundingClientRect();
+    const items = grid.querySelectorAll(".item");
+    const colData = Array.from({ length: COLS }, () => ({ left: Infinity, right: 0, bottom: 0 }));
 
-These are not always compatible.
+    items.forEach(item => {
+      const r = item.getBoundingClientRect();
+      const col = Math.round((r.left - gridRect.left) / (gridRect.width / COLS));
+      const c = Math.min(Math.max(col, 0), COLS - 1);
+      colData[c].left = Math.min(colData[c].left, r.left - gridRect.left);
+      colData[c].right = Math.max(colData[c].right, r.right - gridRect.left);
+      colData[c].bottom = Math.max(colData[c].bottom, r.bottom - gridRect.top);
+    });
 
-If you went strictly one lane after the other,
-you might end up with a very unbalanced layout, with one very long lane for example.
+    return { colData, gridRect };
+  }
 
-On the other hand, if you always picked exactly the shortest lane,
-you might end up with a very chaotic layout, with items placed in a seemingly random order.
+  function getColPositions() {
+    const gridRect = grid.getBoundingClientRect();
+    const gap = parseFloat(getComputedStyle(grid).gap) || 0;
+    const colWidth = (gridRect.width - (COLS - 1) * gap) / COLS;
+    return Array.from({ length: COLS }, (_, i) => ({
+      left: i * (colWidth + gap),
+      width: colWidth
+    }));
+  }
 
-That's where flow-tolerance comes in.
-And where you have control.
+  function updateDebugOverlay() {
+    overlay.innerHTML = "";
 
-With a flow-tolerance value of 0, you get the most strict placement.
-The overall layout is balanced because you _always_ pick the shortest lane.
-But you also get the most DOM order disruption.
+    // Always draw faded column backgrounds.
+    const colPositions = getColPositions();
+    colPositions.forEach(cp => {
+      const bg = document.createElement("div");
+      bg.className = "debug-col-bg";
+      bg.style.left = `${cp.left}px`;
+      bg.style.width = `${cp.width}px`;
+      overlay.appendChild(bg);
+    });
 
-With a flow-tolerance value of infinite, you get no disruption at all
-you always pick the next lane, because they're always considered tied.
-But you also get the most visually unbalanced results, with long lanes.
+    const items = grid.querySelectorAll(".item");
+    if (items.length === 0) return;
 
-The 1em value is a default value that tries to strike a balance between the two.
-Because this way, very tiny differences in height are ignored,
-which helps keep the flow a little more predictable.
+    const { colData, gridRect } = getColData();
+    const activeCols = colData.filter(c => c.bottom > 0);
+    if (activeCols.length === 0) return;
 
-You can set the value of the `flow-tolerance` property to whatever works best
-for your content and design.
-</aside>
+    const minHeight = Math.min(...activeCols.map(c => c.bottom));
+    const maxHeight = Math.max(...activeCols.map(c => c.bottom));
+    const tolerancePx = getTolerancePx();
+    const toleranceActual = tolerancePx === Infinity ? (maxHeight - minHeight) : tolerancePx;
+
+    if (minHeight > 0 && minHeight < Infinity) {
+      // Tolerance band.
+      const band = document.createElement("div");
+      band.className = "debug-tolerance-band";
+      band.style.top = `${minHeight}px`;
+      band.style.height = tolerancePx === Infinity ? "100vh" : `${toleranceActual}px`;
+      const label = tolerancePx === Infinity ? "tolerance: infinite" : `tolerance: ${Math.round(tolerancePx)}px`;
+      band.innerHTML = `<span class="debug-tolerance-label">${label}</span>`;
+      overlay.appendChild(band);
+    }
+
+    // Column indicators.
+    const tiedCount = colData.filter(c => c.bottom > 0 && c.bottom <= minHeight + toleranceActual).length;
+    colData.forEach((c, i) => {
+      if (c.bottom === 0) return;
+      const isTied = c.bottom <= minHeight + toleranceActual;
+      const div = document.createElement("div");
+      div.className = "debug-col";
+      div.style.left = `${c.left}px`;
+      div.style.width = `${c.right - c.left}px`;
+      div.style.height = `${c.bottom}px`;
+      div.innerHTML = `<span class="debug-height">${Math.round(c.bottom)}px${isTied && tiedCount > 1 ? " (tied)" : ""}</span>`;
+      overlay.appendChild(div);
+    });
+
+    // Arrows below tied columns (only once all columns have at least one item).
+    if (items.length < COLS) return;
+    colData.forEach((c, i) => {
+      if (c.bottom === 0) return;
+      if (c.bottom > minHeight + toleranceActual) return;
+      const arrow = document.createElement("div");
+      arrow.className = "debug-arrow";
+      arrow.style.left = `${c.left}px`;
+      arrow.style.width = `${c.right - c.left}px`;
+      arrow.style.top = `${c.bottom + 20}px`;
+      arrow.textContent = "\u2191";
+      overlay.appendChild(arrow);
+    });
+  }
+
+  // --- Replay / Step ---
+
+  let replayIndex = 0;
+
+  function resetReplay() {
+    replayIndex = 0;
+    clearItems();
+    updateDebugOverlay();
+  }
+
+  function updateStepButton() {
+    btnStep.textContent = replayIndex >= ITEMS.length ? "Done!" : "⏭ Step";
+  }
+
+  // Manual step: user clicks to add one item at a time.
+  btnStep.addEventListener("click", () => {
+    if (replayIndex >= ITEMS.length) {
+      return;
+    }
+
+    const item = createItemEl(replayIndex);
+    grid.appendChild(item);
+    replayIndex++;
+    requestAnimationFrame(() => updateDebugOverlay());
+    updateStepButton();
+  });
+
+  // --- Init ---
+
+  window.addEventListener("resize", () => updateDebugOverlay());
+  new ResizeObserver(() => updateDebugOverlay()).observe(grid);
+  setTolerance("1em");
+  currentMode = "1em";
+  btn1em.classList.add("active");
+  rangeInput.value = 16;
+  valueDisplay.textContent = "1em";
+</script>

@@ -1,6 +1,36 @@
 ---
 layout: css-day-slides.njk
 title: The shape of grid-lanes, step by step
+notes: |
+  To do this, we'll go through these 5 steps.
+
+  On the right is a stack of DIVs, no special layout.
+
+  1. opt-in to grid lanes by using the new display type.
+  Small visual difference here because I'm using gap.
+  display:grid-lanes turns it into a single lane, vertical by default, with some gap.
+
+  2. Then, to set the orientation for your lanes,
+  you can set either grid-template-columns, for columns
+  or grid-template-rows for rows.
+  The browser does the right thing for you automatically,
+  just based on which of these properties is set.
+
+  3. Then control the shape and number of your lanes.
+  You can reuse the full power of the grid track sizing syntax,
+  even using the repeat function, the fr unit, and the auto-fill/fit keywords.
+  Here we're creating 4 lanes that are 2fr 1fr 3fr 1fr wide.
+
+  4. One other thing we can do to control the shape of our layout
+  is customize how many lanes specific items span.
+  For example here, the pink items span 2 lanes.
+
+  5. And finally, you can also dictate specific lanes for your items, just like in grid.
+  Again though, only along the lane axis, because that's the only axis that exists.
+  Here I'm making the the blue item go to the first lane, by using the grid-column property.
+  You'd use grid-row in a row-oriented layout.
+
+  So, that's for the shape of your layout.
 ---
 
 <style>
@@ -45,6 +75,11 @@ title: The shape of grid-lanes, step by step
     display: block;
     padding: 10px;
     border-radius: 5px;
+    cursor: pointer;
+  }
+
+  label:hover {
+    outline: 2px solid #8adb8a;
   }
 
   li::marker {
@@ -63,8 +98,13 @@ title: The shape of grid-lanes, step by step
   }
 
   main label:has(+ input:checked) {
-    text-decoration: line-through;
-    color: #999;
+    background-color: #c8ffc8;
+
+    &::before {
+      content: "✅";
+      float: inline-start;
+      margin-inline-end: 1rem;
+    }
   }
 
   :has(#step-1:checked) {
@@ -92,38 +132,88 @@ title: The shape of grid-lanes, step by step
   }
 
   .layout {
-    display: if(style(--step-1: 1): grid-lanes);
+    display: if(
+      style(--step-1: 1): grid-lanes;
+    );
     gap: 10px;
-    grid-template-columns: if(style(--step-3: 1): 2fr 1fr 3fr 1fr;
+    grid-template-columns: if(
+        style(--step-3: 1) and style(--step-2: 1): 2fr 1fr 3fr 1fr;
         style(--step-2: 1): 1fr 1fr;
         else: unset;
-      );
-    grid-template-rows: if(style(--step-2-row: 1): 1fr 1fr; else: unset);
-    height: if(style(--step-2-row: 1): 300px; else: unset);
+        );
+    grid-template-rows: if(
+      style(--step-3: 1) and style(--step-2-row: 1): 2fr 1fr 3fr 1fr;
+      style(--step-2-row: 1): 1fr 1fr;
+      else: unset;
+    );
+    height: if(
+      style(--step-2-row: 1): 300px;
+      else: unset;
+    );
   }
 
   .item {
     background: aliceblue;
     box-shadow: 0 0 0 1px black;
-    height: if(style(--step-2-row: 1): unset; else: 50px);
-    width: if(style(--step-2-row: 1): 50px; else: unset);
+    height: if(
+      style(--step-2-row: 1): unset;
+      else: 70px;
+    );
+    width: if(
+      style(--step-2-row: 1): 70px;
+      else: unset;
+    );
     border-radius: 5px;
   }
 
   .item:nth-child(3n) {
-    height: if(style(--step-2-row: 1): unset; else: 110px);
-    width: if(style(--step-2-row: 1): 110px; else: unset);
+    height: if(
+      style(--step-2-row: 1): unset;
+      else: 150px;
+    );
+    width: if(
+      style(--step-2-row: 1): 150px;
+      else: unset;
+    );
   }
 
   .item:nth-child(4),
   .item:nth-child(8) {
     background: lightcoral;
-    grid-column: if(style(--step-4: 1): span 2);
+    grid-column: if(
+      style(--step-4: 1) and style(--step-2: 1): span 2;
+      else: unset;
+    );
+    grid-row: if(
+      style(--step-4: 1) and style(--step-2-row: 1): span 2;
+      else: unset;
+    );
   }
-
+    
   .item:nth-child(5) {
     background: aquamarine;
-    grid-column: if(style(--step-5: 1): 1);
+    grid-column: if(
+      style(--step-5: 1) and style(--step-2: 1): 1;
+      else: unset;
+    );
+    grid-row: if(
+      style(--step-5: 1) and style(--step-2-row: 1): 1;
+      else: unset;
+    );
+  }
+
+  .col-or-row-col {
+    display: if(
+      style(--step-2: 1): inline;
+      style(--step-2-row: 1): none;
+    );
+  }
+
+  .col-or-row-row {
+    display: if(
+      style(--step-2-row: 1): inline;
+      else: none;
+    );
   }
 </style>
 
@@ -152,26 +242,25 @@ title: The shape of grid-lanes, step by step
     <li>
       <label for="step-3">
         Choose lane sizes:
-        <code>grid-template-columns: 2fr 1fr 3fr 1fr;</code>
+        <code>grid-template-<span class="col-or-row-col">columns</span><span class="col-or-row-row">rows</span>: 2fr 1fr 3fr 1fr;</code>
       </label>
       <input type="checkbox" id="step-3">
     </li>
     <li>
       <label for="step-4">
         Span columns:
-        <code>grid-column: span 2;</code>
+        <code>grid-<span class="col-or-row-col">column</span><span class="col-or-row-row">row</span>: span 2;</code>
       </label>
       <input type="checkbox" id="step-4">
     </li>
     <li>
       <label for="step-5">
         Dictate specific lanes:
-        <code>grid-column: 1;</code>
+        <code>grid-<span class="col-or-row-col">column</span><span class="col-or-row-row">row</span>: 1;</code>
       </label>
       <input type="checkbox" id="step-5">
     </li>
   </ol>
-
 </main>
 
 <aside>
@@ -187,34 +276,24 @@ title: The shape of grid-lanes, step by step
   </div>
 </aside>
 
-<aside class="notes">
-To do this, we'll go through these 5 steps.
+<script>
+  // We need just a tiny bit of JS code to avoid setting both
+  // grid-template-columns and grid-template-rows at the same time.
+  // While technically possible, it's not what the demo is trying to convey.
+  // So, here, when one gets selected, we uncheck the other.
 
-On the right is a stack of DIVs, no special layout.
+  const step2 = document.getElementById('step-2');
+  const step2Row = document.getElementById('step-2-row');
 
-1. opt-in to grid lanes by using the new display type.
-   Small visual difference here because I'm using gap.
-   display:grid-lanes turns it into a single lane, vertical by default, with some gap.
+  step2.addEventListener('change', () => {
+    if (step2.checked) {
+      step2Row.checked = false;
+    }
+  });
 
-2. Then, to set the orientation for your lanes,
-   you can set either grid-template-columns, for columns
-   or grid-template-rows for rows.
-   The browser does the right thing for you automatically,
-   just based on which of these properties is set.
-
-3. Then control the shape and number of your lanes.
-   You can reuse the full power of the grid track sizing syntax,
-   even using the repeat function, the fr unit, and the auto-fill/fit keywords.
-   Here we're creating 4 lanes that are 2fr 1fr 3fr 1fr wide.
-
-4. One other thing we can do to control the shape of our layout
-   is customize how many lanes specific items span.
-   For example here, the pink items span 2 lanes.
-
-5. And finally, you can also dictate specific lanes for your items, just like in grid.
-   Again though, only along the lane axis, because that's the only axis that exists.
-   Here I'm making the the blue item go to the first lane, by using the grid-column property.
-   You'd use grid-row in a row-oriented layout.
-
-So, that's for the shape of your layout.
-</aside>
+  step2Row.addEventListener('change', () => {
+    if (step2Row.checked) {
+      step2.checked = false;
+    }
+  });
+</script>

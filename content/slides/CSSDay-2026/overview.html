@@ -1,6 +1,39 @@
 ---
 layout: css-day-slides.njk
 title: High-level overview
+notes: |
+  In CSS, here's what grid-lanes is, at a high level:
+
+  1. It's a new, built-in, layout primitive in the borwser.
+    No JS code needed, just a few lines of CSS code.
+    Great for performance.
+
+  2. There's a new name: grid-lanes, get used to it!
+
+  3. It's not a special kind of grid.
+    It does share some things with CSS grid, but it's fundamentally different in how things are placed.
+
+  4. Grid-lanes is more like 1D, like flexbox.
+    You only control the lanes of your layout, not the other direction.
+
+  5. Grid-lanes isn't only vertical
+    It can be horizontal too.
+    And it's not only top to bottom. It can be reversed.
+
+  6. You don't have to have same-size lanes only.
+    Lanes can be of any size and different from each other.
+    In fact, the full power of the `repeat()` function and fr units can be used.
+
+  7. This algorithm is opportunistic, and sometimes can seem chaotic.
+    That's the default placement.
+    But you can still control the placement of items if you want.
+    You can assign items to specific lanes.
+    Or make them span multiple lanes.
+
+  8. Visual order is not DOM order.
+    Items that appear later in the DOM may appear visually above earlier items.
+    Same with flexbox and grid.
+    So beware of keyboard tabbing order.
 ---
 
 <style>
@@ -68,38 +101,3 @@ title: High-level overview
   <li>You can still control placement</li>
   <li>Beware of visual order vs. DOM order</li>
 </ul>
-
-<aside class="notes">
-In CSS, here's what grid-lanes is, at a high level:
-
-1. It's a new, built-in, layout primitive in the borwser.
-   No JS code needed, just a few lines of CSS code.
-   Great for performance.
-
-2. There's a new name: grid-lanes, get used to it!
-
-3. It's not a special kind of grid.
-   It does share some things with CSS grid, but it's fundamentally different in how things are placed.
-
-4. Grid-lanes is more like 1D, like flexbox.
-   You only control the lanes of your layout, not the other direction.
-
-5. Grid-lanes isn't only vertical
-   It can be horizontal too.
-   And it's not only top to bottom. It can be reversed.
-
-6. You don't have to have same-size lanes only.
-   Lanes can be of any size and different from each other.
-  In fact, the full power of the `repeat()` function and fr units can be used.
-
-7. This algorithm is opportunistic, and sometimes can seem chaotic.
-   That's the default placement.
-   But you can still control the placement of items if you want.
-   You can assign items to specific lanes.
-   Or make them span multiple lanes.
-
-8. Visual order is not DOM order.
-   Items that appear later in the DOM may appear visually above earlier items.
-   Same with flexbox and grid.
-   So beware of keyboard tabbing order.
-</aside>

@@ -1,6 +1,17 @@
 ---
 layout: css-day-slides.njk
 title: Gravity balls
+notes: |
+  If you paid attention before,
+  you might have seen that it didn't look like a typical masonry layout
+  because items stacked from the bottom.
+
+  This is another like that one. The fill direction is reversed here
+  which makes masonry kind of behave like it has gravity, with items wanting to fall
+  as far down as they can.
+
+  So, that's another fun one, mixing masonry with reversed direction,
+  and view transition in this case to animate the fall of the balls.
 ---
 
 <style>
@@ -181,16 +192,3 @@ title: Gravity balls
 
   buildPile();
 </script>
-
-<aside class="notes">
-If you paid attention before,
-you might have seen that it didn't look like a typical masonry layout
-because items stacked from the bottom.
-
-This is another like that one. The fill direction is reversed here
-which makes masonry kind of behave like it has gravity, with items wanting to fall
-as far down as they can.
-
-So, that's another fun one, mixing masonry with reversed direction,
-and view transition in this case to animate the fall of the balls.
-</aside>
