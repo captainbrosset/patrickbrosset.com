@@ -3,13 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/slides/CSSDay-2026/favicon.svg" type="image/svg+xml">
-    <title>Fun with grid-lanes - CSSDay 2026 - {{ title }}</title>
+    <link href="/assets/headshot-200.avif" rel="icon" sizes="16x16 32x32 128x128" type="image/avif">
+    <title>{{ title }}</title>
     <style>
       @view-transition {
         navigation: auto;
       }
-
       .notes {
         display: none;
       }
@@ -23,5 +22,14 @@
         {{ notes | safe }}
       </aside>
     {% endif %}
+
+    <script>
+      let PAGE_URL = "{{ page.url }}";
+      if (PAGE_URL.endsWith('/')) {
+        PAGE_URL = PAGE_URL.slice(0, -1);
+      }
+      const BASE = PAGE_URL.substring(0, PAGE_URL.lastIndexOf('/') + 1);
+    </script>
+    <script src="/assets/slides/presenter.js" defer></script>
   </body>
 </html>

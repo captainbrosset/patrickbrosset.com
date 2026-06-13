@@ -64,18 +64,6 @@ module.exports = function (eleventyConfig) {
       .replace(/'/g, "");
   });
 
-  eleventyConfig.addTransform("presenter-nav", function (content) {
-    if (this.inputPath && this.inputPath.includes("/slides/CSSDay-2026/") && !this.inputPath.includes("presenter-board") && this.outputPath && this.outputPath.endsWith(".html")) {
-      const script = '<script src="/slides/CSSDay-2026/presenter.js" defer><\/script>';
-      if (content.includes('</body>')) {
-        content = content.replace('</body>', script + '</body>');
-      } else {
-        content += script;
-      }
-    }
-    return content;
-  });
-
   eleventyConfig.addTransform("link-article-images", function (content) {
     if (this.inputPath.includes("/articles/")) {
       // Replace images with linked images.

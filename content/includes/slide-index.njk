@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/assets/headshot-200.avif" rel="icon" sizes="16x16 32x32 128x128" type="image/avif">
+  <title>Presenter board - {{ title }}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      height: 100vh;
+      background: black;
+      color: white;
+    }
+
+    #sidebar {
+      overflow-y: auto;
+      border-inline-end: 1px solid #333;
+      padding: 1rem;
+    }
+
+    #sidebar h2 {
+      font-size: 1rem;
+      margin-block-end: .75rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    #sidebar ol {
+      padding-inline-start: 1.5rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+
+    #sidebar li {
+      cursor: pointer;
+      padding: .15rem .4rem;
+      border-radius: 3px;
+    }
+
+    #sidebar li:hover {
+      background: #333;
+    }
+
+    #sidebar li.current {
+      background: #005fcc;
+      color: white;
+      font-weight: bold;
+    }
+
+    #main {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      gap: 1rem;
+      overflow: hidden;
+    }
+
+    #controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    #controls button {
+      padding: .5rem 1.2rem;
+      font-size: .95rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background: #005fcc;
+      color: white;
+    }
+
+    #controls button:hover {
+      background: #0070e0;
+    }
+
+    #current-info {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #aaa;
+    }
+
+    #slide-number {
+      color: #666;
+      font-size: .9rem;
+    }
+
+    #view-printout {
+      margin-inline-start: auto;
+    }
+
+    body.printout-mode {
+      display: block;
+    }
+
+    body.printout-mode #main {
+      display: none;
+    }
+
+    body.printout-mode #sidebar {
+      width: 100%;
+      max-width: none;
+      border-inline-end: none;
+      padding: 1.5rem;
+    }
+
+    body.printout-mode #sidebar ol {
+      list-style: none;
+      padding-inline-start: 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      display: grid;
+      gap: 1rem;
+    }
+
+    body.printout-mode #sidebar li {
+      cursor: default;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+    }
+
+    body.printout-mode #sidebar li:hover {
+      background: #1a1a1a;
+    }
+
+    .printout-title {
+      font-size: 1rem;
+      margin-block-end: .75rem;
+      color: #ddd;
+    }
+
+    .printout-preview {
+      display: block;
+      width: min(100%, 960px);
+      aspect-ratio: 16 / 9;
+      border: 1px solid #555;
+      background: white;
+    }
+
+    .printout-notes {
+      margin-block-start: 1rem;
+      color: #f0f0f0;
+      white-space: pre-line;
+    }
+
+    #notes-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background: #222;
+      border-radius: 8px;
+      font-size: 1.3rem;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    #notes-area p {
+      margin-block-end: .75rem;
+    }
+
+    #notes-area em {
+      color: #888;
+    }
+
+    #nav-buttons {
+      display: flex;
+      gap: .5rem;
+      flex-shrink: 0;
+    }
+
+    #nav-buttons button {
+      flex: 1;
+      padding: .6rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background: #333;
+      color: #ccc;
+    }
+
+    #nav-buttons button:hover {
+      background: #444;
+    }
+
+    #slide-preview {
+      background: white;
+      block-size: 20vh;
+      inline-size: calc(16 * 20vh / 9);
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h2>Slides</h2>
+    <ol id="list"></ol>
+  </div>
+
+  <div id="main">
+    <div id="controls">
+      <button id="launch">Launch presentation</button>
+      <span id="current-info">No slide active</span>
+      <span id="slide-number"></span>
+      <button id="view-printout">View printout</button>
+    </div>
+
+    <iframe id="slide-preview"></iframe>
+
+    <div id="notes-area">
+      <p><em>Notes will appear here when a slide is active.</em></p>
+      <p><em>Click "Launch presentation" to open the presentation window, then use PageDown/PageUp to navigate.</em></p>
+    </div>
+
+    <div id="nav-buttons">
+      <button id="nav-prev">&larr; Previous</button>
+      <button id="nav-next">Next &rarr;</button>
+    </div>
+  </div>
+
+  <script>
+    const BASE = "{{ page.url }}";
+
+    const launchButton = document.getElementById('launch');
+    const navPrevButton = document.getElementById('nav-prev');
+    const navNextButton = document.getElementById('nav-next');
+    const viewPrintoutButton = document.getElementById('view-printout');
+    const currentInfoEl = document.getElementById('current-info');
+    const slideNumberEl = document.getElementById('slide-number');
+    const notesAreaEl = document.getElementById('notes-area');
+    const slidePreviewFrame = document.getElementById('slide-preview');
+
+    const channel = new BroadcastChannel('slide-presenter');
+    let sequence = [];
+    let currentSlideIndex = -1;
+    let isPrintoutMode = false;
+
+    fetch(BASE + '_sequence.json')
+      .then(function (r) { return r.json(); })
+      .then(function (seq) {
+        sequence = seq;
+        const list = document.getElementById('list');
+
+        seq.forEach(function (slug, i) {
+          var li = document.createElement('li');
+          li.textContent = slug || '(title)';
+          li.dataset.slug = slug;
+          li.dataset.index = i;
+          li.addEventListener('click', function () {
+            navigateTo(slug);
+          });
+          list.appendChild(li);
+        });
+      });
+
+    // Launch presentation in a new window.
+    launchButton.addEventListener('click', () => {
+      const slug = sequence.length > 0 ? sequence[0] : '';
+      window.open(BASE + slug);
+    });
+
+    viewPrintoutButton.addEventListener('click', function () {
+      if (isPrintoutMode) {
+        return;
+      }
+
+      isPrintoutMode = true;
+      viewPrintoutButton.disabled = true;
+      viewPrintoutButton.textContent = 'Loading printout...';
+      renderPrintout();
+    });
+
+    function navigateTo(slug) {
+      channel.postMessage({ type: 'navigate', slug });
+      updateCurrent(slug);
+    }
+
+    // Navigate from presenter board buttons.
+    navPrevButton.addEventListener('click', function () {
+      if (currentSlideIndex > 0) {
+        navigateTo(sequence[currentSlideIndex - 1]);
+      }
+    });
+
+    navNextButton.addEventListener('click', function () {
+      if (currentSlideIndex >= 0 && currentSlideIndex < sequence.length - 1) {
+        navigateTo(sequence[currentSlideIndex + 1]);
+      }
+    });
+
+    // Also allow keyboard nav on the presenter board itself.
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'PageDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        navNextButton.click();
+      } else if (e.key === 'PageUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        navPrevButton.click();
+      }
+    });
+
+    // Listen for slide changes from the presentation window.
+    channel.onmessage = function (e) {
+      if (e.data.type === 'slide-changed') {
+        updateCurrent(e.data.slug);
+      }
+    };
+
+    function getNotesHtmlFromSlideHtml(html) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const notes = doc.querySelector('.notes');
+      return notes ? notes.innerHTML : '<p><em>No notes for this slide.</em></p>';
+    }
+
+    function fetchSlideNotes(slug) {
+      return fetch(BASE + slug)
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          return getNotesHtmlFromSlideHtml(html);
+        })
+        .catch(function () {
+          return '<p><em>Could not load notes for this slide.</em></p>';
+        });
+    }
+
+    async function renderPrintout() {
+      const list = document.getElementById('list');
+      const slideData = await Promise.all(sequence.map(async function (slug, index) {
+        const notesHtml = await fetchSlideNotes(slug);
+        return { slug, index, notesHtml };
+      }));
+
+      list.innerHTML = '';
+
+      slideData.forEach(function (slide) {
+        const li = document.createElement('li');
+
+        const title = document.createElement('h3');
+        title.className = 'printout-title';
+        title.textContent = (slide.index + 1) + '. ' + (slide.slug || '(title)');
+
+        const iframe = document.createElement('iframe');
+        iframe.className = 'printout-preview';
+        iframe.src = BASE + slide.slug;
+        iframe.loading = 'lazy';
+
+        const notes = document.createElement('div');
+        notes.className = 'printout-notes';
+        notes.innerHTML = slide.notesHtml;
+
+        li.appendChild(title);
+        li.appendChild(iframe);
+        li.appendChild(notes);
+        list.appendChild(li);
+      });
+
+      document.body.classList.add('printout-mode');
+      viewPrintoutButton.textContent = 'Printout view active';
+    }
+
+    function updateCurrent(slug) {
+      const slideIndex = sequence.indexOf(slug);
+      currentSlideIndex = slideIndex;
+
+      // Highlight current slide in the list.
+      document.querySelectorAll('#list li').forEach(li => {
+        const isCurrent = li.dataset.slug === slug;
+        li.classList.toggle('current', isCurrent);
+        if (isCurrent) {
+          li.scrollIntoView({ block: 'nearest' });
+        }
+      });
+
+      // Update header info.
+      currentInfoEl.textContent = slug || '(title)';
+      slideNumberEl.textContent =
+        slideIndex >= 0 ? (slideIndex + 1) + ' / ' + sequence.length : '';
+
+      // Load the preview.
+      slidePreviewFrame.src = BASE + slug;
+
+      // Fetch the slide page and extract notes.
+      fetch(BASE + slug)
+        .then(r => r.text())
+        .then(html => {
+          notesAreaEl.innerHTML = getNotesHtmlFromSlideHtml(html);
+        });
+    }
+  </script>
+</body>
+</html>
