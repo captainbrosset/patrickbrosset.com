@@ -15,6 +15,6 @@
     <h2><a href="{{ page.url }}">{{ page.title | safe }}</a></h2>
     <time datetime="{{ page.date }}">{{ page.date | formattedDateTime }}</time>
     <p>{{ page.description | safe }}</p>
-    <a href="{{ page.url }}" class="thumbnail"><img loading="lazy" src="{{ page.img }}" alt="{{ page.alt }}"></a>
+    <a href="{{ page.url }}" class="thumbnail"><figure><img loading="lazy" src="{{ page.img }}" alt="{{ page.alt }}">{% if page.credit %}<figcaption>Credit: {{ page.credit | safe }}</figcaption>{% endif %}</figure></a>
   </section>
 {% endfor %}

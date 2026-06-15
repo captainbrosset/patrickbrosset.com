@@ -37,6 +37,6 @@
     <h2><a href="{{ talk.url }}">{{ talk.title | safe }}</a></h2>
     <time datetime="{{ talk.date }}">{{ talk.date | formattedDateTime }}</time>
     <p>{{ talk.description | safe }}</p>
-    <a href="{{ talk.url }}" class="thumbnail"><img loading="lazy" src="{{ talk.img }}" alt="{{ talk.alt }}"></a>
+    <a href="{{ talk.url }}" class="thumbnail"><figure><img loading="lazy" src="{{ talk.img }}" alt="{{ talk.alt }}">{% if talk.credit %}<figcaption>Credit: {{ talk.credit | safe }}</figcaption>{% endif %}</figure></a>
   </section>
 {% endfor %}

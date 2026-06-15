@@ -118,17 +118,31 @@ a:hover {
   text-decoration: none;
 }
 
-a:has(>img) {
+a:has(>img), a:has(>figure) {
   display: block;
+  text-decoration: none;
 }
 
 a:has(>img):hover {
   background: unset;
 }
 
-a>img {
+a>img, a>figure>img {
   inline-size: 100%;
   display: block;
+}
+
+a>figure {
+  margin: 0;
+}
+
+figcaption {
+	margin-block-start: -1.6rem;
+	background: #fffd;
+	color: black;
+	z-index: 1;
+	position: relative;
+	text-decoration: none;
 }
 
 /* header */
