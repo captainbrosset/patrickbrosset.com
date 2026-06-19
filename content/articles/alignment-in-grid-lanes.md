@@ -189,6 +189,6 @@ Which would give you this, effectively filling the gap above the spanning item w
 
 Again, this is for a column-orientation layout. For a row-orientation layout, you would use `justify-items: stretch` instead of `align-items: stretch`.
 
-And with this, I think we've covered all the alignment options in CSS Grid Lanes. I hope this article has helped clarify how things works in this new layout.
+And with this, I think we've covered all the alignment options in CSS Grid Lanes. I hope this article has helped clarify how things work in this new layout.
 
 Last thing, my team at Microsoft Edge tells me they're very close to getting alignment working in all cases, in Chromium, so I'm very excited by the possibilities, and will probably be posting demos about this in the future. Stay tuned!
