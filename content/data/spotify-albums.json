@@ -1,7 +1,118 @@
 {
-  "created_at": "2026-06-08T15:23:54.842Z",
-  "total_albums": 687,
+  "created_at": "2026-06-15T16:52:06.883Z",
+  "total_albums": 689,
   "albums": [
+    {
+      "added_at": "2026-06-13T16:12:17Z",
+      "album": {
+        "id": "3DwFd9rWKeSNKhYeBgRfbD",
+        "name": "Vivant",
+        "artists": [
+          {
+            "id": "5STTEE3TlZg9gb3xNC4RHF",
+            "name": "Malik Djoudi"
+          }
+        ],
+        "release_date": "2024-09-13",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3DwFd9rWKeSNKhYeBgRfbD"
+        },
+        "href": "https://api.spotify.com/v1/albums/3DwFd9rWKeSNKhYeBgRfbD?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2734ad106df2512d19fe088ad1f",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e024ad106df2512d19fe088ad1f",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048514ad106df2512d19fe088ad1f",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3DwFd9rWKeSNKhYeBgRfbD"
+      }
+    },
+    {
+      "added_at": "2026-06-10T11:08:08Z",
+      "album": {
+        "id": "0vDDYLenufFACj912stYK5",
+        "name": "ÆTHER",
+        "artists": [
+          {
+            "id": "7JLtS4ASAUsAYrsShMerMc",
+            "name": "Yan Wagner"
+          }
+        ],
+        "release_date": "2026-04-03",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0vDDYLenufFACj912stYK5"
+        },
+        "href": "https://api.spotify.com/v1/albums/0vDDYLenufFACj912stYK5?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273386fd945afe711e7bc6e2ce7",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02386fd945afe711e7bc6e2ce7",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851386fd945afe711e7bc6e2ce7",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0vDDYLenufFACj912stYK5"
+      }
+    },
+    {
+      "added_at": "2015-08-20T15:19:20Z",
+      "album": {
+        "id": "4pOmoQkq2s4lcr5R5EU3aH",
+        "name": "There Is",
+        "artists": [
+          {
+            "id": "23usQJ95w7f95tnN4MJEgy",
+            "name": "Jono McCleery"
+          }
+        ],
+        "release_date": "2011-09-05",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4pOmoQkq2s4lcr5R5EU3aH"
+        },
+        "href": "https://api.spotify.com/v1/albums/4pOmoQkq2s4lcr5R5EU3aH?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273f546aa737a47236552839e87",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02f546aa737a47236552839e87",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851f546aa737a47236552839e87",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:4pOmoQkq2s4lcr5R5EU3aH"
+      }
+    },
     {
       "added_at": "2022-12-30T14:14:36Z",
       "album": {
@@ -1483,265 +1594,6 @@
       }
     },
     {
-      "added_at": "2024-11-05T09:34:21Z",
-      "album": {
-        "id": "1VGf2S10jrdRo2Nub0OXLp",
-        "name": "Ritual",
-        "artists": [
-          {
-            "id": "6tcOJ8DRI6oaFcXgYBCnRc",
-            "name": "Jean du Voyage"
-          }
-        ],
-        "release_date": "2024-11-01",
-        "total_tracks": 16,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1VGf2S10jrdRo2Nub0OXLp"
-        },
-        "href": "https://api.spotify.com/v1/albums/1VGf2S10jrdRo2Nub0OXLp?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2730b036f9da77658fca6380916",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e020b036f9da77658fca6380916",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048510b036f9da77658fca6380916",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1VGf2S10jrdRo2Nub0OXLp"
-      }
-    },
-    {
-      "added_at": "2024-02-08T11:36:44Z",
-      "album": {
-        "id": "2ZwNcWl8h9blysDE8i4juL",
-        "name": "Playing Robots Into Heaven",
-        "artists": [
-          {
-            "id": "53KwLdlmrlCelAZMaLVZqU",
-            "name": "James Blake"
-          }
-        ],
-        "release_date": "2023-09-08",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/2ZwNcWl8h9blysDE8i4juL"
-        },
-        "href": "https://api.spotify.com/v1/albums/2ZwNcWl8h9blysDE8i4juL?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273921f7aa6349a070b6f26b3ff",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02921f7aa6349a070b6f26b3ff",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851921f7aa6349a070b6f26b3ff",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:2ZwNcWl8h9blysDE8i4juL"
-      }
-    },
-    {
-      "added_at": "2024-01-19T08:17:52Z",
-      "album": {
-        "id": "754ju3m25jKqrlevlJibZl",
-        "name": "°1",
-        "artists": [
-          {
-            "id": "0glR494sLIJfgyO03vHgnw",
-            "name": "Champion"
-          }
-        ],
-        "release_date": "2013-05-28",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/754ju3m25jKqrlevlJibZl"
-        },
-        "href": "https://api.spotify.com/v1/albums/754ju3m25jKqrlevlJibZl?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27352a384e8057f40341f29f8ef",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0252a384e8057f40341f29f8ef",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485152a384e8057f40341f29f8ef",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:754ju3m25jKqrlevlJibZl"
-      }
-    },
-    {
-      "added_at": "2024-04-29T14:05:32Z",
-      "album": {
-        "id": "5SqZ5yS7uG7e7lqZHIMLXs",
-        "name": "Let the monster fall",
-        "artists": [
-          {
-            "id": "1tMIosPVEqpXGdD8JW1tIe",
-            "name": "Thomas de Pourquery"
-          }
-        ],
-        "release_date": "2024-03-29",
-        "total_tracks": 14,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5SqZ5yS7uG7e7lqZHIMLXs"
-        },
-        "href": "https://api.spotify.com/v1/albums/5SqZ5yS7uG7e7lqZHIMLXs?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273d0308400c0327027bc8a1961",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02d0308400c0327027bc8a1961",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851d0308400c0327027bc8a1961",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5SqZ5yS7uG7e7lqZHIMLXs"
-      }
-    },
-    {
-      "added_at": "2024-08-10T13:05:38Z",
-      "album": {
-        "id": "0aYwzFnbFur2SEyJKKS0LD",
-        "name": "Sand",
-        "artists": [
-          {
-            "id": "4oMBP1OWXtmxyDhAj2aRyQ",
-            "name": "Balthazar"
-          }
-        ],
-        "release_date": "2021-02-26",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0aYwzFnbFur2SEyJKKS0LD"
-        },
-        "href": "https://api.spotify.com/v1/albums/0aYwzFnbFur2SEyJKKS0LD?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273f5923a4766a342f82b6e9c57",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02f5923a4766a342f82b6e9c57",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851f5923a4766a342f82b6e9c57",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0aYwzFnbFur2SEyJKKS0LD"
-      }
-    },
-    {
-      "added_at": "2025-03-08T09:12:06Z",
-      "album": {
-        "id": "6UwHiqFX3htgoYFGFk91Zh",
-        "name": "Israelites",
-        "artists": [
-          {
-            "id": "1FcB6xMihhP9Hb6AdGVbWe",
-            "name": "Desmond Dekker"
-          }
-        ],
-        "release_date": "1975-04-14",
-        "total_tracks": 13,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6UwHiqFX3htgoYFGFk91Zh"
-        },
-        "href": "https://api.spotify.com/v1/albums/6UwHiqFX3htgoYFGFk91Zh?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273bf5b8770f55124130172a966",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02bf5b8770f55124130172a966",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851bf5b8770f55124130172a966",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6UwHiqFX3htgoYFGFk91Zh"
-      }
-    },
-    {
-      "added_at": "2017-10-27T14:54:35Z",
-      "album": {
-        "id": "5Apij5l1XrnDjdgkTshqZM",
-        "name": "UN",
-        "artists": [
-          {
-            "id": "5STTEE3TlZg9gb3xNC4RHF",
-            "name": "Malik Djoudi"
-          }
-        ],
-        "release_date": "2017-07-21",
-        "total_tracks": 8,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5Apij5l1XrnDjdgkTshqZM"
-        },
-        "href": "https://api.spotify.com/v1/albums/5Apij5l1XrnDjdgkTshqZM?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2735f4d35ce655cb92441a1054d",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e025f4d35ce655cb92441a1054d",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048515f4d35ce655cb92441a1054d",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5Apij5l1XrnDjdgkTshqZM"
-      }
-    },
-    {
       "added_at": "2026-03-09T08:08:09Z",
       "album": {
         "id": "2MHUaRi9OCyTN02SoyRRBJ",
@@ -2379,6 +2231,43 @@
       }
     },
     {
+      "added_at": "2025-03-08T09:12:06Z",
+      "album": {
+        "id": "6UwHiqFX3htgoYFGFk91Zh",
+        "name": "Israelites",
+        "artists": [
+          {
+            "id": "1FcB6xMihhP9Hb6AdGVbWe",
+            "name": "Desmond Dekker"
+          }
+        ],
+        "release_date": "1975-04-14",
+        "total_tracks": 13,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6UwHiqFX3htgoYFGFk91Zh"
+        },
+        "href": "https://api.spotify.com/v1/albums/6UwHiqFX3htgoYFGFk91Zh?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273bf5b8770f55124130172a966",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02bf5b8770f55124130172a966",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851bf5b8770f55124130172a966",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6UwHiqFX3htgoYFGFk91Zh"
+      }
+    },
+    {
       "added_at": "2025-02-27T13:29:25Z",
       "album": {
         "id": "1YabzrupqpV16I18wxlJxP",
@@ -2675,6 +2564,43 @@
       }
     },
     {
+      "added_at": "2024-11-05T09:34:21Z",
+      "album": {
+        "id": "1VGf2S10jrdRo2Nub0OXLp",
+        "name": "Ritual",
+        "artists": [
+          {
+            "id": "6tcOJ8DRI6oaFcXgYBCnRc",
+            "name": "Jean du Voyage"
+          }
+        ],
+        "release_date": "2024-11-01",
+        "total_tracks": 16,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1VGf2S10jrdRo2Nub0OXLp"
+        },
+        "href": "https://api.spotify.com/v1/albums/1VGf2S10jrdRo2Nub0OXLp?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2730b036f9da77658fca6380916",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e020b036f9da77658fca6380916",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048510b036f9da77658fca6380916",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1VGf2S10jrdRo2Nub0OXLp"
+      }
+    },
+    {
       "added_at": "2024-11-02T10:08:01Z",
       "album": {
         "id": "57oYjOsWdRUGOjSX4RbyM4",
@@ -2783,6 +2709,80 @@
           }
         ],
         "uri": "spotify:album:3XG5dH7LcDZlkOWmtvLzXB"
+      }
+    },
+    {
+      "added_at": "2024-08-10T13:05:38Z",
+      "album": {
+        "id": "0aYwzFnbFur2SEyJKKS0LD",
+        "name": "Sand",
+        "artists": [
+          {
+            "id": "4oMBP1OWXtmxyDhAj2aRyQ",
+            "name": "Balthazar"
+          }
+        ],
+        "release_date": "2021-02-26",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0aYwzFnbFur2SEyJKKS0LD"
+        },
+        "href": "https://api.spotify.com/v1/albums/0aYwzFnbFur2SEyJKKS0LD?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273f5923a4766a342f82b6e9c57",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02f5923a4766a342f82b6e9c57",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851f5923a4766a342f82b6e9c57",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0aYwzFnbFur2SEyJKKS0LD"
+      }
+    },
+    {
+      "added_at": "2024-04-29T14:05:32Z",
+      "album": {
+        "id": "5SqZ5yS7uG7e7lqZHIMLXs",
+        "name": "Let the monster fall",
+        "artists": [
+          {
+            "id": "1tMIosPVEqpXGdD8JW1tIe",
+            "name": "Thomas de Pourquery"
+          }
+        ],
+        "release_date": "2024-03-29",
+        "total_tracks": 14,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5SqZ5yS7uG7e7lqZHIMLXs"
+        },
+        "href": "https://api.spotify.com/v1/albums/5SqZ5yS7uG7e7lqZHIMLXs?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273d0308400c0327027bc8a1961",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02d0308400c0327027bc8a1961",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851d0308400c0327027bc8a1961",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5SqZ5yS7uG7e7lqZHIMLXs"
       }
     },
     {
@@ -3049,6 +3049,43 @@
       }
     },
     {
+      "added_at": "2024-02-08T11:36:44Z",
+      "album": {
+        "id": "2ZwNcWl8h9blysDE8i4juL",
+        "name": "Playing Robots Into Heaven",
+        "artists": [
+          {
+            "id": "53KwLdlmrlCelAZMaLVZqU",
+            "name": "James Blake"
+          }
+        ],
+        "release_date": "2023-09-08",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2ZwNcWl8h9blysDE8i4juL"
+        },
+        "href": "https://api.spotify.com/v1/albums/2ZwNcWl8h9blysDE8i4juL?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273921f7aa6349a070b6f26b3ff",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02921f7aa6349a070b6f26b3ff",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851921f7aa6349a070b6f26b3ff",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2ZwNcWl8h9blysDE8i4juL"
+      }
+    },
+    {
       "added_at": "2024-02-05T16:57:02Z",
       "album": {
         "id": "6hmmX5UP4rIvOpGSaPerV8",
@@ -3083,6 +3120,43 @@
           }
         ],
         "uri": "spotify:album:6hmmX5UP4rIvOpGSaPerV8"
+      }
+    },
+    {
+      "added_at": "2024-01-19T08:17:52Z",
+      "album": {
+        "id": "754ju3m25jKqrlevlJibZl",
+        "name": "°1",
+        "artists": [
+          {
+            "id": "0glR494sLIJfgyO03vHgnw",
+            "name": "Champion"
+          }
+        ],
+        "release_date": "2013-05-28",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/754ju3m25jKqrlevlJibZl"
+        },
+        "href": "https://api.spotify.com/v1/albums/754ju3m25jKqrlevlJibZl?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27352a384e8057f40341f29f8ef",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0252a384e8057f40341f29f8ef",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485152a384e8057f40341f29f8ef",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:754ju3m25jKqrlevlJibZl"
       }
     },
     {
@@ -11245,6 +11319,43 @@
       }
     },
     {
+      "added_at": "2017-10-27T14:54:35Z",
+      "album": {
+        "id": "5Apij5l1XrnDjdgkTshqZM",
+        "name": "UN",
+        "artists": [
+          {
+            "id": "5STTEE3TlZg9gb3xNC4RHF",
+            "name": "Malik Djoudi"
+          }
+        ],
+        "release_date": "2017-07-21",
+        "total_tracks": 8,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5Apij5l1XrnDjdgkTshqZM"
+        },
+        "href": "https://api.spotify.com/v1/albums/5Apij5l1XrnDjdgkTshqZM?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2735f4d35ce655cb92441a1054d",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e025f4d35ce655cb92441a1054d",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048515f4d35ce655cb92441a1054d",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5Apij5l1XrnDjdgkTshqZM"
+      }
+    },
+    {
       "added_at": "2017-10-23T15:48:35Z",
       "album": {
         "id": "3smDqYFdgz4c67b1JHFl2u",
@@ -16075,43 +16186,6 @@
       }
     },
     {
-      "added_at": "2015-08-20T15:19:20Z",
-      "album": {
-        "id": "4pOmoQkq2s4lcr5R5EU3aH",
-        "name": "There Is",
-        "artists": [
-          {
-            "id": "23usQJ95w7f95tnN4MJEgy",
-            "name": "Jono McCleery"
-          }
-        ],
-        "release_date": "2011-09-05",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/4pOmoQkq2s4lcr5R5EU3aH"
-        },
-        "href": "https://api.spotify.com/v1/albums/4pOmoQkq2s4lcr5R5EU3aH?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273f546aa737a47236552839e87",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02f546aa737a47236552839e87",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851f546aa737a47236552839e87",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:4pOmoQkq2s4lcr5R5EU3aH"
-      }
-    },
-    {
       "added_at": "2015-08-19T09:17:41Z",
       "album": {
         "id": "61Xl27hSdtCp8w0ixBnaed",
@@ -20352,17 +20426,17 @@
         "href": "https://api.spotify.com/v1/albums/6KnWHN5XZ4eMqGFOYyCKyI?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b2732ff9bbc95f91bc33202d132a",
+            "url": "https://i.scdn.co/image/ab67616d0000b273238f0d4cca063f2fc1792c27",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e022ff9bbc95f91bc33202d132a",
+            "url": "https://i.scdn.co/image/ab67616d00001e02238f0d4cca063f2fc1792c27",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d000048512ff9bbc95f91bc33202d132a",
+            "url": "https://i.scdn.co/image/ab67616d00004851238f0d4cca063f2fc1792c27",
             "height": 64,
             "width": 64
           }
