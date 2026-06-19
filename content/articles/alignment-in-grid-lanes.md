@@ -120,7 +120,7 @@ But first, let's review the alignment properties you'll be using along the stack
 * To align a column-orientation grid lanes layout along the stacking axis, use `align-*`.
 * To align a row-orientation grid lanes layout along the stacking axis, use `justify-*`.
 
-Said differently, use `align-*` to align vertically, and `justify-*` to align horizontally. Hey, that's the same as for grid axis alignment! So, again, assuming left-to-right, top-to-bottom writing mode, alwauys use `align-*` to align vertically, and `justify-*` to align horizontally.
+Said differently, use `align-*` to align vertically, and `justify-*` to align horizontally. Hey, that's the same as for grid axis alignment! So, again, assuming left-to-right, top-to-bottom writing mode, always use `align-*` to align vertically, and `justify-*` to align horizontally.
 
 ### Aligning the entire layout
 
