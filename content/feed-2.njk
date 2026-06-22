@@ -1,0 +1,124 @@
+---js
+{
+  permalink: "feed-2.xml",
+  eleventyExcludeFromCollections: true,
+  metadata: {
+    title: "Patrick Brosset",
+    subtitle: "Articles, labs, and talks about web technologies",
+    url: "https://patrickbrosset.com/",
+    feedUrl: "https://patrickbrosset.com/feed.xml",
+    author: {
+      name: "Patrick Brosset",
+      email: "patrickbrosset@gmail.com"
+    }
+  },
+  feedItems: function(articles, labs, talks) {
+    const mergedArticles = articles
+      .filter(post => !post.data || !post.data.draft)
+      .map(post => ({
+        type: "article",
+        item: post,
+        date: new Date(post.date)
+      }));
+
+    const mergedLabs = labs
+      .filter(lab => !lab.draft)
+      .map(lab => ({
+        type: "lab",
+        item: lab,
+        date: new Date(lab.date)
+      }));
+
+    const mergedTalks = talks
+      .filter(talk => !talk.draft)
+      .map(talk => ({
+        type: "talk",
+        item: talk,
+        date: new Date(talk.date)
+      }));
+
+    return [...mergedArticles, ...mergedLabs, ...mergedTalks]
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+}
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ metadata.title }}</title>
+  <subtitle>{{ metadata.subtitle }}</subtitle>
+  <link href="{{ metadata.feedUrl }}" rel="self"/>
+  <link href="{{ metadata.url }}"/>
+  {% set items = feedItems(collections.article, labs, talks) %}
+  {% if items.length > 0 %}
+  <updated>{{ items[0].date | dateToRfc3339 }}</updated>
+  {% endif %}
+  <id>{{ metadata.url }}</id>
+  <author>
+    <name>{{ metadata.author.name }}</name>
+    <email>{{ metadata.author.email }}</email>
+  </author>
+  {%- for entry in items %}
+  {% if entry.type === "article" %}
+  {% set post = entry.item %}
+  {% set absoluteEntryUrl %}{{ post.url | url | absoluteUrl(metadata.url) }}{% endset %}
+  <entry>
+    <title>{{ post.data.title }}</title>
+    <link href="{{ absoluteEntryUrl }}"/>
+    <updated>{{ entry.date | dateToRfc3339 }}</updated>
+    <id>{{ absoluteEntryUrl }}</id>
+    <category term="article"/>
+    <content type="html">
+      {% if post.data.external %}
+        <p>Read the full article at <a href="{{ post.data.external }}">{{ post.data.external }}</a></p>
+      {% else %}
+        {{ post.templateContent | htmlToAbsoluteUrls(absoluteEntryUrl) }}
+      {% endif %}
+    </content>
+  </entry>
+  {% elif entry.type === "lab" %}
+  {% set lab = entry.item %}
+  {% if lab.url.startsWith('http') %}
+  {% set absoluteEntryUrl %}{{ lab.url }}{% endset %}
+  {% else %}
+  {% set absoluteEntryUrl %}{{ ("/lab/" + lab.url) | url | absoluteUrl(metadata.url) }}{% endset %}
+  {% endif %}
+  <entry>
+    <title>{{ lab.title | safe }}</title>
+    <link href="{{ absoluteEntryUrl }}"/>
+    <updated>{{ entry.date | dateToRfc3339 }}</updated>
+    <id>{{ absoluteEntryUrl }}</id>
+    <category term="lab"/>
+    <content type="html">
+      {% set descriptionHtml %}<p>{{ lab.description | safe }}</p>{% endset %}
+      {{ descriptionHtml | escape }}
+      {% if lab.img %}
+      {% set imageHtml %}<p><a href="{{ absoluteEntryUrl }}"><img src="{{ lab.img | absoluteUrl(metadata.url) }}" alt="{{ lab.alt }}"></a></p>{% endset %}
+      {{ imageHtml | escape }}
+      {% endif %}
+    </content>
+  </entry>
+  {% elif entry.type === "talk" %}
+  {% set talk = entry.item %}
+  {% if talk.url.startsWith('http') %}
+  {% set absoluteEntryUrl %}{{ talk.url }}{% endset %}
+  {% else %}
+  {% set absoluteEntryUrl %}{{ talk.url | url | absoluteUrl(metadata.url) }}{% endset %}
+  {% endif %}
+  <entry>
+    <title>{{ talk.title | safe }}</title>
+    <link href="{{ absoluteEntryUrl }}"/>
+    <updated>{{ entry.date | dateToRfc3339 }}</updated>
+    <id>{{ absoluteEntryUrl }}</id>
+    <category term="talk"/>
+    <content type="html">
+      {% set descriptionHtml %}<p>{{ talk.description | safe }}</p>{% endset %}
+      {{ descriptionHtml | escape }}
+      {% if talk.img %}
+      {% set imageHtml %}<p><a href="{{ absoluteEntryUrl }}"><img src="{{ talk.img | absoluteUrl(metadata.url) }}" alt="{{ talk.alt }}"></a></p>{% endset %}
+      {{ imageHtml | escape }}
+      {% endif %}
+    </content>
+  </entry>
+  {% endif %}
+  {%- endfor %}
+</feed>
