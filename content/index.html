@@ -1,11 +1,39 @@
 ---js
 {
   layout: "main-layout.njk",
-  recentCollectionItems: function(allItems, nb) {
-    return allItems
+  recentHomeItems: function(articles, labs, talks) {
+    const recentArticles = articles
       .filter(post => !post.data || !post.data.draft)
       .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, nb);
+      .slice(0, 3)
+      .map(post => ({
+      type: "article",
+      item: post,
+      date: post.date
+    }));
+
+    const recentLabs = labs
+      .filter(lab => !lab.data || !lab.data.draft)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 2)
+      .map(lab => ({
+      type: "lab",
+      item: lab,
+      date: lab.date
+    }));
+
+    const recentTalks = talks
+      .filter(talk => !talk.data || !talk.data.draft)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 2)
+      .map(talk => ({
+      type: "talk",
+      item: talk,
+      date: talk.date
+    }));
+
+    return [...recentArticles, ...recentLabs, ...recentTalks]
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 }
 ---
@@ -16,27 +44,30 @@
   <p>To get in touch, use the links to my social networks at the bottom of this page, or email me: patrickbrosset <em>at</em> gmail <em>dot</em> com.</p>
 </section>
 
-{% for post in recentCollectionItems(collections.article, 3) %}
-  <section class="list-section">
-    <h2><a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}"{% if post.data.external %} class="external"{% endif %}>{{ post.data.title }}</a></h2>
-    <time datetime="{{ post.date | dateTime }}">{{ post.date | formattedDateTime }}</time>
-    <p>{{ post.data.excerpt | safe }}</p>
-    <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}" class="thumbnail"><img loading="lazy" src="{{ post.data.thumbnail }}" alt="{{ post.data.altText }}"></a>
-  </section>
-{% endfor %}
-{% for lab in recentCollectionItems(labs, 2) %}
-  <section class="list-section">
-    <h2><a href="{% if lab.url.startsWith('http') %}{{ lab.url }}{% else %}/lab/{{ lab.url }}{% endif %}">{{ lab.title | safe }}</a></h2>
-    <time datetime="{{ lab.date }}">{{ lab.date | formattedDateTime }}</time>
-    <p>{{ lab.description | safe }}</p>
-    {% if lab.img %}<a href="{% if lab.url.startsWith('http') %}{{ lab.url }}{% else %}/lab/{{ lab.url }}{% endif %}" class="thumbnail"><img loading="lazy" src="{{ lab.img }}" alt="{{ lab.alt }}"></a>{% endif %}
-  </section>
-{% endfor %}
-{% for talk in recentCollectionItems(talks, 2) %}
-  <section class="list-section"{% if talk.lang %} lang="{{ talk.lang }}"{% endif %}>
-    <h2><a href="{{ talk.url }}">{{ talk.title | safe }}</a></h2>
-    <time datetime="{{ talk.date }}">{{ talk.date | formattedDateTime }}</time>
-    <p>{{ talk.description | safe }}</p>
-    <a href="{{ talk.url }}" class="thumbnail"><figure><img loading="lazy" src="{{ talk.img }}" alt="{{ talk.alt }}">{% if talk.credit %}<figcaption>Credit: {{ talk.credit | safe }}</figcaption>{% endif %}</figure></a>
-  </section>
+{% for entry in recentHomeItems(collections.article, labs, talks) %}
+  {% if entry.type === "article" %}
+    {% set post = entry.item %}
+    <section class="list-section">
+      <h2><a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}"{% if post.data.external %} class="external"{% endif %}>{{ post.data.title }}</a></h2>
+      <time datetime="{{ post.date | dateTime }}">{{ post.date | formattedDateTime }}</time>
+      <p>{{ post.data.excerpt | safe }}</p>
+      <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}" class="thumbnail"><img loading="lazy" src="{{ post.data.thumbnail }}" alt="{{ post.data.altText }}"></a>
+    </section>
+  {% elif entry.type === "lab" %}
+    {% set lab = entry.item %}
+    <section class="list-section">
+      <h2><a href="{% if lab.url.startsWith('http') %}{{ lab.url }}{% else %}/lab/{{ lab.url }}{% endif %}">{{ lab.title | safe }}</a></h2>
+      <time datetime="{{ lab.date }}">{{ lab.date | formattedDateTime }}</time>
+      <p>{{ lab.description | safe }}</p>
+      {% if lab.img %}<a href="{% if lab.url.startsWith('http') %}{{ lab.url }}{% else %}/lab/{{ lab.url }}{% endif %}" class="thumbnail"><img loading="lazy" src="{{ lab.img }}" alt="{{ lab.alt }}"></a>{% endif %}
+    </section>
+  {% elif entry.type === "talk" %}
+    {% set talk = entry.item %}
+    <section class="list-section"{% if talk.lang %} lang="{{ talk.lang }}"{% endif %}>
+      <h2><a href="{{ talk.url }}">{{ talk.title | safe }}</a></h2>
+      <time datetime="{{ talk.date }}">{{ talk.date | formattedDateTime }}</time>
+      <p>{{ talk.description | safe }}</p>
+      <a href="{{ talk.url }}" class="thumbnail"><figure><img loading="lazy" src="{{ talk.img }}" alt="{{ talk.alt }}">{% if talk.credit %}<figcaption>Credit: {{ talk.credit | safe }}</figcaption>{% endif %}</figure></a>
+    </section>
+  {% endif %}
 {% endfor %}
