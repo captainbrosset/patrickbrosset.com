@@ -1,5 +1,13 @@
 [
   {
+    "url": "esf",
+    "img": "/assets/esf.png",
+    "alt": "A cut-off part of the engine-specific failures graph, showing the three lines for Chrome, Firefox, and Safari.",
+    "title": "Browser engine-specific WPT failures",
+    "description": "Web developers crave cross-browser compatibility, but browser engines don't always implement the same features, or not always to the same degree of quality. This page shows the number of tests (from the web-platform-tests project) which fail in just one browser engine. It also lists those tests. Fixing them would improve interoperability for web developers, and make the web a better place for everyone.",
+    "date": "2026-06-22"
+  },
+  {
     "url": "https://www.npmjs.com/package/web-features-cli",
     "img": "/assets/wf.png",
     "alt": "Output of the wf command, showing a feature's name, description, baseline status, docs, and bugs.",
