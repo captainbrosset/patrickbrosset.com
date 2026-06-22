@@ -1,42 +1,309 @@
 {
-  "created_at": "2026-06-15T16:52:06.883Z",
+  "created_at": "2026-06-22T16:24:25.448Z",
   "total_albums": 689,
   "albums": [
     {
-      "added_at": "2026-06-13T16:12:17Z",
+      "added_at": "2021-03-29T12:48:02Z",
       "album": {
-        "id": "3DwFd9rWKeSNKhYeBgRfbD",
-        "name": "Vivant",
+        "id": "3ZBCxww5l2GuPEtOmhP73N",
+        "name": "The Inevitable End",
         "artists": [
           {
-            "id": "5STTEE3TlZg9gb3xNC4RHF",
-            "name": "Malik Djoudi"
+            "id": "5nPOO9iTcrs9k6yFffPxjH",
+            "name": "Röyksopp"
           }
         ],
-        "release_date": "2024-09-13",
-        "total_tracks": 11,
+        "release_date": "2014-11-10",
+        "total_tracks": 17,
         "external_urls": {
-          "spotify": "https://open.spotify.com/album/3DwFd9rWKeSNKhYeBgRfbD"
+          "spotify": "https://open.spotify.com/album/3ZBCxww5l2GuPEtOmhP73N"
         },
-        "href": "https://api.spotify.com/v1/albums/3DwFd9rWKeSNKhYeBgRfbD?locale=*",
+        "href": "https://api.spotify.com/v1/albums/3ZBCxww5l2GuPEtOmhP73N?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b2734ad106df2512d19fe088ad1f",
+            "url": "https://i.scdn.co/image/ab67616d0000b273a59ae6662bb7610e99d7fdb4",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e024ad106df2512d19fe088ad1f",
+            "url": "https://i.scdn.co/image/ab67616d00001e02a59ae6662bb7610e99d7fdb4",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d000048514ad106df2512d19fe088ad1f",
+            "url": "https://i.scdn.co/image/ab67616d00004851a59ae6662bb7610e99d7fdb4",
             "height": 64,
             "width": 64
           }
         ],
-        "uri": "spotify:album:3DwFd9rWKeSNKhYeBgRfbD"
+        "uri": "spotify:album:3ZBCxww5l2GuPEtOmhP73N"
+      }
+    },
+    {
+      "added_at": "2014-04-25T11:12:25Z",
+      "album": {
+        "id": "1D900xwFxLRSUBvVyMhR8c",
+        "name": "Songs Of Leonard Cohen",
+        "artists": [
+          {
+            "id": "5l8VQNuIg0turYE1VtM9zV",
+            "name": "Leonard Cohen"
+          }
+        ],
+        "release_date": "1967",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1D900xwFxLRSUBvVyMhR8c"
+        },
+        "href": "https://api.spotify.com/v1/albums/1D900xwFxLRSUBvVyMhR8c?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2731c6d9a5b69a462d9a5d2b796",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e021c6d9a5b69a462d9a5d2b796",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048511c6d9a5b69a462d9a5d2b796",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1D900xwFxLRSUBvVyMhR8c"
+      }
+    },
+    {
+      "added_at": "2022-10-05T07:53:52Z",
+      "album": {
+        "id": "6V7vpT9XvJccQgnkG6hRZv",
+        "name": "Ego Death (feat. Steve Vai)",
+        "artists": [
+          {
+            "id": "4vGrte8FDu062Ntj0RsPiZ",
+            "name": "Polyphia"
+          },
+          {
+            "id": "32Jb1X3wSmmoHj2epZReZA",
+            "name": "Steve Vai"
+          }
+        ],
+        "release_date": "2022-09-28",
+        "total_tracks": 4,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6V7vpT9XvJccQgnkG6hRZv"
+        },
+        "href": "https://api.spotify.com/v1/albums/6V7vpT9XvJccQgnkG6hRZv?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2731b3fac357a7fb37bc706f7e9",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e021b3fac357a7fb37bc706f7e9",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048511b3fac357a7fb37bc706f7e9",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6V7vpT9XvJccQgnkG6hRZv"
+      }
+    },
+    {
+      "added_at": "2019-12-16T15:26:39Z",
+      "album": {
+        "id": "114kedrQqr7dfNLjAaQ5qB",
+        "name": "Control",
+        "artists": [
+          {
+            "id": "6Veg06vIzRjyLyYn8wCaQ9",
+            "name": "Pyrit"
+          }
+        ],
+        "release_date": "2018-04-06",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/114kedrQqr7dfNLjAaQ5qB"
+        },
+        "href": "https://api.spotify.com/v1/albums/114kedrQqr7dfNLjAaQ5qB?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2736221234be72ed27eceedd0eb",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e026221234be72ed27eceedd0eb",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048516221234be72ed27eceedd0eb",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:114kedrQqr7dfNLjAaQ5qB"
+      }
+    },
+    {
+      "added_at": "2022-03-25T10:16:17Z",
+      "album": {
+        "id": "3OQMaQcJKagWQahqUxgjxc",
+        "name": "THE UNREAL STORY OF LOU REED (Instrumental)",
+        "artists": [
+          {
+            "id": "72dcnDFjo3MFsrvpUAthMi",
+            "name": "Fred Nevché"
+          },
+          {
+            "id": "6MJKlN8ya42Agsw3iQZs6e",
+            "name": "French 79"
+          }
+        ],
+        "release_date": "2021-06-25",
+        "total_tracks": 9,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3OQMaQcJKagWQahqUxgjxc"
+        },
+        "href": "https://api.spotify.com/v1/albums/3OQMaQcJKagWQahqUxgjxc?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273d06067ef3ca4f118f41096a8",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02d06067ef3ca4f118f41096a8",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851d06067ef3ca4f118f41096a8",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3OQMaQcJKagWQahqUxgjxc"
+      }
+    },
+    {
+      "added_at": "2016-11-23T08:44:34Z",
+      "album": {
+        "id": "2Itmzzv39Z7w6mL8WVeU3x",
+        "name": "Shamanaid",
+        "artists": [
+          {
+            "id": "0c103ZyWDycpfVxR0lNrjm",
+            "name": "MY BABY"
+          }
+        ],
+        "release_date": "2015-03-11",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2Itmzzv39Z7w6mL8WVeU3x"
+        },
+        "href": "https://api.spotify.com/v1/albums/2Itmzzv39Z7w6mL8WVeU3x?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27381cd20eb6d76de9d20f3fb92",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0281cd20eb6d76de9d20f3fb92",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485181cd20eb6d76de9d20f3fb92",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2Itmzzv39Z7w6mL8WVeU3x"
+      }
+    },
+    {
+      "added_at": "2015-08-25T09:11:25Z",
+      "album": {
+        "id": "0Jw2xlzASX9RDCoXD8YJfd",
+        "name": "L'innocence",
+        "artists": [
+          {
+            "id": "2d1iZa3wlO73YOM6tCeWSI",
+            "name": "Kid Wise"
+          }
+        ],
+        "release_date": "2015-03-02",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0Jw2xlzASX9RDCoXD8YJfd"
+        },
+        "href": "https://api.spotify.com/v1/albums/0Jw2xlzASX9RDCoXD8YJfd?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273af5bdd67fd92bef1f104c52d",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02af5bdd67fd92bef1f104c52d",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851af5bdd67fd92bef1f104c52d",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0Jw2xlzASX9RDCoXD8YJfd"
+      }
+    },
+    {
+      "added_at": "2026-06-02T08:02:08Z",
+      "album": {
+        "id": "5aBPeuPhodBHzP8VYGiJMI",
+        "name": "Identity",
+        "artists": [
+          {
+            "id": "5NCKpzuowtihcIrIHFjKbJ",
+            "name": "Nitin Sawhney"
+          }
+        ],
+        "release_date": "2023-10-20",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5aBPeuPhodBHzP8VYGiJMI"
+        },
+        "href": "https://api.spotify.com/v1/albums/5aBPeuPhodBHzP8VYGiJMI?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273a54bcb3d9da45f9e7bad3b73",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02a54bcb3d9da45f9e7bad3b73",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851a54bcb3d9da45f9e7bad3b73",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5aBPeuPhodBHzP8VYGiJMI"
       }
     },
     {
@@ -74,6 +341,43 @@
           }
         ],
         "uri": "spotify:album:0vDDYLenufFACj912stYK5"
+      }
+    },
+    {
+      "added_at": "2026-06-13T16:12:17Z",
+      "album": {
+        "id": "3DwFd9rWKeSNKhYeBgRfbD",
+        "name": "Vivant",
+        "artists": [
+          {
+            "id": "5STTEE3TlZg9gb3xNC4RHF",
+            "name": "Malik Djoudi"
+          }
+        ],
+        "release_date": "2024-09-13",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3DwFd9rWKeSNKhYeBgRfbD"
+        },
+        "href": "https://api.spotify.com/v1/albums/3DwFd9rWKeSNKhYeBgRfbD?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2734ad106df2512d19fe088ad1f",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e024ad106df2512d19fe088ad1f",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048514ad106df2512d19fe088ad1f",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3DwFd9rWKeSNKhYeBgRfbD"
       }
     },
     {
@@ -148,43 +452,6 @@
           }
         ],
         "uri": "spotify:album:35UJLpClj5EDrhpNIi4DFg"
-      }
-    },
-    {
-      "added_at": "2026-06-02T08:02:08Z",
-      "album": {
-        "id": "5aBPeuPhodBHzP8VYGiJMI",
-        "name": "Identity",
-        "artists": [
-          {
-            "id": "5NCKpzuowtihcIrIHFjKbJ",
-            "name": "Nitin Sawhney"
-          }
-        ],
-        "release_date": "2023-10-20",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5aBPeuPhodBHzP8VYGiJMI"
-        },
-        "href": "https://api.spotify.com/v1/albums/5aBPeuPhodBHzP8VYGiJMI?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273a54bcb3d9da45f9e7bad3b73",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02a54bcb3d9da45f9e7bad3b73",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851a54bcb3d9da45f9e7bad3b73",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5aBPeuPhodBHzP8VYGiJMI"
       }
     },
     {
@@ -1520,80 +1787,6 @@
       }
     },
     {
-      "added_at": "2023-04-30T17:32:55Z",
-      "album": {
-        "id": "0Cq0t6HFg2UeAEqwED7ezE",
-        "name": "blómi",
-        "artists": [
-          {
-            "id": "54KCNI7URCrG6yjQK3Ukow",
-            "name": "Susanne Sundfør"
-          }
-        ],
-        "release_date": "2023-04-28",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0Cq0t6HFg2UeAEqwED7ezE"
-        },
-        "href": "https://api.spotify.com/v1/albums/0Cq0t6HFg2UeAEqwED7ezE?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27376a913721400a5470fae5a39",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0276a913721400a5470fae5a39",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485176a913721400a5470fae5a39",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0Cq0t6HFg2UeAEqwED7ezE"
-      }
-    },
-    {
-      "added_at": "2024-06-02T13:07:52Z",
-      "album": {
-        "id": "13xlpKbai3GGoMSr75lOeX",
-        "name": "Into The Wild (Music For The Motion Picture)",
-        "artists": [
-          {
-            "id": "0mXTJETA4XUa12MmmXxZJh",
-            "name": "Eddie Vedder"
-          }
-        ],
-        "release_date": "2007-09-18",
-        "total_tracks": 16,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/13xlpKbai3GGoMSr75lOeX"
-        },
-        "href": "https://api.spotify.com/v1/albums/13xlpKbai3GGoMSr75lOeX?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2733ed52339ae78ac1b695e8d80",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e023ed52339ae78ac1b695e8d80",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048513ed52339ae78ac1b695e8d80",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:13xlpKbai3GGoMSr75lOeX"
-      }
-    },
-    {
       "added_at": "2026-03-09T08:08:09Z",
       "album": {
         "id": "2MHUaRi9OCyTN02SoyRRBJ",
@@ -2749,6 +2942,43 @@
       }
     },
     {
+      "added_at": "2024-06-02T13:07:52Z",
+      "album": {
+        "id": "13xlpKbai3GGoMSr75lOeX",
+        "name": "Into The Wild (Music For The Motion Picture)",
+        "artists": [
+          {
+            "id": "0mXTJETA4XUa12MmmXxZJh",
+            "name": "Eddie Vedder"
+          }
+        ],
+        "release_date": "2007-09-18",
+        "total_tracks": 16,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/13xlpKbai3GGoMSr75lOeX"
+        },
+        "href": "https://api.spotify.com/v1/albums/13xlpKbai3GGoMSr75lOeX?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2733ed52339ae78ac1b695e8d80",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e023ed52339ae78ac1b695e8d80",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048513ed52339ae78ac1b695e8d80",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:13xlpKbai3GGoMSr75lOeX"
+      }
+    },
+    {
       "added_at": "2024-04-29T14:05:32Z",
       "album": {
         "id": "5SqZ5yS7uG7e7lqZHIMLXs",
@@ -3567,6 +3797,43 @@
       }
     },
     {
+      "added_at": "2023-04-30T17:32:55Z",
+      "album": {
+        "id": "0Cq0t6HFg2UeAEqwED7ezE",
+        "name": "blómi",
+        "artists": [
+          {
+            "id": "54KCNI7URCrG6yjQK3Ukow",
+            "name": "Susanne Sundfør"
+          }
+        ],
+        "release_date": "2023-04-28",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0Cq0t6HFg2UeAEqwED7ezE"
+        },
+        "href": "https://api.spotify.com/v1/albums/0Cq0t6HFg2UeAEqwED7ezE?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27376a913721400a5470fae5a39",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0276a913721400a5470fae5a39",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485176a913721400a5470fae5a39",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0Cq0t6HFg2UeAEqwED7ezE"
+      }
+    },
+    {
       "added_at": "2023-04-20T08:48:10Z",
       "album": {
         "id": "05TkdnZDZEQPyFYp1bekGX",
@@ -4012,47 +4279,6 @@
           }
         ],
         "uri": "spotify:album:4gsWRHhTuxJv3GUHcvXoF9"
-      }
-    },
-    {
-      "added_at": "2022-10-05T07:53:52Z",
-      "album": {
-        "id": "6V7vpT9XvJccQgnkG6hRZv",
-        "name": "Ego Death (feat. Steve Vai)",
-        "artists": [
-          {
-            "id": "4vGrte8FDu062Ntj0RsPiZ",
-            "name": "Polyphia"
-          },
-          {
-            "id": "32Jb1X3wSmmoHj2epZReZA",
-            "name": "Steve Vai"
-          }
-        ],
-        "release_date": "2022-09-28",
-        "total_tracks": 4,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6V7vpT9XvJccQgnkG6hRZv"
-        },
-        "href": "https://api.spotify.com/v1/albums/6V7vpT9XvJccQgnkG6hRZv?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2731b3fac357a7fb37bc706f7e9",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e021b3fac357a7fb37bc706f7e9",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048511b3fac357a7fb37bc706f7e9",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6V7vpT9XvJccQgnkG6hRZv"
       }
     },
     {
@@ -4608,47 +4834,6 @@
           }
         ],
         "uri": "spotify:album:1cHpPOJdXfMMWkzRwbLzlx"
-      }
-    },
-    {
-      "added_at": "2022-03-25T10:16:17Z",
-      "album": {
-        "id": "3OQMaQcJKagWQahqUxgjxc",
-        "name": "THE UNREAL STORY OF LOU REED (Instrumental)",
-        "artists": [
-          {
-            "id": "72dcnDFjo3MFsrvpUAthMi",
-            "name": "Fred Nevché"
-          },
-          {
-            "id": "6MJKlN8ya42Agsw3iQZs6e",
-            "name": "French 79"
-          }
-        ],
-        "release_date": "2021-06-25",
-        "total_tracks": 9,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3OQMaQcJKagWQahqUxgjxc"
-        },
-        "href": "https://api.spotify.com/v1/albums/3OQMaQcJKagWQahqUxgjxc?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273d06067ef3ca4f118f41096a8",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02d06067ef3ca4f118f41096a8",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851d06067ef3ca4f118f41096a8",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3OQMaQcJKagWQahqUxgjxc"
       }
     },
     {
@@ -5504,43 +5689,6 @@
           }
         ],
         "uri": "spotify:album:2qbfpvrUfls7UqztodZdxk"
-      }
-    },
-    {
-      "added_at": "2021-03-29T12:48:02Z",
-      "album": {
-        "id": "3ZBCxww5l2GuPEtOmhP73N",
-        "name": "The Inevitable End",
-        "artists": [
-          {
-            "id": "5nPOO9iTcrs9k6yFffPxjH",
-            "name": "Röyksopp"
-          }
-        ],
-        "release_date": "2014-11-10",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3ZBCxww5l2GuPEtOmhP73N"
-        },
-        "href": "https://api.spotify.com/v1/albums/3ZBCxww5l2GuPEtOmhP73N?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273a59ae6662bb7610e99d7fdb4",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02a59ae6662bb7610e99d7fdb4",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851a59ae6662bb7610e99d7fdb4",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3ZBCxww5l2GuPEtOmhP73N"
       }
     },
     {
@@ -7448,43 +7596,6 @@
           }
         ],
         "uri": "spotify:album:2WT1pbYjLJciAR26yMebkH"
-      }
-    },
-    {
-      "added_at": "2019-12-16T15:26:39Z",
-      "album": {
-        "id": "114kedrQqr7dfNLjAaQ5qB",
-        "name": "Control",
-        "artists": [
-          {
-            "id": "6Veg06vIzRjyLyYn8wCaQ9",
-            "name": "Pyrit"
-          }
-        ],
-        "release_date": "2018-04-06",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/114kedrQqr7dfNLjAaQ5qB"
-        },
-        "href": "https://api.spotify.com/v1/albums/114kedrQqr7dfNLjAaQ5qB?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2736221234be72ed27eceedd0eb",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e026221234be72ed27eceedd0eb",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048516221234be72ed27eceedd0eb",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:114kedrQqr7dfNLjAaQ5qB"
       }
     },
     {
@@ -13004,43 +13115,6 @@
       }
     },
     {
-      "added_at": "2016-11-23T08:44:34Z",
-      "album": {
-        "id": "2Itmzzv39Z7w6mL8WVeU3x",
-        "name": "Shamanaid",
-        "artists": [
-          {
-            "id": "0c103ZyWDycpfVxR0lNrjm",
-            "name": "MY BABY"
-          }
-        ],
-        "release_date": "2015-03-11",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/2Itmzzv39Z7w6mL8WVeU3x"
-        },
-        "href": "https://api.spotify.com/v1/albums/2Itmzzv39Z7w6mL8WVeU3x?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27381cd20eb6d76de9d20f3fb92",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0281cd20eb6d76de9d20f3fb92",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485181cd20eb6d76de9d20f3fb92",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:2Itmzzv39Z7w6mL8WVeU3x"
-      }
-    },
-    {
       "added_at": "2016-11-21T10:07:43Z",
       "album": {
         "id": "2Z1kVsAb9zajSfhFWjwvzq",
@@ -16035,43 +16109,6 @@
           }
         ],
         "uri": "spotify:album:2mxcotphjj78YfMvsi3OH7"
-      }
-    },
-    {
-      "added_at": "2015-08-25T09:11:25Z",
-      "album": {
-        "id": "0Jw2xlzASX9RDCoXD8YJfd",
-        "name": "L'innocence",
-        "artists": [
-          {
-            "id": "2d1iZa3wlO73YOM6tCeWSI",
-            "name": "Kid Wise"
-          }
-        ],
-        "release_date": "2015-03-02",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0Jw2xlzASX9RDCoXD8YJfd"
-        },
-        "href": "https://api.spotify.com/v1/albums/0Jw2xlzASX9RDCoXD8YJfd?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273af5bdd67fd92bef1f104c52d",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02af5bdd67fd92bef1f104c52d",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851af5bdd67fd92bef1f104c52d",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0Jw2xlzASX9RDCoXD8YJfd"
       }
     },
     {
@@ -24113,43 +24150,6 @@
           }
         ],
         "uri": "spotify:album:4HeljUV9idQyGIpNw5Gyaj"
-      }
-    },
-    {
-      "added_at": "2014-04-25T11:12:25Z",
-      "album": {
-        "id": "1D900xwFxLRSUBvVyMhR8c",
-        "name": "Songs Of Leonard Cohen",
-        "artists": [
-          {
-            "id": "5l8VQNuIg0turYE1VtM9zV",
-            "name": "Leonard Cohen"
-          }
-        ],
-        "release_date": "1967",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1D900xwFxLRSUBvVyMhR8c"
-        },
-        "href": "https://api.spotify.com/v1/albums/1D900xwFxLRSUBvVyMhR8c?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2731c6d9a5b69a462d9a5d2b796",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e021c6d9a5b69a462d9a5d2b796",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048511c6d9a5b69a462d9a5d2b796",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1D900xwFxLRSUBvVyMhR8c"
       }
     },
     {
