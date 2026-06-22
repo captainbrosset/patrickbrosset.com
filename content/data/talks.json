@@ -28,7 +28,7 @@
     "url": "/slides/2025-10-CSS-Masonry.pdf",
     "img": "/assets/masonry-smashing.png",
     "alt": "Title slide, saying 'Masonry, the pretty grid you didn't see coming', and the SmasingConf logo below it.",
-    "title": "Masonry - The pretty grid you didn’t see coming (Smashing Conference, NYC)",
+    "title": "Masonry - The pretty grid you didn't see coming (Smashing Conference, NYC)",
     "date": "2025-10-07",
     "description": "A lightning talk to introduce the upcoming CSS Masonry layout implementation in Chromium browser, what it's really about, why it makes sense to use a built-in implementation, how to use it, but also how to keep track of new browser features like it."
   },
