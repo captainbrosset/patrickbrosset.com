@@ -61,20 +61,6 @@
   }
 }
 
-:root.on-steroids {
-  animation: rotate-hue 5s linear infinite;
-}
-
-@keyframes rotate-hue {
-  from {
-    --hue: 0deg;
-  }
-
-  to {
-    --hue: 360deg;
-  }
-}
-
 body {
   --pos-1: calc(1 * var(--spacing));
   --pos-2: calc(2 * var(--spacing));
@@ -101,7 +87,7 @@ body {
   box-sizing: border-box;
 
   margin: var(--spacing);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: system-ui, sans-serif;
   font-size: 12pt;
   line-height: 1.6;
 }
