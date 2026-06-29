@@ -5,7 +5,7 @@ tags: article
 date: 2005-12-22
 hasCode: true
 excerpt: ""
-thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Webysther_20160423_-_Elephpant.svg/525px-Webysther_20160423_-_Elephpant.svg.png"
+thumbnail: /assets/php-logo.png
 altText: "The PHP logo"
 ---
 I've recently had to create a generic text data file uploader in PHP (namely to import tab-delimited fields into a database). After experiencing a few problems related to memory issues, I came up with a solution that might be of interest to some people. Here it is.
