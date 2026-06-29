@@ -45,13 +45,13 @@ Usually, the gradient box is the border-box of the element which the background 
 
 Here is a red to blue radial gradient applied to an element:
 
-<div style="background:radial-gradient(red, blue);width:100%;aspect-ratio:3;border:2px solid var(--primary);"></div>
+<div style="background:radial-gradient(red, blue);width:100%;aspect-ratio:3;border:2px solid black;"></div>
 
 However, using the `background-size` property, you can set the size of the gradient box. You can also position it using `background-position`.
 
 Here is the same red to blue radial gradient, but with `background-size` set to 50% of the width and height of the element, and `background-position` set to `left center` (oh, and no background repeat, so we can see where the gradient box is more easily):
 
-<div style="background:radial-gradient(red, blue);width:100%;aspect-ratio:3;border:2px solid var(--primary);background-size:50% 50%;background-position:left center;background-repeat:no-repeat;"></div>
+<div style="background:radial-gradient(red, blue);width:100%;aspect-ratio:3;border:2px solid black;background-size:50% 50%;background-position:left center;background-repeat:no-repeat;"></div>
 
 So, the gradient box isn’t always positioned and sized like the DOM element the gradient applies to. But for the sake of simplicity, for the rest of this article, we'll assume the gradient box matches exactly the DOM element it applies to.
 

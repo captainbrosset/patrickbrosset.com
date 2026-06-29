@@ -38,36 +38,54 @@
 }
 ---
 <section class="list-section">
-  <p>Hi, I'm Patrick, a product manager on the Edge team at Microsoft. I do developer relations, and work on a wide range of web platform technologies and tools. Previously, I worked at Mozilla, on the Firefox DevTools team.<br>
+  <p>Hi, I'm Patrick, a product manager on the Edge web platform team at Microsoft. I'm responsible for developer relations, which means you'll typically find me publicly talking about the good work which our team is doing in Chromium and for the web.<br>
+  Previously, I worked at Mozilla, on the Firefox DevTools team.<br>
   I'm part of the <a href="https://openwebdocs.org/">Open Web Docs</a> governing committee and a co-chair of the <a href="https://www.w3.org/community/webdx/">W3C WebDX community group</a>. I also run <a href="https://devtoolstips.org">DevTools Tips</a>.</p>
   <p>I have 20+ years of working experience with the web and have worked as a designer, web developer, software engineer, browser engineer, engineering manager, and product manager.</p>
-  <p>To get in touch, use the links to my social networks at the bottom of this page, or email me: patrickbrosset <em>at</em> gmail <em>dot</em> com.</p>
+  <p><a href="#contact">Get in touch with me</a></p>
+  <img src="/assets/signature-graph.png" class="signature" width="200" height="193" alt="My signature">
 </section>
 
 {% for entry in recentHomeItems(collections.article, labs, talks) %}
   {% if entry.type === "article" %}
     {% set post = entry.item %}
     <section class="list-section">
-      <h2><a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}"{% if post.data.external %} class="external"{% endif %}>{{ post.data.title }}</a></h2>
-      <time datetime="{{ post.date | dateTime }}">{{ post.date | formattedDateTime }}</time>
+      <h2 style="view-transition-name: article-title-{{ post.data.title | slugify }};">
+        <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}">{{ post.data.title }}</a>
+      </h2>
+      <time class="badge" datetime="{{ post.date | dateTime }}" style="view-transition-name: article-date-{{ post.data.title | slugify }};">{{ post.date | formattedDateTime }}</time>
+      {% if post.data.external %}<span class="badge">External link to {{ post.data.external | externalDomain }}</span>{% endif %}
       <p>{{ post.data.excerpt | safe }}</p>
-      <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}" class="thumbnail"><img loading="lazy" src="{{ post.data.thumbnail }}" alt="{{ post.data.altText }}"></a>
+      <img loading="lazy" src="{{ post.data.thumbnail }}" alt="{{ post.data.altText }}" style="view-transition-name: article-thumbnail-{{ post.data.title | slugify }};">
     </section>
   {% elif entry.type === "lab" %}
     {% set lab = entry.item %}
     <section class="list-section">
       <h2><a href="{% if lab.url.startsWith('http') %}{{ lab.url }}{% else %}/lab/{{ lab.url }}{% endif %}">{{ lab.title | safe }}</a></h2>
-      <time datetime="{{ lab.date }}">{{ lab.date | formattedDateTime }}</time>
+      <time class="badge" datetime="{{ lab.date }}">{{ lab.date | formattedDateTime }}</time>
       <p>{{ lab.description | safe }}</p>
-      {% if lab.img %}<a href="{% if lab.url.startsWith('http') %}{{ lab.url }}{% else %}/lab/{{ lab.url }}{% endif %}" class="thumbnail"><img loading="lazy" src="{{ lab.img }}" alt="{{ lab.alt }}"></a>{% endif %}
+      {% if lab.img %}<img loading="lazy" src="{{ lab.img }}" alt="{{ lab.alt }}">{% endif %}
     </section>
   {% elif entry.type === "talk" %}
     {% set talk = entry.item %}
     <section class="list-section"{% if talk.lang %} lang="{{ talk.lang }}"{% endif %}>
       <h2><a href="{{ talk.url }}">{{ talk.title | safe }}</a></h2>
-      <time datetime="{{ talk.date }}">{{ talk.date | formattedDateTime }}</time>
+      <time class="badge" datetime="{{ talk.date }}">{{ talk.date | formattedDateTime }}</time>
       <p>{{ talk.description | safe }}</p>
-      <a href="{{ talk.url }}" class="thumbnail"><figure><img loading="lazy" src="{{ talk.img }}" alt="{{ talk.alt }}">{% if talk.credit %}<figcaption>Credit: {{ talk.credit | safe }}</figcaption>{% endif %}</figure></a>
+      <figure><img loading="lazy" src="{{ talk.img }}" alt="{{ talk.alt }}">{% if talk.credit %}<figcaption>Photo: {{ talk.credit | safe }}</figcaption>{% endif %}</figure>
     </section>
   {% endif %}
 {% endfor %}
+
+<section class="list-section">
+  <h2 id="contact">Get in touch with me</h2>
+  <ul>
+    <li>patrickbrosset <em>at</em> gmail <em>dot</em> com</li>
+    <li><a rel="me" href="https://mas.to/@patrickbrosset" class="mastodon" title="Follow me on Mastodon">Mastodon</a></li>
+    <li><a href="https://bsky.app/profile/patrickbrosset.com" class="bluesky" title="Follow me on Bluesky">Bluesky</a></li>
+    <li><a href="https://www.linkedin.com/in/patrickbrosset/" class="linkedin" title="Follow me on LinkedIn">LinkedIn</a></li>
+    <li><a href="https://github.com/captainbrosset/" class="github" title="Follow me on GitHub">GitHub</a></li>
+    <li><a href="https://www.youtube.com/c/PatrickBrosset" class="youtube" title="Follow me on YouTube">YouTube</a></li>
+    <li><a href="https://codepen.io/captainbrosset/" class="codepen" title="Follow me on Codepen">Codepen</a></li>
+  </ul>
+</section>

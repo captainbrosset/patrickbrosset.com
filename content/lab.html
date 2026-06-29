@@ -7,14 +7,14 @@
 
 <section class="list-section">
   <h1>Lab</h1>
-  <p>Random experiments, tools, demos, bits and pieces, made with the web. Use at your own risks.</p>
+  <p>Random experiments, tools, demos, bits and pieces, made with and for the web. Use at your own risks.</p>
 </section>
 
 {% for page in labs %}
   <section class="list-section">
     <h2><a href="{{ page.url }}">{{ page.title | safe }}</a></h2>
-    <time datetime="{{ page.date }}">{{ page.date | formattedDateTime }}</time>
+    <time class="badge" datetime="{{ page.date }}">{{ page.date | formattedDateTime }}</time>
     <p>{{ page.description | safe }}</p>
-    {% if page.img %}<a href="{{ page.url }}" class="thumbnail"><img loading="lazy" src="{{ page.img }}" alt="{{ page.alt }}"></a>{% endif %}
+    {% if page.img %}<img loading="lazy" src="{{ page.img }}" alt="{{ page.alt }}">{% endif %}
   </section>
 {% endfor %}

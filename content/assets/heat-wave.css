@@ -1,0 +1,400 @@
+:root {
+  --text: black;
+  --back: white;
+  --color-1-tint-a: #10b0a5;
+  --color-1-tint-b: #92f4ed;
+  --color-1-link: #2e16da;
+  --color-1-link-underline: #ffa7f4;
+  --color-1-text: black;
+  --color-2-tint-a: #f685e6;
+  --color-2-tint-b: #ffcbf8;
+  --color-2-link: #79075d;
+  --color-2-link-underline: #ffe6fc;
+  --color-2-text: black;
+  --badge-back: #10b0a5;
+  --badge-text: white;
+  font-size: 1.1em;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: white;
+    --back: #1a1a1a;
+    --color-1-tint-a: #053d39;
+    --color-1-tint-b: #021a18;
+    --color-1-link: #78ece3;
+    --color-1-link-underline: #ff6ceb;
+    --color-1-text: white;
+    --color-2-tint-a: #45143f;
+    --color-2-tint-b: #270022;
+    --color-2-link: #ec98d7;
+    --color-2-link-underline: #000;
+    --color-2-text: white;
+    --badge-back: #ff6ceb;
+    --badge-text: black;
+  }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+@layer reset, utils, layout, design;
+
+@layer reset {
+  figure {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: normal;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: balance;
+  }
+}
+
+@layer utils {
+  .sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+  }
+}
+
+@layer layout {
+
+  html,
+  body {
+    margin: 0;
+    min-block-size: 100%;
+  }
+
+  main:has(.list-section) {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    margin-block-start: -6rem;
+    margin-block-end: -4rem;
+
+    section {
+      padding: 6rem 2rem 2rem 2rem;
+
+      img {
+        inline-size: 100%;
+        max-block-size: 50vh;
+        object-fit: cover;
+      }
+
+      @media (min-width: 40rem) {
+        img {
+          max-inline-size: 50vw;
+        }
+      }
+    }
+
+    section:last-child {
+      padding-block-end: 4rem;
+    }
+  }
+
+  @media (min-width: 60rem) {
+    main:has(.list-section) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 130rem) {
+    main:has(.list-section) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  nav.site-nav,
+  footer {
+    /* To raise the site-nav above the negative margin main element. */
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+
+  footer {
+    padding: 0.4rem 2rem 2rem 2rem;
+  }
+
+  nav.site-nav {
+    .title {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+  article {
+    padding: 0 2rem;
+    max-inline-size: 140ch;
+
+    img {
+      max-inline-size: 100%;
+    }
+
+    .article-meta {
+      max-inline-size: 55ch;
+      padding: 2rem;
+      margin-block: 2rem;
+
+      h1 {
+        margin-block-start: 0;
+      }
+
+      img {
+        inline-size: 100%;
+        max-inline-size: unset;
+      }
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-block-start: 2em;
+    }
+  }
+
+  pre[class*="language-"] {
+    inline-size: max-content;
+    max-inline-size: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@layer design {
+  body {
+    color: var(--text);
+    background-color: var(--back);
+  }
+
+  .badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 100vw;
+    font-size: 0.7rem;
+    text-wrap: nowrap;
+  }
+
+  a {
+    text-underline-offset: 0;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 0.2rem;
+    color: var(--color-1-link);
+    text-decoration-color: var(--color-1-link-underline);
+    transition: text-underline-offset 0.1s ease-in-out;
+
+    &:hover {
+      text-underline-offset: 0.2rem;
+    }
+  }
+
+  figcaption {
+    font-size: 0.7rem;
+    font-style: italic;
+  }
+
+  p>code {
+    background: var(--color-2-link-underline);
+    padding: .25rem .5rem;
+    border-radius: 100vw;
+    font-family: Consolas, monospace;
+    font-size: 0.9rem;
+  }
+
+  a>code {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .highlight {
+    padding: 1rem;
+    background: var(--color-1-tint-b);
+  }
+
+  nav.site-nav {
+    .title {
+      text-decoration: none;
+    }
+
+    .face {
+      border-radius: 50%;
+      inline-size: 3rem;
+      block-size: 3rem;
+      object-fit: cover;
+    }
+
+    .name {
+      block-size: 3rem;
+      inline-size: auto;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .name {
+        filter: invert(1);
+      }
+    }
+
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    ul {
+      display: flex;
+      gap: 1rem;
+      justify-content: end;
+      text-transform: capitalize;
+    }
+  }
+
+  main:has(.list-section) {
+    section {
+      color: var(--text);
+      --link: var(--color-1-link);
+      --link-underline: var(--color-1-link-underline);
+
+      &:nth-child(even) {
+        --tint-a: var(--color-1-tint-a);
+        --tint-b: var(--color-1-tint-b);
+        --text: var(--color-1-text);
+        --link: var(--color-1-link);
+        --link-underline: var(--color-1-link-underline);
+      }
+
+      &:nth-child(4n) {
+        --tint-a: var(--color-2-tint-a);
+        --tint-b: var(--color-2-tint-b);
+        --text: var(--color-2-text);
+        --link: var(--color-2-link);
+        --link-underline: var(--color-2-link-underline);
+      }
+
+      background: linear-gradient(30deg, var(--tint-a), var(--tint-b));
+      color: var(--text);
+
+      a {
+        text-decoration-color: var(--link-underline);
+        color: var(--link);
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.3rem;
+        position: relative;
+
+        &[data-external-domain]::before {
+          content: "External link to " attr(data-external-domain);
+          position: absolute;
+
+          background: var(--link-underline);
+          padding: 0.25rem 0.5rem;
+          border-radius: 100vw;
+          inline-size: max-content;
+          font-size: 0.7rem;
+
+          transition: all 0.1s ease-in-out;
+          opacity: 0;
+          translate: 0 0;
+        }
+
+        &:hover::before {
+          opacity: 1;
+          translate: 0 -1.5lh;
+        }
+      }
+
+      .badge {
+        background: var(--badge-back);
+        color: var(--badge-text);
+      }
+
+    }
+
+    .signature {
+      inline-size: 8ch;
+      block-size: auto;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .signature {
+        filter: invert(1);
+      }
+    }
+  }
+
+  body:not(.home) main:has(.list-section) {
+    section:first-child {
+      h1 {
+        margin-block-start: 4rem;
+      }
+
+      p {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  article {
+    .article-meta {
+      background: linear-gradient(30deg, var(--color-2-tint-a), var(--color-2-tint-b));
+
+      h1 {
+        line-height: 1.2;
+        margin: 0;
+      }
+
+      .badge {
+        background: var(--color-2-link-underline);
+        margin-block: 1rem;
+        display: block;
+        inline-size: max-content;
+      }
+
+      h1.sr-only+.badge {
+        margin-block-start: 0;
+      }
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding-block-end: 0.5rem;
+      background-image: linear-gradient(var(--color-1-link-underline), var(--color-1-link-underline));
+      background-repeat: no-repeat;
+      background-size: 3em 0.3em;
+      background-position: left bottom;
+    }
+  }
+}

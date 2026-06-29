@@ -7,14 +7,15 @@
 
 <section class="list-section">
   <h1>Talks</h1>
-  <p>Here are the talks and presentations I have given, either in person or online.</p>
+  <p>Conference talks I have given over the years.</p>
+  <p>Want me to speak at your event? Let me know: patrickbrosset <em>at</em> gmail <em>dot</em> com.</p>
 </section>
 
 {% for page in talks %}
   <section class="list-section"{% if page.lang %} lang="{{ page.lang }}"{% endif %}>
     <h2><a href="{{ page.url }}">{{ page.title | safe }}</a></h2>
-    <time datetime="{{ page.date }}">{{ page.date | formattedDateTime }}</time>
+    <time class="badge" datetime="{{ page.date }}">{{ page.date | formattedDateTime }}</time>
     <p>{{ page.description | safe }}</p>
-    <a href="{{ page.url }}" class="thumbnail"><figure><img loading="lazy" src="{{ page.img }}" alt="{{ page.alt }}">{% if page.credit %}<figcaption>Credit: {{ page.credit | safe }}</figcaption>{% endif %}</figure></a>
+    <figure><img loading="lazy" src="{{ page.img }}" alt="{{ page.alt }}">{% if page.credit %}<figcaption>Photo: {{ page.credit | safe }}</figcaption>{% endif %}</figure>
   </section>
 {% endfor %}

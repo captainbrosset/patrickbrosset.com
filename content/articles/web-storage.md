@@ -8,7 +8,7 @@ excerpt: "Does your app or site need to store data on the client? Not sure what 
 thumbnail: "/assets/storage.jpg"
 altText: "Container boxes in a harbor"
 ---
-<div style="padding:.5rem 1rem;background:var(--separator);">
+<div class="highlight">
 
 **⚠️ MDN now has more up-to-date information on this ⚠️**
 
@@ -36,7 +36,7 @@ The answers are better than you might think:
 
 But as always, the devil is in the details! Let's try to dive into these details.
 
-### What are my options?
+## What are my options?
 
 There are multiple ways to store data on the device, from your web app:
 
@@ -47,7 +47,7 @@ There are multiple ways to store data on the device, from your web app:
 
 There are others too, but these are the main I can think of. Each have their own use and their own pros and cons.
 
-#### Web Storage ([docs](https://developer.mozilla.org/docs/Web/API/Web_Storage_API))
+### Web Storage ([docs](https://developer.mozilla.org/docs/Web/API/Web_Storage_API))
 
 Web Storage is simple and well supported, but should only be used for very simple needs. They can only hold strings, and are limited to 5MiB each. They're also synchronous, and can't be used in workers.
 
@@ -55,7 +55,7 @@ Being synchronous means that any data access will block the main thread of your 
 
 Not being available in workers is a problem too if you're considering using a service worker in your app for offline scenarios for example.
 
-#### IndexedDB (or IDB) ([docs](https://developer.mozilla.org/docs/Web/API/IndexedDB_API))
+### IndexedDB (or IDB) ([docs](https://developer.mozilla.org/docs/Web/API/IndexedDB_API))
 
 In theory, IDB is great. Its API is asynchronous, it can be used in workers, and it can store pretty much anything. In practice, I find the API quite hard to use.
 
@@ -63,7 +63,7 @@ I personally have never used it directly without an abstraction. In fact, for si
 
 The amount of data you can store in IDB can be huge! Ultimately it will of course depend on the amount of data available on the device. Read on for more information about storage quotas.
 
-#### Cache API ([docs](https://developer.mozilla.org/docs/Web/API/CacheStorage))
+### Cache API ([docs](https://developer.mozilla.org/docs/Web/API/CacheStorage))
 
 The Cache API is super useful when you use a [service worker](https://developer.mozilla.org/docs/Web/API/Service_Worker_API), and intercept network requests by using the `fetch` event. With this API, you can store and retrieve server responses programmatically, and make your app resilient to network problems.
 
@@ -73,7 +73,7 @@ The API can be used in workers, and is asynchronous.
 
 Finally, the amount of data you can store in the cache can, here again, be huge. More on that later.
 
-#### OPFS ([docs](https://web.dev/file-system-access/#accessing-the-origin-private-file-system))
+### OPFS ([docs](https://web.dev/file-system-access/#accessing-the-origin-private-file-system))
 
 The Origin-Private File System API is based on the File System Access API. So let's talk about that first.
 
@@ -97,7 +97,7 @@ But, you might be interested in learning that SQLite, the popular SQL database, 
 
 If you're willing to add a couple hundred KB to your app's download, then that's a great option to consider. Check out the [project page](https://sqlite.org/wasm/doc/trunk/index.md), and this [web.dev article](https://developer.chrome.com/blog/sqlite-wasm-in-the-browser-backed-by-the-origin-private-file-system/) for more information.
 
-### How is data stored in the browser?
+## How is data stored in the browser?
 
 Let's leave Web Storage aside. For now it has its own dedicated storage mechanism. However, everything else is handled via a storage management model that's defined in the [Storage spec](https://storage.spec.whatwg.org/).
 
@@ -123,7 +123,7 @@ In short:
 
 The above is only the theory from the spec though. How much of it is implemented in browsers, and whether things are actually implemented this way might vary.
 
-### How much do I get?
+## How much do I get?
 
 As said earlier, an origin can store up to 5MiB of local storage and 5MiB of session storage. Other storage options are managed by the Quota Manager, and the rest of this section will focus on those only.
 
@@ -138,7 +138,7 @@ Below is what I found by reading docs, asking people, and experimenting on my ow
 
 It's fair to say that an origin can store quite a lot of data on a device these days.
 
-#### Safari
+### Safari
 
 Safari lets your origin store 1GiB of data. After that limit is reached, it requests the user to approve the additional storage space. For example, if the app tries to store 100MiB above that limit, Safari asks the user for permission. If the storage needs continue increasing, Safari keeps on asking the user for permission.
 
@@ -148,7 +148,7 @@ This 1GiB quota is already quite comfortable for many app use cases. If your app
 
 Note, however, that the WebView version of Safari (which other browsers must use on iOS devices), and other browsers that use WebKit (like the GNOME Web browser), seem to just stop at 1GiB and don't ask the user for more storage space. When this hard limit is reached, a JavaScript error is thrown in the code that attempted to store more data.
 
-#### Chromium
+### Chromium
 
 I say Chromium here, because that's what I tested ([downloaded here](https://download-chromium.appspot.com/)). I believe Chrome and Edge (which are both based on Chromium) do have the same storage rules as what's in Chromium, but really, any Chromium-based browser is free to deviate from those rules (although that's probably unlikely).
 
@@ -166,7 +166,7 @@ Now, imagine a mobile device with a 64GiB drive. In theory, an origin could stor
 
 Note that when using the incognito or private mode in a Chromium-based browser, the quota is different (usually much lower), and the data disappears when the private browser window is closed.
 
-#### Firefox
+### Firefox
 
 Firefox will let your origin store up to 10% of the total disk size by default, capped at 10GiB (which Firefox actually applies to all origins that are under the same [eTLD+1](https://developer.mozilla.org/en-US/docs/Glossary/eTLD) group).
 
@@ -176,7 +176,7 @@ Once the origin reaches the maximum storage space Firefox allows, an error is th
 
 Note that 10% is only the default however, your origin will be allowed to store up to 50% of the total disk size (this time capped at 8TiB) if your app asks for and is granted _persistent_ storage space. More on persistent vs. temporary storage later in this article, but what's important to note is that all origins start as temporary storage by default.
 
-### Can I check how much is left?
+## Can I check how much is left?
 
 Yes, and no.
 
@@ -190,7 +190,7 @@ Therefore, the API will report 60% of the total disk space on Chromium, and 10% 
 
 You can use this result to get a rough idea of the storage capacity of the device and offer features in your app based on this, then let the user choose whether they want to use those features or not.
 
-### Temporary vs. persistent data
+## Temporary vs. persistent data
 
 All storage endpoints start as _temporary_ (or _best-effort_, as noted earlier). This sounds much scarier than it really is though.
 
@@ -210,15 +210,15 @@ You should think twice before making your data persistent. Do you really want to
 
 So keep this in mind, and design your app accordingly.
 
-### How does eviction work?
+## How does eviction work?
 
 The logic is, again, browser-specific, and can be pretty complicated quickly. This section is not complete yet, and I will keep updating it as I find more information.
 
-#### Safari
+### Safari
 
 Safari seems to evict data from origins that haven't been used in the last seven days.
 
-#### Chromium
+### Chromium
 
 In Chromium, when a device is low on storage space, the browser starts evicting data for the origins that were least recently accessed.
 

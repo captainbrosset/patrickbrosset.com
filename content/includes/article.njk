@@ -6,17 +6,11 @@ permalink: "articles/{{ date | date: '%Y-%m-%d' }}-{{ title | slug | superSlug }
 
 <article class="article">
 
-  <p class="article-illustration">
-    <img src="{{ thumbnail }}" width="600" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}">
-  </p>
-
-  <h1{% if titleForScreenReadersOnly %} class="sr-only"{% endif %}>{{ title }}</h1>
-
-  <p class="author-date">
-    <a href="/">Patrick Brosset</a>
-    -
-    <time datetime="{{ date | dateTime }}">{{ date | formattedDateTime }}</time>
-  </p>
+  <div class="article-meta">
+    <h1{% if titleForScreenReadersOnly %} class="sr-only"{% endif %} style="view-transition-name: article-title-{{ title | slugify }};">{{ title }}</h1>
+    <time class="badge" datetime="{{ date | dateTime }}" style="view-transition-name: article-date-{{ title | slugify }};">{{ date | formattedDateTime }}</time>
+    <img src="{{ thumbnail }}" width="600" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}" style="view-transition-name: article-thumbnail-{{ title | slugify }};">
+  </div>
 
   {% if external %}
     {{ excerpt }}

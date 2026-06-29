@@ -53,6 +53,24 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  eleventyConfig.addFilter("externalDomain", function (url) {
+    // Return just the domain name, for a quick preview of where a link goes.
+    try {
+      // Special case for https://blogs.windows.com/msedgedev/...
+      // For these, we don't want only blogs.windows.com cause that's misleading.
+      // We want the /msedgedev/ part too
+      if (url.startsWith("https://blogs.windows.com/msedgedev/")) {
+        return "blogs.windows.com/msedgedev";
+      }
+
+      const parsedUrl = new URL(url);
+      return parsedUrl.hostname;
+    } catch (error) {
+      console.error(`Error parsing URL: ${url}`, error);
+      return url; // Return the original URL if parsing fails
+    }
+  });
+
   eleventyConfig.addFilter("superSlug", function (value) {
     return value
       .toLowerCase()

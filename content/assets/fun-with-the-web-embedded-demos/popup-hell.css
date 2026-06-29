@@ -16,7 +16,7 @@
   .popup {
     border: var(--separator);
     border-radius: .5rem;
-    background: var(--back-color);
+    background: var(--back);
     font-size: .8rem;
     width: max-content;
     max-width: 15rem;
@@ -46,8 +46,8 @@
   .popup .title {
     padding: .125rem .5rem;
     border-block-end: var(--separator);
-    background: var(--text-color);
-    color: var(--back-color);
+    background: var(--text);
+    color: var(--back);
   }
 
   .popup .content {
@@ -63,6 +63,6 @@
   .popup .actions button {
     font-size: inherit;
     font-family: inherit;
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--text);
   }
 }

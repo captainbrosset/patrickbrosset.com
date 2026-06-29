@@ -4,8 +4,10 @@
     height: 50vh;
     position: relative;
     overflow: hidden;
-    --text: var(--back-color);
-    background: var(--text-color);
+    --text: white;
+    --back: black;
+    color: var(--text);
+    background: var(--back);
   }
 
   math {
