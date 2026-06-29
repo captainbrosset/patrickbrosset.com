@@ -4,9 +4,9 @@
     "img": "/assets/fun-with-grid-lanes-talk.webp",
     "alt": "Me, on stage, at CSS Day, with the intro slides behind me, saying Fun with CSS Grid Lanes.",
     "credit": "Josh Tumath",
-    "title": "Fun with CSS Grid Lanes",
+    "title": "Fun with CSS Grid Lanes (CSS Day, Amsterdam)",
     "date": "2026-06-12",
-    "description": "The early web was a playground. The tools were limited, but we made things anyway, and constraints fueled our creativity.<br>That spirit still matters, and that's how we push the web forwat.<br>CSS has grown into something really powerful, and one of the features I'm most excited about is CSS Grid Lanes, aka CSS masonry. In this talk, I go deep into how it works, how it differs from Grid, what it can do, how to use it in practice, and I go through many creative demos.<br>Play with Grid Lanes, help push the platform forward!<br><br><em>Slides require a recent version of a Chromium-based browser with the <code>#enable-experimental-web-platform-features</code> and <code>#css-grid-lanes-layout</code> flags enabled</em>.<br><a href='/slides/CSSDay-2026/'>Slides</a>, recording coming soon."
+    "description": "The early web was a playground. The tools were limited, but we made things anyway, and constraints fueled our creativity.<br>That spirit still matters, and that's how we push the web forwat.<br>CSS has grown into something really powerful, and one of the features I'm most excited about is CSS Grid Lanes, aka CSS masonry. In this talk, I go deep into how it works, how it differs from Grid, what it can do, how to use it in practice, and I go through many creative demos.<br>Play with Grid Lanes, help push the platform forward!<br><br>The slides require a recent version of Edge or Chrome with the <code>#enable-experimental-web-platform-features</code> flag enabled</em>.<br><a href='/slides/CSSDay-2026/'>Slides</a>, recording coming soon."
   },
   {
     "url": "https://www.youtube.com/watch?v=Y2BfC7hxazI",
