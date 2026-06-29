@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100%;
+    display: grid;
+    place-content: center;
+  }
+
+  .bon-pour {
+    --text-color: #f31e34;
+    /* --text-color: black; */
+    --border-color: var(--text-color);
+    --background: #edd0e2;
+    /* --background: linear-gradient(160deg, #fff8cf 0%, #f4cd63 22%, #b8862b 48%, #f2c45a 72%, #fff2bf 100%), */
+      /* linear-gradient(90deg, #0000 0 8%, #ffffff55 12%, #0000 16% 84%, #ffffff44 88%, #0000 92%); */
+    --padding: 3vmin;
+
+    inline-size: 90vmin;
+    block-size: 70vmin;
+
+    background: var(--background);
+    color: var(--text-color);
+
+    border: .5vmin solid var(--border-color);
+
+    box-shadow: 0 0 6vmin 3vmin #0001;
+
+    outline: .5vmin solid var(--border-color);
+    outline-offset: calc(-1 * var(--padding));
+    padding: var(--padding);
+
+    border-shape: shape(
+        /* Top side */
+        from 5% 0,
+        line to 95% 0,
+
+        /* Top-right notch */
+        arc to 100% 5% of 6%,
+
+        /* Top-right little notches */
+        line to 100% 7%,
+        arc to 100% 9% of .1%,
+        line to 100% 11%,
+        arc to 100% 13% of .1%,
+        line to 100% 15%,
+        arc to 100% 17% of .1%,
+        line to 100% 19%,
+        arc to 100% 21% of .1%,
+        line to 100% 23%,
+        arc to 100% 25% of .1%,
+        line to 100% 27%,
+        arc to 100% 29% of .1%,
+        line to 100% 31%,
+        arc to 100% 33% of .1%,
+        line to 100% 35%,
+        arc to 100% 37% of .1%,
+        line to 100% 40%,
+
+        /* Right-center notch */
+        arc to 100% 60% of 9%,
+
+        /* Bottom-right little notches */
+        line to 100% 63%,
+        arc to 100% 65% of .1%,
+        line to 100% 67%,
+        arc to 100% 69% of .1%,
+        line to 100% 71%,
+        arc to 100% 73% of .1%,
+        line to 100% 75%,
+        arc to 100% 77% of .1%,
+        line to 100% 79%,
+        arc to 100% 81% of .1%,
+        line to 100% 83%,
+        arc to 100% 85% of .1%,
+        line to 100% 87%,
+        arc to 100% 89% of .1%,
+        line to 100% 91%,
+        arc to 100% 93% of .1%,
+        line to 100% 95%,
+
+        /* Bottom-right notch */
+        arc to 95% 100% of 6%,
+
+        /* Bottom side */
+        line to 5% 100%,
+
+        /* Bottom-left notch */
+        arc to 0 95% of 6%,
+
+        /* Bottom-left little notches */
+        line to 0 93%,
+        arc to 0 91% of .1%,
+        line to 0 89%,
+        arc to 0 87% of .1%,
+        line to 0 85%,
+        arc to 0 83% of .1%,
+        line to 0 81%,
+        arc to 0 79% of .1%,
+        line to 0 77%,
+        arc to 0 75% of .1%,
+        line to 0 73%,
+        arc to 0 71% of .1%,
+        line to 0 69%,
+        arc to 0 67% of .1%,
+        line to 0 65%,
+        arc to 0 63% of .1%,
+        line to 0 60%,
+
+        /* Left-center notch */
+        arc to 0 40% of 9%,
+
+        /* Top-left little notches */
+        line to 0 37%,
+        arc to 0 35% of .1%,
+        line to 0 33%,
+        arc to 0 31% of .1%,
+        line to 0 29%,
+        arc to 0 27% of .1%,
+        line to 0 25%,
+        arc to 0 23% of .1%,
+        line to 0 21%,
+        arc to 0 19% of .1%,
+        line to 0 17%,
+        arc to 0 15% of .1%,
+        line to 0 13%,
+        arc to 0 11% of .1%,
+        line to 0 9%,
+        arc to 0 7% of .1%,
+        line to 0 5%,
+
+        /* Top-left notch */
+        arc to 5% 0 of 6%);
+
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    rule: .5vmin solid var(--border-color);
+
+    text-transform: uppercase;
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    aside {
+      writing-mode: sideways-lr;
+      font-size: 3vmin;
+      padding: calc(2 * var(--padding)) var(--padding) calc(2 * var(--padding)) calc(2 * var(--padding));
+      align-content: center;
+      letter-spacing: .5ch;
+      white-space: nowrap;
+      text-align: center;
+
+      &::before,
+      &::after {
+        content: "♥";
+      }
+    }
+
+    main {
+      padding: var(--padding) calc(2 * var(--padding)) var(--padding) var(--padding);
+
+      h1 {
+        margin: 0;
+        text-align: center;
+        font-size: 20vmin;
+        line-height: 1;
+      }
+
+      h2 {
+        margin: calc(2 * var(--padding)) 0 0 0;
+        font-size: 6vmin;
+
+        span {
+          text-decoration: underline;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+</style>
+
+<div class="bon-pour">
+  <aside>Bon anniversaire</aside>
+  <main>
+    <h1>Bon</h1>
+    <h2>pour
+      <span class="fill-me">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </span>
+    </h2>
+  </main>
+</div>

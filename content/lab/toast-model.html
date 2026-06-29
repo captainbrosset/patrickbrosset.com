@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100%;
+    display: grid;
+    place-content: center;
+  }
+
+  .plate {
+    container-type: inline-size;
+    width: 90vmin;
+    height: 90vmin;
+    
+    background-color: white;
+    background-image:
+      radial-gradient(circle at center, #0001 50%, transparent 50% 67%, #0004 70%, transparent 0);    
+  }
+
+  .toast {
+    --margin: 10cqw;
+    --border: 2cqw 3cqw 4cqw 5cqw;
+    --padding: 5cqw;
+
+    box-sizing: border-box;
+
+    margin: var(--margin);
+
+    border: 0px solid #b05a29;
+    border-width: var(--border);
+
+    padding: var(--padding);
+
+    inline-size: calc(100cqw - 2 * var(--margin));
+    block-size: calc(100cqw - 2 * var(--margin));
+
+    border-shape:
+      shape(from 50% 11%,
+        arc to 98% 21% of 28% cw,
+        arc to 91% 43% of 22% cw,
+        arc to 95% 57% of 31% cw,
+        line to 95% 92%,
+        arc to 87% 99% of 7% cw,
+        arc to 16% 98% of 222% ccw,
+        arc to 9% 91% of 7% cw,
+        arc to 9% 84% of 38% cw,
+        line to 10% 50%,
+        arc to 12% 41% of 22% cw,
+        arc to 6% 16% of 21% cw,
+        arc to 50% 11% of 26% cw) shape(from 50% 11%,
+        arc to 98% 21% of 28% cw,
+        arc to 91% 43% of 22% cw,
+        arc to 95% 57% of 31% cw,
+        line to 95% 92%,
+        arc to 87% 99% of 7% cw,
+        arc to 16% 98% of 222% ccw,
+        arc to 9% 91% of 7% cw,
+        arc to 9% 84% of 38% cw,
+        line to 10% 50%,
+        arc to 12% 41% of 22% cw,
+        arc to 6% 16% of 21% cw,
+        arc to 50% 11% of 26% cw);
+
+    background-color: #fac069;
+
+    background-image:
+      radial-gradient(ellipse 40% 22% at 42% 18%, #f2b259 27%, transparent 0),
+      radial-gradient(ellipse 32% 24% at 59% 25%, #f2b259 17%, transparent 0),
+      radial-gradient(ellipse 50% 24% at 28% 10%, #f2b259 13%, transparent 0),
+      radial-gradient(ellipse 30% 44% at 21% 25%, #f2b259 20%, transparent 0),
+      radial-gradient(ellipse 35% 30% at 75% 50%, #f2b259 22%, transparent 0),
+      radial-gradient(ellipse 28% 18% at 15% 60%, #f2b259 15%, transparent 0),
+      radial-gradient(ellipse 45% 28% at 55% 70%, #f2b259 19%, transparent 0),
+      radial-gradient(ellipse 38% 32% at 35% 80%, #f2b259 24%, transparent 0);
+    background-size: 20cqw 20cqw;
+  }
+
+  .butter {
+    inline-size: 100%;
+    block-size: 100%;
+    background-color: rgba(255, 215, 0, 0.7);
+    border-shape:
+      shape(from 15% 15%,
+        arc to 48% 16% of 27% cw,
+        arc to 74% 8% of 25% cw,
+        arc to 90% 36% of 17% cw,
+        arc to 86% 68% of 44% cw,
+        arc to 81% 90% of 15% cw,
+        arc to 51% 90% of 22% cw,
+        arc to 19% 67% of 22% cw,
+        arc to 15% 45% of 28% cw,
+        arc to 12% 30% of 17% cw,
+        arc to 15% 15% of 16% cw);
+  }
+</style>
+<div class="plate">
+  <div class="toast">
+    <div class="butter"></div>
+  </div>
+</div>

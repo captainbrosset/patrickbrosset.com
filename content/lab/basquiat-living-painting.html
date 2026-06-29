@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100%;
+  }
+
+  body {
+    display: grid;
+    place-items: center;
+  }
+
+  #painting {
+    inline-size: 90vmin;
+    block-size: 90vmin;
+
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 5rem);
+    grid-template-columns: repeat(auto-fill, 5rem);
+  }
+
+  #figure {
+    grid-area: 1 / 1 / -1 / -1;
+    place-self: center;
+  }
+
+  #yellow-stain {
+    grid-area: 1 / 1;
+    place-self: start start;
+  }
+
+  #red-stain {
+    grid-area: auto / auto / -1 / -1;
+    place-self: end end;
+  }
+
+  #aopkhesks {
+    grid-row-end: -1;
+  }
+
+  #aopkhesks-blue {
+    grid-area: 1 / auto / auto / -1;
+  }
+</style>
+
+<div id="painting">
+  <img id="yellow-stain" src="/assets/basquiat/yellow-stain.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+  <img id="red-stain" src="/assets/basquiat/red-stain.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+  <img id="aopkhesks" src="/assets/basquiat/aopkhesks.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+  <img id="aopkhesks-blue" src="/assets/basquiat/aopkhesks-blue.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+  <img src="/assets/basquiat/crown.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+  <img src="/assets/basquiat/elbow.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+  <img id="figure" src="/assets/basquiat/figure.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+  <img src="/assets/basquiat/hieroglyphs.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+  <img src="/assets/basquiat/ladder.avif" alt="Part of a painting, inspired by Basquiat's Versus Medici, 1982.">
+</div>
