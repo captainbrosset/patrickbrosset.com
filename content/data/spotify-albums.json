@@ -1,7 +1,266 @@
 {
-  "created_at": "2026-07-13T13:59:27.765Z",
+  "created_at": "2026-07-20T13:44:36.042Z",
   "total_albums": 690,
   "albums": [
+    {
+      "added_at": "2024-08-21T11:32:30Z",
+      "album": {
+        "id": "1LaI3HEJVrsPeaxbrfCCE2",
+        "name": "Blow",
+        "artists": [
+          {
+            "id": "5Wgfp4AXTUcniRynos3K4Q",
+            "name": "Ghinzu"
+          }
+        ],
+        "release_date": "2004-01-01",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1LaI3HEJVrsPeaxbrfCCE2"
+        },
+        "href": "https://api.spotify.com/v1/albums/1LaI3HEJVrsPeaxbrfCCE2?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2730880e97b3add06749d809d12",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e020880e97b3add06749d809d12",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048510880e97b3add06749d809d12",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1LaI3HEJVrsPeaxbrfCCE2"
+      }
+    },
+    {
+      "added_at": "2025-11-07T07:56:54Z",
+      "album": {
+        "id": "3SUEJULSGgBDG1j4GQhfYY",
+        "name": "LUX",
+        "artists": [
+          {
+            "id": "7ltDVBr6mKbRvohxheJ9h1",
+            "name": "ROSALÍA"
+          }
+        ],
+        "release_date": "2025-11-07",
+        "total_tracks": 15,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3SUEJULSGgBDG1j4GQhfYY"
+        },
+        "href": "https://api.spotify.com/v1/albums/3SUEJULSGgBDG1j4GQhfYY?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27393ee2e2f2dfb7de9befcc164",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0293ee2e2f2dfb7de9befcc164",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485193ee2e2f2dfb7de9befcc164",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3SUEJULSGgBDG1j4GQhfYY"
+      }
+    },
+    {
+      "added_at": "2024-03-07T14:27:46Z",
+      "album": {
+        "id": "61qvmOwUqxttEs99FGShmn",
+        "name": "Seme",
+        "artists": [
+          {
+            "id": "0WSSKmoRbxqLf3MnXInQ2J",
+            "name": "Max Cooper"
+          }
+        ],
+        "release_date": "2024-02-28",
+        "total_tracks": 5,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/61qvmOwUqxttEs99FGShmn"
+        },
+        "href": "https://api.spotify.com/v1/albums/61qvmOwUqxttEs99FGShmn?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273fabb5fdbc2eed41abe2fba0b",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02fabb5fdbc2eed41abe2fba0b",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851fabb5fdbc2eed41abe2fba0b",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:61qvmOwUqxttEs99FGShmn"
+      }
+    },
+    {
+      "added_at": "2024-07-19T11:55:58Z",
+      "album": {
+        "id": "5dhet1luldVxu21FUspJXV",
+        "name": "Once in a Long, Long While...",
+        "artists": [
+          {
+            "id": "5WoWlP0ihSFIxnppxjwSgE",
+            "name": "Low Roar"
+          }
+        ],
+        "release_date": "2017-04-14",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5dhet1luldVxu21FUspJXV"
+        },
+        "href": "https://api.spotify.com/v1/albums/5dhet1luldVxu21FUspJXV?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27387986e804018697f14194ace",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0287986e804018697f14194ace",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485187986e804018697f14194ace",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5dhet1luldVxu21FUspJXV"
+      }
+    },
+    {
+      "added_at": "2024-08-10T13:05:38Z",
+      "album": {
+        "id": "0aYwzFnbFur2SEyJKKS0LD",
+        "name": "Sand",
+        "artists": [
+          {
+            "id": "4oMBP1OWXtmxyDhAj2aRyQ",
+            "name": "Balthazar"
+          }
+        ],
+        "release_date": "2021-02-26",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0aYwzFnbFur2SEyJKKS0LD"
+        },
+        "href": "https://api.spotify.com/v1/albums/0aYwzFnbFur2SEyJKKS0LD?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273f5923a4766a342f82b6e9c57",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02f5923a4766a342f82b6e9c57",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851f5923a4766a342f82b6e9c57",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0aYwzFnbFur2SEyJKKS0LD"
+      }
+    },
+    {
+      "added_at": "2024-11-05T09:34:21Z",
+      "album": {
+        "id": "1VGf2S10jrdRo2Nub0OXLp",
+        "name": "Ritual",
+        "artists": [
+          {
+            "id": "6tcOJ8DRI6oaFcXgYBCnRc",
+            "name": "Jean du Voyage"
+          }
+        ],
+        "release_date": "2024-11-01",
+        "total_tracks": 16,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1VGf2S10jrdRo2Nub0OXLp"
+        },
+        "href": "https://api.spotify.com/v1/albums/1VGf2S10jrdRo2Nub0OXLp?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2730b036f9da77658fca6380916",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e020b036f9da77658fca6380916",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048510b036f9da77658fca6380916",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1VGf2S10jrdRo2Nub0OXLp"
+      }
+    },
+    {
+      "added_at": "2026-04-17T10:02:04Z",
+      "album": {
+        "id": "474YduzMbDFNBzYBJNXdQp",
+        "name": "Odyssey / Sonne",
+        "artists": [
+          {
+            "id": "05lIUgmmsmTX2N9dCKc8rC",
+            "name": "Rival Consoles"
+          }
+        ],
+        "release_date": "2015-05-04",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/474YduzMbDFNBzYBJNXdQp"
+        },
+        "href": "https://api.spotify.com/v1/albums/474YduzMbDFNBzYBJNXdQp?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273cf2e55988066ba69d58245ff",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02cf2e55988066ba69d58245ff",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851cf2e55988066ba69d58245ff",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:474YduzMbDFNBzYBJNXdQp"
+      }
+    },
     {
       "added_at": "2025-12-09T09:36:58Z",
       "album": {
@@ -370,43 +629,6 @@
           }
         ],
         "uri": "spotify:album:2fpcgO6HxWRz4u2dm3ECsH"
-      }
-    },
-    {
-      "added_at": "2025-11-07T07:56:54Z",
-      "album": {
-        "id": "3SUEJULSGgBDG1j4GQhfYY",
-        "name": "LUX",
-        "artists": [
-          {
-            "id": "7ltDVBr6mKbRvohxheJ9h1",
-            "name": "ROSALÍA"
-          }
-        ],
-        "release_date": "2025-11-07",
-        "total_tracks": 15,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3SUEJULSGgBDG1j4GQhfYY"
-        },
-        "href": "https://api.spotify.com/v1/albums/3SUEJULSGgBDG1j4GQhfYY?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27393ee2e2f2dfb7de9befcc164",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0293ee2e2f2dfb7de9befcc164",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485193ee2e2f2dfb7de9befcc164",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3SUEJULSGgBDG1j4GQhfYY"
       }
     },
     {
@@ -3008,80 +3230,6 @@
       }
     },
     {
-      "added_at": "2024-07-19T11:55:58Z",
-      "album": {
-        "id": "5dhet1luldVxu21FUspJXV",
-        "name": "Once in a Long, Long While...",
-        "artists": [
-          {
-            "id": "5WoWlP0ihSFIxnppxjwSgE",
-            "name": "Low Roar"
-          }
-        ],
-        "release_date": "2017-04-14",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5dhet1luldVxu21FUspJXV"
-        },
-        "href": "https://api.spotify.com/v1/albums/5dhet1luldVxu21FUspJXV?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27387986e804018697f14194ace",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0287986e804018697f14194ace",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485187986e804018697f14194ace",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5dhet1luldVxu21FUspJXV"
-      }
-    },
-    {
-      "added_at": "2026-04-17T10:02:04Z",
-      "album": {
-        "id": "474YduzMbDFNBzYBJNXdQp",
-        "name": "Odyssey / Sonne",
-        "artists": [
-          {
-            "id": "05lIUgmmsmTX2N9dCKc8rC",
-            "name": "Rival Consoles"
-          }
-        ],
-        "release_date": "2015-05-04",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/474YduzMbDFNBzYBJNXdQp"
-        },
-        "href": "https://api.spotify.com/v1/albums/474YduzMbDFNBzYBJNXdQp?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273cf2e55988066ba69d58245ff",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02cf2e55988066ba69d58245ff",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851cf2e55988066ba69d58245ff",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:474YduzMbDFNBzYBJNXdQp"
-      }
-    },
-    {
       "added_at": "2026-04-14T08:20:15Z",
       "album": {
         "id": "6o86bV7TAt5x4exc2qLDqC",
@@ -3978,43 +4126,6 @@
       }
     },
     {
-      "added_at": "2024-11-05T09:34:21Z",
-      "album": {
-        "id": "1VGf2S10jrdRo2Nub0OXLp",
-        "name": "Ritual",
-        "artists": [
-          {
-            "id": "6tcOJ8DRI6oaFcXgYBCnRc",
-            "name": "Jean du Voyage"
-          }
-        ],
-        "release_date": "2024-11-01",
-        "total_tracks": 16,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1VGf2S10jrdRo2Nub0OXLp"
-        },
-        "href": "https://api.spotify.com/v1/albums/1VGf2S10jrdRo2Nub0OXLp?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2730b036f9da77658fca6380916",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e020b036f9da77658fca6380916",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048510b036f9da77658fca6380916",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1VGf2S10jrdRo2Nub0OXLp"
-      }
-    },
-    {
       "added_at": "2024-11-02T10:08:01Z",
       "album": {
         "id": "57oYjOsWdRUGOjSX4RbyM4",
@@ -4123,80 +4234,6 @@
           }
         ],
         "uri": "spotify:album:3XG5dH7LcDZlkOWmtvLzXB"
-      }
-    },
-    {
-      "added_at": "2024-08-21T11:32:30Z",
-      "album": {
-        "id": "1LaI3HEJVrsPeaxbrfCCE2",
-        "name": "Blow",
-        "artists": [
-          {
-            "id": "5Wgfp4AXTUcniRynos3K4Q",
-            "name": "Ghinzu"
-          }
-        ],
-        "release_date": "2004-01-01",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1LaI3HEJVrsPeaxbrfCCE2"
-        },
-        "href": "https://api.spotify.com/v1/albums/1LaI3HEJVrsPeaxbrfCCE2?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2730880e97b3add06749d809d12",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e020880e97b3add06749d809d12",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048510880e97b3add06749d809d12",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1LaI3HEJVrsPeaxbrfCCE2"
-      }
-    },
-    {
-      "added_at": "2024-08-10T13:05:38Z",
-      "album": {
-        "id": "0aYwzFnbFur2SEyJKKS0LD",
-        "name": "Sand",
-        "artists": [
-          {
-            "id": "4oMBP1OWXtmxyDhAj2aRyQ",
-            "name": "Balthazar"
-          }
-        ],
-        "release_date": "2021-02-26",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0aYwzFnbFur2SEyJKKS0LD"
-        },
-        "href": "https://api.spotify.com/v1/albums/0aYwzFnbFur2SEyJKKS0LD?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273f5923a4766a342f82b6e9c57",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02f5923a4766a342f82b6e9c57",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851f5923a4766a342f82b6e9c57",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0aYwzFnbFur2SEyJKKS0LD"
       }
     },
     {
@@ -4345,43 +4382,6 @@
           }
         ],
         "uri": "spotify:album:49TUnWv5swURA9osAyLHI2"
-      }
-    },
-    {
-      "added_at": "2024-03-07T14:27:46Z",
-      "album": {
-        "id": "61qvmOwUqxttEs99FGShmn",
-        "name": "Seme",
-        "artists": [
-          {
-            "id": "0WSSKmoRbxqLf3MnXInQ2J",
-            "name": "Max Cooper"
-          }
-        ],
-        "release_date": "2024-02-28",
-        "total_tracks": 5,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/61qvmOwUqxttEs99FGShmn"
-        },
-        "href": "https://api.spotify.com/v1/albums/61qvmOwUqxttEs99FGShmn?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273fabb5fdbc2eed41abe2fba0b",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02fabb5fdbc2eed41abe2fba0b",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851fabb5fdbc2eed41abe2fba0b",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:61qvmOwUqxttEs99FGShmn"
       }
     },
     {
