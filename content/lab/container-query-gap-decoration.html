@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<style>
+  html {
+    font-family: system-ui, sans-serif;
+    font-size: 1.2em;
+    line-height: 1.5;
+  }
+
+  body {
+    margin: 2rem;
+  }
+
+  h1,
+  h2,
+  p {
+    margin: 1rem 0;
+  }
+
+  h1,
+  h2 {
+    text-wrap: balance;
+    line-height: 1.2;
+  }
+
+  code {
+    background: #eee;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.2rem;
+    font-size: .9rem;
+  }
+
+  .container {
+    container-type: inline-size;
+  }
+
+  .layout {
+    display: grid;
+    gap: 2rem;
+    rule: .5rem dotted red;
+  }
+
+  .separator-center {
+    rule-inset: calc(50cqi - 2rem / 2);
+  }
+
+  .separator-start {
+    rule-inset-start: 0;
+    rule-inset-end: calc(100cqi - 2rem);
+    rule-color: blue;
+  }
+</style>
+
+<h1>Draw fixed-size gap decorations by using container query units</h1>
+
+<p>Normally, you can only control the size of a gap decoration along the axis that's perpendicular to that decoration.
+  For example, for a horizontal decoration line, you can only control the height, when defining the line with
+  <code>rule: 2px solid red</code>.<br>
+  However, if you place your layout in a CSS container (by using the <code>container-type</code> property), you can then
+  use container query units (such as <code>cqi</code>) to set the size of the decoration along the other axis, thanks to
+  the <code>rule-inset</code> property.
+</p>
+
+<p>The <code>rule-inset</code> property lets you inset a decoration line by some length. Because that decoration is
+  inside of a CSS container, insetting it by <code>50cqi</code> (for a horizontal line) gives you no decoration at
+  all since both ends of the line get inset by 50% of the container inline size.<br>
+  You can use this to inset the decoration by, say, <code>calc(50cqi - 2px)</code> to get a centerd 4 pixel wide
+  decoration (each end of the line get inset by half of the length of the line minus 2 pixels).</p>
+
+<p>For this technique to work, you will need to add an extra element around the layout elements that have gap
+  decorations. For example, if you have a <code>&lt;div class="layout"&gt;</code> element that uses gap decorations and
+  this technique, you will also need an element that's an ancestor to it and that uses
+  <code>container-type: inline-size</code>. There should also be no difference in sizes between the ancestor and the
+  layout element if you want the <code>cqi</code> values to work as expected (e.g. no padding on the ancestor, and no
+  margin on the layout).</p>
+
+<div class="container">
+
+  <h2>Centered fixed-width decoration</h2>
+
+  <div class="layout separator-center">
+    <p>Code: <code>rule-inset: calc(50cqi - 1rem);</code></p>
+    <section>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ex molestias quam facilis temporibus id
+      veritatis impedit consectetur possimus dolores modi et, mollitia pariatur maiores laboriosam doloribus
+      voluptatibus magnam animi!</section>
+    <section>Repellat deserunt qui nostrum debitis laudantium earum! Quod ex, voluptas hic eligendi molestias aut
+      maiores debitis architecto porro distinctio, ipsam illo est. Pariatur fugit vero beatae nihil impedit magnam
+      sequi.</section>
+    <section>Quae blanditiis a corrupti aperiam dolor nostrum aut aspernatur quod dolorem odio commodi nesciunt ex culpa
+      sapiente inventore tenetur, eos, quo modi in dolorum repudiandae labore doloremque? Assumenda, labore reiciendis!
+    </section>
+    <section>Temporibus, iusto quos! Quia rerum adipisci sint nobis earum sunt aut! Nemo magni tempora exercitationem
+      suscipit, dicta nisi deserunt reiciendis animi ut! Eum illum, maiores nemo tempora saepe perferendis quia.
+    </section>
+  </div>
+
+  <h2>Start-aligned fixed-width gap decoration</h2>
+
+  <div class="layout separator-start">
+    <p>Code: <code>rule-inset-end: calc(100cqi - 2rem);</code></p>
+    <section>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum ex molestias quam facilis temporibus id
+      veritatis impedit consectetur possimus dolores modi et, mollitia pariatur maiores laboriosam doloribus
+      voluptatibus magnam animi!</section>
+    <section>Repellat deserunt qui nostrum debitis laudantium earum! Quod ex, voluptas hic eligendi molestias aut
+      maiores debitis architecto porro distinctio, ipsam illo est. Pariatur fugit vero beatae nihil impedit magnam
+      sequi.</section>
+    <section>Quae blanditiis a corrupti aperiam dolor nostrum aut aspernatur quod dolorem odio commodi nesciunt ex culpa
+      sapiente inventore tenetur, eos, quo modi in dolorum repudiandae labore doloremque? Assumenda, labore reiciendis!
+    </section>
+    <section>Temporibus, iusto quos! Quia rerum adipisci sint nobis earum sunt aut! Nemo magni tempora exercitationem
+      suscipit, dicta nisi deserunt reiciendis animi ut! Eum illum, maiores nemo tempora saepe perferendis quia.
+    </section>
+  </div>
+
+</div>

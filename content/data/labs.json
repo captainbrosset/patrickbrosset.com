@@ -1,5 +1,13 @@
 [
   {
+    "url": "container-query-gap-decoration",
+    "img": "/assets/cqi-gap-decorations.webp",
+    "alt": "A screenshot of the demo page, showing 4 paragraphs separated by centered red dot dividers.",
+    "title": "Draw fixed-size gap decorations by using container query units",
+    "description": "A little technique that uses container query units in CSS to draw fixed-size gap decorations.",
+    "date": "2026-08-04"
+  },
+  {
     "url": "esf",
     "img": "/assets/esf.png",
     "alt": "A cut-off part of the engine-specific failures graph, showing the three lines for Chrome, Firefox, and Safari.",
