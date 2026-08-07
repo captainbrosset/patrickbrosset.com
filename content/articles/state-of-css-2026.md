@@ -4,7 +4,7 @@ title: State of CSS 2026
 tags: article
 date: 2026-08-07
 excerpt: "The results to the State of CSS 2026 survey are now available. Here's my summary from the parts of the survey that are most relevant to my work on the web platform."
-thumbnail: "/assets/stateofcss26.avif"
+thumbnail: "/assets/stateofcss26.png"
 altText: "State of cSS 2026 logo"
 ---
 
