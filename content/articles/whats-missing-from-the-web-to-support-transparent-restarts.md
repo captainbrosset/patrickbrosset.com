@@ -112,6 +112,6 @@ Buckets are a convenient place to put a lot of new APIs and functionalities. Buc
 
 Then just send me a message by replying to these threads:
 
-* [On Mastodon](#)
-* [On Bluesky](#)
-* [On LinkedIn](#)
+* [On Mastodon](https://mas.to/@patrickbrosset/117252945168447954)
+* [On Bluesky](https://bsky.app/profile/patrickbrosset.com/post/3mvasme7rks2x)
+* [On LinkedIn](https://lnkd.in/p/eWB_5VgV)
