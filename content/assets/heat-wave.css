@@ -57,10 +57,6 @@
     font-weight: normal;
     text-wrap: balance;
   }
-
-  p {
-    text-wrap: balance;
-  }
 }
 
 @layer utils {
