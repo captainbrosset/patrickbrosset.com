@@ -149,7 +149,7 @@
 
   article {
     padding: 0 2rem;
-    max-inline-size: 140ch;
+    max-inline-size: 100ch;
 
     img {
       max-inline-size: 100%;
@@ -168,6 +168,14 @@
         inline-size: 100%;
         max-inline-size: unset;
       }
+    }
+
+    hr {
+      height: 4px;
+      border: 0;
+      background: linear-gradient(to right, var(--color-2-tint-a), var(--color-2-tint-b));
+      max-width: calc(55ch + 4rem);
+      margin: 2rem 0;
     }
 
     h2,
