@@ -1,5 +1,13 @@
 [
   {
+    "url": "/slides/2026-09-17-WebMCP-DotAI.pdf",
+    "img": "/assets/dotai-2026-speaker-card.png",
+    "alt": "My dotAI speaker card with my face and name, and the message Patrick is a dotAI 2026 speaker.",
+    "title": "WebMCP: Stop scraping the web, start calling it (dotAI, Paris)",
+    "date": "2026-09-17",
+    "description": "Today, most web browsing AI agents rely on DOM and screenshot analysis, and then guessing which clicks to make. WebMCP is the bridge from \"AI can read pages\" to \"AI can safely and predictably do work on pages\" by replacing guesswork with actual web developer involvement and explicit tool contracts. In this talk I show how WebMCP turns multi-step, high-friction workflows into structured tool calls you can trust. WebMCP eliminates DOM brittleness, is resilient to UI churn, doesn't require shipping a separate server-side MCP endpoint, and let's you incrementally make your existing site agent-ready.<br>Video recording coming soon."
+  },
+  {
     "url": "/slides/CSSDay-2026/",
     "img": "/assets/fun-with-grid-lanes-talk.webp",
     "alt": "Me, on stage, at CSS Day, with the intro slides behind me, saying Fun with CSS Grid Lanes.",
