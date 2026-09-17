@@ -12,6 +12,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/slides/2025-09-CSS-Gap-Decorations.pdf");
   eleventyConfig.addPassthroughCopy("content/slides/2025-10-CSS-Masonry.pdf");
   eleventyConfig.addPassthroughCopy("content/slides/2026-01-FOSDEM.pdf");
+  eleventyConfig.addPassthroughCopy("content/slides/2026-09-17-WebMCP-DotAI.pdf");
   eleventyConfig.addPassthroughCopy("content/slides/CSSDay-2026/**/*.{png,jpg,gif,GIF,svg,webp,avif,mp4,css,js,json}");
   eleventyConfig.addWatchTarget("content/slides/CSSDay-2026/");
   eleventyConfig.addPassthroughCopy("content/lab/**/*");
