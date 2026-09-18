@@ -9,7 +9,9 @@ permalink: "articles/{{ date | date: '%Y-%m-%d' }}-{{ title | slug | superSlug }
   <div class="article-meta">
     <h1{% if titleForScreenReadersOnly %} class="sr-only"{% endif %} style="view-transition-name: article-title-{{ title | slugify }};">{{ title }}</h1>
     <time class="badge" datetime="{{ date | dateTime }}" style="view-transition-name: article-date-{{ title | slugify }};">{{ date | formattedDateTime }}</time>
-    <img src="{{ thumbnail }}" width="600" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}" style="view-transition-name: article-thumbnail-{{ title | slugify }};">
+    {% if not hideThumbnail %}
+      <img src="{{ thumbnail }}" width="600" alt="{% if altText %}{{ altText }}{% else %}Article thumbnail for illustration only{% endif %}" style="view-transition-name: article-thumbnail-{{ title | slugify }};">
+    {% endif %}
   </div>
 
   {% if external %}
