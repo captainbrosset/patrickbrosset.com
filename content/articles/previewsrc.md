@@ -19,7 +19,61 @@ This pattern has become so common that many image CDNs, frameworks, and librarie
 * Swap the preview and final images.
 * Clean up after the transition.
 
-![Two images side by side, on the left a blurry preview, on the right, the full image, showing the Louvre pyramid in Paris](/assets/blurhash.png)
+Below is an example of the effect, which shows a blurry preview image. Click the button below to load and display the final image:
+
+<button>Load the final image</button>
+
+<style>
+  .image-preview-sample {
+    padding: 1rem;
+    border: 1px solid;
+
+    img {
+      margin: 1rem;
+      margin-inline-start: 0;
+      margin-block-start: 0;
+      float: left;
+    }
+
+    p {
+      line-height: 2;
+      margin: 0;
+    }
+
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+</style>
+<div class="image-preview-sample">
+<img src="/assets/blurhash-preview.png" alt="The Louvre pyramid in Paris.">
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum volutpat accumsan tristique. Phasellus sit amet mauris odio. Aenean urna felis, laoreet vel ipsum ut, dignissim fermentum mi. Fusce posuere efficitur laoreet. Donec lacinia massa cursus eros ultrices maximus. Proin sit amet vestibulum nibh. Nulla luctus eleifend nisl. Aliquam vel orci a nisl maximus bibendum ut sit amet turpis. Curabitur sodales risus placerat nulla congue bibendum. Aliquam ut mi et dui efficitur semper. Donec tempus nibh eget est aliquet bibendum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+<script>
+const btn = document.querySelector("button");
+const img = document.querySelector(".image-preview-sample img");
+function displayPreview() {
+  img.src = "/assets/blurhash-preview.png";
+}
+function displayFinal() {
+  img.src = "/assets/blurhash-final.png";
+}
+btn.addEventListener("click", () => {
+  displayPreview();
+  setTimeout(() => {
+    if (!document.startViewTransition) {
+      displayFinal();
+      return;
+    }
+    // With View Transitions:
+    const transition = document.startViewTransition(() => {
+      displayFinal();
+    });
+  }, 500);
+});
+</script>
+</div>
 
 **We are [proposing](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ImagePreview/explainer.md) to make this a built-in capability of the web, and we'd love to know if this is worth pursuing and what the exact scope should be.**
 
