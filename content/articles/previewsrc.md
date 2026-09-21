@@ -1,34 +1,33 @@
 ---
 layout: article.njk
-title: Bringing image previews to the web platform
+title: "Blurry before beautiful: image previews for the web"
 tags: article
-date: 2026-09-20
-excerpt: "Showing blurred previews while images are loading on the web is a very common pattern which we'd love to standardize at the platform level, so that all developers can use it with very little code and complexity. What do you think?"
-thumbnail: "/assets/blurhash.png"
-altText: "Two images side by side, on the left a blurry preview, on the right, the full image, showing the Louvre pyramid in Paris"
-hideThumbnail: true
+date: 2026-09-21
+excerpt: "Showing blurry previews while images are loading on the web is a very common pattern which we'd love to standardize at the browser level, so that all developers can use it with very little code and complexity. Let us know what you think!"
+thumbnail: "/assets/blurry-beautiful.png"
+altText: "Abstract illustration of a multi-color blur with a line passing through it, extending past the blur, with colored dots along it."
 hasCode: true
 draft: true
 ---
 
-You've likely seen this common pattern in action already: a blurred version of an image appears immediately and then, a moment later, the full image replaces it.
+You've probably already seen this common pattern in action: blurry versions of the images of a site appear immediately and, moments later, their full versions replace them.
 
-![Two images side by side, on the left a blurry preview, on the right, the full image, showing the Louvre pyramid in Paris](/assets/blurhash.png)
+This pattern has become so common that many image CDNs, frameworks, and libraries support it out of the box. But every implementation has to do the same thing:
 
-This pattern has become so common that many image CDNs, frameworks, and libraries support it out of the box. But every implementation has to reimplement the same pieces:
-
-* Fetch both the preview and final images.
+* Fetch both the preview and the final images.
 * Display the preview while the final image loads.
 * Swap the preview and final images.
 * Clean up after the transition.
 
+![Two images side by side, on the left a blurry preview, on the right, the full image, showing the Louvre pyramid in Paris](/assets/blurhash.png)
+
 **We are [proposing](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ImagePreview/explainer.md) to make this a built-in capability of the web, and we'd love to know if this is worth pursuing and what the exact scope should be.**
 
-Before diving into the proposal, let's first look at how this pattern is typically implemented today.
+Before diving into the proposal, let's take a look at how this pattern is typically implemented today.
 
 ## How to do this today?
 
-There's currently no standard way to provide a preview for an image, so the solution depends on the framework or library you are using.
+There's currently no standard way to provide a preview for an image, so the solution depends on the framework or library you're using.
 
 For example, Next.js can generate a blurred placeholder when an image is imported, by using the [placeholder=blur](https://nextjs.org/docs/app/api-reference/components/image#placeholder) property:
 
@@ -38,7 +37,7 @@ import mountain from "./mountain.jpg";
 <Image src={mountain} alt="A mountain" placeholder="blur" />
 ```
 
-Libraries such as [BlurHash](https://github.com/woltapp/blurhash) encode a tiny preview as a short string, which your application can then decode to show the preview while the real image is loading:
+Libraries such as [blurhash](https://github.com/woltapp/blurhash) encode a tiny preview as a short string, which your application can then decode to show the preview while the real image is loading:
 
 ```js
 // First, create blurhash strings for your images.
@@ -60,7 +59,7 @@ ctx.putImageData(imageData, 0, 0);
 document.body.append(canvas);
 ```
 
-You can also use your own custom implementation, for example by creating image previews at build-time, and sending them as data URLs to display as CSS background images while the final image is loading:
+You can also use write your own custom implementation, for example by creating image previews at build-time, and sending them as data URLs used in CSS background images, while the final image is loading:
 
 ```html
 <div class="image" style="background-image: url(data:image/png;base64,....)">
@@ -72,19 +71,13 @@ These approaches differ, but they all have to coordinate the preview and final i
 
 ## Why a native solution?
 
-This preview effect is well established, and for good reasons. It allows your UI to come to life much sooner, giving the impression of a more responsive site which lets users access to the rest of the content while images are still loading.
+This preview effect is well established, and for good reasons. It allows your UI to come to life much sooner, giving the impression of a more responsive site which lets users access the rest of the content while images are still loading.
 
-The idea is not to change this pattern, but instead to implement it in the browser so that you don't need to write, maintain, **and** run as much code, and you can instead let the browser handle most of the complexity for you.
+We don't want to change this pattern, but instead implement it in the browser so that you don't need to write, maintain, **and** run as much code. With a solution that's built-in, you let the browser handle most of the complexity.
 
 ## What's in the proposal?
 
-There are really three pieces to the pattern:
-
-1. Load and display a preview image and replace it with the final image once it's ready.
-1. Customize the transition between the preview and the final image (e.g. fade).
-1. Support compact formats such as BlurHash directly.
-
-Currently, our proposal is focused on the first piece only, and introduces a new attribute for the `<img>` element called `previewsrc`:
+For now, our proposal focuses only on loading, displaying, and replacing the preview image. To achieve this, we propose to introduce a new attribute for the `<img>` element called `previewsrc`:
 
 ```html
 <img previewsrc="tiny-blurry-preview.png" src="full-image.avif">
@@ -96,29 +89,44 @@ With the `previewsrc` attribute, the browser would:
 * Display the preview.
 * Replace the preview with the final image when it becomes ready.
 
-This already simplifies the process of handling image previews a lot because you don't need to use or write code to load the preview, handle cases where the preview doesn't exist or fail to load before the final image is ready, and handle the image swap yourself.
+This already simplifies the process of handling image previews a lot because you don't need to use or write code to load the preview, handle cases where the preview doesn't exist or fails to load before the final image is ready, and handle the image swap yourself.
 
-We'd love your feedback on this first piece. **Would you consider it a valuable addition to the web platform?**
+We'd love your feedback on this first piece: **do you consider this a valuable addition to the web platform, and would you use it?**
 
-As for the two other pieces, we're currently considering them as optional enhancements that could be added in the future, but your feedback on their importance would help us prioritize them. Let's review what they are next.
+If you're using a library or framework to handle previews, your solution might already handle the following additional features:
+
+1. Customize the transition between the preview and the final image, for example by adding a fade effect.
+1. Support compact formats such as blurhash directly.
+
+We're currently considering them as optional enhancements that could be added in the future, but your feedback on their importance would help us prioritize them. Let's review what they are next.
 
 ### Optional enhancements
 
-* Making the swap between the preview and final images look nice, but letting you customize the transition.
+* Making the swap between the preview and final images look nice, by letting you customize the transition.
 
   With our minimal proposal, when the final image becomes ready to paint, the browser directly replaces the preview with the final image.
 
-  However, many sites today want a fade between the two images. So an option here would be to integrate the `previewsrc` attribute with View Transitions so you can customize the transition using CSS only.
+  However, many sites today want a fade between the two images. So an option here would be to integrate the `previewsrc` attribute with View Transitions API to let you customize the transition using CSS.
 
 * Supporting compact formats.
 
-  BlurHash and ThumbHash are two libraries which generate very compact string representations of images. These strings are typically a lot smaller than regular image files, even when those files are small blurred previews.
+  [blurhash](https://github.com/woltapp/blurhash) and [thumbhash](https://github.com/evanw/thumbhash) are two libraries which generate very compact string representations of images. These strings are typically a lot smaller than regular image files, even when those files are small blurry previews.
 
-  These strings are however not natively supported by browsers, and you must use client-side code to decode the strings into real images.
+  However, the strings are not supported by browsers, and you must use client-side code to convert the strings to real images.
 
-  So, another option would be for browsers to support these formats
+  Therefore, another option would be to add browser support for these formats.
 
-**What constitutes a minimum viable implementation for you to use the `previewsrc` attribute?**
+We'd love your feedback on this: **would you use `previewsrc` alone, or would you require support for these optional enhancements (and if so, which ones) before adopting it?**
+
+## Let us know!
+
+Let us know how you feel about this [proposal](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ImagePreview/explainer.md).
+
+Is the problem worth solving at the web platform level? What would consitute the minimal viable solution for you to adopt the API?
+
+Please send your feedback by opening a new issue on our [GitHub repository](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=image-preview.md).
+
+---
 
 ## Common questions
 
@@ -160,10 +168,3 @@ They keep working as before.
 
 An `<img>` inside a `<picture>` element can still use the `previewsrc` attribute. The existing `<picture>`, `srcset`, and `sizes` algorithms continue selecting the final image.
 
-## Would you use this?
-
-Let us know how you feel about this [proposal](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/ImagePreview/explainer.md).
-
-Is the problem worth solving at the web platform level? What would consitute the minimal viable solution for you to adopt this API?
-
-You can send your feedback by opening a new issue on our [GitHub repository](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/new?template=image-preview.md).
