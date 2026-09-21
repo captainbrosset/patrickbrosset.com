@@ -145,32 +145,18 @@ With the `previewsrc` attribute, the browser would:
 
 This already simplifies the process of handling image previews a lot because you don't need to use or write code to load the preview, handle cases where the preview doesn't exist or fails to load before the final image is ready, and handle the image swap yourself.
 
-We'd love your feedback on this first piece: **do you consider this a valuable addition to the web platform, and would you use it?**
+We'd love your feedback on this initial proposal: **do you consider this a valuable addition to the web platform? Is it enough on this own for you to use it?**
 
-If you're using a library or framework to handle previews, your solution might already handle the following additional features:
+## Possible future enhancements
 
-1. Customize the transition between the preview and the final image, for example by adding a fade effect.
-1. Support compact formats such as blurhash directly.
+If you're using a library or framework to handle previews today, your solution might also support the following features:
 
-We're currently considering them as optional enhancements that could be added in the future, but your feedback on their importance would help us prioritize them. Let's review what they are next.
+1. Customize the transition between the preview and the final image, for example by adding a fade effect, to make the swap look nicer.
+1. Support compact formats such as blurhash directly, without needing to write additional code.
 
-### Optional enhancements
+Our initial proposal doesn't support these features. When the final image becomes ready to paint, the browser directly replaces the preview with the final image, with no customizable transition. Also, it doesn't natively support compact formats such as blurhash.
 
-* Making the swap between the preview and final images look nice, by letting you customize the transition.
-
-  With our minimal proposal, when the final image becomes ready to paint, the browser directly replaces the preview with the final image.
-
-  However, many sites today want a fade between the two images. So an option here would be to integrate the `previewsrc` attribute with View Transitions API to let you customize the transition using CSS.
-
-* Supporting compact formats.
-
-  [blurhash](https://github.com/woltapp/blurhash) and [thumbhash](https://github.com/evanw/thumbhash) are two libraries which generate very compact string representations of images. These strings are typically a lot smaller than regular image files, even when those files are small blurry previews.
-
-  However, the strings are not supported by browsers, and you must use client-side code to convert the strings to real images.
-
-  Therefore, another option would be to add browser support for these formats.
-
-We'd love your feedback on this: **would you use `previewsrc` alone, or would you require support for these optional enhancements (and if so, which ones) before adopting it?**
+We're currently considering them as optional enhancements that could be added in the future, but your feedback on their importance would help us prioritize them: **would you use `previewsrc` alone or would you require support for these optional enhancements (and if so, which ones) before adopting it?**
 
 ## Let us know!
 
