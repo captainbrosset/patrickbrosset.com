@@ -2,7 +2,7 @@
 layout: article.njk
 title: "Blurry before beautiful: image previews for the web"
 tags: article
-date: 2026-09-21
+date: 2026-09-22
 excerpt: "Showing blurry previews while images are loading on the web is a very common pattern which we'd love to standardize at the browser level, so that all developers can use it with very little code and complexity. Let us know what you think!"
 thumbnail: "/assets/blurry-beautiful.png"
 altText: "Abstract illustration of a multi-color blur with a line passing through it, extending past the blur, with colored dots along it."
