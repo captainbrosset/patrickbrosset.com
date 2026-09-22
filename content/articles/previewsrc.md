@@ -144,7 +144,7 @@ With the `previewsrc` attribute, the browser would:
 
 This already simplifies the process of handling image previews a lot because you don't need to use or write code to load the preview, handle cases where the preview doesn't exist or fails to load before the final image is ready, and handle the image swap yourself.
 
-We'd love your feedback on this initial proposal: **do you consider this a valuable addition to the web platform? Is it enough on this own for you to use it?**
+We'd love your feedback on this initial proposal: **do you consider this a valuable addition to the web platform? Is it enough on its own for you to use it?**
 
 ## Possible future enhancements
 
