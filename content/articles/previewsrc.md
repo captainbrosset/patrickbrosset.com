@@ -7,7 +7,6 @@ excerpt: "Showing blurry previews while images are loading on the web is a very 
 thumbnail: "/assets/blurry-beautiful.png"
 altText: "Abstract illustration of a multi-color blur with a line passing through it, extending past the blur, with colored dots along it."
 hasCode: true
-draft: true
 ---
 
 You've probably already seen this common pattern in action: blurry versions of the images of a site appear immediately and, moments later, their full versions replace them.
