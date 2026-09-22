@@ -207,3 +207,11 @@ They keep working as before.
 
 An `<img>` inside a `<picture>` element can still use the `previewsrc` attribute. The existing `<picture>`, `srcset`, and `sizes` algorithms continue selecting the final image.
 
+## Why not just display the preview as a background-image of the &lt;img&gt; instead?
+
+Using CSS to paint a background-image on the `<img>` element while it loads is a common technique, as described in [How to fake Progressive WebP Images](https://shkspr.mobi/blog/2020/04/how-to-fake-progressive-webp-images/).
+
+The advantage of a browser-provided `previewsrc` attribute over this are:
+* Both the preview and final URLs are directly associated with the `<img>` element.
+* The `previewsrc` attribute would get reflected as an HTMLImageElement property.
+* The browser would manage error handling, sizing and positioning, synchronizing updates, and best-effort scheduling
