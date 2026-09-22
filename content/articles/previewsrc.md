@@ -181,7 +181,7 @@ Sure, if you set `previewsrc` to another image URL, then an additional network r
 - The browser would, in fact, completely skip previews when they are unlikely to be useful.
 - And you could still continue to use blurhash strings or data URLs for previews, avoiding a second network request altogether.
 
-It's important top keep in mind that this is _not_ a replacement for proper image optimization, and not a performance feature.
+It's important to keep in mind that this is _not_ a replacement for proper image optimization, and not a performance feature.
 
 ### Does this avoid abuse?
 
