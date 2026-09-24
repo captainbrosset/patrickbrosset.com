@@ -1,5 +1,13 @@
 [
   {
+    "url": "interop-2027",
+    "img": "/assets/fav-interop.png",
+    "alt": "39 colored squares containing the names of my favorite interop proposals.",
+    "title": "My favorite Interop 2027 proposals",
+    "description": "About 40 of the Interop 2027 proposals which I think are of particular importance to the web developer community right now. Check it out, and show your support by voting for the ones you like.",
+    "date": "2026-09-24"
+  },
+  {
     "url": "container-query-gap-decoration",
     "img": "/assets/cqi-gap-decorations.webp",
     "alt": "A screenshot of the demo page, showing 4 paragraphs separated by centered red dot dividers.",

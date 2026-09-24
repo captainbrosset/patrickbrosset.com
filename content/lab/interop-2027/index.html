@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="dots.svg" type="image/svg+xml">
+  <title>My favorite Interop 2027 proposals</title>
+  <style>
+    body {
+      font-size: .9rem;
+      font-family: system-ui;
+      margin: 1.5rem;
+    }
+
+    h1 {
+      font-weight: 400;
+      font-size: 2.5em;
+    }
+
+    form input {
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      padding: 0.5rem;
+      font-size: 1em;
+    }
+
+    #root {
+      display: grid;
+      display: grid-lanes;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      gap: 1.5rem;
+      margin-block-start: 2rem;
+    }
+
+    article {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      background-color: oklch(85% 0.05 calc(sibling-index() * 10));
+      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+      display: grid;
+      gap: 1rem;
+      grid-template-rows: auto auto 1fr auto;
+
+      .labels {
+        font-size: .8em;
+        display: flex;
+        gap: 0.5rem;
+
+        span {
+          border-radius: 0.25rem;
+          padding: 0.25rem 0.5rem;
+          background: #fff9;
+        }
+      }
+
+      h2 {
+        margin: 0;
+        font-weight: normal;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.6;
+
+        code {
+          background: #fff3;
+          font-size: 1em;
+        }
+      }
+
+      .vote-link {
+        font-weight: bold;
+        font-size: 1.1em;
+        text-decoration: none;
+        color: oklch(37.34% 0.07756 236.371);
+        display: block;
+        padding: .5rem;
+        border-radius: .25rem;
+        position: relative;
+
+        &:hover {
+          background: #fff4;
+          right: 2px;
+          bottom: 2px;
+          box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>My favorite Interop 2027 proposals</h1>
+  <p>Here are some of the Interop 2027 proposals which I think are of particular importance to the web developer
+    community right now.<br>
+    Take a look and if you see proposals you like, use the vote links to show your support by adding a 👍 reaction to
+    them.</p>
+  <p>
+    The list below is randomly sorted, and the order changes when you refresh the page.</p>
+  <form>
+    <label for="search">Filter the list</label>
+    <input type="text" id="search" name="search" placeholder="Enter filter text">
+  </form>
+  <div id="root"></div>
+  <script>
+    const PROPOSALS = [
+      {
+        "name": "Reference target",
+        "description": "The <code>referenceTarget</code> property of a <code>ShadowRoot</code> object forwards attributes such as <code>for</code> and <code>aria-labelledby</code> to elements inside a shadow DOM. You can use this to, for example, link a <code>&#x3C;label></code> to its <code>&#x3C;input></code> even if the <code>&#x3C;input></code> is in the shadow DOM of a web component.",
+        "labels": [
+          "web-components"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1333"
+      },
+      {
+        "name": "requestIdleCallback()",
+        "description": "The <code>requestIdleCallback()</code> API queues a function that runs in idle browser time, either at the end of a frame or when the user is inactive. Also known as the background tasks API.",
+        "labels": ["performance"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1398"
+      },
+      {
+        "name": "Customizable <select>",
+        "description": "The <code>&#x3C;select></code> element's appearance, including the button, selected option, picker dropdown, and options, can be customized using CSS.",
+        "labels": [
+          "forms",
+          "html-elements"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1393"
+      },
+      {
+        "name": "Profiler",
+        "description": "The <code>Profiler</code> API records data about the execution of a page, which you can send to a server for later analysis. Also known as self-profiling.",
+        "labels": ["performance"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1429"
+      },
+      {
+        "name": "Temporal",
+        "description": "The <code>Temporal</code> API allows you to work with dates, times, time zones, and durations. It is more powerful than the <code>Date</code> API.",
+        "labels": [
+          "javascript"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1381"
+      },
+      {
+        "name": "display animation",
+        "description": "You can animate elements between <code>display: none</code> and any other <code>display</code> value or animate between <code>content-visibility: hidden</code> and any other <code>content-visibility</code> value. This also applies to transitions.",
+        "labels": [
+          "css"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1456"
+      },
+      {
+        "name": "<install> and navigator.install()",
+        "description": "The <code>&#x3C;install></code> HTML element represents a button that, upon activation, prompts the user to choose whether to install a progressive web app. The <code>navigator.install()</code> method triggers a request to install a progressive web app.",
+        "labels": [
+          "progressive-web-app"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1430"
+      },
+      {
+        "name": "Speculation rules",
+        "description": "Speculation rules are hints to the browser to proactively download pages in the background so they appear instantly when the user navigates to them.",
+        "labels": ["performance"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1335"
+      },
+      {
+        "name": "Interest invokers",
+        "description": "Interest invokers, registered by the <code>interestfor</code> HTML attribute, trigger events and actions on a target element when a user shows interest in the element, through behaviors such as hover, focus, or long-press. Pseudo-elements apply styles to sources and targets of interest.",
+        "labels": [
+          "html"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1358"
+      },
+      {
+        "name": ":has-slotted",
+        "description": "The <code>:has-slotted</code> CSS pseudo-class matches <code>&#x3C;slot></code> elements where the fallback content is not shown. The pseudo-class matches any slotted content, including white space, text nodes, or elements.",
+        "labels": [
+          "selectors",
+          "web-components"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1356"
+      },
+      {
+        "name": "SVG <use>, filters, and context fill and stroke interop",
+        "description": "The SVG <code>&lt;use&gt;</code> element can be used without specifying an ID reference. The <code>&#x3C;filter></code> SVG element applies custom effects such as color manipulation, blurring, or morphing to SVG elements. The <code>context-fill</code> and <code>context-stroke</code> CSS values are used with <code>fill</code> and <code>stroke</code> in SVG <code>&#x3C;marker></code> or <code>&#x3C;use></code> elements to match a color from where they appear.",
+        "labels": [
+          "svg"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1469"
+      },
+      {
+        "name": "Layout instability performance entries",
+        "description": "A <code>layout-shift</code> performance entry measures the layout stability of web pages based on movements of the elements on the page. They're used to calculate cumulative layout shift (CLS), a common metric for perceived stability.",
+        "labels": [
+          "performance"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1352"
+      },
+      {
+        "name": "focusgroup",
+        "description": "The <code>focusgroup</code> global HTML attribute combines descendant elements into a single tab stop, with arrow-key navigation between them, for toolbars, tabs, menus, radio groups, and other composite controls. It's an alternative to the sequential navigation of <code>tabindex</code>.",
+        "labels": [
+          "html",
+          "accessibility"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1348"
+      },
+      {
+        "name": "border-shape",
+        "description": "The <code>border-shape</code> CSS property sets the geometry of the border box, changing the shape of any applicable border, border image, focus outline, or shadow.",
+        "labels": ["css"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1371"
+      },
+      {
+        "name": "CSS import attributes",
+        "description": "Module <code>import … with { type: \"css\" }</code> statements load CSS modules as constructable stylesheets. Also known as CSS module scripts.",
+        "labels": ["css"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1466"
+      },
+      {
+        "name": "Element-scoped view transitions",
+        "description": "The <code>startViewTransition()</code> method of an <code>Element</code> object starts a view transition that affects only that element's DOM tree. You can use this to run separate elements' transitions concurrently.",
+        "labels": [
+          "view-transitions"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1419"
+      },
+      {
+        "name": "line-clamp",
+        "description": "The <code>line-clamp</code> CSS property limits the text in a block container to a certain number of lines. The prefixed <code>-webkit-line-clamp</code> is widely supported but only works with <code>-webkit-box-orient: vertical</code> in combination with <code>display: -webkit-box</code> or <code>display: -webkit-inline-box</code>.",
+        "labels": [
+          "css"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1379"
+      },
+      {
+        "name": "Anchor position container queries",
+        "description": "Anchor position container queries with the <code>@container anchored(fallback: …)</code> at-rule apply styles to an element based on the element's anchor position.",
+        "labels": [
+          "anchor-positioning",
+          "container-queries"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1363"
+      },
+      {
+        "name": "Long animation frames performance entries",
+        "description": "A <code>long-animation-frame</code> performance entry measures rendering updates that take longer than 50 milliseconds. Also known as LoAFs.",
+        "labels": [
+          "performance"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1372"
+      },
+      {
+        "name": "interpolate-size and calc-size()",
+        "description": "The <code>interpolate-size</code> CSS property sets whether animations and transitions interpolate between a numeric value and a keyword value, such as from a fixed length to <code>auto</code> or <code>fit-content</code>. The <code>calc-size()</code> CSS function computes mathematical expressions that include <code>height</code> and <code>width</code> keyword values, for example <code>calc-size(fit-content, size / 2)</code>. Not to be confused with the <code>calc()</code> CSS function, which cannot use keyword values.",
+        "labels": [
+          "transitions",
+          "animation",
+          "css"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1373"
+      },
+      {
+        "name": "symbols()",
+        "description": "The <code>symbols()</code> CSS function defines counter styles as a value of properties such as <code>list-style</code>. It's an inline alternative to the <code>@counter-style</code> CSS at-rule.",
+        "labels": [
+          "lists"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1432"
+      },
+      {
+        "name": "Sanitizer API",
+        "description": "The <code>Sanitizer</code> API customizes the sanitization of HTML parsed and inserted into the DOM in a way that can prevent cross-site scripting attacks. You can use it with DOM APIs that accept a sanitizer option, such as <code>parseHTML()</code> or <code>setHTML()</code>.",
+        "labels": ["dom", "security"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1336"
+      },
+      {
+        "name": "at-rule()",
+        "description": "The <code>at-rule()</code> function, when used with <code>@supports</code>, checks if a CSS at-rule is supported. For example <code>@supports at-rule(@starting-style)</code> checks if the <code>@starting-style</code> at-rule is supported.",
+        "labels": [
+          "css"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1434"
+      },
+      {
+        "name": "Anchor positioning support for transforms, animations, and transitions",
+        "description": "Anchor positioned elements take CSS transforms on their anchor elements into account. The <code>anchor()</code> and <code>anchor-size()</code> CSS functions animate or transition on changes such as the anchor box moving or the anchor element changing.",
+        "labels": [
+          "anchor-positioning"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1457"
+      },
+      {
+        "name": "Container scroll-state queries",
+        "description": "Container scroll-state queries with the <code>@container scroll-state(...)</code> at-rule apply styles to an element based on the sticky positioning, snapped, and scrollable state of the container.",
+        "labels": [
+          "container-queries"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1364"
+      },
+      {
+        "name": "justify-self in block layouts",
+        "description": "The <code>justify-self</code> CSS property aligns an item along a container's inline axis in block layouts, like it does in grid layouts. Likewise, the <code>justify-items</code> property sets a default <code>justify-self</code> value for all items in a container in a block layout.",
+        "labels": [
+          "layout"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1360"
+      },
+      {
+        "name": "Grid lanes",
+        "description": "The <code>display: grid-lanes</code> and <code>display: inline-grid-lanes</code> CSS declarations create a layout where items are tightly packed in parallel lanes. Items are placed one by one in the lane that has the most available space. Also known as masonry.",
+        "labels": [
+          "layout"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1445"
+      },
+      {
+        "name": "object-view-box",
+        "description": "The <code>object-view-box</code> CSS property crops and zooms to an inset area of an image.",
+        "labels": [
+          "css"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1385"
+      },
+      {
+        "name": "@function",
+        "description": "The <code>@function</code> CSS at-rule defines a custom function that takes CSS values or custom properties as arguments, and returns a CSS value. It can be based on conditional logic such as by using the <code>@media</code> at-rule.",
+        "labels": [
+          "css"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1357"
+      },
+      {
+        "name": "if()",
+        "description": "The <code>if()</code> CSS function is an inline conditional value that returns a value based on a set of conditions.",
+        "labels": [
+          "css"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1343"
+      },
+      {
+        "name": "moveBefore()",
+        "description": "The <code>moveBefore()</code> DOM method relocates a node while preserving its state. For example, you can move the active element without losing focus, move an animated element without resetting the animation, or move an iframe without reloading its content.",
+        "labels": [
+          "dom"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1355"
+      },
+      {
+        "name": "Gamut mapping",
+        "description": "Colors in CSS and <code>&#x3C;canvas></code> elements can be defined out of range of an output device or the color space of the canvas. Gamut mapping brings the color into range while preserving hue and lightness.",
+        "labels": ["color"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1394"
+      },
+      {
+        "name": "Pausing iframe media when not visible",
+        "description": "",
+        "labels": [
+          "media"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1468"
+      },
+      {
+        "name": "corner-shape",
+        "description": "The <code>corner-shape</code> CSS property sets the shape of an element's corners when using <code>border-radius</code>, allowing for shapes other than rounded corners. For example, <code>corner-shape: squircle</code> is a shape in between a square and rounded corner.",
+        "labels": ["css"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1368"
+      },
+      {
+        "name": "Gap decorations",
+        "description": "The <code>column-rule</code> and <code>row-rule</code> CSS properties display decorative lines between columns and rows of a flex, grid, or multi-column layout. The <code>rule-break</code>, <code>rule-outset</code>, and <code>rule-paint-order</code> properties control the appearance of these lines.",
+        "labels": [
+          "grid",
+          "flexbox",
+          "multi-column"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1374"
+      },
+      {
+        "name": "Link parameters",
+        "description": "The <code>link-parameters</code> CSS property, <code>param()</code> modifier for the <code>url()</code> CSS function, and the <code>#:~:param(…)</code> URL fragment set custom CSS environment variables on an external resource, such as an SVG image, allowing the external resource to adapt its presentation based on the variables.",
+        "labels": ["svg", "css"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1346"
+      },
+      {
+        "name": "reading-flow",
+        "description": "The <code>reading-flow</code> CSS property sets the order in which flex or grid elements are rendered to speech or reached via focus navigation. The <code>reading-order</code> property overrides this order.",
+        "labels": [
+          "css",
+          "reading-order"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1349"
+      },
+      {
+        "name": "ariaNotify()",
+        "description": "The <code>ariaNotify()</code> method of <code>Element</code> and <code>Document</code> requests assistive technology software, if activated, to announce a message to the user. This can help make dynamic content changes more accessible to users.",
+        "labels": ["accessibility"],
+        "url": "https://github.com/web-platform-tests/interop/issues/1387"
+      },
+      {
+        "name": "OpaqueRange",
+        "description": "The <code>createValueRange()</code> for form elements, such as <code>&#x3C;textarea></code> or <code>&#x3C;input type=\"text\"></code>, gets an <code>OpaqueRange</code> object that represents a live span of text. You can use this for range-based operations on the input text, such as setting custom highlights or placing autocomplete popovers.",
+        "labels": [
+          "selection"
+        ],
+        "url": "https://github.com/web-platform-tests/interop/issues/1401"
+      }
+    ];
+
+    function createFeatureEl({ name, description, labels, url }) {
+      const el = document.createElement("article");
+
+      const title = document.createElement("h2");
+      title.textContent = name;
+      el.appendChild(title);
+
+      const labelsEl = document.createElement("div");
+      labelsEl.classList.add("labels");
+      for (const label of labels) {
+        const labelEl = document.createElement("span");
+        labelEl.textContent = label;
+        labelsEl.appendChild(labelEl);
+      }
+      el.appendChild(labelsEl);
+
+      const desc = document.createElement("p");
+      desc.innerHTML = description;
+      el.appendChild(desc);
+
+      const link = document.createElement("a");
+      link.classList.add("vote-link");
+      link.href = url;
+      link.textContent = "➡️ Vote for this proposal";
+      el.appendChild(link);
+
+      document.getElementById("root").appendChild(el);
+      return el;
+    }
+
+    async function main() {
+      // Randomize the array at each page load.
+      const sorted = PROPOSALS.sort(() => Math.random() - 0.5);
+
+      const cached = [];
+
+      for (const proposal of sorted) {
+        const el = createFeatureEl(proposal);
+      }
+    }
+
+    main();
+
+    const searchField = document.getElementById("search");
+    // Filter proposals by searching for matches in names, descriptions, and labels.
+    searchField.addEventListener("input", () => {
+      const query = searchField.value.toLowerCase();
+      const articles = document.querySelectorAll("article");
+      for (const article of articles) {
+        const name = article.querySelector("h2").textContent.toLowerCase();
+        const description = article.querySelector("p").textContent.toLowerCase();
+        const labels = article.querySelector(".labels").textContent.toLowerCase();
+        if (name.includes(query) || description.includes(query) || labels.includes(query)) {
+          article.style.display = "";
+        } else {
+          article.style.display = "none";
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
