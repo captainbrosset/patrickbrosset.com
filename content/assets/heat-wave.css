@@ -401,5 +401,15 @@
       background-size: 3em 0.3em;
       background-position: left bottom;
     }
+
+    blockquote {
+      margin: 0;
+      font-style: italic;
+      padding-inline-start: 1rem;
+      background: linear-gradient(var(--color-1-link-underline), var(--color-1-link-underline));
+      background-size: 0.3rem auto;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+    }
   }
 }
