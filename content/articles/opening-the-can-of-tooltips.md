@@ -2,7 +2,7 @@
 layout: article.njk
 title: Opening the can of tooltips
 tags: article
-date: 2026-10-05
+date: 2026-10-02
 excerpt: "Tooltips seem simple, until you look closer. The title attribute can't be styled and isn't accessible to everyone, while custom tooltips come with plenty of complexity. What would it take to build a native tooltip that's customizable, accessible, and easy to use, from plain text to rich HTML?"
 thumbnail: "/assets/can-of-tooltips.png"
 altText: "Drawing of a can labelled tooltips, with the lid partially open and a bunch of tooltips coming out of it."
