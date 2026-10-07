@@ -7,7 +7,6 @@ excerpt: "Capturing device audio only on the web today isn't great. getDisplayMe
 thumbnail: "/assets/device-audio-capture.png"
 altText: "An abstract illustration showing thing wiggly lines, covered in little colored dots, converging to a central dot, with a single line coming out the other side."
 hasCode: true
-draft: true
 ---
 
 Imagine you're building a web app that provides one of these experiences:
@@ -55,7 +54,7 @@ const stream = await navigator.mediaDevices.getDisplayMedia({
 });
 ```
 
-This option lets us extends an existing API, and reuse the existing browser experience when the user is choosing what to share.
+This option lets us extend an existing API, and reuse the existing browser experience when the user is choosing what to share.
 
 ### Option 2: Introduce a new `getPlaybackMedia()` API
 
