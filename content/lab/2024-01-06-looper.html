@@ -124,8 +124,57 @@
       background-color: #d25802;
     }
 
-    button.clear::before {
+    button.clear::before,
+    button.danger::before {
       background-color: #7e0000;
+    }
+
+    .loop-panel {
+      display: flex;
+      gap: .5rem;
+      justify-content: center;
+      align-items: center;
+      margin-block-end: 1rem;
+    }
+
+    .loop-panel[hidden] {
+      display: none;
+    }
+
+    .loop-panel .screen {
+      background: #171717;
+      color: #fff;
+      font-size: .6rem;
+      padding: .5rem;
+      width: 12rem;
+      box-sizing: border-box;
+      box-shadow: inset .125rem .125rem .1rem 0 #0004;
+    }
+
+    .loop-length-field {
+      display: flex;
+      align-items: baseline;
+      gap: .25rem;
+      font-size: 1.2rem;
+    }
+
+    .loop-length-field input {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      border-block-end: 1px solid #fff4;
+      color: #ff9a4d;
+      font-size: inherit;
+      padding: 0;
+    }
+
+    .loop-length-field input:focus-visible {
+      outline: none;
+      border-block-end-color: #d25802;
+    }
+
+    .tracks > #add-track {
+      align-self: center;
     }
 
     button span {
@@ -164,10 +213,9 @@
         "screen screen screen screen"
         "screen screen screen screen"
         "rec    mute   gain   trim"
-        "sync   plus  gain   clear"
+        "sync   plus  gain   dup"
         "sync minus gain clear";
       justify-items: center;
-      counter-increment: track-nb;
       background: #eee4;
       box-shadow: inset .125rem .125rem .1rem 0 #0004;
     }
@@ -217,7 +265,7 @@
       touch-action: none;
     }
 
-    .track.has-buffer:not(.master) .waveform {
+    .track.has-buffer .waveform {
       cursor: ew-resize;
     }
 
@@ -241,12 +289,33 @@
       grid-area: gain;
     }
 
-    .track .screen .track-name::before {
-      content: "track: " counter(track-nb);
+    .track .duplicate {
+      grid-area: dup;
     }
 
-    .track.master .screen .track-name::before {
-      content: "track: master";
+    .track .screen .track-name {
+      display: flex;
+      gap: .5em;
+    }
+
+    .track .screen .track-name input {
+      flex: 1;
+      min-width: 0;
+      background: transparent;
+      border: 0;
+      border-block-end: 1px dashed transparent;
+      color: inherit;
+      font-size: inherit;
+      padding: 0;
+    }
+
+    .track .screen .track-name input:hover {
+      border-block-end-color: #fff4;
+    }
+
+    .track .screen .track-name input:focus-visible {
+      outline: none;
+      border-block-end: 1px solid #d25802;
     }
 
     .has-buffer .track-status {
@@ -321,12 +390,23 @@
     <main id="looper">
       <div class="buttons">
         <button id="start" title="Start the looper"><span>Start</span></button>
-        <button id="mute-all" title="Mute all tracks" hidden><span>mute all</span></button>
-        <button id="clear-all" title="Clear all tracks" hidden><span>clear all</span></button>
-        <button id="add-track" title="Add a new track" hidden><span>add</span></button>
+        <button id="clear-all" class="danger" title="Clear all tracks" hidden><span>clear all</span></button>
         <button id="download" title="Download one full cycle of the loop as a WAV file" hidden><span>save</span></button>
       </div>
+      <section class="loop-panel" hidden>
+        <div class="screen">
+          <label for="loop-length">loop length</label>
+          <div class="loop-length-field">
+            <input id="loop-length" type="number" min="0.1" max="60" step="0.001" placeholder="-" inputmode="decimal">
+            <span>s</span>
+          </div>
+          <div id="loop-info">tap or type a length</div>
+        </div>
+        <button id="tap" title="Press once on a beat, and again on the next beat, to set the loop length"><span>tap</span></button>
+        <button id="metronome" class="active" title="Play a click on every beat of the loop"><span>click</span></button>
+      </section>
       <div class="tracks">
+        <button id="add-track" title="Add a new track" hidden><span>add</span></button>
       </div>
     </main>
   </div>
@@ -352,11 +432,15 @@
     }
 
     const startLooperButton = document.querySelector("#start");
-    const muteAllButton = document.querySelector("#mute-all");
     const addTrackButton = document.querySelector("#add-track");
     const clearAllButton = document.querySelector("#clear-all");
     const downloadButton = document.querySelector("#download");
     const tracksEl = document.querySelector(".tracks");
+    const loopPanel = document.querySelector(".loop-panel");
+    const loopLengthInput = document.querySelector("#loop-length");
+    const loopInfo = document.querySelector("#loop-info");
+    const tapButton = document.querySelector("#tap");
+    const metronomeButton = document.querySelector("#metronome");
 
     const DEFAULT_GAIN_VALUE = 0.5;
     // Offset nudge steps, in seconds.
@@ -371,6 +455,10 @@
     const TRIM_FADE = 0.005;
     // Minimum length of audio kept when trimming.
     const MIN_TRIM_KEEP = 0.05;
+    const MIN_LOOP_LENGTH = 0.1;
+    const MAX_LOOP_LENGTH = 60;
+    // The loop is divided in this many beats, for the metronome and guides.
+    const BEATS_PER_LOOP = 4;
 
     // Records mic input inside the audio graph, so that we know the exact
     // audio context time of every recorded sample.
@@ -411,10 +499,104 @@
     let audioContext = null;
     let micRecorder = null;
     let tracks = [];
-    let isAllMuted = false;
-    const initTrackNb = 3;
-    let masterTrack = null;
+    const initTrackNb = 4;
     let isDrawing = false;
+
+    // The loop every track is synced to. `length` is in frames (0 when not set yet),
+    // `anchor` is the audio context time at which a loop starts.
+    const loop = { length: 0, anchor: 0, tapStart: null };
+    const metronome = { enabled: true, nextBeat: null, output: null, interval: null };
+
+    function getLoopDuration() {
+      return loop.length / audioContext.sampleRate;
+    }
+
+    function setLoop(seconds, anchor) {
+      if (!(seconds >= MIN_LOOP_LENGTH && seconds <= MAX_LOOP_LENGTH)) {
+        updateLoopInfo();
+        return;
+      }
+
+      loop.length = Math.round(seconds * audioContext.sampleRate);
+      loop.anchor = anchor;
+      metronome.nextBeat = null;
+      updateLoopInfo();
+      tracks.forEach(track => track.play());
+    }
+
+    function resetLoop() {
+      loop.length = 0;
+      loop.anchor = 0;
+      loop.tapStart = null;
+      metronome.nextBeat = null;
+      tapButton.classList.remove("active");
+      updateLoopInfo();
+    }
+
+    function updateLoopInfo() {
+      if (loop.tapStart !== null) {
+        loopInfo.textContent = "tap again on the next beat";
+        return;
+      }
+      if (!loop.length) {
+        loopLengthInput.value = "";
+        loopInfo.textContent = "tap or type a length";
+        return;
+      }
+      const duration = getLoopDuration();
+      loopLengthInput.value = Math.round(duration * 1000) / 1000;
+      loopInfo.textContent = `${Math.round(60 / (duration / BEATS_PER_LOOP) * 10) / 10} bpm (${BEATS_PER_LOOP} beats)`;
+    }
+
+    function tap() {
+      const now = audioContext.currentTime;
+      if (loop.tapStart === null) {
+        loop.tapStart = now;
+        tapButton.classList.add("active");
+        updateLoopInfo();
+        return;
+      }
+
+      const start = loop.tapStart;
+      loop.tapStart = null;
+      tapButton.classList.remove("active");
+      // The loop starts on the first tap.
+      setLoop(now - start, start);
+    }
+
+    function playClick(time, accent) {
+      const osc = audioContext.createOscillator();
+      osc.frequency.value = accent ? 1600 : 1000;
+      const gain = audioContext.createGain();
+      gain.gain.setValueAtTime(accent ? 0.5 : 0.25, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
+      osc.connect(gain);
+      gain.connect(metronome.output);
+      osc.start(time);
+      osc.stop(time + 0.05);
+      osc.onended = () => gain.disconnect();
+    }
+
+    // Schedules the metronome clicks a little bit ahead of time.
+    function scheduleClicks() {
+      if (!loop.length || !metronome.enabled) {
+        metronome.nextBeat = null;
+        return;
+      }
+
+      const beat = getLoopDuration() / BEATS_PER_LOOP;
+      const now = audioContext.currentTime;
+      if (metronome.nextBeat === null) {
+        metronome.nextBeat = Math.ceil((now + SCHEDULE_AHEAD - loop.anchor) / beat);
+      }
+      while (loop.anchor + metronome.nextBeat * beat < now + 0.2) {
+        const time = loop.anchor + metronome.nextBeat * beat;
+        if (time >= now) {
+          playClick(time, mod(metronome.nextBeat, BEATS_PER_LOOP) === 0);
+        }
+        metronome.nextBeat++;
+      }
+    }
 
     // Returns a buffer of exactly `length` frames, where the recorded audio that
     // goes beyond `length` wraps around to the start (like overlapping loops would).
@@ -542,20 +724,19 @@
     }
 
     class Track {
-      constructor(parentEl, micRecorder, masterTrack) {
+      constructor(parentEl, micRecorder, { name, before = addTrackButton } = {}) {
         this.parentEl = parentEl;
         this.micRecorder = micRecorder;
-        this.isMaster = !masterTrack;
-        this.masterTrack = masterTrack;
 
         this.createDom();
+        this.defaultName = name;
+        this.nameInput.value = name;
 
-        this.parentEl.appendChild(this.el);
-        this.el.classList.toggle("master", this.isMaster);
+        this.parentEl.insertBefore(this.el, before);
 
         // The raw recorded buffer.
         this.buffer = null;
-        // The buffer actually looped, its length is a multiple of the master's.
+        // The buffer actually looped, its length is a multiple of the loop's.
         this.loopBuffer = null;
         this.loopDuration = 0;
         this.iterations = 1;
@@ -585,24 +766,24 @@
         this.outputGain.connect(audioContext.destination);
 
         this.muteButton.addEventListener("click", () => {
-          this.muteButton.classList.toggle("active", !this.isMuted);
           this.toggleMute();
         });
 
-        if (this.isMaster) {
-          this.clearButton.setAttribute("disabled", true);
-          this.offsetPlusButton.setAttribute("disabled", true);
-          this.offsetMinusButton.setAttribute("disabled", true);
-          this.syncButton.setAttribute("disabled", true);
-        } else {
-          this.clearButton.addEventListener("click", () => {
-            this.clear();
-          });
-        }
+        this.clearButton.addEventListener("click", () => {
+          this.clear();
+        });
+
+        this.duplicateButton.addEventListener("click", () => {
+          duplicateTrack(this);
+        });
+
+        this.nameInput.addEventListener("change", () => {
+          this.nameInput.value = this.nameInput.value.trim() || this.defaultName;
+        });
 
         this.recordButton.addEventListener("click", () => {
-          if (!this.isMaster && !this.masterTrack.buffer) {
-            alert("Record the master track first");
+          if (!loop.length) {
+            alert("Set the loop length first: tap it, or type it in seconds");
             return;
           }
 
@@ -620,9 +801,7 @@
         });
 
         this.syncButton.addEventListener("click", () => {
-          this.playEntireBufferBeforeRepeat = !this.playEntireBufferBeforeRepeat;
-          this.syncButton.classList.toggle("active", !this.playEntireBufferBeforeRepeat);
-          this.syncButton.innerHTML = this.playEntireBufferBeforeRepeat ? "<span>sync</span>" : "<span>unsync</span>";
+          this.setSync(!this.playEntireBufferBeforeRepeat);
           this.play();
         });
 
@@ -659,7 +838,7 @@
             return;
           }
 
-          if (this.isMaster || (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) {
+          if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") {
             return;
           }
           e.preventDefault();
@@ -683,9 +862,6 @@
             return;
           }
 
-          if (this.isMaster) {
-            return;
-          }
           this.waveformEl.setPointerCapture(e.pointerId);
           this.drag = { mode: "offset", startX: e.clientX, startOffset: this.offset };
         });
@@ -772,17 +948,10 @@
 
         const text = formatOffset(this.offset);
         this.screenOffset.textContent = `offset: ${text}`;
-        if (this.isMaster) {
-          canvas.removeAttribute("tabindex");
-          canvas.setAttribute("aria-label", "Master track waveform");
-          canvas.removeAttribute("aria-valuetext");
-          canvas.title = "";
-        } else {
-          canvas.tabIndex = 0;
-          canvas.setAttribute("aria-label", "Track offset. Drag, or use arrow keys, to align with the master track");
-          canvas.setAttribute("aria-valuetext", text);
-          canvas.title = "Drag the waveform to line it up with the master track (in grey)";
-        }
+        canvas.tabIndex = 0;
+        canvas.setAttribute("aria-label", "Track offset. Drag, or use arrow keys, to align with the other tracks");
+        canvas.setAttribute("aria-valuetext", text);
+        canvas.title = "Drag the waveform to line it up with the other tracks (in grey) and the beats";
       }
 
       createDom() {
@@ -797,7 +966,7 @@
 
         this.syncButton = document.createElement("button");
         this.syncButton.classList.add("sync");
-        this.syncButton.title = "Toggle between looping the entire recording, or restarting it with every master loop";
+        this.syncButton.title = "Toggle between looping the entire recording, or restarting it with every loop";
         this.syncButton.innerHTML = "<span>sync</span>";
         this.el.appendChild(this.syncButton);
 
@@ -819,8 +988,16 @@
         this.screenEl.classList.add("screen");
         this.el.appendChild(this.screenEl);
 
-        const screenName = document.createElement("div");
+        const screenName = document.createElement("label");
         screenName.classList.add("track-name");
+        screenName.textContent = "track:";
+        this.nameInput = document.createElement("input");
+        this.nameInput.type = "text";
+        this.nameInput.maxLength = 20;
+        this.nameInput.spellcheck = false;
+        this.nameInput.autocomplete = "off";
+        this.nameInput.title = "Rename the track";
+        screenName.appendChild(this.nameInput);
         this.screenEl.appendChild(screenName);
 
         this.screenStatus = document.createElement("div");
@@ -867,10 +1044,50 @@
         this.el.appendChild(this.gainRangeEl);
 
         this.clearButton = document.createElement("button");
-        this.clearButton.classList.add("clear");
+        this.clearButton.classList.add("clear", "small");
         this.clearButton.title = "Clear track";
         this.clearButton.innerHTML = "<span>clear</span>";
         this.el.appendChild(this.clearButton);
+
+        this.duplicateButton = document.createElement("button");
+        this.duplicateButton.classList.add("duplicate", "small");
+        this.duplicateButton.title = "Duplicate track, with the same recording and settings";
+        this.duplicateButton.innerHTML = "<span>dup</span>";
+        this.el.appendChild(this.duplicateButton);
+      }
+
+      setSync(playEntireBufferBeforeRepeat) {
+        this.playEntireBufferBeforeRepeat = playEntireBufferBeforeRepeat;
+        this.syncButton.classList.toggle("active", !playEntireBufferBeforeRepeat);
+        this.syncButton.innerHTML = playEntireBufferBeforeRepeat ? "<span>sync</span>" : "<span>unsync</span>";
+      }
+
+      // Copies the recording and all the settings of `source` into this track.
+      copyFrom(source) {
+        this.nameInput.value = `${source.nameInput.value} copy`.slice(0, this.nameInput.maxLength);
+        this.gainValue = source.gainValue;
+        this.gainRangeEl.value = source.gainRangeEl.value;
+        if (source.isMuted) {
+          this.mute();
+        } else {
+          this.unmute();
+        }
+        this.setSync(source.playEntireBufferBeforeRepeat);
+
+        if (!source.buffer) {
+          return;
+        }
+
+        this.state = 2;
+        this.el.classList.add("has-buffer");
+        this.screenStatus.textContent = "status: playing";
+        this.buffer = source.buffer;
+        this.rawPeaks = source.rawPeaks;
+        this.trimStart = source.trimStart;
+        this.trimEnd = source.trimEnd;
+        this.anchorTime = source.anchorTime;
+        this.offset = source.offset;
+        this.play();
       }
 
       applyGain() {
@@ -888,6 +1105,7 @@
 
       mute() {
         this.muteButton.innerHTML = "<span>unmute</span>";
+        this.muteButton.classList.add("active");
 
         this.isMuted = true;
         this.el.classList.add("muted");
@@ -902,6 +1120,7 @@
         }
 
         this.muteButton.innerHTML = "<span>mute</span>";
+        this.muteButton.classList.remove("active");
 
         this.isMuted = false;
         this.el.classList.remove("muted");
@@ -943,7 +1162,6 @@
           this.micRecorder.startRecording();
           this.el.classList.add("is-recording");
           this.screenStatus.textContent = "status: recording...";
-          this.clearButton.setAttribute("disabled", true);
         } else if (this.state === 1) {
           this.micRecorder.stopRecording();
           this.state = 2;
@@ -962,55 +1180,40 @@
 
         this.el.classList.add("has-buffer");
         this.screenStatus.textContent = "status: playing";
-        if (!this.isMaster) {
-          this.clearButton.removeAttribute("disabled");
-        }
 
         this.buffer = buffer;
         this.rawPeaks = computePeaks(buffer);
         this.trimStart = 0;
         this.trimEnd = 0;
-        // The master track starts looping exactly where its recording started.
-        // Other tracks are shifted back by the round-trip audio latency, since
-        // the user played along with what they heard, which was late.
-        this.anchorTime = this.isMaster
-          ? startTime
-          : startTime - this.micRecorder.getRoundTripLatency();
+        // Shift the recording back by the round-trip audio latency, since the
+        // user played along with what they heard, which was late.
+        this.anchorTime = startTime - this.micRecorder.getRoundTripLatency();
         this.setOffset(0);
         this.play();
-
-        if (this.isMaster) {
-          tracks.forEach(track => track !== this && track.play());
-        }
       }
 
       play() {
-        const master = this.isMaster ? this : this.masterTrack;
-        if (!this.buffer || !master.buffer) {
+        if (!this.buffer || !loop.length) {
           return;
         }
-
-        const masterLength = master.buffer.length;
 
         // Snap the nb of iterations to [1, 2, 4, 8, 16, 32, 64, etc.] so that the track
         // repeats at a regular interval.
         this.iterations = 1;
-        if (!this.isMaster && this.playEntireBufferBeforeRepeat) {
-          const nbOfMasterIterations = Math.max(1, Math.round(this.buffer.length / masterLength));
-          this.iterations = Math.pow(2, Math.round(Math.log2(nbOfMasterIterations)));
+        if (this.playEntireBufferBeforeRepeat) {
+          const nbOfLoopIterations = Math.max(1, Math.round(this.buffer.length / loop.length));
+          this.iterations = Math.pow(2, Math.round(Math.log2(nbOfLoopIterations)));
         }
 
-        // Using an exact multiple of the master's length, in frames, means the
-        // loops can never drift apart.
-        const loopLength = this.iterations * masterLength;
+        // Using an exact multiple of the loop's length, in frames, means the
+        // tracks can never drift apart.
+        const loopLength = this.iterations * loop.length;
         this.loopBuffer = foldBuffer(trimBuffer(this.buffer, this.trimStart, this.trimEnd), loopLength);
         this.loopDuration = loopLength / audioContext.sampleRate;
         this.peaks = computePeaks(this.loopBuffer);
         this.setOffset(this.offset);
 
-        this.screenDuration.textContent = this.isMaster
-          ? `time: ${formatTime(this.loopDuration)} s`
-          : `time: ${formatTime(this.loopDuration)} s (${this.iterations} ⨉ master)`;
+        this.screenDuration.textContent = `time: ${formatTime(this.loopDuration)} s (${this.iterations} ⨉ loop)`;
 
         this.restartVoice();
       }
@@ -1116,8 +1319,7 @@
         const ctx = this.canvasCtx;
         ctx.clearRect(0, 0, w, h);
 
-        const master = this.isMaster ? this : this.masterTrack;
-        if (!this.peaks || !master.peaks) {
+        if (!loop.length) {
           ctx.fillStyle = "#fff2";
           ctx.fillRect(0, Math.floor(h / 2), w, 1);
           return;
@@ -1128,26 +1330,35 @@
           return;
         }
 
-        // Guides: master loop boundaries, and quarters of the master loop.
-        const guides = this.iterations * 4;
+        const duration = this.loopBuffer ? this.loopDuration : getLoopDuration();
+        const iterations = this.loopBuffer ? this.iterations : 1;
+
+        // Guides: loop boundaries, and beats.
+        const guides = iterations * BEATS_PER_LOOP;
         for (let i = 1; i < guides; i++) {
-          ctx.fillStyle = i % 4 === 0 ? "#fff6" : "#fff1";
+          ctx.fillStyle = i % BEATS_PER_LOOP === 0 ? "#fff6" : "#fff1";
           ctx.fillRect(Math.round(i / guides * w), 0, 1, h);
         }
 
-        // The master waveform, in the background, as a reference.
-        if (!this.isMaster) {
-          drawPeaks(ctx, master.peaks, w, h, 0, this.iterations, "#ffffff40");
+        // The other tracks' waveforms, in the background, as a reference.
+        for (const other of tracks) {
+          if (other === this || !other.peaks) {
+            continue;
+          }
+          const otherShift = mod(other.anchorTime + other.offset - loop.anchor, other.loopDuration);
+          drawPeaks(ctx, other.peaks, w, h, -otherShift / other.loopDuration, duration / other.loopDuration, "#ffffff30");
         }
 
-        // This track's waveform, where it's actually heard relative to the master.
-        const shift = mod(this.anchorTime + this.offset - master.anchorTime, this.loopDuration) / this.loopDuration;
-        drawPeaks(ctx, this.peaks, w, h, -shift, 1, this.drag ? "#ff9a4dcc" : "#d25802cc");
+        // This track's waveform, where it's actually heard relative to the loop.
+        if (this.peaks) {
+          const shift = mod(this.anchorTime + this.offset - loop.anchor, duration) / duration;
+          drawPeaks(ctx, this.peaks, w, h, -shift, 1, this.drag ? "#ff9a4dcc" : "#d25802cc");
+        }
 
         // Playhead, at what's currently being heard.
         const latency = (audioContext.outputLatency || 0) + (audioContext.baseLatency || 0);
         const heardTime = audioContext.currentTime - latency;
-        const x = mod(heardTime - master.anchorTime, this.loopDuration) / this.loopDuration * w;
+        const x = mod(heardTime - loop.anchor, duration) / duration * w;
         ctx.fillStyle = "#fff";
         ctx.fillRect(Math.floor(x), 0, Math.max(1, Math.round(dpr)), h);
       }
@@ -1271,34 +1482,30 @@
       });
     }
 
-    function muteAll() {
-      isAllMuted = !isAllMuted;
-
-      tracks.forEach(track => {
-        if (isAllMuted) {
-          track.mute();
-          muteAllButton.innerHTML = "<span>unmute all</span>";
-        } else {
-          track.unmute();
-          muteAllButton.innerHTML = "<span>mute all</span>";
-        }
-      });
+    function addTrack() {
+      const track = new Track(tracksEl, micRecorder, { name: String(tracks.length + 1) });
+      tracks.push(track);
     }
 
-    function addTrack() {
-      const track = new Track(tracksEl, micRecorder, masterTrack);
-      tracks.push(track);
+    // Adds a copy of `source` right after it.
+    function duplicateTrack(source) {
+      const track = new Track(tracksEl, micRecorder, {
+        name: String(tracks.length + 1),
+        before: source.el.nextElementSibling
+      });
+      tracks.splice(tracks.indexOf(source) + 1, 0, track);
+      track.copyFrom(source);
     }
 
     // Renders one full cycle of all the audible tracks (the length of the longest track)
     // and downloads it as a WAV file.
     async function downloadMix() {
-      if (!masterTrack || !masterTrack.loopBuffer) {
-        alert("Record the master track first");
+      const recorded = tracks.filter(track => track.loopBuffer);
+      if (!recorded.length) {
+        alert("Record a track first");
         return;
       }
 
-      const recorded = tracks.filter(track => track.loopBuffer);
       const length = Math.max(...recorded.map(track => track.loopBuffer.length));
       const offline = new OfflineAudioContext(1, length, audioContext.sampleRate);
 
@@ -1313,8 +1520,8 @@
         gain.gain.value = track.gainValue;
         source.connect(gain);
         gain.connect(offline.destination);
-        // Start the mix where the master loop starts, keeping every track's alignment.
-        source.start(0, mod(masterTrack.anchorTime - track.anchorTime - track.offset, track.loopDuration));
+        // Start the mix where the loop starts, keeping every track's alignment.
+        source.start(0, mod(loop.anchor - track.anchorTime - track.offset, track.loopDuration));
       }
 
       downloadButton.disabled = true;
@@ -1338,15 +1545,17 @@
 
     async function start() {
       clearAll();
-      tracks.forEach(track => track.outputGain.disconnect());
+      tracks.forEach(track => {
+        track.outputGain.disconnect();
+        track.el.remove();
+      });
       tracks = [];
-      masterTrack = null;
-
-      tracksEl.innerHTML = "";
 
       // Create the audio context.
       if (!audioContext) {
         audioContext = new AudioContext({ latencyHint: "interactive" });
+        metronome.output = audioContext.createGain();
+        metronome.output.connect(audioContext.destination);
       }
 
       // Initialize the mic recorder.
@@ -1356,22 +1565,25 @@
         micRecorder = recorder;
       }
 
-      // Create the master track.
-      masterTrack = new Track(tracksEl, micRecorder);
-      tracks.push(masterTrack);
+      resetLoop();
 
-      // Create some more tracks.
       for (let i = 0; i < initTrackNb; i++) {
         addTrack();
       }
 
-      // Show the main buttons.
-      muteAllButton.hidden = false;
+      // Show the main controls.
+      loopPanel.hidden = false;
       addTrackButton.hidden = false;
       clearAllButton.hidden = false;
       downloadButton.hidden = false;
 
       startLooperButton.innerHTML = "<span>Restart</span>";
+      startLooperButton.title = "Restart the looper, removing all tracks and the loop length";
+      startLooperButton.classList.add("danger");
+
+      if (!metronome.interval) {
+        metronome.interval = setInterval(scheduleClicks, 25);
+      }
 
       if (!isDrawing) {
         isDrawing = true;
@@ -1380,10 +1592,20 @@
     }
 
     clearAllButton.addEventListener("click", clearAll);
-    muteAllButton.addEventListener("click", muteAll);
     addTrackButton.addEventListener("click", addTrack);
     downloadButton.addEventListener("click", downloadMix);
     startLooperButton.addEventListener('click', start);
+    tapButton.addEventListener("click", tap);
+    metronomeButton.addEventListener("click", () => {
+      metronome.enabled = !metronome.enabled;
+      metronomeButton.classList.toggle("active", metronome.enabled);
+    });
+    loopLengthInput.addEventListener("change", () => {
+      loop.tapStart = null;
+      tapButton.classList.remove("active");
+      const anchor = loop.length ? loop.anchor : audioContext.currentTime + SCHEDULE_AHEAD;
+      setLoop(parseFloat(loopLengthInput.value), anchor);
+    });
   </script>
 </body>
 
