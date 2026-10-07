@@ -163,7 +163,7 @@
       grid-template-areas:
         "screen screen screen screen"
         "screen screen screen screen"
-        "rec    mute   gain   ."
+        "rec    mute   gain   trim"
         "sync   plus  gain   clear"
         "sync minus gain clear";
       justify-items: center;
@@ -174,6 +174,10 @@
 
     .track .record {
       grid-area: rec;
+    }
+
+    .track .trim {
+      grid-area: trim;
     }
 
     .track .sync {
@@ -215,6 +219,10 @@
 
     .track.has-buffer:not(.master) .waveform {
       cursor: ew-resize;
+    }
+
+    .track.has-buffer.trimming .waveform {
+      cursor: col-resize;
     }
 
     .track .waveform:focus-visible {
@@ -316,6 +324,7 @@
         <button id="mute-all" title="Mute all tracks" hidden><span>mute all</span></button>
         <button id="clear-all" title="Clear all tracks" hidden><span>clear all</span></button>
         <button id="add-track" title="Add a new track" hidden><span>add</span></button>
+        <button id="download" title="Download one full cycle of the loop as a WAV file" hidden><span>save</span></button>
       </div>
       <div class="tracks">
       </div>
@@ -346,6 +355,7 @@
     const muteAllButton = document.querySelector("#mute-all");
     const addTrackButton = document.querySelector("#add-track");
     const clearAllButton = document.querySelector("#clear-all");
+    const downloadButton = document.querySelector("#download");
     const tracksEl = document.querySelector(".tracks");
 
     const DEFAULT_GAIN_VALUE = 0.5;
@@ -357,6 +367,10 @@
     // How far in the future a (re)started track gets scheduled.
     const SCHEDULE_AHEAD = 0.03;
     const WAVEFORM_RESOLUTION = 2048;
+    // Fade applied at trim points, to avoid clicks.
+    const TRIM_FADE = 0.005;
+    // Minimum length of audio kept when trimming.
+    const MIN_TRIM_KEEP = 0.05;
 
     // Records mic input inside the audio graph, so that we know the exact
     // audio context time of every recorded sample.
@@ -414,6 +428,78 @@
         }
       }
       return out;
+    }
+
+    // Returns a copy of `buffer` where the first `start` and last `end` seconds are silenced.
+    function trimBuffer(buffer, start, end) {
+      if (!start && !end) {
+        return buffer;
+      }
+
+      const sampleRate = buffer.sampleRate;
+      const length = buffer.length;
+      const startFrame = Math.round(start * sampleRate);
+      const endFrame = length - Math.round(end * sampleRate);
+      const fade = Math.round(TRIM_FADE * sampleRate);
+      const out = audioContext.createBuffer(buffer.numberOfChannels, length, sampleRate);
+
+      for (let ch = 0; ch < buffer.numberOfChannels; ch++) {
+        const src = buffer.getChannelData(ch);
+        const dst = out.getChannelData(ch);
+        for (let i = startFrame; i < endFrame; i++) {
+          let g = 1;
+          if (start && i < startFrame + fade) {
+            g = (i - startFrame) / fade;
+          }
+          if (end && i >= endFrame - fade) {
+            g = Math.min(g, (endFrame - i) / fade);
+          }
+          dst[i] = src[i] * g;
+        }
+      }
+      return out;
+    }
+
+    function encodeWav(buffer) {
+      const channels = buffer.numberOfChannels;
+      const length = buffer.length;
+      const data = [];
+      let peak = 0;
+      for (let ch = 0; ch < channels; ch++) {
+        const channelData = buffer.getChannelData(ch);
+        data.push(channelData);
+        for (let i = 0; i < length; i++) {
+          peak = Math.max(peak, Math.abs(channelData[i]));
+        }
+      }
+      // Avoid clipping if the mix got too loud.
+      const scale = peak > 1 ? 0.99 / peak : 1;
+
+      const view = new DataView(new ArrayBuffer(44 + length * channels * 2));
+      const writeString = (offset, str) => [...str].forEach((c, i) => view.setUint8(offset + i, c.charCodeAt(0)));
+      writeString(0, "RIFF");
+      view.setUint32(4, 36 + length * channels * 2, true);
+      writeString(8, "WAVE");
+      writeString(12, "fmt ");
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, channels, true);
+      view.setUint32(24, buffer.sampleRate, true);
+      view.setUint32(28, buffer.sampleRate * channels * 2, true);
+      view.setUint16(32, channels * 2, true);
+      view.setUint16(34, 16, true);
+      writeString(36, "data");
+      view.setUint32(40, length * channels * 2, true);
+
+      let offset = 44;
+      for (let i = 0; i < length; i++) {
+        for (let ch = 0; ch < channels; ch++) {
+          const sample = Math.max(-1, Math.min(1, data[ch][i] * scale));
+          view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7fff, true);
+          offset += 2;
+        }
+      }
+      return new Blob([view], { type: "audio/wav" });
     }
 
     function computePeaks(buffer) {
@@ -474,6 +560,13 @@
         this.loopDuration = 0;
         this.iterations = 1;
         this.peaks = null;
+        // Peaks of the raw recording, shown when trimming.
+        this.rawPeaks = null;
+        // Seconds silenced at the start and end of the raw recording.
+        this.trimStart = 0;
+        this.trimEnd = 0;
+        this.isTrimming = false;
+        this.activeTrimHandle = "start";
         this.state = 0;
         this.isMuted = false;
         this.gainValue = DEFAULT_GAIN_VALUE;
@@ -541,8 +634,32 @@
           this.nudge(-(e.shiftKey ? FINE_NUDGE_STEP : NUDGE_STEP));
         });
 
+        this.trimButton.addEventListener("click", () => {
+          this.setTrimming(!this.isTrimming);
+        });
+
         this.waveformEl.addEventListener("keydown", e => {
-          if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") {
+          if (this.isTrimming && this.buffer) {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              this.activeTrimHandle = this.activeTrimHandle === "start" ? "end" : "start";
+              this.updateScreenInfo();
+              return;
+            }
+            if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") {
+              return;
+            }
+            e.preventDefault();
+            const step = (e.shiftKey ? FINE_NUDGE_STEP : NUDGE_STEP) * (e.key === "ArrowRight" ? 1 : -1);
+            const handleTime = this.activeTrimHandle === "start"
+              ? this.trimStart
+              : this.buffer.duration - this.trimEnd;
+            this.setTrimHandle(handleTime + step);
+            this.play();
+            return;
+          }
+
+          if (this.isMaster || (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) {
             return;
           }
           e.preventDefault();
@@ -551,17 +668,38 @@
         });
 
         this.waveformEl.addEventListener("pointerdown", e => {
-          if (this.isMaster || !this.loopBuffer) {
+          if (!this.loopBuffer) {
+            return;
+          }
+
+          if (this.isTrimming) {
+            const time = this.pointerToRawTime(e);
+            const startPos = this.trimStart;
+            const endPos = this.buffer.duration - this.trimEnd;
+            this.activeTrimHandle = Math.abs(time - startPos) <= Math.abs(time - endPos) ? "start" : "end";
+            this.waveformEl.setPointerCapture(e.pointerId);
+            this.drag = { mode: "trim" };
+            this.setTrimHandle(time);
+            return;
+          }
+
+          if (this.isMaster) {
             return;
           }
           this.waveformEl.setPointerCapture(e.pointerId);
-          this.drag = { startX: e.clientX, startOffset: this.offset };
+          this.drag = { mode: "offset", startX: e.clientX, startOffset: this.offset };
         });
 
         this.waveformEl.addEventListener("pointermove", e => {
           if (!this.drag) {
             return;
           }
+
+          if (this.drag.mode === "trim") {
+            this.setTrimHandle(this.pointerToRawTime(e));
+            return;
+          }
+
           const dx = e.clientX - this.drag.startX;
           this.setOffset(this.drag.startOffset + dx / this.waveformEl.clientWidth * this.loopDuration);
 
@@ -576,11 +714,75 @@
           if (!this.drag) {
             return;
           }
+          const { mode } = this.drag;
           this.drag = null;
-          this.restartVoice();
+          if (mode === "trim") {
+            this.play();
+          } else {
+            this.restartVoice();
+          }
         };
         this.waveformEl.addEventListener("pointerup", endDrag);
         this.waveformEl.addEventListener("pointercancel", endDrag);
+
+        this.updateScreenInfo();
+      }
+
+      pointerToRawTime(e) {
+        const rect = this.waveformEl.getBoundingClientRect();
+        return (e.clientX - rect.left) / rect.width * this.buffer.duration;
+      }
+
+      setTrimming(on) {
+        if (on && !this.buffer) {
+          return;
+        }
+        this.isTrimming = on;
+        this.drag = null;
+        this.trimButton.classList.toggle("active", on);
+        this.el.classList.toggle("trimming", on);
+        this.updateScreenInfo();
+      }
+
+      // Moves the active trim handle to `time`, in seconds within the raw recording.
+      setTrimHandle(time) {
+        const d = this.buffer.duration;
+        if (this.activeTrimHandle === "start") {
+          this.trimStart = Math.min(Math.max(0, time), Math.max(0, d - this.trimEnd - MIN_TRIM_KEEP));
+        } else {
+          this.trimEnd = Math.min(Math.max(0, d - time), Math.max(0, d - this.trimStart - MIN_TRIM_KEEP));
+        }
+        this.updateScreenInfo();
+      }
+
+      updateScreenInfo() {
+        const canvas = this.waveformEl;
+        if (this.isTrimming) {
+          const start = Math.round(this.trimStart * 1000);
+          const end = Math.round(this.trimEnd * 1000);
+          this.screenOffset.textContent = `trim: ${start} ms | ${end} ms`;
+          canvas.tabIndex = 0;
+          canvas.setAttribute("aria-label", "Trim. Drag the start or end handle, or use arrow keys. Enter switches handle");
+          canvas.setAttribute("aria-valuetext", this.activeTrimHandle === "start"
+            ? `start trimmed by ${start} ms`
+            : `end trimmed by ${end} ms`);
+          canvas.title = "Drag the handles to silence the start or end of the recording";
+          return;
+        }
+
+        const text = formatOffset(this.offset);
+        this.screenOffset.textContent = `offset: ${text}`;
+        if (this.isMaster) {
+          canvas.removeAttribute("tabindex");
+          canvas.setAttribute("aria-label", "Master track waveform");
+          canvas.removeAttribute("aria-valuetext");
+          canvas.title = "";
+        } else {
+          canvas.tabIndex = 0;
+          canvas.setAttribute("aria-label", "Track offset. Drag, or use arrow keys, to align with the master track");
+          canvas.setAttribute("aria-valuetext", text);
+          canvas.title = "Drag the waveform to line it up with the master track (in grey)";
+        }
       }
 
       createDom() {
@@ -639,15 +841,15 @@
         this.waveformEl = document.createElement("canvas");
         this.waveformEl.classList.add("waveform");
         this.waveformEl.height = 1;
+        this.waveformEl.setAttribute("role", "slider");
         this.canvasCtx = this.waveformEl.getContext("2d");
-        if (!this.isMaster) {
-          this.waveformEl.tabIndex = 0;
-          this.waveformEl.setAttribute("role", "slider");
-          this.waveformEl.setAttribute("aria-label", "Track offset. Drag, or use arrow keys, to align with the master track");
-          this.waveformEl.setAttribute("aria-valuetext", "0 ms");
-          this.waveformEl.title = "Drag the waveform to line it up with the master track (in grey)";
-        }
         this.screenEl.appendChild(this.waveformEl);
+
+        this.trimButton = document.createElement("button");
+        this.trimButton.classList.add("trim");
+        this.trimButton.title = "Trim: silence unwanted sounds at the start and end of the recording";
+        this.trimButton.innerHTML = "<span>trim</span>";
+        this.el.appendChild(this.trimButton);
 
         this.muteButton = document.createElement("button");
         this.muteButton.classList.add("mute");
@@ -721,6 +923,10 @@
         this.buffer = null;
         this.loopBuffer = null;
         this.peaks = null;
+        this.rawPeaks = null;
+        this.trimStart = 0;
+        this.trimEnd = 0;
+        this.setTrimming(false);
         this.drag = null;
         this.setOffset(0);
         this.el.classList.remove("has-buffer", "is-recording");
@@ -761,6 +967,9 @@
         }
 
         this.buffer = buffer;
+        this.rawPeaks = computePeaks(buffer);
+        this.trimStart = 0;
+        this.trimEnd = 0;
         // The master track starts looping exactly where its recording started.
         // Other tracks are shifted back by the round-trip audio latency, since
         // the user played along with what they heard, which was late.
@@ -794,7 +1003,7 @@
         // Using an exact multiple of the master's length, in frames, means the
         // loops can never drift apart.
         const loopLength = this.iterations * masterLength;
-        this.loopBuffer = foldBuffer(this.buffer, loopLength);
+        this.loopBuffer = foldBuffer(trimBuffer(this.buffer, this.trimStart, this.trimEnd), loopLength);
         this.loopDuration = loopLength / audioContext.sampleRate;
         this.peaks = computePeaks(this.loopBuffer);
         this.setOffset(this.offset);
@@ -849,9 +1058,7 @@
         const d = this.loopDuration;
         // Keep the offset within half a loop on either side, it's circular anyway.
         this.offset = d ? mod(value + d / 2, d) - d / 2 : 0;
-        const text = formatOffset(this.offset);
-        this.screenOffset.textContent = `offset: ${text}`;
-        this.waveformEl.setAttribute("aria-valuetext", text);
+        this.updateScreenInfo();
       }
 
       nudge(delta) {
@@ -860,6 +1067,37 @@
         }
         this.setOffset(this.offset + delta);
         this.restartVoice();
+      }
+
+      // Shows the whole raw recording, with the trimmed parts dimmed.
+      drawTrimView(ctx, w, h, dpr) {
+        const d = this.buffer.duration;
+
+        // Where the recording wraps around when looping.
+        ctx.fillStyle = "#fff6";
+        for (let t = this.loopDuration; t < d; t += this.loopDuration) {
+          ctx.fillRect(Math.round(t / d * w), 0, 1, h);
+        }
+
+        drawPeaks(ctx, this.rawPeaks, w, h, 0, 1, "#d25802cc");
+
+        const startX = Math.round(this.trimStart / d * w);
+        const endX = Math.round((d - this.trimEnd) / d * w);
+        ctx.fillStyle = "#000c";
+        ctx.fillRect(0, 0, startX, h);
+        ctx.fillRect(endX, 0, w - endX, h);
+
+        const lineWidth = Math.max(1, Math.round(dpr));
+        const tab = Math.round(6 * dpr);
+        const focused = document.activeElement === this.waveformEl;
+        for (const [handle, x, dir] of [["start", startX, 1], ["end", endX, -1]]) {
+          const active = focused && this.activeTrimHandle === handle;
+          ctx.fillStyle = active ? "#ff9a4d" : "#fff";
+          const lineX = dir === 1 ? x : x - lineWidth;
+          ctx.fillRect(lineX, 0, lineWidth, h);
+          ctx.fillRect(dir === 1 ? x : x - tab, 0, tab, tab);
+          ctx.fillRect(dir === 1 ? x : x - tab, h - tab, tab, tab);
+        }
       }
 
       draw() {
@@ -882,6 +1120,11 @@
         if (!this.peaks || !master.peaks) {
           ctx.fillStyle = "#fff2";
           ctx.fillRect(0, Math.floor(h / 2), w, 1);
+          return;
+        }
+
+        if (this.isTrimming && this.rawPeaks) {
+          this.drawTrimView(ctx, w, h, dpr);
           return;
         }
 
@@ -1047,6 +1290,47 @@
       tracks.push(track);
     }
 
+    // Renders one full cycle of all the audible tracks (the length of the longest track)
+    // and downloads it as a WAV file.
+    async function downloadMix() {
+      if (!masterTrack || !masterTrack.loopBuffer) {
+        alert("Record the master track first");
+        return;
+      }
+
+      const recorded = tracks.filter(track => track.loopBuffer);
+      const length = Math.max(...recorded.map(track => track.loopBuffer.length));
+      const offline = new OfflineAudioContext(1, length, audioContext.sampleRate);
+
+      for (const track of recorded) {
+        if (track.isMuted || !track.gainValue) {
+          continue;
+        }
+        const source = offline.createBufferSource();
+        source.buffer = track.loopBuffer;
+        source.loop = true;
+        const gain = offline.createGain();
+        gain.gain.value = track.gainValue;
+        source.connect(gain);
+        gain.connect(offline.destination);
+        // Start the mix where the master loop starts, keeping every track's alignment.
+        source.start(0, mod(masterTrack.anchorTime - track.anchorTime - track.offset, track.loopDuration));
+      }
+
+      downloadButton.disabled = true;
+      try {
+        const rendered = await offline.startRendering();
+        const url = URL.createObjectURL(encodeWav(rendered));
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `looper-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-")}.wav`;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      } finally {
+        downloadButton.disabled = false;
+      }
+    }
+
     function drawLoop() {
       tracks.forEach(track => track.draw());
       requestAnimationFrame(drawLoop);
@@ -1085,6 +1369,7 @@
       muteAllButton.hidden = false;
       addTrackButton.hidden = false;
       clearAllButton.hidden = false;
+      downloadButton.hidden = false;
 
       startLooperButton.innerHTML = "<span>Restart</span>";
 
@@ -1097,6 +1382,7 @@
     clearAllButton.addEventListener("click", clearAll);
     muteAllButton.addEventListener("click", muteAll);
     addTrackButton.addEventListener("click", addTrack);
+    downloadButton.addEventListener("click", downloadMix);
     startLooperButton.addEventListener('click', start);
   </script>
 </body>
