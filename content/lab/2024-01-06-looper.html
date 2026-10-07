@@ -10,7 +10,6 @@
   Add a screen to each track that shows the animation, the start time, the duration, etc. 
   Add fullscreen mode.
   USe visualizer node to show track activity.
-  Remove offset arrows, replace by a sync now button that just restarts the track at that new start time.
 -->
 
 <head>
@@ -198,6 +197,28 @@
       font-size: .6rem;
       padding: .5rem;
       box-sizing: border-box;
+      display: grid;
+      grid-template-rows: auto auto auto auto 1fr;
+      min-height: 0;
+    }
+
+    .track .waveform {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      margin-block-start: .25rem;
+      background: #0008;
+      border-radius: .125rem;
+      touch-action: none;
+    }
+
+    .track.has-buffer:not(.master) .waveform {
+      cursor: ew-resize;
+    }
+
+    .track .waveform:focus-visible {
+      outline: 1px solid #d25802;
     }
 
     .track .mute {
@@ -307,6 +328,15 @@
       return Math.round(time * 10) / 10;
     }
 
+    function formatOffset(seconds) {
+      const ms = Math.round(seconds * 1000);
+      return `${ms > 0 ? "+" : ""}${ms} ms`;
+    }
+
+    function mod(a, n) {
+      return ((a % n) + n) % n;
+    }
+
     // Make it possible to play and record at the same time on iOS.
     if (navigator.audioSession) {
       navigator.audioSession.type = "play-and-record";
@@ -319,13 +349,50 @@
     const tracksEl = document.querySelector(".tracks");
 
     const DEFAULT_GAIN_VALUE = 0.5;
+    // Offset nudge steps, in seconds.
+    const NUDGE_STEP = 0.01;
+    const FINE_NUDGE_STEP = 0.001;
+    // Short crossfade used when restarting a track, to avoid clicks.
+    const CROSSFADE = 0.015;
+    // How far in the future a (re)started track gets scheduled.
+    const SCHEDULE_AHEAD = 0.03;
+    const WAVEFORM_RESOLUTION = 2048;
 
-    // How many nodes to schedule at once per track.
-    // When a track's buffer is ready, we schedule a bunch
-    // of nodes in the future to avoid scheduling on a less
-    // ideal time.
-    // But only schedule a few at a time to avoid blocking.
-    const AUDIO_NODE_BATCH_NUMBER = 50;
+    // Records mic input inside the audio graph, so that we know the exact
+    // audio context time of every recorded sample.
+    const RECORDER_WORKLET = `
+      class RecorderProcessor extends AudioWorkletProcessor {
+        constructor() {
+          super();
+          this.recording = false;
+          this.port.onmessage = e => {
+            if (e.data === "start") {
+              this.recording = true;
+            } else if (e.data === "stop") {
+              this.recording = false;
+              this.port.postMessage({ type: "stop" });
+            }
+          };
+        }
+
+        process(inputs) {
+          if (!this.recording) {
+            return true;
+          }
+
+          const channels = inputs[0];
+          const mono = new Float32Array(channels.length ? channels[0].length : 128);
+          for (const channel of channels) {
+            for (let i = 0; i < channel.length; i++) {
+              mono[i] += channel[i] / channels.length;
+            }
+          }
+          this.port.postMessage({ type: "data", frame: currentFrame, data: mono }, [mono.buffer]);
+          return true;
+        }
+      }
+      registerProcessor("recorder", RecorderProcessor);
+    `;
 
     let audioContext = null;
     let micRecorder = null;
@@ -333,6 +400,60 @@
     let isAllMuted = false;
     const initTrackNb = 3;
     let masterTrack = null;
+    let isDrawing = false;
+
+    // Returns a buffer of exactly `length` frames, where the recorded audio that
+    // goes beyond `length` wraps around to the start (like overlapping loops would).
+    function foldBuffer(buffer, length) {
+      const out = audioContext.createBuffer(buffer.numberOfChannels, length, buffer.sampleRate);
+      for (let ch = 0; ch < buffer.numberOfChannels; ch++) {
+        const src = buffer.getChannelData(ch);
+        const dst = out.getChannelData(ch);
+        for (let i = 0; i < src.length; i++) {
+          dst[i % length] += src[i];
+        }
+      }
+      return out;
+    }
+
+    function computePeaks(buffer) {
+      const data = buffer.getChannelData(0);
+      const peaks = new Float32Array(WAVEFORM_RESOLUTION);
+      const blockSize = data.length / WAVEFORM_RESOLUTION;
+      let max = 0;
+      for (let i = 0; i < WAVEFORM_RESOLUTION; i++) {
+        const end = Math.min(data.length, Math.floor((i + 1) * blockSize));
+        let peak = 0;
+        for (let j = Math.floor(i * blockSize); j < end; j++) {
+          peak = Math.max(peak, Math.abs(data[j]));
+        }
+        peaks[i] = peak;
+        max = Math.max(max, peak);
+      }
+      if (max > 0) {
+        for (let i = 0; i < peaks.length; i++) {
+          peaks[i] /= max;
+        }
+      }
+      return peaks;
+    }
+
+    // Draws `peaks` across the canvas. Column x shows the peaks found at
+    // fraction (start + x / w * scale) of the buffer, wrapping around.
+    function drawPeaks(ctx, peaks, w, h, start, scale, color) {
+      const n = peaks.length;
+      ctx.fillStyle = color;
+      for (let x = 0; x < w; x++) {
+        const from = Math.floor((start + x / w * scale) * n);
+        const to = Math.max(from + 1, Math.floor((start + (x + 1) / w * scale) * n));
+        let peak = 0;
+        for (let i = from; i < to; i++) {
+          peak = Math.max(peak, peaks[mod(i, n)]);
+        }
+        const barHeight = Math.max(1, peak * h * 0.9);
+        ctx.fillRect(x, (h - barHeight) / 2, 1, barHeight);
+      }
+    }
 
     class Track {
       constructor(parentEl, micRecorder, masterTrack) {
@@ -346,16 +467,29 @@
         this.parentEl.appendChild(this.el);
         this.el.classList.toggle("master", this.isMaster);
 
+        // The raw recorded buffer.
         this.buffer = null;
+        // The buffer actually looped, its length is a multiple of the master's.
+        this.loopBuffer = null;
+        this.loopDuration = 0;
+        this.iterations = 1;
+        this.peaks = null;
         this.state = 0;
         this.isMuted = false;
-        this.recordStartTime = 0;
         this.gainValue = DEFAULT_GAIN_VALUE;
-        this.nodeCreationInterval = null;
         this.playEntireBufferBeforeRepeat = true;
+        // Audio context time at which the first sample of the buffer was played
+        // (or should have been played, to be in sync with what was heard).
+        this.anchorTime = 0;
+        // User adjustment, in seconds, on top of the anchor time.
         this.offset = 0;
+        this.voice = null;
+        this.drag = null;
+        this.lastLiveRestart = 0;
 
-        this.scheduledNodes = [];
+        this.outputGain = audioContext.createGain();
+        this.outputGain.gain.value = this.gainValue;
+        this.outputGain.connect(audioContext.destination);
 
         this.muteButton.addEventListener("click", () => {
           this.muteButton.classList.toggle("active", !this.isMuted);
@@ -364,6 +498,9 @@
 
         if (this.isMaster) {
           this.clearButton.setAttribute("disabled", true);
+          this.offsetPlusButton.setAttribute("disabled", true);
+          this.offsetMinusButton.setAttribute("disabled", true);
+          this.syncButton.setAttribute("disabled", true);
         } else {
           this.clearButton.addEventListener("click", () => {
             this.clear();
@@ -392,22 +529,58 @@
         this.syncButton.addEventListener("click", () => {
           this.playEntireBufferBeforeRepeat = !this.playEntireBufferBeforeRepeat;
           this.syncButton.classList.toggle("active", !this.playEntireBufferBeforeRepeat);
-          this.syncButton.title = "Let track play until the end before restarting";
           this.syncButton.innerHTML = this.playEntireBufferBeforeRepeat ? "<span>sync</span>" : "<span>unsync</span>";
-          this._go();
+          this.play();
         });
 
-        this.offsetPlusButton.addEventListener("click", () => {
-          this.offset += 100;
-          this.screenOffset.textContent = `offset: ${this.offset} ms`;
-          this._go();
+        this.offsetPlusButton.addEventListener("click", e => {
+          this.nudge(e.shiftKey ? FINE_NUDGE_STEP : NUDGE_STEP);
         });
 
-        this.offsetMinusButton.addEventListener("click", () => {
-          this.offset -= 100;
-          this.screenOffset.textContent = `offset: ${this.offset} ms`;
-          this._go();
+        this.offsetMinusButton.addEventListener("click", e => {
+          this.nudge(-(e.shiftKey ? FINE_NUDGE_STEP : NUDGE_STEP));
         });
+
+        this.waveformEl.addEventListener("keydown", e => {
+          if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") {
+            return;
+          }
+          e.preventDefault();
+          const step = e.shiftKey ? FINE_NUDGE_STEP : NUDGE_STEP;
+          this.nudge(e.key === "ArrowRight" ? step : -step);
+        });
+
+        this.waveformEl.addEventListener("pointerdown", e => {
+          if (this.isMaster || !this.loopBuffer) {
+            return;
+          }
+          this.waveformEl.setPointerCapture(e.pointerId);
+          this.drag = { startX: e.clientX, startOffset: this.offset };
+        });
+
+        this.waveformEl.addEventListener("pointermove", e => {
+          if (!this.drag) {
+            return;
+          }
+          const dx = e.clientX - this.drag.startX;
+          this.setOffset(this.drag.startOffset + dx / this.waveformEl.clientWidth * this.loopDuration);
+
+          // Let the user hear the change while dragging, without restarting too often.
+          if (performance.now() - this.lastLiveRestart > 80) {
+            this.lastLiveRestart = performance.now();
+            this.restartVoice();
+          }
+        });
+
+        const endDrag = () => {
+          if (!this.drag) {
+            return;
+          }
+          this.drag = null;
+          this.restartVoice();
+        };
+        this.waveformEl.addEventListener("pointerup", endDrag);
+        this.waveformEl.addEventListener("pointercancel", endDrag);
       }
 
       createDom() {
@@ -422,22 +595,22 @@
 
         this.syncButton = document.createElement("button");
         this.syncButton.classList.add("sync");
-        this.syncButton.title = "Start when master track starts";
+        this.syncButton.title = "Toggle between looping the entire recording, or restarting it with every master loop";
         this.syncButton.innerHTML = "<span>sync</span>";
         this.el.appendChild(this.syncButton);
 
         this.offsetPlusButton = document.createElement("button");
         this.offsetPlusButton.classList.add("offset-plus");
         this.offsetPlusButton.classList.add("small");
-        this.offsetPlusButton.title = "Offset track by 100ms";
-        this.offsetPlusButton.innerHTML = "<span>△</span>";
+        this.offsetPlusButton.title = "Play track 10ms later (shift+click: 1ms)";
+        this.offsetPlusButton.innerHTML = "<span>▶ 10ms</span>";
         this.el.appendChild(this.offsetPlusButton);
 
         this.offsetMinusButton = document.createElement("button");
         this.offsetMinusButton.classList.add("offset-minus");
         this.offsetMinusButton.classList.add("small");
-        this.offsetMinusButton.title = "Offset track by -100ms";
-        this.offsetMinusButton.innerHTML = "<span>▽</span>";
+        this.offsetMinusButton.title = "Play track 10ms earlier (shift+click: 1ms)";
+        this.offsetMinusButton.innerHTML = "<span>◀ 10ms</span>";
         this.el.appendChild(this.offsetMinusButton);
 
         this.screenEl = document.createElement("div");
@@ -453,11 +626,6 @@
         this.screenStatus.textContent = "status: ready";
         this.screenEl.appendChild(this.screenStatus);
 
-        this.screenStartTime = document.createElement("div");
-        this.screenStartTime.classList.add("track-start-time");
-        this.screenStartTime.textContent = "start: -";
-        this.screenEl.appendChild(this.screenStartTime);
-
         this.screenDuration = document.createElement("div");
         this.screenDuration.classList.add("track-duration");
         this.screenDuration.textContent = "time: -";
@@ -465,8 +633,21 @@
 
         this.screenOffset = document.createElement("div");
         this.screenOffset.classList.add("track-offset");
-        this.screenOffset.textContent = "offset: 0ms";
+        this.screenOffset.textContent = "offset: 0 ms";
         this.screenEl.appendChild(this.screenOffset);
+
+        this.waveformEl = document.createElement("canvas");
+        this.waveformEl.classList.add("waveform");
+        this.waveformEl.height = 1;
+        this.canvasCtx = this.waveformEl.getContext("2d");
+        if (!this.isMaster) {
+          this.waveformEl.tabIndex = 0;
+          this.waveformEl.setAttribute("role", "slider");
+          this.waveformEl.setAttribute("aria-label", "Track offset. Drag, or use arrow keys, to align with the master track");
+          this.waveformEl.setAttribute("aria-valuetext", "0 ms");
+          this.waveformEl.title = "Drag the waveform to line it up with the master track (in grey)";
+        }
+        this.screenEl.appendChild(this.waveformEl);
 
         this.muteButton = document.createElement("button");
         this.muteButton.classList.add("mute");
@@ -490,6 +671,11 @@
         this.el.appendChild(this.clearButton);
       }
 
+      applyGain() {
+        const value = this.isMuted ? 0 : this.gainValue;
+        this.outputGain.gain.setTargetAtTime(value, audioContext.currentTime, 0.01);
+      }
+
       toggleMute() {
         if (this.isMuted) {
           this.unmute();
@@ -499,15 +685,13 @@
       }
 
       mute() {
-        this.scheduledNodes.forEach(({ gainNode }) => {
-          gainNode.gain.value = 0;
-        });
         this.muteButton.innerHTML = "<span>unmute</span>";
 
         this.isMuted = true;
         this.el.classList.add("muted");
 
         this.gainRangeEl.value = 0;
+        this.applyGain();
       }
 
       unmute() {
@@ -521,59 +705,35 @@
         this.el.classList.remove("muted");
 
         this.gainRangeEl.value = this.gainValue;
-        this.scheduledNodes.forEach(({ gainNode }) => {
-          gainNode.gain.value = this.gainValue;
-        });
+        this.applyGain();
       }
 
       clear() {
         this.unmute();
 
-        clearInterval(this.nodeCreationInterval);
+        if (this.state === 1) {
+          this.micRecorder.onBufferReady = () => { };
+          this.micRecorder.stopRecording();
+        }
+
+        this.stopVoice();
         this.state = 0;
         this.buffer = null;
-        this.el.classList.remove("has-buffer");
+        this.loopBuffer = null;
+        this.peaks = null;
+        this.drag = null;
+        this.setOffset(0);
+        this.el.classList.remove("has-buffer", "is-recording");
         this.gainRangeEl.value = DEFAULT_GAIN_VALUE;
 
-        this.recordButton.style.animationPlayState = "paused";
-        this.recordButton.style.animationDuration = "0s";
-
-        this.deleteNodes(this.scheduledNodes);
-        this.scheduledNodes = [];
-
         this.screenStatus.textContent = "status: ready";
-        this.screenStartTime.textContent = "start: -";
         this.screenDuration.textContent = "time: -";
-      }
-
-      deleteNodes(nodes) {
-        for (const { audioNode, gainNode } of nodes) {
-          audioNode.stop();
-          audioNode.disconnect();
-          gainNode.disconnect();
-        }
       }
 
       handleStartStopRecord() {
         if (!this.state) {
-          // Set the record start time right when the record
-          // button is pressed. This is so that we can schedule
-          // the audio nodes in the future at exactly the right
-          // time.
-          this.recordStartTime = audioContext.currentTime;
           this.state = 1;
-
-          this.micRecorder.onBufferReady = buffer => {
-            this.el.classList.add("has-buffer");
-            this.el.classList.remove("is-recording");
-            this.screenStatus.textContent = "status: playing";
-            if (!this.isMaster) {
-              this.clearButton.removeAttribute("disabled");
-            }
-            this.buffer = buffer;
-            this._go();
-          };
-
+          this.micRecorder.onBufferReady = (buffer, startTime) => this.onRecorded(buffer, startTime);
           this.micRecorder.startRecording();
           this.el.classList.add("is-recording");
           this.screenStatus.textContent = "status: recording...";
@@ -587,103 +747,178 @@
         }
       }
 
-      _go() {
-        if (!this.buffer) {
+      onRecorded(buffer, startTime) {
+        this.el.classList.remove("is-recording");
+        if (!buffer) {
+          this.clear();
           return;
         }
 
-        // If this is the master track, _go can't be called again.
-        // The master track just runs forever and can't be changed.
-        if (this.isMaster && this.nodeCreationInterval) {
-          return;
+        this.el.classList.add("has-buffer");
+        this.screenStatus.textContent = "status: playing";
+        if (!this.isMaster) {
+          this.clearButton.removeAttribute("disabled");
         }
 
-        // If _go is called again, make sure the interval and scheduled nodes have been cleared first.
-        clearInterval(this.nodeCreationInterval);
-        this.deleteNodes(this.scheduledNodes);
-        this.scheduledNodes = [];
+        this.buffer = buffer;
+        // The master track starts looping exactly where its recording started.
+        // Other tracks are shifted back by the round-trip audio latency, since
+        // the user played along with what they heard, which was late.
+        this.anchorTime = this.isMaster
+          ? startTime
+          : startTime - this.micRecorder.getRoundTripLatency();
+        this.setOffset(0);
+        this.play();
 
-        const masterDuration = this.isMaster
-          ? this.buffer.duration
-          : this.masterTrack.buffer.duration;
-
-        const nbOfMasterDurationIterations = Math.ceil(this.buffer.duration / masterDuration);
-        // Snap the nb of iterations to [1, 2, 4, 8, 16, 32, 64, etc.] so that the track
-        // repeats at a regular interval.
-        const snappedNbOfMasterDurationIterations = Math.pow(2, Math.round(Math.log2(nbOfMasterDurationIterations)));
-
-        const duration = this.playEntireBufferBeforeRepeat
-          ? snappedNbOfMasterDurationIterations * masterDuration
-          : masterDuration;
-
-        this.screenDuration.textContent = this.isMaster
-          ? `time: ${formatTime(duration)} s`
-          : `time: ${formatTime(duration)} s (${snappedNbOfMasterDurationIterations} ⨉ master)`;
-
-        const now = audioContext.currentTime;
-        let lastIndex = 0;
-
-        const scheduleABatchOfNodes = () => {
-          for (let i = 0; i < AUDIO_NODE_BATCH_NUMBER; i++) {
-            const index = lastIndex + i;
-
-            // If this isn't the master track, we will schedule the node
-            // to start at increments of its duration after its start time.
-            // But if the track was restarted (after an offset or a sync change),
-            // then we need to define a new start time based on how much time has
-            // passed.
-            const startTime = this.recordStartTime;
-            const iterations = (now - startTime) / duration;
-            const newStartTime = startTime + iterations * duration;
-            this.screenStartTime.textContent = `start: ${formatTime(newStartTime)} s`;
-
-            const when = this.isMaster
-              ? now + index * duration
-              : newStartTime + index * duration;
-
-            if (when < now) {
-              continue;
-            }
-
-            this.createNewAudioNodes();
-            this.scheduledNodes[this.scheduledNodes.length - 1].audioNode.start(when + this.offset / 1000);
-          }
-
-          if (lastIndex > AUDIO_NODE_BATCH_NUMBER) {
-            this.deleteNodes(this.scheduledNodes.splice(0, AUDIO_NODE_BATCH_NUMBER));
-          }
-
-          lastIndex += AUDIO_NODE_BATCH_NUMBER;
+        if (this.isMaster) {
+          tracks.forEach(track => track !== this && track.play());
         }
-
-        scheduleABatchOfNodes();
-
-        // Schedule new batches of nodes when we get close to the
-        // end of the current batch.
-        this.nodeCreationInterval = setInterval(scheduleABatchOfNodes,
-          (AUDIO_NODE_BATCH_NUMBER - 1) * duration * 1000);
       }
 
-      createNewAudioNodes() {
-        const audioNode = audioContext.createBufferSource();
-        audioNode.buffer = this.buffer;
+      play() {
+        const master = this.isMaster ? this : this.masterTrack;
+        if (!this.buffer || !master.buffer) {
+          return;
+        }
 
-        const gainNode = audioContext.createGain();
-        gainNode.gain.value = this.isMuted ? 0 : this.gainValue;
-        audioNode.connect(gainNode);
+        const masterLength = master.buffer.length;
 
-        gainNode.connect(audioContext.destination);
+        // Snap the nb of iterations to [1, 2, 4, 8, 16, 32, 64, etc.] so that the track
+        // repeats at a regular interval.
+        this.iterations = 1;
+        if (!this.isMaster && this.playEntireBufferBeforeRepeat) {
+          const nbOfMasterIterations = Math.max(1, Math.round(this.buffer.length / masterLength));
+          this.iterations = Math.pow(2, Math.round(Math.log2(nbOfMasterIterations)));
+        }
 
-        this.scheduledNodes.push({ audioNode, gainNode });
+        // Using an exact multiple of the master's length, in frames, means the
+        // loops can never drift apart.
+        const loopLength = this.iterations * masterLength;
+        this.loopBuffer = foldBuffer(this.buffer, loopLength);
+        this.loopDuration = loopLength / audioContext.sampleRate;
+        this.peaks = computePeaks(this.loopBuffer);
+        this.setOffset(this.offset);
+
+        this.screenDuration.textContent = this.isMaster
+          ? `time: ${formatTime(this.loopDuration)} s`
+          : `time: ${formatTime(this.loopDuration)} s (${this.iterations} ⨉ master)`;
+
+        this.restartVoice();
+      }
+
+      // (Re)start the looping buffer at the position it should currently be at.
+      restartVoice() {
+        if (!this.loopBuffer) {
+          return;
+        }
+
+        const when = audioContext.currentTime + SCHEDULE_AHEAD;
+        const position = mod(when - this.anchorTime - this.offset, this.loopDuration);
+
+        const source = audioContext.createBufferSource();
+        source.buffer = this.loopBuffer;
+        source.loop = true;
+
+        const gain = audioContext.createGain();
+        gain.gain.setValueAtTime(0, when);
+        gain.gain.linearRampToValueAtTime(1, when + CROSSFADE);
+
+        source.connect(gain);
+        gain.connect(this.outputGain);
+        source.start(when, position);
+
+        this.stopVoice(when);
+        this.voice = { source, gain };
+      }
+
+      stopVoice(when = audioContext.currentTime) {
+        if (!this.voice) {
+          return;
+        }
+
+        const { source, gain } = this.voice;
+        gain.gain.cancelScheduledValues(when);
+        gain.gain.setValueAtTime(1, when);
+        gain.gain.linearRampToValueAtTime(0, when + CROSSFADE);
+        source.stop(when + CROSSFADE);
+        source.onended = () => gain.disconnect();
+        this.voice = null;
+      }
+
+      setOffset(value) {
+        const d = this.loopDuration;
+        // Keep the offset within half a loop on either side, it's circular anyway.
+        this.offset = d ? mod(value + d / 2, d) - d / 2 : 0;
+        const text = formatOffset(this.offset);
+        this.screenOffset.textContent = `offset: ${text}`;
+        this.waveformEl.setAttribute("aria-valuetext", text);
+      }
+
+      nudge(delta) {
+        if (!this.loopBuffer) {
+          return;
+        }
+        this.setOffset(this.offset + delta);
+        this.restartVoice();
+      }
+
+      draw() {
+        const canvas = this.waveformEl;
+        const dpr = window.devicePixelRatio || 1;
+        const w = Math.round(canvas.clientWidth * dpr);
+        const h = Math.round(canvas.clientHeight * dpr);
+        if (!w || !h) {
+          return;
+        }
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+        }
+
+        const ctx = this.canvasCtx;
+        ctx.clearRect(0, 0, w, h);
+
+        const master = this.isMaster ? this : this.masterTrack;
+        if (!this.peaks || !master.peaks) {
+          ctx.fillStyle = "#fff2";
+          ctx.fillRect(0, Math.floor(h / 2), w, 1);
+          return;
+        }
+
+        // Guides: master loop boundaries, and quarters of the master loop.
+        const guides = this.iterations * 4;
+        for (let i = 1; i < guides; i++) {
+          ctx.fillStyle = i % 4 === 0 ? "#fff6" : "#fff1";
+          ctx.fillRect(Math.round(i / guides * w), 0, 1, h);
+        }
+
+        // The master waveform, in the background, as a reference.
+        if (!this.isMaster) {
+          drawPeaks(ctx, master.peaks, w, h, 0, this.iterations, "#ffffff40");
+        }
+
+        // This track's waveform, where it's actually heard relative to the master.
+        const shift = mod(this.anchorTime + this.offset - master.anchorTime, this.loopDuration) / this.loopDuration;
+        drawPeaks(ctx, this.peaks, w, h, -shift, 1, this.drag ? "#ff9a4dcc" : "#d25802cc");
+
+        // Playhead, at what's currently being heard.
+        const latency = (audioContext.outputLatency || 0) + (audioContext.baseLatency || 0);
+        const heardTime = audioContext.currentTime - latency;
+        const x = mod(heardTime - master.anchorTime, this.loopDuration) / this.loopDuration * w;
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(Math.floor(x), 0, Math.max(1, Math.round(dpr)), h);
       }
     }
 
     class MicRecorder {
       constructor() {
         this.stream = null;
-        this.mediaRecorder = null;
+        this.node = null;
         this.isRecording = false;
-        this.recordedChunks = [];
+        this.chunks = [];
+        this.startFrame = null;
+        this.stopTime = 0;
+        this.inputLatency = 0;
       }
 
       async setup() {
@@ -696,6 +931,38 @@
             latency: 0
           }
         });
+
+        const settings = this.stream.getAudioTracks()[0].getSettings();
+        this.inputLatency = settings.latency || 0;
+
+        const moduleUrl = URL.createObjectURL(new Blob([RECORDER_WORKLET], { type: "application/javascript" }));
+        await audioContext.audioWorklet.addModule(moduleUrl);
+        URL.revokeObjectURL(moduleUrl);
+
+        const source = audioContext.createMediaStreamSource(this.stream);
+        this.node = new AudioWorkletNode(audioContext, "recorder");
+        // The worklet needs to be connected to the destination to get processed,
+        // but we don't want to hear the mic.
+        const silence = audioContext.createGain();
+        silence.gain.value = 0;
+        source.connect(this.node);
+        this.node.connect(silence);
+        silence.connect(audioContext.destination);
+
+        this.node.port.onmessage = e => {
+          if (e.data.type === "data") {
+            if (this.startFrame === null) {
+              this.startFrame = e.data.frame;
+            }
+            this.chunks.push(e.data.data);
+          } else if (e.data.type === "stop") {
+            this.onStopped();
+          }
+        };
+      }
+
+      getRoundTripLatency() {
+        return (audioContext.outputLatency || 0) + (audioContext.baseLatency || 0) + this.inputLatency;
       }
 
       // Call this to start recording.
@@ -704,24 +971,10 @@
           return;
         }
 
-        this.mediaRecorder = new MediaRecorder(this.stream);
-
-        this.mediaRecorder.ondataavailable = e => {
-          this.recordedChunks.push(e.data);
-        };
-
-        this.mediaRecorder.onstart = e => { };
-
-        this.mediaRecorder.onstop = async e => {
-          const blob = new Blob(this.recordedChunks, { type: "audio/mp4" });
-          const arrayBuffer = await blob.arrayBuffer();
-          const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-          this.onBufferReady(audioBuffer);
-        };
-
-        this.recordedChunks = [];
+        this.chunks = [];
+        this.startFrame = null;
         this.isRecording = true;
-        this.mediaRecorder.start();
+        this.node.port.postMessage("start");
       }
 
       // Call this to stop recording.
@@ -731,10 +984,40 @@
         }
 
         this.isRecording = false;
-        this.mediaRecorder.stop();
+        this.stopTime = audioContext.currentTime;
+        this.node.port.postMessage("stop");
       }
 
-      // Override this to get the newly recorded buffer.
+      onStopped() {
+        const sampleRate = audioContext.sampleRate;
+        const startTime = this.startFrame === null ? 0 : this.startFrame / sampleRate;
+        const totalLength = this.chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+        // Trim the frames that were recorded after the stop button was pressed.
+        const wantedLength = Math.round((this.stopTime - startTime) * sampleRate);
+        const length = Math.min(totalLength, Math.max(0, wantedLength));
+
+        if (!length) {
+          this.onBufferReady(null, 0);
+          return;
+        }
+
+        const buffer = audioContext.createBuffer(1, length, sampleRate);
+        const data = buffer.getChannelData(0);
+        let pos = 0;
+        for (const chunk of this.chunks) {
+          if (pos >= length) {
+            break;
+          }
+          data.set(chunk.subarray(0, length - pos), pos);
+          pos += chunk.length;
+        }
+        this.chunks = [];
+
+        this.onBufferReady(buffer, startTime);
+      }
+
+      // Override this to get the newly recorded buffer, and the audio context
+      // time of its first frame.
       onBufferReady() { }
     }
 
@@ -764,8 +1047,14 @@
       tracks.push(track);
     }
 
+    function drawLoop() {
+      tracks.forEach(track => track.draw());
+      requestAnimationFrame(drawLoop);
+    }
+
     async function start() {
       clearAll();
+      tracks.forEach(track => track.outputGain.disconnect());
       tracks = [];
       masterTrack = null;
 
@@ -773,13 +1062,14 @@
 
       // Create the audio context.
       if (!audioContext) {
-        audioContext = new AudioContext();
+        audioContext = new AudioContext({ latencyHint: "interactive" });
       }
 
       // Initialize the mic recorder.
       if (!micRecorder) {
-        micRecorder = new MicRecorder();
-        await micRecorder.setup();
+        const recorder = new MicRecorder();
+        await recorder.setup();
+        micRecorder = recorder;
       }
 
       // Create the master track.
@@ -797,6 +1087,11 @@
       clearAllButton.hidden = false;
 
       startLooperButton.innerHTML = "<span>Restart</span>";
+
+      if (!isDrawing) {
+        isDrawing = true;
+        drawLoop();
+      }
     }
 
     clearAllButton.addEventListener("click", clearAll);
