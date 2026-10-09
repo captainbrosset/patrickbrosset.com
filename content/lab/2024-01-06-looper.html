@@ -22,6 +22,15 @@
   <style>
     :root {
       --button-size: 4rem;
+      /* Rack geometry: every slot is the same size, and fits one track, as a loose track
+         or in a group module. */
+      --track-w: calc(4 * var(--button-size) + .25rem);
+      --track-h: calc(.75rem + 4 * var(--button-size) + .25rem);
+      --slot-pad: .5rem;
+      --group-head: 2.75rem;
+      --slot-w: calc(var(--track-w) + 2 * var(--slot-pad));
+      --slot-h: calc(var(--group-head) + var(--track-h) + var(--slot-pad));
+      --rack-gap: .5rem;
     }
 
     html,
@@ -49,27 +58,38 @@
       margin: 0;
     }
 
-    header {
+    .page-header {
       background: rgba(237, 237, 237, 0.933);
       padding: 1rem;
       box-shadow: 0 0 0.25rem 0.25rem #0000006e;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem 2rem;
+      position: relative;
+      z-index: 1;
     }
 
-    header h1 {
+    .page-header .title {
+      margin-inline-end: auto;
+    }
+
+    .page-header h1 {
       font-weight: normal;
     }
 
-    header a {
+    .page-header a {
       color: rgb(210, 88, 2);
       text-decoration: none;
     }
 
-    header a:hover {
+    .page-header a:hover {
       text-decoration: underline;
     }
 
-    header p {
-      margin-block-start: 2rem;
+    .page-header p {
+      margin-block-start: 1rem;
     }
 
     input,
@@ -85,12 +105,54 @@
       background: rgba(132, 132, 132, 0.85);
     }
 
+    /* The rack: tracks and group modules fill its slots from left to right, then top to
+       bottom. The number of columns and rows are set by updateRack(). */
+    .tracks {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, var(--slot-w));
+      grid-auto-rows: var(--slot-h);
+      gap: var(--rack-gap);
+      align-content: start;
+      min-height: calc(var(--rack-rows, 0) * (var(--slot-h) + var(--rack-gap)) - var(--rack-gap));
+    }
+
+    /* The empty slots of the rack. */
+    .tracks::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: calc(var(--rack-cols, 0) * (var(--slot-w) + var(--rack-gap)) - var(--rack-gap));
+      height: calc(var(--rack-rows, 0) * (var(--slot-h) + var(--rack-gap)) - var(--rack-gap));
+      --tile: calc(var(--slot-w) + var(--rack-gap)) calc(var(--slot-h) + var(--rack-gap));
+      background:
+        radial-gradient(circle at .5rem .5rem, #0006 2px, transparent 2.5px) 0 0 / var(--tile),
+        radial-gradient(circle at calc(var(--slot-w) - .5rem) .5rem, #0006 2px, transparent 2.5px) 0 0 / var(--tile),
+        radial-gradient(circle at .5rem calc(var(--slot-h) - .5rem), #0006 2px, transparent 2.5px) 0 0 / var(--tile),
+        radial-gradient(circle at calc(var(--slot-w) - .5rem) calc(var(--slot-h) - .5rem), #0006 2px, transparent 2.5px) 0 0 / var(--tile),
+        linear-gradient(#0000002e, #00000014 1.5rem, #0000000d) 0 0 / var(--tile);
+      mask:
+        linear-gradient(to right, #000 var(--slot-w), transparent 0) 0 0 / calc(var(--slot-w) + var(--rack-gap)) 100%,
+        linear-gradient(#000 var(--slot-h), transparent 0) 0 0 / 100% calc(var(--slot-h) + var(--rack-gap));
+      mask-composite: intersect;
+      border-radius: .25rem;
+      pointer-events: none;
+    }
+
+    /* Loose tracks line up with the tracks in the group modules. */
+    .tracks > .track {
+      align-self: end;
+      justify-self: center;
+      margin-block-end: var(--slot-pad);
+    }
+
     .buttons {
       display: grid;
       gap: 1rem;
       grid-auto-flow: column;
-      justify-content: center;
-      margin-block-end: 1rem;
     }
 
     button {
@@ -132,9 +194,7 @@
     .loop-panel {
       display: flex;
       gap: .5rem;
-      justify-content: center;
       align-items: center;
-      margin-block-end: 1rem;
     }
 
     .loop-panel[hidden] {
@@ -175,28 +235,35 @@
 
     .tracks-actions {
       display: grid;
-      gap: .5rem;
-      align-self: center;
+      grid-auto-flow: column;
+      gap: 1rem;
     }
 
     .tracks-actions[hidden] {
       display: none;
     }
 
-    /* A group is a module, like in a modular synth: a metal faceplate with screws. */
+    /* A group is a module, like in a modular synth: a metal faceplate with screws.
+       It fills as many rack slots as it has tracks, see updateRack(). */
     .group {
-      --screw: radial-gradient(circle at 40% 40%, #f4f4f4 0 1.5px, #777 2.5px 3px, #2228 3.5px, transparent 4px);
+      --screw: radial-gradient(circle at 40% 40%, #f4f4f4 0 1.25px, #777 2px 2.5px, #2228 3px, transparent 3.5px);
+      --span: 1;
+      --rows: 1;
+      grid-column: span var(--span);
+      grid-row: span var(--rows);
+      position: relative;
       display: flex;
       flex-direction: column;
-      padding: .25rem 1rem 1rem;
+      padding: 0 var(--slot-pad) var(--slot-pad);
       border-radius: .25rem;
       background:
-        var(--screw) left .3rem top .3rem / 10px 10px no-repeat,
-        var(--screw) right .3rem top .3rem / 10px 10px no-repeat,
-        var(--screw) left .3rem bottom .3rem / 10px 10px no-repeat,
-        var(--screw) right .3rem bottom .3rem / 10px 10px no-repeat,
+        var(--screw) left 1px top 1px / 8px 8px no-repeat,
+        var(--screw) right 1px top 1px / 8px 8px no-repeat,
+        var(--screw) left 1px bottom 1px / 8px 8px no-repeat,
+        var(--screw) right 1px bottom 1px / 8px 8px no-repeat,
         linear-gradient(#bdbdbd, #9c9c9c);
       box-shadow: inset 0 1px 0 #fff9, inset 0 -1px 0 #0006, .25rem .25rem .75rem #0006;
+      container-type: inline-size;
     }
 
     .group.drop-target {
@@ -205,10 +272,12 @@
     }
 
     .group-header {
+      box-sizing: border-box;
+      height: calc(var(--group-head) - .5rem);
       display: flex;
       align-items: center;
       gap: .5rem;
-      padding-block: .25rem .5rem;
+      padding-inline: .375rem;
       margin-block-end: .5rem;
       border-block-end: 2px solid #d25802;
     }
@@ -229,8 +298,8 @@
 
     .group-header .group-name {
       flex: 1;
-      min-width: 6rem;
-      field-sizing: content;
+      min-width: 0;
+      text-overflow: ellipsis;
       background: transparent;
       border: 0;
       border-block-end: 1px dashed transparent;
@@ -252,31 +321,44 @@
     }
 
     .group-header .group-count {
-      flex: 1 0 auto;
+      flex: none;
       font-size: .6rem;
       color: #333;
     }
 
-    .group-header button {
-      flex: none;
-      width: calc(var(--button-size) * .75);
+    /* Not enough room for the track count in a single-slot module. */
+    @container (width < 24rem) {
+      .group-header .group-count {
+        display: none;
+      }
+
+      .group-header .group-name {
+        font-size: .9rem;
+        letter-spacing: .05em;
+      }
     }
 
+    .group-header button {
+      flex: none;
+      width: calc(var(--button-size) * .7);
+    }
+
+    /* Tracks in a group sit on the same grid as the rack, so they line up with the
+       loose tracks of the rack. */
     .group-tracks {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 4rem;
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(var(--span), var(--track-w));
+      grid-auto-rows: var(--track-h);
+      column-gap: calc(2 * var(--slot-pad) + var(--rack-gap));
+      row-gap: calc(var(--slot-h) + var(--rack-gap) - var(--track-h));
+      align-content: end;
     }
 
     .group-tracks:not(:has(> .track:not(.dragging)))::before {
       content: "drag tracks here";
       display: grid;
       place-items: center;
-      width: calc(4 * var(--button-size));
-      height: 6rem;
       border: 2px dashed #0004;
       border-radius: .25rem;
       color: #0009;
@@ -284,14 +366,33 @@
     }
 
     /* Shows where a dragged track will be dropped, without moving the other tracks around. */
-    .drop-indicator {
-      align-self: stretch;
+    .drop-before::after,
+    .drop-after::after {
+      content: "";
+      position: absolute;
+      z-index: 5;
+      inset-block: 0;
       width: 4px;
-      min-height: 4rem;
-      margin-inline: calc(-.25rem - 2px);
       border-radius: 2px;
       background: #d25802;
       box-shadow: 0 0 .5rem #ff9a4d;
+      pointer-events: none;
+    }
+
+    .drop-before::after {
+      left: calc(-1 * var(--slot-pad) - var(--rack-gap) / 2 - 2px);
+    }
+
+    .drop-after::after {
+      right: calc(-1 * var(--slot-pad) - var(--rack-gap) / 2 - 2px);
+    }
+
+    .drop-before.group::after {
+      left: calc(-1 * var(--rack-gap) / 2 - 2px);
+    }
+
+    .drop-after.group::after {
+      right: calc(-1 * var(--rack-gap) / 2 - 2px);
     }
 
     .track.dragging {
@@ -331,15 +432,8 @@
       scale: .999;
     }
 
-    .tracks {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
     .track {
+      position: relative;
       padding: .125rem;
       display: grid;
       grid-template-columns: repeat(4, var(--button-size));
@@ -645,12 +739,12 @@
 
 <body>
   <div class="wrapper">
-    <header>
-      <h1>Looper</h1>
-      <a href="https://patrickbrosset.com">Patrick Brosset</a>
-      <p>multi-track audio looper</p>
-    </header>
-    <main id="looper">
+    <header class="page-header">
+      <div class="title">
+        <h1>Looper</h1>
+        <a href="https://patrickbrosset.com">Patrick Brosset</a>
+        <p>multi-track audio looper</p>
+      </div>
       <div class="buttons">
         <button id="start" title="Start the looper"><span>Start</span></button>
         <button id="pause" title="Pause or resume the playback" hidden><span>pause</span></button>
@@ -669,12 +763,13 @@
         <button id="tap" title="Press once on a beat, and again on the next beat, to set the loop length"><span>tap</span></button>
         <button id="metronome" class="active" title="Play a click on every beat of the loop"><span>click</span></button>
       </section>
-      <div class="tracks">
-        <div class="tracks-actions" hidden>
-          <button id="add-track" title="Add a new track"><span>add</span></button>
-          <button id="add-group" title="Add a group, to mute and unmute several tracks together"><span>new group</span></button>
-        </div>
+      <div class="tracks-actions" hidden>
+        <button id="add-track" title="Add a new track"><span>add track</span></button>
+        <button id="add-group" title="Add a group, to mute and unmute several tracks together"><span>add group</span></button>
       </div>
+    </header>
+    <main id="looper">
+      <div class="tracks"></div>
     </main>
   </div>
 
@@ -1118,7 +1213,7 @@
         if (after) {
           after.after(this.el);
         } else {
-          this.parentEl.insertBefore(this.el, tracksActions);
+          this.parentEl.append(this.el);
         }
 
         // The raw recorded buffer.
@@ -1571,7 +1666,7 @@
             moveNode(group.tracksEl, this.el, null);
           } else if (!group && this.el.parentElement !== tracksEl) {
             // Put it right after the group it was in.
-            const before = previous && previous.el.isConnected ? previous.el.nextSibling : tracksActions;
+            const before = previous && previous.el.isConnected ? previous.el.nextSibling : null;
             moveNode(tracksEl, this.el, before);
           }
         }
@@ -2316,7 +2411,7 @@
       group.tracksEl.classList.add("group-tracks");
 
       group.el.append(header, group.tracksEl);
-      tracksEl.insertBefore(group.el, tracksActions);
+      tracksEl.append(group.el);
 
       const updateLabel = () => group.el.setAttribute("aria-label", `Group: ${group.nameInput.value}`);
       updateLabel();
@@ -2441,9 +2536,19 @@
       track.el.classList.add("dragging");
       document.body.classList.add("is-dragging");
 
-      const indicator = document.createElement("div");
-      indicator.classList.add("drop-indicator");
-      return { track, indicator, dx: x - rect.left, dy: y - rect.top };
+      return { track, target: null, dx: x - rect.left, dy: y - rect.top };
+    }
+
+    // Shows where the track will be dropped: before an item, or after the last one.
+    function showDropTarget(drag, target) {
+      const marked = drag.target && (drag.target.before || drag.target.after);
+      marked?.classList.remove("drop-before", "drop-after");
+      drag.target = target;
+      if (target?.before) {
+        target.before.classList.add("drop-before");
+      } else if (target?.after) {
+        target.after.classList.add("drop-after");
+      }
     }
 
     function updateTrackDrag(drag, x, y) {
@@ -2457,28 +2562,34 @@
       groups.forEach(group => group.el.classList.toggle("drop-target", group.el === groupEl));
 
       if (!container) {
-        drag.indicator.remove();
+        showDropTarget(drag, null);
         return;
       }
 
-      // Find the item to drop before, in reading order.
-      let before = container === tracksEl ? tracksActions : null;
+      // Find the item to drop before, in reading order. Loose tracks sit at the bottom of
+      // their rack slot, so their whole slot counts.
+      const slotHeight = parseFloat(getComputedStyle(tracksEl).gridAutoRows);
+      const slotPad = parseFloat(getComputedStyle(tracksEl).getPropertyValue("--slot-pad")) * parseFloat(getComputedStyle(document.documentElement).fontSize);
       const items = [...container.children].filter(item => item !== drag.track.el && item.matches(".track, .group"));
+      let before = null;
       for (const item of items) {
         const rect = item.getBoundingClientRect();
-        if (y < rect.top || (y <= rect.bottom && x < rect.left + rect.width / 2)) {
+        const top = container === tracksEl && item.matches(".track") ? rect.bottom + slotPad - slotHeight : rect.top;
+        if (y < top || (y <= rect.bottom && x < rect.left + rect.width / 2)) {
           before = item;
           break;
         }
       }
 
-      if (drag.indicator.parentElement !== container || drag.indicator.nextElementSibling !== before) {
-        container.insertBefore(drag.indicator, before);
+      const target = { container, before, after: before ? null : items.at(-1) || null };
+      if (drag.target?.container !== container || drag.target.before !== before || drag.target.after !== target.after) {
+        showDropTarget(drag, target);
       }
     }
 
     function endTrackDrag(drag, commit) {
-      const { track, indicator } = drag;
+      const { track, target } = drag;
+      showDropTarget(drag, null);
       track.el.classList.remove("dragging");
       track.el.style.removeProperty("width");
       track.el.style.removeProperty("height");
@@ -2487,14 +2598,46 @@
       document.body.classList.remove("is-dragging");
       groups.forEach(group => group.el.classList.remove("drop-target"));
 
-      if (commit && indicator.isConnected) {
-        const container = indicator.parentElement;
-        moveNode(container, track.el, indicator);
-        const group = groups.find(g => g.tracksEl === container) || null;
+      if (commit && target) {
+        moveNode(target.container, track.el, target.before);
+        const group = groups.find(g => g.tracksEl === target.container) || null;
         track.setGroup(group, { move: false });
       }
-      indicator.remove();
     }
+
+    // Lays out the rack: group modules take as many slots as they have tracks (wrapping
+    // on several rows if needed), and there are always empty slots to fill.
+    function updateRack() {
+      const style = getComputedStyle(tracksEl);
+      const cols = Math.max(1, style.gridTemplateColumns.split(" ").length);
+      for (const group of groups) {
+        const count = Math.max(1, group.tracksEl.querySelectorAll(":scope > .track").length);
+        const span = Math.min(count, cols);
+        group.el.style.setProperty("--span", span);
+        group.el.style.setProperty("--rows", Math.ceil(count / span));
+      }
+
+      const rows = style.gridTemplateRows === "none" ? 0 : getComputedStyle(tracksEl).gridTemplateRows.split(" ").length;
+      const slotHeight = parseFloat(style.gridAutoRows);
+      const gap = parseFloat(style.rowGap);
+      const top = tracksEl.getBoundingClientRect().top + scrollY;
+      const fitRows = Math.floor((document.documentElement.clientHeight - top - 16 + gap) / (slotHeight + gap));
+      const shownRows = String(Math.max(rows + 1, fitRows, 1));
+      if (tracksEl.style.getPropertyValue("--rack-rows") !== shownRows) {
+        tracksEl.style.setProperty("--rack-rows", shownRows);
+      }
+      if (tracksEl.style.getPropertyValue("--rack-cols") !== String(cols)) {
+        tracksEl.style.setProperty("--rack-cols", cols);
+      }
+    }
+
+    new ResizeObserver(updateRack).observe(tracksEl);
+    addEventListener("resize", updateRack);
+    new MutationObserver(records => {
+      if (records.some(r => r.target === tracksEl || r.target.classList.contains("group-tracks"))) {
+        updateRack();
+      }
+    }).observe(tracksEl, { childList: true, subtree: true });
 
     // Size, in pixels, of each video in the downloaded video grid.
     const EXPORT_CELL_SIZE = 256;
