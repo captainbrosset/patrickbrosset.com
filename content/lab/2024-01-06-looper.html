@@ -173,8 +173,142 @@
       border-block-end-color: #d25802;
     }
 
-    .tracks > #add-track {
+    .tracks-actions {
+      display: grid;
+      gap: .5rem;
       align-self: center;
+    }
+
+    .tracks-actions[hidden] {
+      display: none;
+    }
+
+    /* A group is a module, like in a modular synth: a metal faceplate with screws. */
+    .group {
+      --screw: radial-gradient(circle at 40% 40%, #f4f4f4 0 1.5px, #777 2.5px 3px, #2228 3.5px, transparent 4px);
+      display: flex;
+      flex-direction: column;
+      padding: .25rem 1rem 1rem;
+      border-radius: .25rem;
+      background:
+        var(--screw) left .3rem top .3rem / 10px 10px no-repeat,
+        var(--screw) right .3rem top .3rem / 10px 10px no-repeat,
+        var(--screw) left .3rem bottom .3rem / 10px 10px no-repeat,
+        var(--screw) right .3rem bottom .3rem / 10px 10px no-repeat,
+        linear-gradient(#bdbdbd, #9c9c9c);
+      box-shadow: inset 0 1px 0 #fff9, inset 0 -1px 0 #0006, .25rem .25rem .75rem #0006;
+    }
+
+    .group.drop-target {
+      outline: 2px solid #d25802;
+      outline-offset: 2px;
+    }
+
+    .group-header {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding-block: .25rem .5rem;
+      margin-block-end: .5rem;
+      border-block-end: 2px solid #d25802;
+    }
+
+    .group-header .led {
+      flex: none;
+      width: .5rem;
+      height: .5rem;
+      border-radius: 50%;
+      background: #7dff4d;
+      box-shadow: 0 0 .4rem #7dff4d, inset 0 0 1px #0008;
+    }
+
+    .group.is-muted .group-header .led {
+      background: #263d1e;
+      box-shadow: inset 0 0 1px #0008;
+    }
+
+    .group-header .group-name {
+      flex: 1;
+      min-width: 6rem;
+      field-sizing: content;
+      background: transparent;
+      border: 0;
+      border-block-end: 1px dashed transparent;
+      padding: 0;
+      color: #1d1d1d;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-shadow: 0 1px 0 #fff9;
+    }
+
+    .group-header .group-name:hover {
+      border-block-end-color: #0004;
+    }
+
+    .group-header .group-name:focus-visible {
+      outline: none;
+      border-block-end: 1px solid #d25802;
+    }
+
+    .group-header .group-count {
+      flex: 1 0 auto;
+      font-size: .6rem;
+      color: #333;
+    }
+
+    .group-header button {
+      flex: none;
+      width: calc(var(--button-size) * .75);
+    }
+
+    .group-tracks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 4rem;
+    }
+
+    .group-tracks:not(:has(> .track:not(.dragging)))::before {
+      content: "drag tracks here";
+      display: grid;
+      place-items: center;
+      width: calc(4 * var(--button-size));
+      height: 6rem;
+      border: 2px dashed #0004;
+      border-radius: .25rem;
+      color: #0009;
+      font-size: .7rem;
+    }
+
+    /* Shows where a dragged track will be dropped, without moving the other tracks around. */
+    .drop-indicator {
+      align-self: stretch;
+      width: 4px;
+      min-height: 4rem;
+      margin-inline: calc(-.25rem - 2px);
+      border-radius: 2px;
+      background: #d25802;
+      box-shadow: 0 0 .5rem #ff9a4d;
+    }
+
+    .track.dragging {
+      position: fixed;
+      z-index: 10;
+      margin: 0;
+      pointer-events: none;
+      background: #a8a8a8;
+      opacity: .9;
+      rotate: -1deg;
+      box-shadow: 0 1rem 2rem #0008;
+    }
+
+    body.is-dragging,
+    body.is-dragging * {
+      cursor: grabbing !important;
+      user-select: none;
     }
 
     button span {
@@ -202,17 +336,20 @@
       flex-wrap: wrap;
       gap: .5rem;
       justify-content: center;
+      align-items: flex-start;
     }
 
     .track {
       padding: .125rem;
       display: grid;
       grid-template-columns: repeat(4, var(--button-size));
-      grid-template-rows: repeat(2, var(--button-size)) var(--button-size) repeat(2, calc(var(--button-size) / 2));
+      grid-template-rows: .75rem repeat(2, var(--button-size)) repeat(4, calc(var(--button-size) / 2));
       grid-template-areas:
+        "handle handle handle handle"
         "screen screen screen screen"
         "screen screen screen screen"
         "rec    mute   gain   trim"
+        "rec    solo   gain   del"
         "sync   plus  gain   dup"
         "sync minus gain clear";
       justify-items: center;
@@ -222,6 +359,26 @@
 
     .track .record {
       grid-area: rec;
+    }
+
+    /* Grip used to drag the track around, with a screw at each end. */
+    .track .handle {
+      --screw: radial-gradient(circle at 40% 40%, #f4f4f4 0 1px, #777 2px 2.5px, transparent 3px);
+      grid-area: handle;
+      justify-self: stretch;
+      cursor: grab;
+      touch-action: none;
+      background:
+        var(--screw) left .125rem center / 8px 8px no-repeat,
+        var(--screw) right .125rem center / 8px 8px no-repeat,
+        radial-gradient(circle, #0007 1px, transparent 1.5px) center / 4px 4px;
+      background-clip: border-box, border-box, content-box;
+      padding-inline: calc(50% - 1.5rem);
+      box-sizing: border-box;
+    }
+
+    .track .handle:hover {
+      background-color: #fff2;
     }
 
     .track .trim {
@@ -242,6 +399,7 @@
 
     .track .screen {
       grid-area: screen;
+      position: relative;
       background: #171717;
       width: 100%;
       background-image: linear-gradient(to bottom, transparent, #171717 50%), linear-gradient(to bottom right, transparent, #fff1 40%, transparent 0);
@@ -250,8 +408,109 @@
       padding: .5rem;
       box-sizing: border-box;
       display: grid;
-      grid-template-rows: auto auto auto auto 1fr;
+      grid-template-rows: auto auto auto auto auto 1fr;
       min-height: 0;
+    }
+
+    .track .screen .track-routing {
+      display: flex;
+      gap: .5em;
+    }
+
+    /* Webcam video, recorded with mic tracks. Click it to hide it. */
+    .track .screen .video-toggle {
+      position: absolute;
+      inset-block-start: .5rem;
+      inset-inline-end: .5rem;
+      width: 4.25rem;
+      aspect-ratio: 1;
+      padding: 0;
+      background: #000;
+      border: 1px solid #fff3;
+      border-radius: .125rem;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .track .screen .video-toggle::before {
+      content: none;
+    }
+
+    .track .screen .video-toggle canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .track .screen .video-toggle[aria-pressed="false"] {
+      width: auto;
+      aspect-ratio: auto;
+      padding: 0 .25rem;
+      background: transparent;
+      color: #ff9a4d;
+      font-size: .6rem;
+    }
+
+    .track .screen .video-toggle[aria-pressed="false"] canvas {
+      display: none;
+    }
+
+    .track .screen .video-toggle .video-label {
+      position: static;
+      color: inherit;
+      text-shadow: none;
+    }
+
+    .track .screen .video-toggle[aria-pressed="true"] .video-label {
+      display: none;
+    }
+
+    .track .screen .video-toggle:focus-visible {
+      outline: 1px solid #d25802;
+    }
+
+    .track.is-recording .screen .video-toggle {
+      border-color: #d25802;
+    }
+
+    .track .screen select {
+      background: transparent;
+      border: 0;
+      border-block-end: 1px dashed #fff4;
+      color: #ff9a4d;
+      font: inherit;
+      text-transform: inherit;
+      padding: 0;
+      min-width: 0;
+      cursor: pointer;
+    }
+
+    .track .screen select:disabled {
+      color: inherit;
+      cursor: default;
+    }
+
+    .track .screen select:focus-visible {
+      outline: none;
+      border-block-end: 1px solid #d25802;
+    }
+
+    .track .screen option {
+      background: #171717;
+      color: #fff;
+    }
+
+    .track.group-muted .screen,
+    .track.solo-silenced .screen {
+      opacity: .5;
+    }
+
+    .track .solo {
+      grid-area: solo;
+    }
+
+    button.solo.active::before {
+      background-color: #a88a00;
     }
 
     .track .waveform {
@@ -291,6 +550,10 @@
 
     .track .duplicate {
       grid-area: dup;
+    }
+
+    .track .delete {
+      grid-area: del;
     }
 
     .track .screen .track-name {
@@ -390,8 +653,9 @@
     <main id="looper">
       <div class="buttons">
         <button id="start" title="Start the looper"><span>Start</span></button>
+        <button id="pause" title="Pause or resume the playback" hidden><span>pause</span></button>
         <button id="clear-all" class="danger" title="Clear all tracks" hidden><span>clear all</span></button>
-        <button id="download" title="Download one full cycle of the loop as a WAV file" hidden><span>save</span></button>
+        <button id="download" title="Download one full cycle of the loop: a video grid if tracks have videos, a WAV file otherwise" hidden><span>save</span></button>
       </div>
       <section class="loop-panel" hidden>
         <div class="screen">
@@ -406,7 +670,10 @@
         <button id="metronome" class="active" title="Play a click on every beat of the loop"><span>click</span></button>
       </section>
       <div class="tracks">
-        <button id="add-track" title="Add a new track" hidden><span>add</span></button>
+        <div class="tracks-actions" hidden>
+          <button id="add-track" title="Add a new track"><span>add</span></button>
+          <button id="add-group" title="Add a group, to mute and unmute several tracks together"><span>new group</span></button>
+        </div>
       </div>
     </main>
   </div>
@@ -432,10 +699,13 @@
     }
 
     const startLooperButton = document.querySelector("#start");
+    const pauseButton = document.querySelector("#pause");
     const addTrackButton = document.querySelector("#add-track");
     const clearAllButton = document.querySelector("#clear-all");
     const downloadButton = document.querySelector("#download");
     const tracksEl = document.querySelector(".tracks");
+    const tracksActions = document.querySelector(".tracks-actions");
+    const addGroupButton = document.querySelector("#add-group");
     const loopPanel = document.querySelector(".loop-panel");
     const loopLengthInput = document.querySelector("#loop-length");
     const loopInfo = document.querySelector("#loop-info");
@@ -497,10 +767,16 @@
     `;
 
     let audioContext = null;
-    let micRecorder = null;
     let tracks = [];
-    const initTrackNb = 4;
+    // Number of tracks created so far, used to name new tracks.
+    let trackCount = 0;
+    const initTrackNb = 1;
+    // Loop length, in seconds, when the looper starts.
+    const DEFAULT_LOOP_LENGTH = 1;
     let isDrawing = false;
+    // Groups of tracks that can be muted together: { id, name input, isMuted, ... }.
+    let groups = [];
+    let nextGroupId = 1;
 
     // The loop every track is synced to. `length` is in frames (0 when not set yet),
     // `anchor` is the audio context time at which a loop starts.
@@ -531,6 +807,108 @@
       metronome.nextBeat = null;
       tapButton.classList.remove("active");
       updateLoopInfo();
+    }
+
+    // Size, in pixels, of the recorded webcam frames.
+    const VIDEO_SIZE = 128;
+
+    // The webcam, recorded along with the mic. `captures` are the recordings in progress.
+    const camera = {
+      video: null,
+      promise: null,
+      captures: new Set(),
+
+      startCapture() {
+        if (!this.video) {
+          return null;
+        }
+        const capture = { frames: [] };
+        this.captures.add(capture);
+        return capture;
+      },
+
+      stopCapture(capture) {
+        this.captures.delete(capture);
+      }
+    };
+
+    function getCamera() {
+      if (!camera.promise) {
+        camera.promise = (async () => {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: false,
+            video: { width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 30 } }
+          });
+          const video = document.createElement("video");
+          video.muted = true;
+          video.playsInline = true;
+          video.srcObject = stream;
+          await video.play();
+
+          stream.getVideoTracks()[0].addEventListener("ended", () => {
+            camera.video = null;
+            camera.promise = null;
+            camera.captures.clear();
+          });
+
+          const onFrame = (now, metadata) => {
+            if (camera.video !== video) {
+              return;
+            }
+            captureVideoFrame(video, metadata);
+            video.requestVideoFrameCallback(onFrame);
+          };
+          video.requestVideoFrameCallback(onFrame);
+          camera.video = video;
+        })();
+        camera.promise.catch(() => camera.promise = null);
+      }
+      return camera.promise;
+    }
+
+    function captureVideoFrame(video, metadata) {
+      if (!camera.captures.size || !video.videoWidth) {
+        return;
+      }
+      // When the camera captured the frame, if known.
+      const time = perfToHeardTime(metadata.captureTime ?? metadata.presentationTime ?? performance.now());
+      const captures = [...camera.captures];
+      const w = video.videoWidth;
+      const h = video.videoHeight;
+      const size = Math.min(w, h);
+      createImageBitmap(video, (w - size) / 2, (h - size) / 2, size, size, {
+        resizeWidth: VIDEO_SIZE,
+        resizeHeight: VIDEO_SIZE,
+        resizeQuality: "medium"
+      }).then(bitmap => captures.forEach(capture => capture.frames.push({ time, bitmap })));
+    }
+
+    // Draws the center square of `source`, mirrored like a selfie.
+    function drawMirroredSquare(ctx, source, w, h, dx = 0, dy = 0, dSize = VIDEO_SIZE) {
+      if (!w || !h) {
+        return;
+      }
+      const size = Math.min(w, h);
+      ctx.save();
+      ctx.setTransform(-1, 0, 0, 1, dx + dSize, dy);
+      ctx.drawImage(source, (w - size) / 2, (h - size) / 2, size, size, 0, 0, dSize, dSize);
+      ctx.restore();
+    }
+
+    // The audio context time of what's coming out of the speakers right now.
+    function getHeardTime() {
+      return perfToHeardTime(performance.now());
+    }
+
+    // Converts a performance.now() time to the audio context time that was (or will be)
+    // heard at that moment.
+    function perfToHeardTime(perfTime) {
+      const ts = audioContext.getOutputTimestamp();
+      if (audioContext.state !== "running" || !ts.performanceTime) {
+        const latency = (audioContext.outputLatency || 0) + (audioContext.baseLatency || 0);
+        return audioContext.currentTime - latency;
+      }
+      return ts.contextTime + (perfTime - ts.performanceTime) / 1000;
     }
 
     function updateLoopInfo() {
@@ -724,15 +1102,24 @@
     }
 
     class Track {
-      constructor(parentEl, micRecorder, { name, before = addTrackButton } = {}) {
+      constructor(parentEl, { name, after } = {}) {
         this.parentEl = parentEl;
-        this.micRecorder = micRecorder;
+        // Where the track records from: "mic" or "device".
+        this.source = "mic";
+        this.recorder = null;
+        this.group = null;
+        this.isPreparing = false;
 
         this.createDom();
         this.defaultName = name;
         this.nameInput.value = name;
+        this.renderGroupOptions();
 
-        this.parentEl.insertBefore(this.el, before);
+        if (after) {
+          after.after(this.el);
+        } else {
+          this.parentEl.insertBefore(this.el, tracksActions);
+        }
 
         // The raw recorded buffer.
         this.buffer = null;
@@ -750,6 +1137,13 @@
         this.activeTrimHandle = "start";
         this.state = 0;
         this.isMuted = false;
+        this.isSoloed = false;
+        // Webcam frames recorded along with the mic: [{ pos, bitmap }], pos being the
+        // position in the recording, in seconds.
+        this.videoFrames = null;
+        this.videoCapture = null;
+        this.isVideoVisible = true;
+        this.lastVideoFrame = null;
         this.gainValue = DEFAULT_GAIN_VALUE;
         this.playEntireBufferBeforeRepeat = true;
         // Audio context time at which the first sample of the buffer was played
@@ -769,6 +1163,15 @@
           this.toggleMute();
         });
 
+        this.soloButton.addEventListener("click", () => {
+          this.setSolo(!this.isSoloed);
+        });
+
+        this.videoToggle.addEventListener("click", () => {
+          this.setVideoVisible(!this.isVideoVisible);
+        });
+        this.setVideoVisible(true);
+
         this.clearButton.addEventListener("click", () => {
           this.clear();
         });
@@ -777,18 +1180,63 @@
           duplicateTrack(this);
         });
 
+        this.deleteButton.addEventListener("click", () => {
+          deleteTrack(this);
+        });
+
         this.nameInput.addEventListener("change", () => {
           this.nameInput.value = this.nameInput.value.trim() || this.defaultName;
         });
 
-        this.recordButton.addEventListener("click", () => {
+        this.recordButton.addEventListener("click", async () => {
           if (!loop.length) {
             alert("Set the loop length first: tap it, or type it in seconds");
             return;
           }
+          if (this.isPreparing) {
+            return;
+          }
+
+          // Starting a new recording: get the recorder for the selected input.
+          if (this.state !== 1) {
+            this.isPreparing = true;
+            try {
+              await resumePlayback();
+              this.recorder = await getRecorder(this.source);
+            } catch (e) {
+              showCaptureError(e);
+              return;
+            } finally {
+              this.isPreparing = false;
+            }
+            if (this.recorder.isRecording) {
+              alert(`Another track is already recording from the ${this.source}`);
+              return;
+            }
+          }
 
           this.handleStartStopRecord();
         });
+
+        this.sourceSelect.addEventListener("change", async () => {
+          this.setSource(this.sourceSelect.value);
+          if (this.source !== "device") {
+            return;
+          }
+          // Ask for the device audio right away, so that recording can start instantly later.
+          try {
+            await getRecorder("device");
+          } catch (e) {
+            this.setSource("mic");
+            showCaptureError(e);
+          }
+        });
+
+        this.groupSelect.addEventListener("change", () => {
+          this.setGroup(groups.find(g => String(g.id) === this.groupSelect.value) || null);
+        });
+
+        this.handleEl.addEventListener("pointerdown", e => startTrackDrag(this, e));
 
         this.gainRangeEl.addEventListener("input", () => {
           this.gainValue = parseFloat(this.gainRangeEl.value);
@@ -958,6 +1406,11 @@
         this.el = document.createElement("section");
         this.el.classList.add("track");
 
+        this.handleEl = document.createElement("div");
+        this.handleEl.classList.add("handle");
+        this.handleEl.title = "Drag to move the track, in or out of a group";
+        this.el.appendChild(this.handleEl);
+
         this.recordButton = document.createElement("button");
         this.recordButton.classList.add("record");
         this.recordButton.title = "Record";
@@ -1015,6 +1468,35 @@
         this.screenOffset.textContent = "offset: 0 ms";
         this.screenEl.appendChild(this.screenOffset);
 
+        this.videoToggle = document.createElement("button");
+        this.videoToggle.classList.add("video-toggle");
+        this.videoToggle.hidden = true;
+        this.videoCanvas = document.createElement("canvas");
+        this.videoCanvas.width = VIDEO_SIZE;
+        this.videoCanvas.height = VIDEO_SIZE;
+        this.videoCtx = this.videoCanvas.getContext("2d");
+        const videoLabel = document.createElement("span");
+        videoLabel.classList.add("video-label");
+        videoLabel.textContent = "▶ vid";
+        this.videoToggle.append(this.videoCanvas, videoLabel);
+        this.screenEl.appendChild(this.videoToggle);
+
+        const routing = document.createElement("div");
+        routing.classList.add("track-routing");
+        const sourceLabel = document.createElement("label");
+        sourceLabel.textContent = "in: ";
+        this.sourceSelect = document.createElement("select");
+        this.sourceSelect.title = "What to record: the microphone, or the audio playing on this device (shared via a tab, window, or screen)";
+        this.sourceSelect.innerHTML = `<option value="mic">mic</option><option value="device">device</option>`;
+        sourceLabel.appendChild(this.sourceSelect);
+        const groupLabel = document.createElement("label");
+        groupLabel.textContent = "grp: ";
+        this.groupSelect = document.createElement("select");
+        this.groupSelect.title = "Add the track to a group, to mute and unmute the group's tracks together";
+        groupLabel.appendChild(this.groupSelect);
+        routing.append(sourceLabel, groupLabel);
+        this.screenEl.appendChild(routing);
+
         this.waveformEl = document.createElement("canvas");
         this.waveformEl.classList.add("waveform");
         this.waveformEl.height = 1;
@@ -1023,16 +1505,22 @@
         this.screenEl.appendChild(this.waveformEl);
 
         this.trimButton = document.createElement("button");
-        this.trimButton.classList.add("trim");
+        this.trimButton.classList.add("trim", "small");
         this.trimButton.title = "Trim: silence unwanted sounds at the start and end of the recording";
         this.trimButton.innerHTML = "<span>trim</span>";
         this.el.appendChild(this.trimButton);
 
         this.muteButton = document.createElement("button");
-        this.muteButton.classList.add("mute");
+        this.muteButton.classList.add("mute", "small");
         this.muteButton.title = "Mute/Unmute";
         this.muteButton.innerHTML = "<span>mute</span>";
         this.el.appendChild(this.muteButton);
+
+        this.soloButton = document.createElement("button");
+        this.soloButton.classList.add("solo", "small");
+        this.soloButton.title = "Solo: only hear this track (and the other soloed tracks)";
+        this.soloButton.innerHTML = "<span>solo</span>";
+        this.el.appendChild(this.soloButton);
 
         this.gainRangeEl = document.createElement("input");
         this.gainRangeEl.classList.add("gain");
@@ -1054,12 +1542,74 @@
         this.duplicateButton.title = "Duplicate track, with the same recording and settings";
         this.duplicateButton.innerHTML = "<span>dup</span>";
         this.el.appendChild(this.duplicateButton);
+
+        this.deleteButton = document.createElement("button");
+        this.deleteButton.classList.add("delete", "small", "danger");
+        this.deleteButton.title = "Delete track";
+        this.deleteButton.innerHTML = "<span>del</span>";
+        this.el.appendChild(this.deleteButton);
       }
 
       setSync(playEntireBufferBeforeRepeat) {
         this.playEntireBufferBeforeRepeat = playEntireBufferBeforeRepeat;
         this.syncButton.classList.toggle("active", !playEntireBufferBeforeRepeat);
         this.syncButton.innerHTML = playEntireBufferBeforeRepeat ? "<span>sync</span>" : "<span>unsync</span>";
+      }
+
+      setSource(source) {
+        this.source = source;
+        this.sourceSelect.value = source;
+      }
+
+      // Sets the track's group, and moves it inside the group's module (or out of it),
+      // unless `move` is false because the element was already put in place.
+      setGroup(group, { move = true } = {}) {
+        const previous = this.group;
+        this.group = group;
+        if (move) {
+          if (group && this.el.parentElement !== group.tracksEl) {
+            moveNode(group.tracksEl, this.el, null);
+          } else if (!group && this.el.parentElement !== tracksEl) {
+            // Put it right after the group it was in.
+            const before = previous && previous.el.isConnected ? previous.el.nextSibling : tracksActions;
+            moveNode(tracksEl, this.el, before);
+          }
+        }
+        this.renderGroupOptions();
+        applyAllGains();
+        refreshGroupCounts();
+      }
+
+      renderGroupOptions() {
+        this.groupSelect.replaceChildren(new Option("-", ""), ...groups.map(g => new Option(g.nameInput.value, g.id)));
+        this.groupSelect.value = this.group ? this.group.id : "";
+      }
+
+      // Whether the track is heard while soloing: soloed itself (even if muted), or
+      // in a soloed group (unless muted).
+      isHeardInSolo() {
+        return this.isSoloed || !!(this.group && this.group.isSoloed && !this.isMuted);
+      }
+
+      // When some tracks or groups are soloed, only those are heard.
+      isAudible() {
+        if (this.gainValue <= 0) {
+          return false;
+        }
+        if (isAnythingSoloed()) {
+          return this.isHeardInSolo();
+        }
+        return !this.isMuted && !(this.group && this.group.isMuted);
+      }
+
+      setSolo(isSoloed) {
+        this.isSoloed = isSoloed;
+        this.soloButton.classList.toggle("active", isSoloed);
+        // A soloed track is meant to be heard.
+        if (isSoloed && this.isMuted) {
+          this.unmute();
+        }
+        applyAllGains();
       }
 
       // Copies the recording and all the settings of `source` into this track.
@@ -1073,10 +1623,17 @@
           this.unmute();
         }
         this.setSync(source.playEntireBufferBeforeRepeat);
+        this.setSource(source.source);
+        this.setGroup(source.group);
+        this.setSolo(source.isSoloed);
+        this.setVideoVisible(source.isVideoVisible);
 
         if (!source.buffer) {
           return;
         }
+
+        this.videoFrames = source.videoFrames;
+        this.updateVideoToggle();
 
         this.state = 2;
         this.el.classList.add("has-buffer");
@@ -1091,7 +1648,10 @@
       }
 
       applyGain() {
-        const value = this.isMuted ? 0 : this.gainValue;
+        const groupMuted = !!(this.group && this.group.isMuted);
+        this.el.classList.toggle("group-muted", groupMuted && !isAnythingSoloed());
+        this.el.classList.toggle("solo-silenced", isAnythingSoloed() && !this.isHeardInSolo());
+        const value = this.isAudible() ? this.gainValue : 0;
         this.outputGain.gain.setTargetAtTime(value, audioContext.currentTime, 0.01);
       }
 
@@ -1131,14 +1691,22 @@
 
       clear() {
         this.unmute();
-
-        if (this.state === 1) {
-          this.micRecorder.onBufferReady = () => { };
-          this.micRecorder.stopRecording();
+        if (this.isSoloed) {
+          this.setSolo(false);
         }
+
+        if (this.state === 1 && this.recorder) {
+          this.recorder.onBufferReady = () => { };
+          this.recorder.stopRecording();
+        }
+        this.stopVideoCapture();
+        this.videoCapture = null;
+        this.videoFrames = null;
+        this.updateVideoToggle();
 
         this.stopVoice();
         this.state = 0;
+        this.sourceSelect.disabled = false;
         this.buffer = null;
         this.loopBuffer = null;
         this.peaks = null;
@@ -1158,12 +1726,18 @@
       handleStartStopRecord() {
         if (!this.state) {
           this.state = 1;
-          this.micRecorder.onBufferReady = (buffer, startTime) => this.onRecorded(buffer, startTime);
-          this.micRecorder.startRecording();
+          this.sourceSelect.disabled = true;
+          this.recorder.onBufferReady = (buffer, startTime) => this.onRecorded(buffer, startTime);
+          this.recorder.startRecording();
+          if (this.source === "mic") {
+            this.videoCapture = camera.startCapture();
+          }
           this.el.classList.add("is-recording");
-          this.screenStatus.textContent = "status: recording...";
+          this.updateVideoToggle();
+          this.screenStatus.textContent = `status: recording ${this.source}...`;
         } else if (this.state === 1) {
-          this.micRecorder.stopRecording();
+          this.recorder.stopRecording();
+          this.stopVideoCapture();
           this.state = 2;
         } else if (this.state === 2) {
           this.clear();
@@ -1173,6 +1747,7 @@
 
       onRecorded(buffer, startTime) {
         this.el.classList.remove("is-recording");
+        this.sourceSelect.disabled = false;
         if (!buffer) {
           this.clear();
           return;
@@ -1180,16 +1755,92 @@
 
         this.el.classList.add("has-buffer");
         this.screenStatus.textContent = "status: playing";
+        this.state = 2;
 
         this.buffer = buffer;
         this.rawPeaks = computePeaks(buffer);
         this.trimStart = 0;
         this.trimEnd = 0;
-        // Shift the recording back by the round-trip audio latency, since the
-        // user played along with what they heard, which was late.
-        this.anchorTime = startTime - this.micRecorder.getRoundTripLatency();
+        this.anchorTime = startTime - this.recorder.getLatencyCompensation();
+        this.takeVideoFrames();
         this.setOffset(0);
         this.play();
+      }
+
+      stopVideoCapture() {
+        if (this.videoCapture) {
+          camera.stopCapture(this.videoCapture);
+        }
+      }
+
+      // Webcam frames are timestamped in the same clock as what's heard, so a frame's
+      // position in the recording is relative to the anchor time, like the audio.
+      takeVideoFrames() {
+        const capture = this.videoCapture;
+        this.videoCapture = null;
+        this.videoFrames = null;
+        if (capture) {
+          camera.stopCapture(capture);
+          if (capture.frames.length) {
+            this.videoFrames = capture.frames
+              .map(({ time, bitmap }) => ({ pos: time - this.anchorTime, bitmap }))
+              .sort((a, b) => a.pos - b.pos);
+          }
+        }
+        this.lastVideoFrame = null;
+        this.updateVideoToggle();
+      }
+
+      setVideoVisible(isVisible) {
+        this.isVideoVisible = isVisible;
+        this.videoToggle.setAttribute("aria-pressed", String(isVisible));
+        this.videoToggle.title = isVisible ? "Hide the video" : "Show the video";
+        this.lastVideoFrame = null;
+      }
+
+      updateVideoToggle() {
+        this.videoToggle.hidden = !this.videoFrames && !(this.videoCapture && camera.video);
+      }
+
+      drawVideo() {
+        if (this.videoToggle.hidden || !this.isVideoVisible) {
+          return;
+        }
+        const ctx = this.videoCtx;
+
+        // While recording, show what the webcam sees.
+        if (this.videoCapture) {
+          drawMirroredSquare(ctx, camera.video, camera.video.videoWidth, camera.video.videoHeight);
+          this.lastVideoFrame = null;
+          return;
+        }
+
+        const frame = this.getVideoFrameAt(getHeardTime());
+        if (frame && frame !== this.lastVideoFrame) {
+          this.lastVideoFrame = frame;
+          drawMirroredSquare(ctx, frame.bitmap, VIDEO_SIZE, VIDEO_SIZE);
+        }
+      }
+
+      // The video frame to show when the audio context time `time` is heard.
+      getVideoFrameAt(time) {
+        const frames = this.videoFrames;
+        if (!frames || !this.loopBuffer) {
+          return null;
+        }
+        const pos = mod(time - this.anchorTime - this.offset, this.loopDuration);
+        // Last frame at or before the position (binary search).
+        let lo = 0;
+        let hi = frames.length - 1;
+        while (lo < hi) {
+          const mid = (lo + hi + 1) >> 1;
+          if (frames[mid].pos <= pos) {
+            lo = mid;
+          } else {
+            hi = mid - 1;
+          }
+        }
+        return frames[lo];
       }
 
       play() {
@@ -1304,6 +1955,8 @@
       }
 
       draw() {
+        this.drawVideo();
+
         const canvas = this.waveformEl;
         const dpr = window.devicePixelRatio || 1;
         const w = Math.round(canvas.clientWidth * dpr);
@@ -1364,8 +2017,85 @@
       }
     }
 
-    class MicRecorder {
-      constructor() {
+    let recorderWorkletReady = null;
+
+    function loadRecorderWorklet() {
+      if (!recorderWorkletReady) {
+        const moduleUrl = URL.createObjectURL(new Blob([RECORDER_WORKLET], { type: "application/javascript" }));
+        recorderWorkletReady = audioContext.audioWorklet.addModule(moduleUrl).finally(() => URL.revokeObjectURL(moduleUrl));
+        recorderWorkletReady.catch(() => recorderWorkletReady = null);
+      }
+      return recorderWorkletReady;
+    }
+
+    // Captures the audio playing on the device (a tab, a window, or the whole system),
+    // via screen sharing. Only the audio is kept.
+    async function getDeviceAudioStream() {
+      const stream = await navigator.mediaDevices.getDisplayMedia({
+        video: true,
+        audio: {
+          echoCancellation: false,
+          autoGainControl: false,
+          noiseSuppression: false,
+          // Keep hearing the captured tab.
+          suppressLocalAudioPlayback: false,
+          // Don't record the looper's own output when capturing system audio.
+          restrictOwnAudio: true
+        },
+        systemAudio: "include",
+        windowAudio: "system",
+        selfBrowserSurface: "exclude",
+        preferCurrentTab: false,
+        surfaceSwitching: "include"
+      });
+
+      stream.getVideoTracks().forEach(track => track.stop());
+
+      if (!stream.getAudioTracks().length) {
+        stream.getTracks().forEach(track => track.stop());
+        const error = new Error("No audio was shared");
+        error.name = "NoAudioError";
+        throw error;
+      }
+      return stream;
+    }
+
+    function showCaptureError(e) {
+      if (e.name === "NotAllowedError" || e.name === "AbortError") {
+        // The user cancelled the prompt.
+        return;
+      }
+      if (e.name === "NoAudioError") {
+        alert("No audio was shared. Pick a tab and turn on \"Also share tab audio\", or pick the entire screen and turn on \"Also share system audio\".");
+        return;
+      }
+      alert(`Could not capture audio: ${e.message}`);
+    }
+
+    const recorderPromises = { mic: null, device: null };
+
+    // Returns the recorder for `kind` ("mic" or "device"), asking for access if needed.
+    function getRecorder(kind) {
+      if (!recorderPromises[kind]) {
+        const recorder = new Recorder(kind);
+        const promise = recorder.setup().then(() => recorder, e => {
+          recorderPromises[kind] = null;
+          throw e;
+        });
+        // When the user stops sharing, ask again next time.
+        recorder.onEnded = () => {
+          if (recorderPromises[kind] === promise) {
+            recorderPromises[kind] = null;
+          }
+        };
+        recorderPromises[kind] = promise;
+      }
+      return recorderPromises[kind];
+    }
+
+    class Recorder {
+      constructor(kind) {
+        this.kind = kind;
         this.stream = null;
         this.node = null;
         this.isRecording = false;
@@ -1376,30 +2106,37 @@
       }
 
       async setup() {
-        this.stream = await navigator.mediaDevices.getUserMedia({
-          video: false,
-          audio: {
-            echoCancellation: false,
-            autoGainControl: false,
-            noiseSuppression: false,
-            latency: 0
+        this.stream = this.kind === "device"
+          ? await getDeviceAudioStream()
+          : await navigator.mediaDevices.getUserMedia({
+            video: false,
+            audio: {
+              echoCancellation: false,
+              autoGainControl: false,
+              noiseSuppression: false,
+              latency: 0
+            }
+          });
+
+        const audioTrack = this.stream.getAudioTracks()[0];
+        this.inputLatency = audioTrack.getSettings().latency || 0;
+        audioTrack.addEventListener("ended", () => {
+          this.stopRecording();
+          if (this.source) {
+            this.source.disconnect();
           }
+          this.onEnded();
         });
 
-        const settings = this.stream.getAudioTracks()[0].getSettings();
-        this.inputLatency = settings.latency || 0;
+        await loadRecorderWorklet();
 
-        const moduleUrl = URL.createObjectURL(new Blob([RECORDER_WORKLET], { type: "application/javascript" }));
-        await audioContext.audioWorklet.addModule(moduleUrl);
-        URL.revokeObjectURL(moduleUrl);
-
-        const source = audioContext.createMediaStreamSource(this.stream);
+        this.source = audioContext.createMediaStreamSource(this.stream);
         this.node = new AudioWorkletNode(audioContext, "recorder");
         // The worklet needs to be connected to the destination to get processed,
-        // but we don't want to hear the mic.
+        // but we don't want to hear the input.
         const silence = audioContext.createGain();
         silence.gain.value = 0;
-        source.connect(this.node);
+        this.source.connect(this.node);
         this.node.connect(silence);
         silence.connect(audioContext.destination);
 
@@ -1415,9 +2152,19 @@
         };
       }
 
-      getRoundTripLatency() {
+      // How much earlier than its capture time a recording should be played.
+      getLatencyCompensation() {
+        if (this.kind === "device") {
+          // Device audio is captured as it's sent to the speakers, just like the loop,
+          // so only the capture latency matters.
+          return this.inputLatency;
+        }
+        // The user played along with what they heard, which came out of the speakers late.
         return (audioContext.outputLatency || 0) + (audioContext.baseLatency || 0) + this.inputLatency;
       }
+
+      // Override this to know when the input stops being available.
+      onEnded() { }
 
       // Call this to start recording.
       startRecording() {
@@ -1431,18 +2178,28 @@
         this.node.port.postMessage("start");
       }
 
-      // Call this to stop recording.
+      // Call this to stop recording. Resolves once the recording is processed.
       stopRecording() {
         if (!this.isRecording) {
-          return;
+          return this.stopped || Promise.resolve();
         }
 
         this.isRecording = false;
         this.stopTime = audioContext.currentTime;
+        this.stopped = new Promise(resolve => this.resolveStopped = resolve);
         this.node.port.postMessage("stop");
+        return this.stopped;
       }
 
       onStopped() {
+        try {
+          this.processRecording();
+        } finally {
+          this.resolveStopped();
+        }
+      }
+
+      processRecording() {
         const sampleRate = audioContext.sampleRate;
         const startTime = this.startFrame === null ? 0 : this.startFrame / sampleRate;
         const totalLength = this.chunks.reduce((sum, chunk) => sum + chunk.length, 0);
@@ -1483,22 +2240,276 @@
     }
 
     function addTrack() {
-      const track = new Track(tracksEl, micRecorder, { name: String(tracks.length + 1) });
+      const track = new Track(tracksEl, { name: String(++trackCount) });
       tracks.push(track);
     }
 
     // Adds a copy of `source` right after it.
     function duplicateTrack(source) {
-      const track = new Track(tracksEl, micRecorder, {
-        name: String(tracks.length + 1),
-        before: source.el.nextElementSibling
+      const track = new Track(tracksEl, {
+        name: String(++trackCount),
+        after: source.el
       });
       tracks.splice(tracks.indexOf(source) + 1, 0, track);
       track.copyFrom(source);
     }
 
+    function deleteTrack(track) {
+      track.clear();
+      track.outputGain.disconnect();
+      track.el.remove();
+      tracks = tracks.filter(t => t !== track);
+      refreshGroupCounts();
+      applyAllGains();
+    }
+
+    // Whether any track is soloed, directly or via its group.
+    function isAnythingSoloed() {
+      return tracks.some(track => track.isSoloed || (track.group && track.group.isSoloed));
+    }
+
+    function applyAllGains() {
+      tracks.forEach(track => track.applyGain());
+    }
+
+    function addGroup() {
+      const group = { id: nextGroupId++, isMuted: false, isSoloed: false };
+
+      group.el = document.createElement("section");
+      group.el.classList.add("group");
+
+      const header = document.createElement("header");
+      header.classList.add("group-header");
+
+      const led = document.createElement("span");
+      led.classList.add("led");
+
+      group.nameInput = document.createElement("input");
+      group.nameInput.type = "text";
+      group.nameInput.classList.add("group-name");
+      group.nameInput.maxLength = 20;
+      group.nameInput.spellcheck = false;
+      group.nameInput.value = `group ${group.id}`;
+      group.nameInput.setAttribute("aria-label", "Group name");
+
+      group.countEl = document.createElement("span");
+      group.countEl.classList.add("group-count");
+
+      group.muteButton = document.createElement("button");
+      group.muteButton.classList.add("small");
+      group.muteButton.title = "Mute or unmute all the tracks of this group";
+      group.muteButton.innerHTML = "<span>mute</span>";
+
+      group.soloButton = document.createElement("button");
+      group.soloButton.classList.add("small", "solo");
+      group.soloButton.title = "Solo: only hear the tracks of this group (and the other soloed tracks)";
+      group.soloButton.innerHTML = "<span>solo</span>";
+
+      const removeButton = document.createElement("button");
+      removeButton.classList.add("small", "danger");
+      removeButton.title = "Delete this group (its tracks are kept)";
+      removeButton.innerHTML = "<span>del</span>";
+
+      header.append(led, group.nameInput, group.countEl, group.muteButton, group.soloButton, removeButton);
+
+      group.tracksEl = document.createElement("div");
+      group.tracksEl.classList.add("group-tracks");
+
+      group.el.append(header, group.tracksEl);
+      tracksEl.insertBefore(group.el, tracksActions);
+
+      const updateLabel = () => group.el.setAttribute("aria-label", `Group: ${group.nameInput.value}`);
+      updateLabel();
+      group.nameInput.addEventListener("input", () => {
+        updateLabel();
+        refreshGroupOptions();
+      });
+      group.nameInput.addEventListener("change", () => {
+        group.nameInput.value = group.nameInput.value.trim() || `group ${group.id}`;
+        updateLabel();
+        refreshGroupOptions();
+      });
+      group.muteButton.addEventListener("click", () => setGroupMuted(group, !group.isMuted));
+      group.soloButton.addEventListener("click", () => setGroupSoloed(group, !group.isSoloed));
+      removeButton.addEventListener("click", () => removeGroup(group));
+
+      groups.push(group);
+      refreshGroupOptions();
+      group.nameInput.focus();
+      group.nameInput.select();
+      return group;
+    }
+
+    function setGroupMuted(group, isMuted) {
+      group.isMuted = isMuted;
+      group.muteButton.classList.toggle("active", isMuted);
+      group.el.classList.toggle("is-muted", isMuted);
+      tracks.filter(track => track.group === group).forEach(track => track.applyGain());
+    }
+
+    function setGroupSoloed(group, isSoloed) {
+      group.isSoloed = isSoloed;
+      group.soloButton.classList.toggle("active", isSoloed);
+      // A soloed group is meant to be heard.
+      if (isSoloed && group.isMuted) {
+        setGroupMuted(group, false);
+      }
+      applyAllGains();
+    }
+
+    // Deletes the group, and puts its tracks where the group was.
+    function removeGroup(group) {
+      groups = groups.filter(g => g !== group);
+      for (const el of [...group.tracksEl.children]) {
+        moveNode(tracksEl, el, group.el);
+      }
+      group.el.remove();
+      tracks.filter(track => track.group === group).forEach(track => track.setGroup(null, { move: false }));
+      refreshGroupOptions();
+    }
+
+    function refreshGroupOptions() {
+      tracks.forEach(track => track.renderGroupOptions());
+      refreshGroupCounts();
+    }
+
+    function refreshGroupCounts() {
+      groups.forEach(group => {
+        const count = tracks.filter(track => track.group === group).length;
+        group.countEl.textContent = `${count} track${count === 1 ? "" : "s"}`;
+      });
+    }
+
+    // Moves a node without resetting its state (e.g. focus), when supported.
+    function moveNode(parent, node, before) {
+      if ("moveBefore" in Element.prototype && node.isConnected && parent.isConnected) {
+        parent.moveBefore(node, before);
+      } else {
+        parent.insertBefore(node, before);
+      }
+    }
+
+    // Drag a track by its handle to move it in or out of a group, or to reorder tracks.
+    function startTrackDrag(track, e) {
+      if (e.button !== 0) {
+        return;
+      }
+      e.preventDefault();
+
+      const handle = e.currentTarget;
+      handle.setPointerCapture(e.pointerId);
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const listeners = new AbortController();
+      let drag = null;
+
+      const end = commit => {
+        listeners.abort();
+        if (drag) {
+          endTrackDrag(drag, commit);
+        }
+      };
+
+      handle.addEventListener("pointermove", e => {
+        if (!drag) {
+          // Only start dragging after a small move, so that clicks aren't drags.
+          if (Math.hypot(e.clientX - startX, e.clientY - startY) < 4) {
+            return;
+          }
+          drag = beginTrackDrag(track, startX, startY);
+        }
+        updateTrackDrag(drag, e.clientX, e.clientY);
+      }, { signal: listeners.signal });
+      handle.addEventListener("pointerup", () => end(true), { signal: listeners.signal });
+      handle.addEventListener("pointercancel", () => end(false), { signal: listeners.signal });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") {
+          end(false);
+        }
+      }, { signal: listeners.signal });
+    }
+
+    function beginTrackDrag(track, x, y) {
+      const rect = track.el.getBoundingClientRect();
+      // The track floats above the page while dragged, and only moves in the DOM on drop.
+      Object.assign(track.el.style, {
+        width: `${rect.width}px`,
+        height: `${rect.height}px`,
+        left: `${rect.left}px`,
+        top: `${rect.top}px`
+      });
+      track.el.classList.add("dragging");
+      document.body.classList.add("is-dragging");
+
+      const indicator = document.createElement("div");
+      indicator.classList.add("drop-indicator");
+      return { track, indicator, dx: x - rect.left, dy: y - rect.top };
+    }
+
+    function updateTrackDrag(drag, x, y) {
+      drag.track.el.style.left = `${x - drag.dx}px`;
+      drag.track.el.style.top = `${y - drag.dy}px`;
+
+      const under = document.elementFromPoint(x, y);
+      const groupEl = under && under.closest(".group");
+      const container = groupEl ? groupEl.querySelector(".group-tracks") : under && under.closest(".tracks");
+
+      groups.forEach(group => group.el.classList.toggle("drop-target", group.el === groupEl));
+
+      if (!container) {
+        drag.indicator.remove();
+        return;
+      }
+
+      // Find the item to drop before, in reading order.
+      let before = container === tracksEl ? tracksActions : null;
+      const items = [...container.children].filter(item => item !== drag.track.el && item.matches(".track, .group"));
+      for (const item of items) {
+        const rect = item.getBoundingClientRect();
+        if (y < rect.top || (y <= rect.bottom && x < rect.left + rect.width / 2)) {
+          before = item;
+          break;
+        }
+      }
+
+      if (drag.indicator.parentElement !== container || drag.indicator.nextElementSibling !== before) {
+        container.insertBefore(drag.indicator, before);
+      }
+    }
+
+    function endTrackDrag(drag, commit) {
+      const { track, indicator } = drag;
+      track.el.classList.remove("dragging");
+      track.el.style.removeProperty("width");
+      track.el.style.removeProperty("height");
+      track.el.style.removeProperty("left");
+      track.el.style.removeProperty("top");
+      document.body.classList.remove("is-dragging");
+      groups.forEach(group => group.el.classList.remove("drop-target"));
+
+      if (commit && indicator.isConnected) {
+        const container = indicator.parentElement;
+        moveNode(container, track.el, indicator);
+        const group = groups.find(g => g.tracksEl === container) || null;
+        track.setGroup(group, { move: false });
+      }
+      indicator.remove();
+    }
+
+    // Size, in pixels, of each video in the downloaded video grid.
+    const EXPORT_CELL_SIZE = 256;
+    // Extra seconds recorded at the end of the video, see recordVideoMix.
+    const EXPORT_TAIL = 0.15;
+    const EXPORT_VIDEO_TYPES = [
+      "video/mp4;codecs=avc1.42E01F,mp4a.40.2",
+      "video/mp4",
+      "video/webm;codecs=vp9,opus",
+      "video/webm"
+    ];
+
     // Renders one full cycle of all the audible tracks (the length of the longest track)
-    // and downloads it as a WAV file.
+    // and downloads it. As a WAV file, or as a video with a grid of the tracks' videos
+    // if some audible tracks have (visible) videos.
     async function downloadMix() {
       const recorded = tracks.filter(track => track.loopBuffer);
       if (!recorded.length) {
@@ -1508,11 +2519,9 @@
 
       const length = Math.max(...recorded.map(track => track.loopBuffer.length));
       const offline = new OfflineAudioContext(1, length, audioContext.sampleRate);
+      const audible = recorded.filter(track => track.isAudible());
 
-      for (const track of recorded) {
-        if (track.isMuted || !track.gainValue) {
-          continue;
-        }
+      for (const track of audible) {
         const source = offline.createBufferSource();
         source.buffer = track.loopBuffer;
         source.loop = true;
@@ -1524,18 +2533,121 @@
         source.start(0, mod(loop.anchor - track.anchorTime - track.offset, track.loopDuration));
       }
 
+      const videoTracks = audible.filter(track => track.videoFrames && track.isVideoVisible);
+
       downloadButton.disabled = true;
+      const label = downloadButton.querySelector("span");
+      label.textContent = videoTracks.length ? "saving..." : "save";
       try {
         const rendered = await offline.startRendering();
-        const url = URL.createObjectURL(encodeWav(rendered));
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `looper-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-")}.wav`;
-        link.click();
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        const name = `looper-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-")}`;
+        if (videoTracks.length && typeof MediaRecorder !== "undefined") {
+          const { blob, extension } = await recordVideoMix(rendered, videoTracks);
+          downloadBlob(blob, `${name}.${extension}`);
+        } else {
+          downloadBlob(encodeWav(rendered), `${name}.wav`);
+        }
       } finally {
         downloadButton.disabled = false;
+        label.textContent = "save";
       }
+    }
+
+    function downloadBlob(blob, fileName) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileName;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    // Plays the rendered mix while drawing the videos in a grid on a canvas, and records
+    // both. This happens in real time, so it takes as long as the mix.
+    async function recordVideoMix(rendered, videoTracks) {
+      const cols = Math.ceil(Math.sqrt(videoTracks.length));
+      const rows = Math.ceil(videoTracks.length / cols);
+      const canvas = document.createElement("canvas");
+      canvas.width = cols * EXPORT_CELL_SIZE;
+      canvas.height = rows * EXPORT_CELL_SIZE;
+      const ctx = canvas.getContext("2d");
+
+      // The mix plays in its own context, so it works even when the looper is paused,
+      // and isn't heard.
+      const exportContext = new AudioContext({ sampleRate: rendered.sampleRate });
+      await exportContext.resume();
+      const destination = exportContext.createMediaStreamDestination();
+      const source = exportContext.createBufferSource();
+      source.buffer = rendered;
+      source.connect(destination);
+
+      // Draws what's seen at `mixTime` seconds into the mix.
+      const drawGrid = mixTime => {
+        ctx.fillStyle = "#111";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        videoTracks.forEach((track, i) => {
+          const x = (i % cols) * EXPORT_CELL_SIZE;
+          const y = Math.floor(i / cols) * EXPORT_CELL_SIZE;
+          const frame = track.getVideoFrameAt(loop.anchor + mixTime);
+          if (frame) {
+            drawMirroredSquare(ctx, frame.bitmap, VIDEO_SIZE, VIDEO_SIZE, x, y, EXPORT_CELL_SIZE);
+          }
+          ctx.font = "14px monospace";
+          ctx.textBaseline = "bottom";
+          ctx.fillStyle = "rgb(0 0 0 / .6)";
+          const text = track.nameInput.value;
+          ctx.fillRect(x, y + EXPORT_CELL_SIZE - 22, ctx.measureText(text).width + 12, 22);
+          ctx.fillStyle = "#fff";
+          ctx.fillText(text, x + 6, y + EXPORT_CELL_SIZE - 5);
+        });
+      };
+      drawGrid(0);
+
+      const stream = new MediaStream([
+        ...canvas.captureStream(30).getVideoTracks(),
+        ...destination.stream.getAudioTracks()
+      ]);
+      const mimeType = EXPORT_VIDEO_TYPES.find(type => MediaRecorder.isTypeSupported(type)) || "";
+      const recorder = new MediaRecorder(stream, {
+        mimeType,
+        videoBitsPerSecond: 4_000_000,
+        audioBitsPerSecond: 192_000
+      });
+      const chunks = [];
+      recorder.ondataavailable = e => e.data.size && chunks.push(e.data);
+      const stopped = new Promise(resolve => recorder.onstop = resolve);
+
+      recorder.start();
+      const startTime = exportContext.currentTime;
+      source.loop = true;
+      source.start(startTime);
+
+      let rafId;
+      const draw = () => {
+        drawGrid(mod(exportContext.currentTime - startTime, rendered.duration));
+        rafId = requestAnimationFrame(draw);
+      };
+      draw();
+
+      // The end of the audio is still in the pipeline when the mix ends, so keep going
+      // a bit longer to avoid cutting it.
+      const endTime = startTime + rendered.duration + EXPORT_TAIL;
+      await new Promise(resolve => {
+        const check = () => exportContext.currentTime >= endTime ? resolve() : setTimeout(check, 10);
+        check();
+      });
+      cancelAnimationFrame(rafId);
+      recorder.stop();
+      source.stop();
+      await stopped;
+      stream.getTracks().forEach(track => track.stop());
+      exportContext.close();
+
+      const type = recorder.mimeType || mimeType || "video/webm";
+      return {
+        blob: new Blob(chunks, { type }),
+        extension: type.startsWith("video/mp4") ? "mp4" : "webm"
+      };
     }
 
     function drawLoop() {
@@ -1550,22 +2662,25 @@
         track.el.remove();
       });
       tracks = [];
+      trackCount = 0;
+      groups.forEach(group => group.el.remove());
+      groups = [];
 
       // Create the audio context.
       if (!audioContext) {
         audioContext = new AudioContext({ latencyHint: "interactive" });
         metronome.output = audioContext.createGain();
         metronome.output.connect(audioContext.destination);
+        audioContext.addEventListener("statechange", updatePauseButton);
       }
+      await resumePlayback();
 
-      // Initialize the mic recorder.
-      if (!micRecorder) {
-        const recorder = new MicRecorder();
-        await recorder.setup();
-        micRecorder = recorder;
-      }
-
+      // Ask for the mic upfront, so recording can start instantly.
+      await getRecorder("mic");
+      // The webcam is optional: mic tracks record video only if it's available.
+      getCamera().catch(() => { });
       resetLoop();
+      setLoop(DEFAULT_LOOP_LENGTH, audioContext.currentTime + SCHEDULE_AHEAD);
 
       for (let i = 0; i < initTrackNb; i++) {
         addTrack();
@@ -1573,12 +2688,13 @@
 
       // Show the main controls.
       loopPanel.hidden = false;
-      addTrackButton.hidden = false;
+      tracksActions.hidden = false;
+      pauseButton.hidden = false;
       clearAllButton.hidden = false;
       downloadButton.hidden = false;
 
       startLooperButton.innerHTML = "<span>Restart</span>";
-      startLooperButton.title = "Restart the looper, removing all tracks and the loop length";
+      startLooperButton.title = "Restart the looper, removing all tracks and resetting the loop length";
       startLooperButton.classList.add("danger");
 
       if (!metronome.interval) {
@@ -1591,11 +2707,42 @@
       }
     }
 
+    // Pausing suspends the whole audio context: every track, and the metronome, freeze
+    // where they are, and resume in sync.
+    async function togglePause() {
+      if (audioContext.state === "running") {
+        // Recording can't continue while paused, so keep what was recorded so far.
+        const recording = tracks.filter(track => track.state === 1);
+        recording.forEach(track => track.handleStartStopRecord());
+        await Promise.all(recording.map(track => track.recorder.stopped));
+        await audioContext.suspend();
+      } else {
+        await resumePlayback();
+      }
+    }
+
+    async function resumePlayback() {
+      if (audioContext.state !== "running") {
+        await audioContext.resume();
+      }
+    }
+
+    function updatePauseButton() {
+      const isPaused = audioContext.state !== "running";
+      pauseButton.classList.toggle("active", isPaused);
+      pauseButton.innerHTML = isPaused ? "<span>play</span>" : "<span>pause</span>";
+    }
+
     clearAllButton.addEventListener("click", clearAll);
+    pauseButton.addEventListener("click", togglePause);
     addTrackButton.addEventListener("click", addTrack);
+    addGroupButton.addEventListener("click", addGroup);
     downloadButton.addEventListener("click", downloadMix);
     startLooperButton.addEventListener('click', start);
-    tapButton.addEventListener("click", tap);
+    tapButton.addEventListener("click", async () => {
+      await resumePlayback();
+      tap();
+    });
     metronomeButton.addEventListener("click", () => {
       metronome.enabled = !metronome.enabled;
       metronomeButton.classList.toggle("active", metronome.enabled);
