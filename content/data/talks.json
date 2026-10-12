@@ -1,5 +1,13 @@
 [
   {
+    "url": "https://www.youtube.com/watch?v=Oxv4SUBjIxw",
+    "img": "/assets/tpac-26-webdx-update.png",
+    "alt": "Me, speaking in front of the camera, next to the title slide which reads: WebDX Community Group.",
+    "title": "Keeping track of web platform features (TPAC)",
+    "date": "2026-09-21",
+    "description": "A quick update on the <a href='https://github.com/web-platform-dx/web-features'>web-features project</a> and all the ways in which various web-related data sources are now interconnected thanks to a single source of truth that's made for web developers. Also, an announcement of the new <a href='https://github.com/web-platform-dx/developer-signals'>developer-signals repository</a>, which lets developers express their needs for cross-browser features. To learn more, checkout out our <a href='https://web-platform-dx.github.io/'>community group</a>."
+  },
+  {
     "url": "https://www.youtube.com/watch?v=3NDly38DWIE",
     "img": "/assets/dotai-2026-speaker-card.png",
     "alt": "My dotAI speaker card with my face and name, and the message Patrick is a dotAI 2026 speaker.",
