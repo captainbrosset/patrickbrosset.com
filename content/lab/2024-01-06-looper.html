@@ -1115,6 +1115,52 @@
       return out;
     }
 
+    // Returns a buffer of exactly `length` frames, made of the loudest `length` frames of
+    // `buffer`. Each kept frame stays at the same position in the loop it had when it
+    // was recorded, so the track stays in sync. Returns the buffer and where the kept
+    // part starts in `buffer`.
+    function cutBuffer(buffer, length) {
+      const BLOCK = 256;
+      const blocks = Math.ceil(buffer.length / BLOCK);
+      const energy = new Float64Array(blocks);
+      for (let ch = 0; ch < buffer.numberOfChannels; ch++) {
+        const src = buffer.getChannelData(ch);
+        for (let i = 0; i < src.length; i++) {
+          energy[Math.floor(i / BLOCK)] += src[i] * src[i];
+        }
+      }
+
+      // Slide a window of `length` frames, block by block, to find the loudest one.
+      const windowBlocks = Math.floor(length / BLOCK);
+      let sum = 0;
+      for (let b = 0; b < windowBlocks; b++) {
+        sum += energy[b];
+      }
+      let best = sum;
+      let bestBlock = 0;
+      for (let b = 1; b + windowBlocks <= blocks; b++) {
+        sum += energy[b + windowBlocks - 1] - energy[b - 1];
+        if (sum > best) {
+          best = sum;
+          bestBlock = b;
+        }
+      }
+      const start = Math.min(bestBlock * BLOCK, buffer.length - length);
+
+      const fade = Math.round(TRIM_FADE * buffer.sampleRate);
+      const out = audioContext.createBuffer(buffer.numberOfChannels, length, buffer.sampleRate);
+      for (let ch = 0; ch < buffer.numberOfChannels; ch++) {
+        const src = buffer.getChannelData(ch);
+        const dst = out.getChannelData(ch);
+        for (let i = 0; i < length; i++) {
+          // Fade the edges of the kept part, where it loops back on itself, to avoid clicks.
+          const g = Math.min(1, i / fade, (length - i) / fade);
+          dst[(start + i) % length] = src[start + i] * g;
+        }
+      }
+      return { buffer: out, start };
+    }
+
     function encodeWav(buffer) {
       const channels = buffer.numberOfChannels;
       const length = buffer.length;
@@ -1241,6 +1287,11 @@
         this.lastVideoFrame = null;
         this.gainValue = DEFAULT_GAIN_VALUE;
         this.playEntireBufferBeforeRepeat = true;
+        // Number of loops the track lasts, as chosen by the user. Null means automatic:
+        // the recording's length, rounded to a power of 2.
+        this.loopCount = null;
+        // The video frames played in the loop, see play().
+        this.playFrames = null;
         // Audio context time at which the first sample of the buffer was played
         // (or should have been played, to be in sync with what was heard).
         this.anchorTime = 0;
@@ -1345,6 +1396,12 @@
 
         this.syncButton.addEventListener("click", () => {
           this.setSync(!this.playEntireBufferBeforeRepeat);
+          this.loopCount = null;
+          this.play();
+        });
+
+        this.loopCountSelect.addEventListener("change", () => {
+          this.loopCount = Number(this.loopCountSelect.value);
           this.play();
         });
 
@@ -1555,7 +1612,14 @@
 
         this.screenDuration = document.createElement("div");
         this.screenDuration.classList.add("track-duration");
-        this.screenDuration.textContent = "time: -";
+        this.screenDurationText = document.createElement("span");
+        this.screenDurationText.textContent = "time: -";
+        this.loopCountLabel = document.createElement("label");
+        this.loopCountLabel.hidden = true;
+        this.loopCountSelect = document.createElement("select");
+        this.loopCountSelect.title = "How many loops the track lasts. Fewer loops than recorded keeps the loudest part of the recording";
+        this.loopCountLabel.append(this.loopCountSelect, " loop");
+        this.screenDuration.append(this.screenDurationText, " ", this.loopCountLabel);
         this.screenEl.appendChild(this.screenDuration);
 
         this.screenOffset = document.createElement("div");
@@ -1739,6 +1803,7 @@
         this.trimEnd = source.trimEnd;
         this.anchorTime = source.anchorTime;
         this.offset = source.offset;
+        this.loopCount = source.loopCount;
         this.play();
       }
 
@@ -1815,7 +1880,10 @@
         this.gainRangeEl.value = DEFAULT_GAIN_VALUE;
 
         this.screenStatus.textContent = "status: ready";
-        this.screenDuration.textContent = "time: -";
+        this.screenDurationText.textContent = "time: -";
+        this.loopCountLabel.hidden = true;
+        this.loopCount = null;
+        this.playFrames = null;
       }
 
       handleStartStopRecord() {
@@ -1857,6 +1925,7 @@
         this.trimStart = 0;
         this.trimEnd = 0;
         this.anchorTime = startTime - this.recorder.getLatencyCompensation();
+        this.loopCount = null;
         this.takeVideoFrames();
         this.setOffset(0);
         this.play();
@@ -1919,7 +1988,7 @@
 
       // The video frame to show when the audio context time `time` is heard.
       getVideoFrameAt(time) {
-        const frames = this.videoFrames;
+        const frames = this.playFrames;
         if (!frames || !this.loopBuffer) {
           return null;
         }
@@ -1945,23 +2014,53 @@
 
         // Snap the nb of iterations to [1, 2, 4, 8, 16, 32, 64, etc.] so that the track
         // repeats at a regular interval.
-        this.iterations = 1;
-        if (this.playEntireBufferBeforeRepeat) {
-          const nbOfLoopIterations = Math.max(1, Math.round(this.buffer.length / loop.length));
-          this.iterations = Math.pow(2, Math.round(Math.log2(nbOfLoopIterations)));
-        }
+        const trimmed = trimBuffer(this.buffer, this.trimStart, this.trimEnd);
+        const recordedLoops = Math.max(1, Math.round(this.buffer.length / loop.length));
+        const autoIterations = this.playEntireBufferBeforeRepeat ? Math.pow(2, Math.round(Math.log2(recordedLoops))) : 1;
+        this.iterations = this.loopCount || autoIterations;
 
         // Using an exact multiple of the loop's length, in frames, means the
         // tracks can never drift apart.
         const loopLength = this.iterations * loop.length;
-        this.loopBuffer = foldBuffer(trimBuffer(this.buffer, this.trimStart, this.trimEnd), loopLength);
+        // Where the part of the recording that's played starts. Only matters when it's cut.
+        let start = 0;
+        if (this.loopCount && trimmed.length > loopLength) {
+          ({ buffer: this.loopBuffer, start } = cutBuffer(trimmed, loopLength));
+        } else {
+          this.loopBuffer = foldBuffer(trimmed, loopLength);
+        }
         this.loopDuration = loopLength / audioContext.sampleRate;
         this.peaks = computePeaks(this.loopBuffer);
         this.setOffset(this.offset);
+        this.updatePlayFrames(start / audioContext.sampleRate);
 
-        this.screenDuration.textContent = `time: ${formatTime(this.loopDuration)} s (${this.iterations} ⨉ loop)`;
+        this.screenDurationText.textContent = `time: ${formatTime(this.loopDuration)} s,`;
+        const maxCount = Math.max(2, Math.pow(2, Math.ceil(Math.log2(recordedLoops))) * 2);
+        const counts = [];
+        for (let count = 1; count <= Math.min(maxCount, 64); count *= 2) {
+          counts.push(count);
+        }
+        this.loopCountSelect.replaceChildren(...counts.map(count => new Option(`${count} ⨉`, count)));
+        this.loopCountSelect.value = this.iterations;
+        this.loopCountLabel.hidden = false;
 
         this.restartVoice();
+      }
+
+      // The video frames that go with the part of the recording that's played, which
+      // starts at `start` seconds into the recording, with their position in the loop.
+      updatePlayFrames(start) {
+        this.lastVideoFrame = null;
+        if (!this.videoFrames) {
+          this.playFrames = null;
+          return;
+        }
+        const end = start + this.loopDuration;
+        const frames = this.videoFrames
+          .filter(frame => frame.pos >= start && frame.pos < end)
+          .map(frame => ({ pos: mod(frame.pos, this.loopDuration), bitmap: frame.bitmap }))
+          .sort((a, b) => a.pos - b.pos);
+        this.playFrames = frames.length ? frames : this.videoFrames;
       }
 
       // (Re)start the looping buffer at the position it should currently be at.
