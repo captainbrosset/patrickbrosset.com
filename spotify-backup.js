@@ -32,27 +32,51 @@ if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
  */
 async function getAccessToken() {
   const auth = Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64');
-  
-  try {
-    const response = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Basic ${auth}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: 'grant_type=refresh_token&refresh_token=' + REFRESH_TOKEN,
-    });
 
-    if (!response.ok) {
-      throw new Error(`Failed to get access token: ${response.status} ${response.statusText}`);
+  const response = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${auth}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: REFRESH_TOKEN,
+    }),
+  });
+
+  if (!response.ok) {
+    let message = `Failed to get access token: ${response.status} ${response.statusText}`;
+    let data;
+    try {
+      data = JSON.parse(await response.text());
+    } catch (error) {
+      if (!(error instanceof SyntaxError)) {
+        throw error;
+      }
     }
 
-    const data = await response.json();
-    return data.access_token;
-  } catch (error) {
-    console.error('Error getting access token:', error.message);
-    process.exit(1);
+    // Only log known OAuth error codes, never raw responses or credentials.
+    const oauthErrors = [
+      'invalid_request', 'invalid_client', 'invalid_grant',
+      'unauthorized_client', 'unsupported_grant_type', 'invalid_scope',
+    ];
+    if (oauthErrors.includes(data?.error)) {
+      message += ` (${data.error})`;
+    }
+    if (data?.error === 'invalid_grant') {
+      message += '. The refresh token is expired, revoked, or invalid. Reauthorize the Spotify app and replace the SPOTIFY_REFRESH_TOKEN GitHub Actions secret. See README-SPOTIFY.md.';
+    } else if (data?.error === 'invalid_client') {
+      message += '. Check that SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET match the Spotify app that issued the refresh token.';
+    }
+    throw new Error(message);
   }
+
+  const data = await response.json();
+  if (typeof data?.access_token !== 'string' || !data.access_token) {
+    throw new Error('Spotify token response did not contain an access token.');
+  }
+  return data.access_token;
 }
 
 /**

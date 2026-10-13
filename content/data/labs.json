@@ -1,5 +1,13 @@
 [
   {
+    "url": "grid-lanes-dashboard",
+    "img": "/assets/grid-lanes-dashboard.webp",
+    "alt": "A dashboard UI, for illustration purposes only. It contains about 10 different boxes, some with graphs, others with numbers, or tables, etc. They're all of different widths and heights, but the resulting layout is still a regular rectangle, with boxes filling all of the empty space.",
+    "title": "Dashboard layout using CSS Grid Lanes and <code>align-self:stretch</code>",
+    "description": "CSS Grid Lanes supports stretch alignment along the stacking axis, allowing items to fill any remaining space left between other items, and avoid a jagged end edge. See <a href='/articles/2026-06-19-alignment-in-css-grid-lanes/#:~:text=Aligning%20items%20within%20their%20lanes'>Aligning items within their lanes</a> to learn more.",
+    "date": "2026-10-13"
+  },
+  {
     "url": "interop-2027",
     "img": "/assets/fav-interop.png",
     "alt": "39 colored squares containing the names of my favorite interop proposals.",
