@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid Lanes Dashboard</title>
+  <style>
+    html {
+      font-size: 1em;
+      font-family: system-ui;
+    }
+
+    body {
+      margin: 2rem;
+    }
+
+    .dashboard {
+      --accent: #79e2c4;
+      --contrast: #f5c779;
+      border-radius: 1rem;
+      background: #252b4e;
+      padding: 1rem;
+      display: grid;
+      display: grid-lanes;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+    }
+
+    .box {
+      background: #2e325c;
+      color: white;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      /* align-self: stretch makes items grow along the stacking axis in grid-lanes
+      therefore filling the empty space that might remain due to the boxes not having
+      the same height. It's great when you want a masonry-style layout but don't want
+      the end edge to be jagged.
+       */
+      align-self: stretch;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .box :where(p, ul, figure) {
+      margin: 0;
+    }
+
+    .box header,
+    .metric,
+    .chart-labels,
+    .legend,
+    .source-label {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem 1rem;
+    }
+
+    .muted,
+    .chart-labels,
+    .box time {
+      color: rgb(255 255 255 / 70%);
+    }
+
+    .highlight {
+      color: var(--accent);
+    }
+
+    .badge {
+      border: 1px solid currentColor;
+      border-radius: 2rem;
+      padding: 0.2rem 0.6rem;
+      color: var(--accent);
+    }
+
+    .badge.pending {
+      color: var(--contrast);
+    }
+
+    .stat-list,
+    .sources,
+    .activity {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .stat-list li,
+    .activity li {
+      border-top: 1px solid rgb(255 255 255 / 15%);
+      padding-top: 1rem;
+    }
+
+    .stat-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .goal {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .ring {
+      width: 9rem;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--accent) 72%, rgb(255 255 255 / 15%) 0);
+    }
+
+    .ring::before {
+      content: "";
+      grid-area: 1 / 1;
+      width: 7rem;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #2e325c;
+    }
+
+    .ring strong {
+      grid-area: 1 / 1;
+      z-index: 1;
+    }
+
+    .goal-copy {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .line-chart {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .line-chart svg {
+      display: block;
+      width: 100%;
+      height: 12rem;
+      overflow: visible;
+    }
+
+    .chart-grid {
+      fill: none;
+      stroke: rgb(255 255 255 / 15%);
+      stroke-width: 1;
+    }
+
+    .chart-line {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .chart-area {
+      fill: var(--accent);
+      fill-opacity: 0.1;
+    }
+
+    .chart-point {
+      fill: var(--accent);
+    }
+
+    .legend {
+      justify-content: flex-start;
+    }
+
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 0.75rem;
+      height: 0.75rem;
+      margin-inline-end: 0.5rem;
+      border-radius: 0.2rem;
+      background: var(--accent);
+    }
+
+    .legend .comparison::before {
+      background: var(--contrast);
+    }
+
+    .bars {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+    }
+
+    .bars li {
+      display: grid;
+      gap: 0.75rem;
+      text-align: center;
+    }
+
+    .bar-track {
+      height: 10rem;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      border-bottom: 1px solid rgb(255 255 255 / 30%);
+    }
+
+    .bar {
+      width: 70%;
+      height: var(--height);
+      background: var(--accent);
+      border-radius: 0.25rem 0.25rem 0 0;
+    }
+
+    .bar.best {
+      background: var(--contrast);
+    }
+
+    .sources li {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .source-track {
+      height: 0.5rem;
+      border-radius: 1rem;
+      background: rgb(255 255 255 / 15%);
+      overflow: hidden;
+    }
+
+    .source-track span {
+      display: block;
+      width: var(--width);
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .table-scroll {
+      --scrollbar-thumb: var(--accent);
+      --scrollbar-track: #2e325c;
+      max-height: 22rem;
+      overflow: auto;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+
+    .box thead th {
+      position: sticky;
+      top: 0;
+      background: #2e325c;
+      z-index: 1;
+    }
+
+    .box table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .box caption {
+      text-align: left;
+      padding-bottom: 1rem;
+      color: rgb(255 255 255 / 70%);
+    }
+
+    .box th,
+    .box td {
+      padding: 0.9rem 0.75rem;
+      border-bottom: 1px solid rgb(255 255 255 / 15%);
+    }
+
+    .box th:first-child,
+    .box td:first-child {
+      padding-inline-start: 0;
+    }
+
+    .box th:last-child,
+    .box td:last-child {
+      padding-inline-end: 0;
+      text-align: right;
+    }
+
+    .activity li {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .box footer {
+      margin-top: auto;
+      border-top: 1px solid rgb(255 255 255 / 15%);
+      padding-top: 1rem;
+      color: rgb(255 255 255 / 70%);
+    }
+
+    .box.wide {
+      grid-column: span 2;
+    }
+
+    .box.compact {
+      gap: 0.75rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box.compact p {
+      display: grid;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .box.compact p strong {
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 48rem) {
+      .box.wide {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard">
+    <section class="box" aria-labelledby="revenue-title">
+      <header>
+        <strong id="revenue-title">Revenue overview</strong>
+        <span class="muted">This month</span>
+      </header>
+      <div class="metric">
+        <strong>$24,680</strong>
+        <span class="highlight">+12.8% vs. last month</span>
+      </div>
+      <ul class="stat-list">
+        <li><span class="muted">Orders</span><strong>384</strong></li>
+        <li><span class="muted">Average order</span><strong>$64.27</strong></li>
+        <li><span class="muted">Returning customers</span><strong>38%</strong></li>
+      </ul>
+      <footer>Illustrative dashboard &middot; all data is fictional</footer>
+    </section>
+
+    <section class="box compact" aria-labelledby="conversion-title">
+      <header><strong id="conversion-title">Conversion rate</strong></header>
+      <p><strong class="highlight">3.8%</strong> <span class="muted">this week</span></p>
+    </section>
+
+    <section class="box" aria-labelledby="goal-title">
+      <header>
+        <strong id="goal-title">Monthly goal</strong>
+        <span class="muted">October</span>
+      </header>
+      <div class="goal">
+        <div class="ring" aria-hidden="true"><strong>72%</strong></div>
+        <div class="goal-copy">
+          <strong>720 of 1,000 sign-ups</strong>
+          <span class="highlight">72% of target reached</span>
+          <span class="muted">280 left to go</span>
+        </div>
+      </div>
+      <footer>Steady progress &middot; 18 days remaining</footer>
+    </section>
+
+    <section class="box wide" aria-labelledby="visitors-title">
+      <header>
+        <strong id="visitors-title">Visitors this week</strong>
+        <span class="muted">Oct 5&ndash;11</span>
+      </header>
+      <div class="metric">
+        <strong>12,400 visitors</strong>
+        <span class="highlight">+18.2% vs. last week</span>
+      </div>
+      <figure class="line-chart">
+        <svg viewBox="0 0 600 180" preserveAspectRatio="none" role="img"
+          aria-labelledby="visitors-chart-title visitors-chart-desc">
+          <title id="visitors-chart-title">Daily visitors</title>
+          <desc id="visitors-chart-desc">Monday: 1,200. Tuesday: 1,600. Wednesday: 1,400. Thursday: 1,900. Friday:
+            1,700. Saturday: 2,100. Sunday: 2,500. Visitors generally increased throughout the week.</desc>
+          <path class="chart-grid" d="M10 20H590 M10 65H590 M10 110H590 M10 155H590" />
+          <path class="chart-area" d="M10 150L106 110L203 130L300 80L397 100L494 60L590 20V175H10Z" />
+          <path class="chart-line" vector-effect="non-scaling-stroke"
+            d="M10 150L106 110L203 130L300 80L397 100L494 60L590 20" />
+          <g class="chart-point">
+            <circle cx="10" cy="150" r="4" />
+            <circle cx="106" cy="110" r="4" />
+            <circle cx="203" cy="130" r="4" />
+            <circle cx="300" cy="80" r="4" />
+            <circle cx="397" cy="100" r="4" />
+            <circle cx="494" cy="60" r="4" />
+            <circle cx="590" cy="20" r="4" />
+          </g>
+        </svg>
+        <div class="chart-labels" aria-hidden="true">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+        <figcaption class="muted">Daily visitors &middot; low 1,200 / high 2,500</figcaption>
+      </figure>
+    </section>
+
+    <section class="box" aria-labelledby="orders-title">
+      <header>
+        <strong id="orders-title">Orders by weekday</strong>
+        <span class="muted">Last week</span>
+      </header>
+      <ul class="bars" aria-label="Daily order totals">
+        <li><strong>42</strong>
+          <div class="bar-track" aria-hidden="true"><span class="bar" style="--height: 50%"></span></div><span
+            class="muted">Mon</span>
+        </li>
+        <li><strong>63</strong>
+          <div class="bar-track" aria-hidden="true"><span class="bar" style="--height: 75%"></span></div><span
+            class="muted">Tue</span>
+        </li>
+        <li><strong>56</strong>
+          <div class="bar-track" aria-hidden="true"><span class="bar" style="--height: 66.67%"></span></div><span
+            class="muted">Wed</span>
+        </li>
+        <li><strong>84</strong>
+          <div class="bar-track" aria-hidden="true"><span class="bar best" style="--height: 100%"></span></div><span
+            class="muted">Thu</span>
+        </li>
+        <li><strong>70</strong>
+          <div class="bar-track" aria-hidden="true"><span class="bar" style="--height: 83.33%"></span></div><span
+            class="muted">Fri</span>
+        </li>
+      </ul>
+      <div class="legend"><span>Orders</span><span class="comparison">Best day</span></div>
+      <footer>315 orders &middot; Thursday led the week</footer>
+    </section>
+
+    <section class="box compact" aria-labelledby="support-title">
+      <header><strong id="support-title">Support inbox</strong></header>
+      <p><strong>4</strong> <span class="muted">conversations awaiting a reply</span></p>
+    </section>
+
+    <section class="box" aria-labelledby="sources-title">
+      <header>
+        <strong id="sources-title">Traffic sources</strong>
+        <span class="muted">This week</span>
+      </header>
+      <ul class="sources">
+        <li>
+          <div class="source-label"><span>Organic search</span><strong>46%</strong></div>
+          <div class="source-track" aria-hidden="true"><span style="--width: 46%"></span></div>
+        </li>
+        <li>
+          <div class="source-label"><span>Direct</span><strong>28%</strong></div>
+          <div class="source-track" aria-hidden="true"><span style="--width: 28%"></span></div>
+        </li>
+        <li>
+          <div class="source-label"><span>Social</span><strong>18%</strong></div>
+          <div class="source-track" aria-hidden="true"><span style="--width: 18%"></span></div>
+        </li>
+        <li>
+          <div class="source-label"><span>Referral</span><strong>8%</strong></div>
+          <div class="source-track" aria-hidden="true"><span style="--width: 8%"></span></div>
+        </li>
+      </ul>
+      <footer>Search brings nearly half of all visitors</footer>
+    </section>
+
+    <section class="box wide" aria-labelledby="orders-table-title">
+      <header>
+        <strong id="orders-table-title">Recent orders</strong>
+        <span class="muted">Latest 10</span>
+      </header>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Recent orders table">
+        <table>
+          <caption>A few fictional purchases from the studio shop</caption>
+          <thead>
+            <tr>
+              <th scope="col">Order</th>
+              <th scope="col">Product</th>
+              <th scope="col">Status</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">#1048</th>
+              <td>Field notebook set</td>
+              <td><span class="badge">Shipped</span></td>
+              <td>$32.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1047</th>
+              <td>Desk organizer</td>
+              <td><span class="badge pending">Packing</span></td>
+              <td>$58.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1046</th>
+              <td>Grid print bundle</td>
+              <td><span class="badge">Shipped</span></td>
+              <td>$45.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1045</th>
+              <td>Studio tote</td>
+              <td><span class="badge">Shipped</span></td>
+              <td>$24.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1044</th>
+              <td>Weekly planner</td>
+              <td><span class="badge pending">Packing</span></td>
+              <td>$36.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1043</th>
+              <td>Ceramic pencil cup</td>
+              <td><span class="badge">Shipped</span></td>
+              <td>$28.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1042</th>
+              <td>Sketchbook duo</td>
+              <td><span class="badge pending">Packing</span></td>
+              <td>$42.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1041</th>
+              <td>Canvas tool roll</td>
+              <td><span class="badge">Shipped</span></td>
+              <td>$38.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1040</th>
+              <td>Brass bookmark</td>
+              <td><span class="badge">Shipped</span></td>
+              <td>$16.00</td>
+            </tr>
+            <tr>
+              <th scope="row">#1039</th>
+              <td>Studio calendar</td>
+              <td><span class="badge pending">Packing</span></td>
+              <td>$30.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <footer>6 shipped &middot; 4 being packed</footer>
+    </section>
+
+    <section class="box" aria-labelledby="activity-title">
+      <header>
+        <strong id="activity-title">Studio activity</strong>
+        <span class="muted">Today</span>
+      </header>
+      <ul class="activity">
+        <li><time datetime="2026-10-13T10:45">10:45</time>
+          <p><strong>Autumn collection</strong> went live.</p><span class="highlight">12 new products</span>
+        </li>
+        <li><time datetime="2026-10-13T09:30">09:30</time>
+          <p><strong>Weekly newsletter</strong> sent to subscribers.</p><span class="muted">2,840 inboxes reached</span>
+        </li>
+        <li><time datetime="2026-10-13T08:15">08:15</time>
+          <p><strong>Shipping batch</strong> picked up.</p><span class="muted">26 orders on their way</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="box compact" aria-labelledby="live-title">
+      <header><strong id="live-title">Live visitors</strong></header>
+      <p><strong class="highlight">48</strong> <span class="muted">browsing right now</span></p>
+    </section>
+  </div>
+</body>
+
+</html>
