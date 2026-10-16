@@ -2,6 +2,8 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const embedYouTube = require("eleventy-plugin-youtube-embed");
 const tabify = require("./tabify.js");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
+const path = require("path");
+const { listDecks } = require("./slide-decks.js");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/assets");
@@ -10,17 +12,20 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/slides/breakouts-day-2025");
   eleventyConfig.addPassthroughCopy("content/slides/Icons");
   eleventyConfig.addPassthroughCopy("content/slides/Tools");
-  eleventyConfig.addPassthroughCopy("content/slides/2025-09-CSS-Gap-Decorations.pdf");
-  eleventyConfig.addPassthroughCopy("content/slides/2025-10-CSS-Masonry.pdf");
-  eleventyConfig.addPassthroughCopy("content/slides/2026-01-FOSDEM.pdf");
-  eleventyConfig.addPassthroughCopy("content/slides/2026-09-17-WebMCP-DotAI.pdf");
-  
-  eleventyConfig.addPassthroughCopy("content/slides/CSSDay-2026/**/*.{png,jpg,gif,GIF,svg,webp,avif,mp4,css,js,json}");
-  eleventyConfig.addWatchTarget("content/slides/CSSDay-2026/");
 
-  eleventyConfig.addPassthroughCopy("content/slides/oredev-2026/**/*.{png,jpg,gif,GIF,svg,webp,avif,mp4,css,js,json}");
-  eleventyConfig.addWatchTarget("content/slides/oredev-2026/");
+  // Assets for every slide deck (and the PDF decks). Deck data files stay private.
+  eleventyConfig.addPassthroughCopy("content/slides/**/!(*.11tydata).{png,jpg,jpeg,gif,GIF,svg,webp,avif,mp4,webm,mp3,woff2,css,js,json,pdf}");
+  eleventyConfig.addWatchTarget("content/slides/");
   
+  // Generate a presenter board (with its #printout view) at /slides/<deck>/ for every deck.
+  eleventyConfig.addGlobalData("slideDecks", listDecks);
+  eleventyConfig.addTemplate("slide-presenter-boards.njk", "", {
+    layout: "slide-index.njk",
+    pagination: { data: "slideDecks", size: 1, alias: "deck" },
+    permalink: "{{ deck.url }}",
+    eleventyExcludeFromCollections: true,
+  });
+
   eleventyConfig.addPassthroughCopy("content/lab/**/*");
   eleventyConfig.addPassthroughCopy(
     "content/lab/notification-lab-manifest.json"
@@ -43,6 +48,25 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
 
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
+  // Returns the slides of `deck` (from its _deck.yml), in presentation order.
+  eleventyConfig.addFilter("deckSlides", function (collection, deck) {
+    const slidesBySlug = new Map();
+
+    for (const item of collection) {
+      if (path.resolve(path.dirname(item.inputPath)) === deck.dir) {
+        slidesBySlug.set(path.basename(item.inputPath, path.extname(item.inputPath)), item);
+      }
+    }
+
+    return deck.slides.map((slug) => {
+      const slide = slidesBySlug.get(slug);
+      if (!slide) {
+        console.warn(`[slides] ${path.join(deck.dir, "_deck.yml")} lists "${slug}", but there is no ${slug}.html slide.`);
+      }
+      return { slug, title: slide?.data.title, notes: slide?.data.notes };
+    });
+  });
 
   eleventyConfig.addFilter("dateTime", function (date) {
     date = new Date(date);

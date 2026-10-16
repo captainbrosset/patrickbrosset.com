@@ -1,20 +1,38 @@
+{%- set slides = collections.all | deckSlides(deck) -%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/assets/headshot-200.avif" rel="icon" sizes="16x16 32x32 128x128" type="image/avif">
-  <title>Presenter board - {{ title }}</title>
+  <title>Presenter board - {{ deck.title }}</title>
   <style>
     * { box-sizing: border-box; margin: 0; }
 
     body {
       font-family: system-ui, sans-serif;
+      background: black;
+      color: white;
+    }
+
+    /* The printout is shown when the URL ends with #printout. */
+    #printout {
+      display: none;
+      padding: 1.5rem;
+    }
+
+    #printout:target {
+      display: block;
+    }
+
+    body:has(#printout:target) #presenter {
+      display: none;
+    }
+
+    #presenter {
       display: grid;
       grid-template-columns: 280px 1fr;
       height: 100vh;
-      background: black;
-      color: white;
     }
 
     #sidebar {
@@ -101,78 +119,10 @@
       margin-inline-start: auto;
     }
 
-    #printout-header {
-      display: none;
-    }
-
-    body.printout-mode {
-      display: block;
-      height: auto;
-    }
-
-    body.printout-mode #printout-header {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      margin-block-end: 1.5rem;
-    }
-
-    body.printout-mode #sidebar > h2 {
-      display: none;
-    }
-
-    body.printout-mode #main {
-      display: none;
-    }
-
-    body.printout-mode #sidebar {
-      width: 100%;
-      max-width: none;
-      border-inline-end: none;
-      padding: 1.5rem;
-    }
-
-    body.printout-mode #sidebar ol {
-      list-style: none;
-      padding-inline-start: 0;
-      font-size: 1rem;
-      line-height: 1.5;
-      display: grid;
-      gap: 1rem;
-    }
-
-    body.printout-mode #sidebar li {
-      cursor: default;
-      padding: 1rem;
-      border-radius: 8px;
-      background: #1a1a1a;
-      border: 1px solid #333;
-    }
-
-    body.printout-mode #sidebar li:hover {
-      background: #1a1a1a;
-    }
-
-    .printout-title {
-      font-size: 1rem;
-      margin-block-end: .75rem;
-      color: #ddd;
-    }
-
-    .printout-preview {
-      display: block;
-      width: min(100%, 960px);
-      aspect-ratio: 16 / 9;
-      border: 1px solid #555;
+    #slide-preview {
       background: white;
-    }
-
-    .printout-notes {
-      margin-block-start: 1rem;
-      color: #f0f0f0;
-      white-space: pre-line;
+      block-size: 20vh;
+      inline-size: calc(16 * 20vh / 9);
     }
 
     #notes-area {
@@ -215,43 +165,102 @@
       background: #444;
     }
 
-    #slide-preview {
+    #printout header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-block-end: 1.5rem;
+    }
+
+    #printout ol {
+      list-style: none;
+      padding: 0;
+      line-height: 1.5;
+      display: grid;
+      gap: 1rem;
+    }
+
+    #printout li {
+      padding: 1rem;
+      border-radius: 8px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      break-inside: avoid;
+    }
+
+    .printout-title {
+      font-size: 1rem;
+      margin-block-end: .75rem;
+      color: #ddd;
+    }
+
+    .printout-preview {
+      display: block;
+      width: min(100%, 960px);
+      aspect-ratio: 16 / 9;
+      border: 1px solid #555;
       background: white;
-      block-size: 20vh;
-      inline-size: calc(16 * 20vh / 9);
+    }
+
+    .printout-notes {
+      margin-block-start: 1rem;
+      color: #f0f0f0;
+      white-space: pre-line;
     }
   </style>
 </head>
 <body>
-  <div id="sidebar">
-    <header id="printout-header">
-      <h1>{{ title }}</h1>
-      <a class="view-link" id="view-presenter" href="{{ page.url }}">Back to presenter view</a>
+  <div id="presenter">
+    <div id="sidebar">
+      <h2>Slides</h2>
+      <ol id="list">
+        {%- for slide in slides %}
+        <li data-slug="{{ slide.slug }}">{{ slide.slug or "(title)" }}</li>
+        {%- endfor %}
+      </ol>
+    </div>
+
+    <div id="main">
+      <div id="controls">
+        <button id="launch">Launch presentation</button>
+        <span id="current-info">No slide active</span>
+        <span id="slide-number"></span>
+        <a class="view-link" id="view-printout" href="#printout">View printout</a>
+      </div>
+
+      <iframe id="slide-preview"></iframe>
+
+      <div id="notes-area">
+        <p><em>Notes will appear here when a slide is active.</em></p>
+        <p><em>Click "Launch presentation" to open the presentation window, then use PageDown/PageUp to navigate.</em></p>
+      </div>
+
+      <div id="nav-buttons">
+        <button id="nav-prev">&larr; Previous</button>
+        <button id="nav-next">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="printout">
+    <header>
+      <h1>{{ deck.title }}</h1>
+      <a class="view-link" href="{{ page.url }}">Back to presenter view</a>
     </header>
-    <h2>Slides</h2>
-    <ol id="list"></ol>
-  </div>
-
-  <div id="main">
-    <div id="controls">
-      <button id="launch">Launch presentation</button>
-      <span id="current-info">No slide active</span>
-      <span id="slide-number"></span>
-      <a class="view-link" id="view-printout" href="#printout">View printout</a>
-    </div>
-
-    <iframe id="slide-preview"></iframe>
-
-    <div id="notes-area">
-      <p><em>Notes will appear here when a slide is active.</em></p>
-      <p><em>Click "Launch presentation" to open the presentation window, then use PageDown/PageUp to navigate.</em></p>
-    </div>
-
-    <div id="nav-buttons">
-      <button id="nav-prev">&larr; Previous</button>
-      <button id="nav-next">Next &rarr;</button>
-    </div>
-  </div>
+    <ol>
+      {%- for slide in slides %}
+      <li data-slug="{{ slide.slug }}">
+        <h2 class="printout-title">{{ loop.index }}. {{ slide.title or slide.slug }}</h2>
+        <iframe class="printout-preview" src="{{ page.url }}{{ slide.slug }}" loading="lazy" title="Slide {{ loop.index }}"></iframe>
+        <div class="printout-notes">
+          {%- if slide.notes %}{{ slide.notes | safe }}{% else %}<p><em>No notes for this slide.</em></p>{% endif -%}
+        </div>
+      </li>
+      {%- endfor %}
+    </ol>
+  </section>
 
   <script>
     const BASE = "{{ page.url }}";
@@ -260,66 +269,29 @@
     const launchButton = document.getElementById('launch');
     const navPrevButton = document.getElementById('nav-prev');
     const navNextButton = document.getElementById('nav-next');
-    const viewPresenterLink = document.getElementById('view-presenter');
     const currentInfoEl = document.getElementById('current-info');
     const slideNumberEl = document.getElementById('slide-number');
     const notesAreaEl = document.getElementById('notes-area');
     const slidePreviewFrame = document.getElementById('slide-preview');
+    const listItems = [...document.querySelectorAll('#list li')];
+    const sequence = listItems.map(li => li.dataset.slug);
 
     const channel = new BroadcastChannel('slide-presenter');
-    let sequence = [];
     let currentSlideIndex = -1;
-    let isPrintoutMode = false;
 
-    fetch(BASE + '_sequence.json')
-      .then(function (r) { return r.json(); })
-      .then(function (seq) {
-        sequence = seq;
-        applyView();
-      });
-
-    function renderSlideList() {
-      const list = document.getElementById('list');
-      list.innerHTML = '';
-
-      sequence.forEach(function (slug, i) {
-        var li = document.createElement('li');
-        li.textContent = slug || '(title)';
-        li.dataset.slug = slug;
-        li.dataset.index = i;
-        li.classList.toggle('current', i === currentSlideIndex);
-        li.addEventListener('click', function () {
-          navigateTo(slug);
-        });
-        list.appendChild(li);
-      });
+    function isPrintoutMode() {
+      return location.hash === '#printout';
     }
 
-    // The printout view can be linked to directly with #printout.
-    function applyView() {
-      const wantsPrintout = location.hash === '#printout';
-      if (wantsPrintout === isPrintoutMode && document.getElementById('list').children.length) {
-        return;
-      }
-
-      isPrintoutMode = wantsPrintout;
-      document.title = (isPrintoutMode ? 'Printout' : 'Presenter board') + ' - ' + DECK_TITLE;
-
-      if (isPrintoutMode) {
-        renderPrintout();
-      } else {
-        document.body.classList.remove('printout-mode');
-        renderSlideList();
-      }
+    function updateDocumentTitle() {
+      document.title = (isPrintoutMode() ? 'Printout' : 'Presenter board') + ' - ' + DECK_TITLE;
     }
 
-    window.addEventListener('hashchange', applyView);
+    updateDocumentTitle();
+    addEventListener('hashchange', updateDocumentTitle);
 
-    viewPresenterLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      history.pushState(null, '', location.pathname + location.search);
-      applyView();
-      window.scrollTo(0, 0);
+    listItems.forEach(li => {
+      li.addEventListener('click', () => navigateTo(li.dataset.slug));
     });
 
     // Launch presentation in a new window.
@@ -348,7 +320,7 @@
 
     // Also allow keyboard nav on the presenter board itself.
     document.addEventListener('keydown', function (e) {
-      if (isPrintoutMode) {
+      if (isPrintoutMode()) {
         return;
       }
 
@@ -368,68 +340,12 @@
       }
     };
 
-    function getNotesHtmlFromSlideHtml(html) {
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      const notes = doc.querySelector('.notes');
-      return notes ? notes.innerHTML : '<p><em>No notes for this slide.</em></p>';
-    }
-
-    function fetchSlideNotes(slug) {
-      return fetch(BASE + slug)
-        .then(function (r) { return r.text(); })
-        .then(function (html) {
-          return getNotesHtmlFromSlideHtml(html);
-        })
-        .catch(function () {
-          return '<p><em>Could not load notes for this slide.</em></p>';
-        });
-    }
-
-    async function renderPrintout() {
-      const list = document.getElementById('list');
-      const slideData = await Promise.all(sequence.map(async function (slug, index) {
-        const notesHtml = await fetchSlideNotes(slug);
-        return { slug, index, notesHtml };
-      }));
-
-      // The user may have gone back to the presenter view while notes were loading.
-      if (!isPrintoutMode) {
-        return;
-      }
-
-      list.innerHTML = '';
-
-      slideData.forEach(function (slide) {
-        const li = document.createElement('li');
-
-        const title = document.createElement('h3');
-        title.className = 'printout-title';
-        title.textContent = (slide.index + 1) + '. ' + (slide.slug || '(title)');
-
-        const iframe = document.createElement('iframe');
-        iframe.className = 'printout-preview';
-        iframe.src = BASE + slide.slug;
-        iframe.loading = 'lazy';
-
-        const notes = document.createElement('div');
-        notes.className = 'printout-notes';
-        notes.innerHTML = slide.notesHtml;
-
-        li.appendChild(title);
-        li.appendChild(iframe);
-        li.appendChild(notes);
-        list.appendChild(li);
-      });
-
-      document.body.classList.add('printout-mode');
-    }
-
     function updateCurrent(slug) {
       const slideIndex = sequence.indexOf(slug);
       currentSlideIndex = slideIndex;
 
       // Highlight current slide in the list.
-      document.querySelectorAll('#list li').forEach(li => {
+      listItems.forEach(li => {
         const isCurrent = li.dataset.slug === slug;
         li.classList.toggle('current', isCurrent);
         if (isCurrent) {
@@ -445,12 +361,9 @@
       // Load the preview.
       slidePreviewFrame.src = BASE + slug;
 
-      // Fetch the slide page and extract notes.
-      fetch(BASE + slug)
-        .then(r => r.text())
-        .then(html => {
-          notesAreaEl.innerHTML = getNotesHtmlFromSlideHtml(html);
-        });
+      // Notes are rendered at build time in the printout.
+      const notes = document.querySelector('#printout li[data-slug="' + CSS.escape(slug) + '"] .printout-notes');
+      notesAreaEl.innerHTML = notes ? notes.innerHTML : '<p><em>No notes for this slide.</em></p>';
     }
   </script>
 </body>

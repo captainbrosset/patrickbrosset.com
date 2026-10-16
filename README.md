@@ -130,6 +130,33 @@ The site is built using modern static site generation tools:
 
 Place images and other assets in `content/assets/`. They will be automatically copied to the output directory.
 
+### Creating a new slide deck
+
+1. Create a folder in `content/slides/`, for example `content/slides/my-talk-2027/`.
+2. Add a `_deck.yml` file with the deck title and the slide file names (without `.html`) in presentation order. The build warns about listed slides that don't exist.
+   ```yaml
+   title: My talk - Some conference 2027
+   slides:
+     - title
+     - ajax
+     # - cut-for-time
+   ```
+3. Add one HTML file per slide, with a short title (the deck title is prepended automatically) and speaker notes:
+   ```html
+   ---
+   title: Ajax
+   notes: |
+     What I'll say during this slide.
+   ---
+   <main>…</main>
+   ```
+
+That's it: the presenter board at `/slides/my-talk-2027/` is generated from `_deck.yml` (see `slide-presenter-boards.njk` in `.eleventy.js`). The slide layout and deck data come from `content/slides/slides.11tydata.mjs` and `slide-decks.js`, which apply to every deck.
+
+Images, CSS, JS, and other assets in the deck folder are copied automatically. Raw HTML pages that are embedded in slides with iframes need `layout: false` in their front matter (or in a `*.11tydata.json` file for a whole subfolder).
+
+The deck's presenter board is at `/slides/my-talk-2027/`. Link to `/slides/my-talk-2027/#printout` to share the slides and notes; it works without JavaScript and links back to the presenter board.
+
 ## Deployment
 
 The site is generated as static files in the `_site` directory and can be deployed to any static hosting service.

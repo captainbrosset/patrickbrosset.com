@@ -19,45 +19,43 @@
   }
 
   // Listen for navigation commands from the presenter board.
+  // Only the presentation window follows them, not slides embedded in iframes (previews, printout).
   channel.onmessage = function (e) {
-    if (e.data.type === 'navigate' && e.data.slug !== currentSlide) {
+    if (self.parent === self && e.data.type === 'navigate' && e.data.slug !== currentSlide) {
       window.location.href = BASE + e.data.slug;
     }
   };
 
-  fetch(BASE + '_sequence.json')
-    .then(r => r.json())
-    .then(sequence => {
-      const slideIndex = sequence.indexOf(currentSlide);
+  const sequence = SEQUENCE;
+  const slideIndex = sequence.indexOf(currentSlide);
 
-      function navigateSlide(offset) {
-        const nextIndex = slideIndex + offset;
-        if (slideIndex !== -1 && nextIndex >= 0 && nextIndex < sequence.length) {
-          window.location.href = BASE + sequence[nextIndex];
-        }
-      }
+  function navigateSlide(offset) {
+    const nextIndex = slideIndex + offset;
+    if (slideIndex !== -1 && nextIndex >= 0 && nextIndex < sequence.length) {
+      window.location.href = BASE + sequence[nextIndex];
+    }
+  }
 
-      document.querySelectorAll('[data-slide-next]').forEach(button => {
-        button.addEventListener('click', () => navigateSlide(1));
-      });
+  document.querySelectorAll('[data-slide-next]').forEach(button => {
+    button.addEventListener('click', () => navigateSlide(1));
+  });
 
-      addEventListener('keydown', function (e) {
-        if (e.target.matches && e.target.matches('input, textarea, select')) {
-          return;
-        }
+  addEventListener('keydown', function (e) {
+    if (e.target.matches && e.target.matches('input, textarea, select')) {
+      return;
+    }
 
-        if (slideIndex === -1) {
-          return;
-        }
+    if (slideIndex === -1) {
+      return;
+    }
 
-        // PageDown / PageUp: navigate slides.
-        if (e.key === 'PageDown' && slideIndex + 1 < sequence.length) {
-          e.preventDefault();
-          navigateSlide(1);
-        } else if (e.key === 'PageUp' && slideIndex - 1 >= 0) {
-          e.preventDefault();
-          navigateSlide(-1);
-        }
-      });
-    });
+    // PageDown / PageUp: navigate slides.
+    if (e.key === 'PageDown' && slideIndex + 1 < sequence.length) {
+      e.preventDefault();
+      navigateSlide(1);
+    } else if (e.key === 'PageUp' && slideIndex - 1 >= 0) {
+      e.preventDefault();
+      navigateSlide(-1);
+    }
+  });
 })();

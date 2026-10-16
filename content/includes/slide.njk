@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/assets/headshot-200.avif" rel="icon" sizes="16x16 32x32 128x128" type="image/avif">
-    <title>{{ title }}</title>
+    <title>{{ deck.title }}{% if title %} - {{ title }}{% endif %}</title>
     <style>
       @view-transition {
         navigation: auto;
@@ -24,11 +24,8 @@
     {% endif %}
 
     <script>
-      let PAGE_URL = "{{ page.url }}";
-      if (PAGE_URL.endsWith('/')) {
-        PAGE_URL = PAGE_URL.slice(0, -1);
-      }
-      const BASE = PAGE_URL.substring(0, PAGE_URL.lastIndexOf('/') + 1);
+      const BASE = "{{ deck.url }}";
+      const SEQUENCE = {{ deck.slides | dump | safe }};
     </script>
     <script src="/assets/slides/presenter.js" defer></script>
   </body>
