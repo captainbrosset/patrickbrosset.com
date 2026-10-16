@@ -68,7 +68,10 @@
       flex-shrink: 0;
     }
 
-    #controls button {
+    #controls button,
+    .view-link {
+      display: inline-block;
+      text-decoration: none;
       padding: .5rem 1.2rem;
       font-size: .95rem;
       cursor: pointer;
@@ -78,7 +81,8 @@
       color: white;
     }
 
-    #controls button:hover {
+    #controls button:hover,
+    .view-link:hover {
       background: #0070e0;
     }
 
@@ -97,8 +101,26 @@
       margin-inline-start: auto;
     }
 
+    #printout-header {
+      display: none;
+    }
+
     body.printout-mode {
       display: block;
+      height: auto;
+    }
+
+    body.printout-mode #printout-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-block-end: 1.5rem;
+    }
+
+    body.printout-mode #sidebar > h2 {
+      display: none;
     }
 
     body.printout-mode #main {
@@ -202,6 +224,10 @@
 </head>
 <body>
   <div id="sidebar">
+    <header id="printout-header">
+      <h1>{{ title }}</h1>
+      <a class="view-link" id="view-presenter" href="{{ page.url }}">Back to presenter view</a>
+    </header>
     <h2>Slides</h2>
     <ol id="list"></ol>
   </div>
@@ -211,7 +237,7 @@
       <button id="launch">Launch presentation</button>
       <span id="current-info">No slide active</span>
       <span id="slide-number"></span>
-      <button id="view-printout">View printout</button>
+      <a class="view-link" id="view-printout" href="#printout">View printout</a>
     </div>
 
     <iframe id="slide-preview"></iframe>
@@ -229,11 +255,12 @@
 
   <script>
     const BASE = "{{ page.url }}";
+    const DECK_TITLE = document.title.replace(/^Presenter board - /, '');
 
     const launchButton = document.getElementById('launch');
     const navPrevButton = document.getElementById('nav-prev');
     const navNextButton = document.getElementById('nav-next');
-    const viewPrintoutButton = document.getElementById('view-printout');
+    const viewPresenterLink = document.getElementById('view-presenter');
     const currentInfoEl = document.getElementById('current-info');
     const slideNumberEl = document.getElementById('slide-number');
     const notesAreaEl = document.getElementById('notes-area');
@@ -248,35 +275,57 @@
       .then(function (r) { return r.json(); })
       .then(function (seq) {
         sequence = seq;
-        const list = document.getElementById('list');
-
-        seq.forEach(function (slug, i) {
-          var li = document.createElement('li');
-          li.textContent = slug || '(title)';
-          li.dataset.slug = slug;
-          li.dataset.index = i;
-          li.addEventListener('click', function () {
-            navigateTo(slug);
-          });
-          list.appendChild(li);
-        });
+        applyView();
       });
+
+    function renderSlideList() {
+      const list = document.getElementById('list');
+      list.innerHTML = '';
+
+      sequence.forEach(function (slug, i) {
+        var li = document.createElement('li');
+        li.textContent = slug || '(title)';
+        li.dataset.slug = slug;
+        li.dataset.index = i;
+        li.classList.toggle('current', i === currentSlideIndex);
+        li.addEventListener('click', function () {
+          navigateTo(slug);
+        });
+        list.appendChild(li);
+      });
+    }
+
+    // The printout view can be linked to directly with #printout.
+    function applyView() {
+      const wantsPrintout = location.hash === '#printout';
+      if (wantsPrintout === isPrintoutMode && document.getElementById('list').children.length) {
+        return;
+      }
+
+      isPrintoutMode = wantsPrintout;
+      document.title = (isPrintoutMode ? 'Printout' : 'Presenter board') + ' - ' + DECK_TITLE;
+
+      if (isPrintoutMode) {
+        renderPrintout();
+      } else {
+        document.body.classList.remove('printout-mode');
+        renderSlideList();
+      }
+    }
+
+    window.addEventListener('hashchange', applyView);
+
+    viewPresenterLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      history.pushState(null, '', location.pathname + location.search);
+      applyView();
+      window.scrollTo(0, 0);
+    });
 
     // Launch presentation in a new window.
     launchButton.addEventListener('click', () => {
       const slug = sequence.length > 0 ? sequence[0] : '';
       window.open(BASE + slug);
-    });
-
-    viewPrintoutButton.addEventListener('click', function () {
-      if (isPrintoutMode) {
-        return;
-      }
-
-      isPrintoutMode = true;
-      viewPrintoutButton.disabled = true;
-      viewPrintoutButton.textContent = 'Loading printout...';
-      renderPrintout();
     });
 
     function navigateTo(slug) {
@@ -299,6 +348,10 @@
 
     // Also allow keyboard nav on the presenter board itself.
     document.addEventListener('keydown', function (e) {
+      if (isPrintoutMode) {
+        return;
+      }
+
       if (e.key === 'PageDown' || e.key === 'ArrowRight') {
         e.preventDefault();
         navNextButton.click();
@@ -339,6 +392,11 @@
         return { slug, index, notesHtml };
       }));
 
+      // The user may have gone back to the presenter view while notes were loading.
+      if (!isPrintoutMode) {
+        return;
+      }
+
       list.innerHTML = '';
 
       slideData.forEach(function (slide) {
@@ -364,7 +422,6 @@
       });
 
       document.body.classList.add('printout-mode');
-      viewPrintoutButton.textContent = 'Printout view active';
     }
 
     function updateCurrent(slug) {

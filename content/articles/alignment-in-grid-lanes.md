@@ -9,7 +9,7 @@ thumbnail: "/assets/grid-lanes-alignment.png"
 altText: "Small thumbnail versions of the alignment diagrams in this article."
 ---
 
-Last week, at [CSS Day](https://cssday.nl/), I [presented](/slides/CSSDay-2026/) on the topic of CSS Grid Lanes, an exciting new CSS layout feature coming to the web.
+Last week, at [CSS Day](https://cssday.nl/), I [presented](/slides/CSSDay-2026/#printout) on the topic of CSS Grid Lanes, an exciting new CSS layout feature coming to the web.
 
 One part, which I _didn't_ talk about during the presentation, is how alignment works in CSS Grid Lanes. The reason I didn't talk about it is that alignment is still being implemented in Chromium, and after some quick testing, I believe it's also not fully implemented in Safari.
 
