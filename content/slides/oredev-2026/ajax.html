@@ -1,0 +1,55 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Ajax
+notes: |
+  While on the topic of SPAs, I want to tell the story of Ajax, which I always
+  find fascinating, because it also shows how experimentation and developer
+  creativity can drive the evolution of the web platform.
+
+  Late 90s, Microsoft was building a new version of Outlook and wanted to make
+  Outlook in the browser behave like the desktop application. But the web at the
+  time was fundamentally not ready.
+  The team wanted JavaScript in the page to be able to make an HTTP request in the
+  background to get some data.
+  So they worked with the IE team to create XMLHTTP, a component that wasn't part
+  of IE technically, but exposed to it via ActiveX, something that only worked in
+  ID: new ActiveXObject("Microsoft.XMLHTTP").
+  Outlook Web Access used it extensively essentially creating one of the very
+  first single-page app.
+  And other devs took notice of how powerful this was.
+  Later, Mozilla implemented a compatible web API, no need for ActiveX.
+  Followed eventually by Safari, Opera, and others: new XMLHttpRequest().
+  IE itself eventually added support in IE7.
+  By the mid-2000s, sites such as Google Maps and Gmail demonstrated just how
+  transformative this approach could be.
+  This was later coined as AJAX by Jesse James Garrett in 2005.
+  Then the web standards process caught up with reality. W3C began specifying
+  XMLHttpRequest in 2006, largely converging on what the implementations already
+  did, by reverse engineering.
+  Years later again, we got a cleaner, more modern networking API: Fetch.
+  const response = await fetch("/messages");
+
+  Product team needs something the platform can't do → hack is born → expectation
+  of what the web can do changes → broader use happens → more implementations
+  across browsers → first standard → better standard.
+
+  Showing how developers pull the web towards new areas all the time.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  h1 { margin: 0 0 6vmin; line-height: 1.05; }
+  ol { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vmin; list-style: none; padding: 0; }
+  li { border-block-start: .5vmin solid var(--color-yellow); padding-block-start: 2vmin; font-size: clamp(1.2rem, 2.2vw, 2.5rem); }
+  li small { display: block; margin-block-start: 2vmin; color: #ccc; font-size: clamp(1rem, 1.6vw, 1.7rem); line-height: 1.4; }
+  p { color: var(--color-yellow); font-size: clamp(1.2rem, 2.8vw, 3rem); text-wrap: pretty; }
+</style>
+<main>
+  <h1>Ajax started<br>with a product need.</h1>
+  <ol aria-label="From Outlook Web Access to web standards">
+    <li>XMLHTTP<small>Outlook Web Access</small></li>
+    <li>Ajax<small>Google Maps &amp; Gmail</small></li>
+    <li>Standard XHR<small>W3C, 2006</small></li>
+    <li>Fetch<small>A cleaner API</small></li>
+  </ol>
+  <p>Need → hack → adoption → standards</p>
+</main>

@@ -1,0 +1,158 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - A fancy box in 2000
+notes: |
+  [Hover the box to expose the pieces]
+  Here is another example.
+  At the time, no gradient background, no rounded corners.
+  So for a box like this, we'd actually have to create 9 images.
+  Four corners, four sides, a center. All custom made just for this box.
+
+  The custom images and repeated backgrounds created the illusion of one shape.
+
+  Today, not only do we have borders, corners, gradients, but we have so many
+  ways to draw shapes such as clip-path, and the shape function,
+  and more coming, with the border-shape property.
+  
+  We didn't do all this because we loved to create images and spend hours
+  combining them in interesting ways in HTML.
+  We did this because we wanted decorations, and interactions.
+  And images were the only way to do it.
+
+  We abused the tools we had at the time because the web platform
+  couldn't yet express what we wanted.
+  By web platform, I mean the set of technologies used to create sites.
+
+  And this abuse was evidence of an unmet need.
+  Eventually, the web learned.
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .box {
+    --border: 1vmin solid #0f2b2c;
+    --back-1: #109498;
+    --back-2: #0ea8ae;
+    --back-3: #977ada;
+    --back-4: #e097fc;
+
+    color: white;
+    aspect-ratio: 16 / 9;
+
+    font-family: system-ui, sans-serif;
+    font-size: 9vmin;
+    text-align: center;
+
+    display: grid;
+    grid-template-columns: 10vmin 1fr 10vmin;
+    grid-template-rows: 10vmin 1fr 10vmin;
+    grid-template-areas:
+      "tl tc tr"
+      "ml mc mr"
+      "bl bc br";
+    gap: 0;
+    transition: gap 0.2s ease;
+
+    &>div {
+      border: var(--border);
+    }
+
+    .top-left,
+    .top-center,
+    .top-right {
+      background: linear-gradient(to bottom, var(--back-1), var(--back-2));
+    }
+
+    .top-left {
+      border-radius: 100% 0 0 0;
+      border-width: 1vmin 0 0 1vmin;
+      grid-area: tl;
+    }
+
+    .top-center {
+      border-width: 1vmin 0 0;
+      grid-area: tc;
+    }
+
+    .top-right {
+      border-radius: 0 100% 0 0;
+      border-width: 1vmin 1vmin 0 0;
+      grid-area: tr;
+    }
+
+    .middle-left,
+    .middle-center,
+    .middle-right {
+      background: linear-gradient(to bottom, var(--back-2), var(--back-3));
+    }
+
+    .middle-left {
+      border-width: 0 0 0 1vmin;
+      grid-area: ml;
+    }
+
+    .middle-center {
+      border-width: 0;
+      align-content: center;
+      grid-area: mc;
+    }
+
+    .middle-right {
+      border-width: 0 1vmin 0 0;
+      grid-area: mr;
+    }
+
+    .bottom-left,
+    .bottom-center,
+    .bottom-right {
+      background: linear-gradient(to bottom, var(--back-3), var(--back-4));
+    }
+
+    .bottom-left {
+      border-radius: 0 0 0 100%;
+      border-width: 0 0 1vmin 1vmin;
+      grid-area: bl;
+    }
+
+    .bottom-center {
+      border-width: 0 0 1vmin;
+      grid-area: bc;
+    }
+
+    .bottom-right {
+      border-radius: 0 0 100% 0;
+      border-width: 0 1vmin 1vmin 0;
+      grid-area: br;
+    }
+
+    &:hover {
+      gap: 3vmin;
+      rule: .5vmin dashed #778283;
+      rule-inset: -5vmin;
+    }
+  }
+</style>
+
+<div class="box">
+  <div class="top-left"></div>
+  <div class="top-center"></div>
+  <div class="top-right"></div>
+  <div class="middle-left"></div>
+  <div class="middle-center">I'm a fancy box!</div>
+  <div class="middle-right"></div>
+  <div class="bottom-left"></div>
+  <div class="bottom-center"></div>
+  <div class="bottom-right"></div>
+</div>

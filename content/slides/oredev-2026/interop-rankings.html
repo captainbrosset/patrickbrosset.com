@@ -1,0 +1,142 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Interop rankings
+notes: |
+  Talking about Interop, the Firefox team has created a tool which lets developers
+  rank their favorite interoperability proposals.
+  After the proposal window has closed, you can use the tool to rank the proposal
+  in the order which you prefer, to reflect the things which impact you the most
+  today.
+
+  And we use the results to help inform the Interop selection process.
+  This year, many developers even published their rankings publicly, which was
+  wonderful to see.
+  Blog posts like these help spread awareness, encouraging more developers to
+  participate, and also help us get even more nuance in the feedback we receive.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body {
+    background: var(--color-yellow);
+    color: var(--color-dark);
+    overflow: hidden;
+    padding: 5vmin;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 2.5vmin;
+    align-items: center;
+  }
+
+  a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    rotate: var(--tilt, 0deg);
+    transform-origin: var(--origin, center);
+  }
+
+  img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    border: .4vmin solid var(--color-dark);
+    border-radius: 1.2vmin;
+    background: #fff;
+    box-shadow: 1vmin 1vmin 0 var(--color-dark);
+  }
+
+  .tool {
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .tool img {
+    aspect-ratio: 2 / 1;
+    border-width: .6vmin;
+    box-shadow: 1.6vmin 1.6vmin 0 var(--color-dark);
+  }
+
+  .tool span {
+    display: inline-block;
+    margin-block-start: 3vmin;
+    padding: .8vmin 2vmin;
+    border-radius: 999px;
+    background: var(--color-dark);
+    color: var(--color-yellow);
+    font-size: clamp(1rem, 2vw, 2.4rem);
+    font-weight: 700;
+  }
+
+  .post:hover,
+  .post:focus-visible {
+    z-index: 2;
+    scale: 1.6;
+    rotate: 0deg;
+  }
+
+  a:focus-visible {
+    outline: none;
+  }
+
+  a:focus-visible img {
+    outline: .6vmin solid var(--color-dark);
+    outline-offset: .6vmin;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a {
+      transition: opacity .4s, scale .3s, rotate .3s, translate .4s;
+      transition-delay: calc(var(--i, 0) * 120ms);
+
+      @starting-style {
+        opacity: 0;
+        translate: 0 6vmin;
+        scale: .8;
+      }
+    }
+
+    .post:hover,
+    .post:focus-visible {
+      transition-delay: 0s;
+    }
+  }
+</style>
+<main>
+  <a class="post" style="--i: 1; --origin: top left; --tilt: -3deg" href="https://ohhelloana.blog/my-interop-2027/">
+    <img src="/slides/oredev-2026/images/interop-rankings/ohhelloana.png" width="1280" height="800" alt="Ana Rodrigues' blog post: My Interop feature ranking.">
+  </a>
+  <a class="tool" style="--i: 0" href="https://interop-rank.fxdx.dev/">
+    <img src="/slides/oredev-2026/images/interop-rankings/bsky.jpg" width="1000" height="495" alt="Interop proposals being reordered by dragging them up and down a ranked list.">
+    <span>interop-rank.fxdx.dev</span>
+  </a>
+  <a class="post" style="--i: 2; --origin: top right; --tilt: 2deg" href="https://www.sarasoueidan.com/blog/interop-2027-rankings/">
+    <img src="/slides/oredev-2026/images/interop-rankings/sarasoueidan.png" width="1280" height="800" alt="Sara Soueidan's blog post: My top picks for Interop 2027.">
+  </a>
+  <a class="post" style="--i: 3; --origin: left; --tilt: 2.5deg" href="https://vale.rocks/micros/20261011-0700">
+    <img src="/slides/oredev-2026/images/interop-rankings/vale.png" width="1280" height="800" alt="Vale's micro post: My Interop 2027 rankings.">
+  </a>
+  <a class="post" style="--i: 4; --origin: right; --tilt: -2deg" href="https://cydstumpel.nl/my-picks-for-interop-2027/">
+    <img src="/slides/oredev-2026/images/interop-rankings/cydstumpel.png" width="1280" height="800" alt="Cyd Stumpel's blog post: My picks for Interop 2027.">
+  </a>
+  <a class="post" style="--i: 5; --origin: bottom left; --tilt: 2deg" href="https://tylersticka.com/journal/interop-2027-rank/">
+    <img src="/slides/oredev-2026/images/interop-rankings/tylersticka.png" width="1280" height="800" alt="Tyler Sticka's blog post: My Interop 2027 Ranking.">
+  </a>
+  <a class="post" style="--i: 6; --origin: bottom; --tilt: -1.5deg" href="https://pawelgrzybek.com/my-interop-2027-picks/">
+    <img src="/slides/oredev-2026/images/interop-rankings/pawelgrzybek.png" width="1280" height="800" alt="Paweł Grzybek's blog post: My Interop 2027 picks.">
+  </a>
+  <a class="post" style="--i: 7; --origin: bottom; --tilt: 3deg" href="https://www.alwaystwisted.com/articles/and-thats-my-rank-2027-edition">
+    <img src="/slides/oredev-2026/images/interop-rankings/alwaystwisted.png" width="1280" height="800" alt="Stuart Robson's blog post: And that's my rank! 2027 edition.">
+  </a>
+  <a class="post" style="--i: 8; --origin: bottom right; --tilt: -2.5deg" href="https://interop-rank.fxdx.dev/">
+    <img src="/slides/oredev-2026/images/interop-rankings/rank-tool.png" width="1280" height="800" alt="The Firefox team's 2027 Web Platform Feature Ranking tool.">
+  </a>
+</main>

@@ -1,0 +1,63 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - The legacy of lowsrc
+notes: |
+  The lowsrc HTML attribute was an attempt to provide a low-resolution
+  placeholder image while the main image was loading. And this made a lot of
+  sense back when images could take 20 or 30 seconds to load on typical
+  connections.
+
+  But, even today, when network speed is relatively fast, this is still something
+  that developers are doing, to provide their users with a better experience. A
+  nice placeholder while the final images is loading.
+  Certain sites load tons of images. Or operate in regions where fast network
+  access isn't the norm. Or just because it's nicer this way.
+
+  Now, the `lowsrc` attribute belonged to that end of the 90s period, and
+  unfortunately didn't gain widespread adoption and was not included in the HMTL5
+  specification.
+
+  But `lowsrc` didn't fail because image placeholders were a bad idea. It failed
+  because the specific 1990s API never became a sufficiently well-defined,
+  interoperable part of the web platform.
+
+  The need didn't disappear just because this old solution did.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  display: grid;
+  place-content: center;
+}
+
+h1 {
+  color: #fff5;
+  text-align: center;
+  font-size: 4.3vw;
+  font-family: monospace;
+
+  .tagname {
+    color: #f06;
+  }
+
+  .attr {
+    color: var(--color-yellow);
+  }
+
+  .attrvalue {
+    color: #2154df;
+  }
+
+  .highlight {
+    border-block-end: 1vmin dotted color-mix(var(--color-yellow) 50%, transparent);
+  }
+}
+</style>
+
+<h1>
+  &lt;<span class="tagname">img</span>
+  <span class="attr">src</span>="<span class="attrvalue">large.jpg</span>"
+  <span class="attr highlight">lowsrc</span>="<span class="attrvalue">tiny.jpg</span>"&gt;
+</h1>

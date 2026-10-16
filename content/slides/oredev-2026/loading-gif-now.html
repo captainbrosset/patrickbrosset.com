@@ -1,0 +1,39 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - The need stayed, the tools changed
+notes: |
+  Again, the web platform caught up.
+
+  CSS has come a very long way.
+  We have animations, gradients, transforms, masks, clipping paths,
+  and all sorts of drawing primitives.
+
+  With just a few lines of presentation code, we can build animations that are
+  responsive, themeable, and highly interactive.
+  We can even respect the user's reduced-motion preference.
+
+  The user need stayed the same; but our tools got better.
+
+  Developers pulled the web forward by making the need visible and addressable.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body { gap: 4vmin; }
+  h1 { font-size: clamp(2rem, 5vw, 5rem); line-height: 1.1; margin: 0; letter-spacing: normal; }
+  .example { display: flex; gap: 5vmin; align-items: center; margin-block: 5vmin; }
+  .spinner { inline-size: 16vmin; aspect-ratio: 1; border: 1.4vmin solid #444; border-block-start-color: var(--color-yellow); border-radius: 50%; animation: spin 1s linear infinite; flex-shrink: 0; }
+  pre { font-size: clamp(1rem, 2.1vw, 2rem); line-height: 1.5; white-space: pre-wrap; }
+  p { color: var(--color-yellow); font-size: clamp(1.2rem, 2.7vw, 3rem); margin: 0; text-wrap: pretty; }
+  @keyframes spin { to { transform: rotate(1turn); } }
+  @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
+</style>
+<main>
+  <h1>The need stayed.<br>The tools changed.</h1>
+  <div class="example">
+    <div class="spinner" aria-hidden="true"></div>
+    <pre><code>border-radius: 50%;
+border-block-start-color: #e0ff3e;
+animation: spin 1s linear infinite;</code></pre>
+  </div>
+  <p>Scalable. Themeable. No image download.</p>
+</main>

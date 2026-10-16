@@ -1,0 +1,65 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - The playground got bigger
+notes: |
+  So, the playground in which we experiment has gotten bigger, not smaller.
+  But it's still a playground.
+  So, if anything, we should play more, not less.
+
+  An application platform which stops evolving to go where the users are is a
+  platform that's heading toward obsolescence. It slows down. It becomes
+  complacent. It stops addressing unmet needs.
+
+  We've kind of seen what happens when that virtuous cycle stops.
+  After IE6, Microsoft dramatically slowed investment in the browser. The
+  assumption was essentially that the browser problem had been solved.
+  It hadn't.
+  The web was only getting started.
+---
+
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  text-align: center;
+  background: #111;
+}
+
+h1 {
+  font-family: system-ui;
+  font-size: 8vw;
+  color: white;
+
+  span {
+    text-transform: uppercase;
+    font-size: 20vw;
+    color: #e0ff3e;
+    z-index: -1;
+    transform-origin: top center;
+    display: block;
+    font-family: arial black;
+    position: relative;
+    line-height: 0.7;
+
+    animation: bigger .25s 1.5s cubic-bezier(0.5, 1.8, 0.5, 0.7) forwards;
+  }
+}
+
+@keyframes bigger {
+  from {
+    transform: scaleY(1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    h1 span { animation: none; transform: scaleY(3); }
+  }
+  to {
+    transform: scaleY(3);
+  }
+}
+</style>
+
+<h1>The playground got <span>bigger</span></h1>

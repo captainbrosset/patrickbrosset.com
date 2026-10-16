@@ -1,0 +1,159 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - The feedback loop
+notes: |
+  There's a feedback loop that goes a little like this:
+
+  You build something.
+  You hit a bug or discover an edge case nobody thought about.
+  You complain and ask for a missing capability.
+
+  This constitute evidence which forces people building the web to confront the
+  real world.
+
+  And then we ship more things that you can in turn test.
+
+  Standardization happens throughout this loop.
+  But usually it's a by-product of this iterative process. It can't exist on its
+  own.
+  It would be like writing the rules for safe flights first and then building
+  planes based on those rules. That can never work.
+
+  Now I don't want to seem out of touch.
+  I'm not saying you all need to actively be testing each and every little
+  prototype we ship in browsers. that's not your job.
+
+  What I'm saying is that just by using the capabilities of the web, you take
+  part in the loop that drives its evolution.
+
+  This is a special power you have over browsers. You can concretely influence
+  our roadmaps. And I'll talk more about how later.
+
+  Any feedback, whatever the form it takes, wherever it exists, can become a key
+  part of how a feature evolves, or what next feature to build.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body {
+    background: var(--color-light);
+    color: var(--color-dark);
+  }
+
+  ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 2vmin;
+  }
+
+  li:not(.connector) {
+    padding: 3vmin;
+    font-size: clamp(1.3rem, 2.8vw, 3rem);
+    border-radius: 5vmin;
+    corner-shape: squircle;
+    background: var(--color-dark);
+    color: var(--color-light);
+    text-align: center;
+    display: grid;
+    place-content: center;
+  }
+
+  li.build {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  li.bug {
+    grid-area: 2 / 3 / 3 / 4;
+  }
+
+  li.share {
+    grid-area: 3 / 2 / 4 / 3;
+  }
+
+  li.improve {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+
+  li.connector {
+    border: 1vmin solid var(--color-dark);
+    inline-size: 30%;
+    block-size: 60%;
+    corner-shape: squircle;
+    position: relative;
+  }
+
+  li.connector::after {
+    content: "";
+    position: absolute;
+  }
+  
+  li.build + .connector {
+    grid-area: 1 / 3 / 2 / 4;
+    border-width: 1vmin 1vmin 0 0;
+    border-radius: 0 100% 0 0;
+    place-self: end start;
+  }
+
+  li.build + .connector::after {
+    border-block-start: 2vmin solid var(--color-dark);
+    border-inline: 1vmin solid transparent;
+    bottom: -1vmin;
+    right: -1.5vmin;
+  }
+
+  li.bug + .connector {
+    grid-area: 3 / 3 / 4 / 4;
+    border-width: 0 1vmin 1vmin 0;
+    border-radius: 0 0 100% 0;
+    place-self: start start;
+  }
+
+  li.bug + .connector::after {
+    border-inline-end: 2vmin solid var(--color-dark);
+    border-block: 1vmin solid transparent;
+    bottom: -1.5vmin;
+    left: -1vmin;
+  }
+
+  li.share + .connector {
+    grid-area: 3 / 1 / 4 / 2;
+    border-width: 0 0 1vmin 1vmin;
+    border-radius: 0 0 0 100%;
+    place-self: start end;
+  }
+
+  li.share + .connector::after {
+    border-block-end: 2vmin solid var(--color-dark);
+    border-inline: 1vmin solid transparent;
+    top: -1vmin;
+    left: -1.5vmin;
+  }
+
+  li.improve + .connector {
+    grid-area: 2 / 0 / 3 / 1;
+    border-width: 1vmin 0 0 1vmin;
+    border-radius: 100% 0 0 0;
+    place-self: end end;
+  }
+
+  li.improve + .connector::after {
+    border-inline-start: 2vmin solid var(--color-dark);
+    border-block: 1vmin solid transparent;
+    top: -1.5vmin;
+    right: -1vmin;
+  }
+
+</style>
+<ol class="loop">
+  <li class="build">Build or test something</li>
+  <li class="connector"></li>
+  <li class="bug">Find a bug or edge case</li>
+  <li class="connector"></li>
+  <li class="share">Share the evidence</li>
+  <li class="connector"></li>
+  <li class="improve">Improve. Try again.</li>
+  <li class="connector"></li>
+</ol>

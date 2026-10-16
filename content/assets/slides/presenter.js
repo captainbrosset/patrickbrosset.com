@@ -30,6 +30,17 @@
     .then(sequence => {
       const slideIndex = sequence.indexOf(currentSlide);
 
+      function navigateSlide(offset) {
+        const nextIndex = slideIndex + offset;
+        if (slideIndex !== -1 && nextIndex >= 0 && nextIndex < sequence.length) {
+          window.location.href = BASE + sequence[nextIndex];
+        }
+      }
+
+      document.querySelectorAll('[data-slide-next]').forEach(button => {
+        button.addEventListener('click', () => navigateSlide(1));
+      });
+
       addEventListener('keydown', function (e) {
         if (e.target.matches && e.target.matches('input, textarea, select')) {
           return;
@@ -42,10 +53,10 @@
         // PageDown / PageUp: navigate slides.
         if (e.key === 'PageDown' && slideIndex + 1 < sequence.length) {
           e.preventDefault();
-          window.location.href = BASE + sequence[slideIndex + 1];
+          navigateSlide(1);
         } else if (e.key === 'PageUp' && slideIndex - 1 >= 0) {
           e.preventDefault();
-          window.location.href = BASE + sequence[slideIndex - 1];
+          navigateSlide(-1);
         }
       });
     });

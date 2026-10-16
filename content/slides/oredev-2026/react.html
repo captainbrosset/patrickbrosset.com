@@ -1,0 +1,35 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Building SPAs with React
+notes: |
+  But this has been such a recurring theme, that we've spent the last almost 15
+  years using workarounds, in the form of client-side frameworks like React,
+  building single page apps, and often for things that really didn't need to be
+  SPAs.
+  But that's not the point here, although I'm very thankful that some developers
+  are starting to see how much this has been costing to our entire industry in
+  terms of performance, when HTML was here all along and actually really good.
+
+  But, again, work arounds that have been showing the lack of built-in support for
+  something that developers have wanted to do for a long time.
+
+  And now, we're starting to see native support appear, in the form of a new
+  feature called "Declarative Partial Updates". Aka "Interleaved HTML streaming".
+---
+
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body { background: var(--color-yellow); color: var(--color-dark); }
+  h1 { margin: 0 0 7vmin; font-size: clamp(2.4rem, 5.5vw, 6rem); line-height: 1; }
+  ol { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3vmin; }
+  li { padding-block-start: 3vmin; border-block-start: .5vmin solid; font-size: clamp(1.5rem, 3.4vw, 4rem); font-weight: 750; }
+  li span { display: block; font-size: clamp(1rem, 1.9vw, 2rem); font-weight: 400; margin-block-start: 2vmin; text-wrap: pretty; }
+</style>
+<main>
+  <h1>We wanted partial updates.<br>We built entire apps.</h1>
+  <ol aria-label="From client-side workarounds to native partial updates">
+    <li>The need<span>Update part of a page without reloading it.</span></li>
+    <li>The workaround<span>React and SPAs. Even when HTML would have been enough.</span></li>
+    <li>The platform<span>Emerging Declarative Partial Updates. Interleaved HTML streaming.</span></li>
+  </ol>
+</main>

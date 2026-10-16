@@ -1,0 +1,112 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - SpaceJam
+notes: |
+  Space Jam's 1996 website is a wonderful time capsule.
+  It has been exactly the same since its creation, to promote the movie, in 1996.
+
+  Creating this layout back then required a complex HTML table with multiple
+  rows and columns, with cells spanning several rows and columns,
+  and hard coded sizes.
+  Lot's of markup, fixed image sizes, carefully placed empty space.
+  
+  It works great for the screen its authors had in mind.
+  But the layout and the document structure are tangled together.
+  No separation of concers.
+  No responsiveness, very little consideration for accessibility.
+
+  [view source]
+---
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    display: grid;
+    place-content: center;
+  }
+
+  body {
+    background: url(/slides/oredev-2026/spacejam/bg_stars.gif);
+  }
+</style>
+<CENTER>
+  <TABLE width="500" border="0">
+    <TBODY>
+      <TR>
+        <TD colspan="5" align="right" valign="top">
+        </TD>
+      </TR>
+      <TR>
+        <TD colspan="2" align="right" valign="middle">
+          <BR>
+          <BR>
+          <BR>
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-pressbox.gif" height="56" width="131"
+              alt="Press Box Shuttle" border="0"></A>
+        </TD>
+        <TD align="center" valign="middle">
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-jamcentral.gif" height="67" width="55" alt="Jam Central"
+              border="0"></A>
+        </TD>
+        <TD align="center" valign="top">
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-bball.gif" height="62" width="62" alt="Planet B-Ball"
+              border="0"></A>
+        </TD>
+        <TD align="center" valign="bottom">
+          <BR>
+          <BR>
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-lunartunes.gif" height="77" width="95" alt="Lunar Tunes"
+              border="0"></A>
+        </TD>
+      </TR>
+      <TR>
+        <TD align="middle" valign="top">
+          <BR>
+          <BR>
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-lineup.gif" height="52" width="63" alt="The Lineup"
+              border="0"></A>
+        </TD>
+        <TD colspan="3" rowspan="2" align="right" valign="middle">
+          <IMG src="/slides/oredev-2026/spacejam/p-jamlogo.gif" height="165" width="272" alt="Space Jam" border="0">
+        </TD>
+        <TD align="right" valign="bottom">
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-jump.gif" height="52" width="58" alt="Jump Station"
+              border="0"></A>
+        </TD>
+      </TR>
+      <TR>
+        <TD align="center" valign="bottom">
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-junior.gif" height="57" width="49" alt="Junior Jam"
+              border="0"></A>
+        </TD>
+        <TD rowspan="2" align="center" valign="top">
+          <BR>
+          <BR>
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-studiostore.gif" height="72" width="94"
+              alt="Warner Studio Store" border="0"></A>
+        </TD>
+      </TR>
+      <TR>
+        <TD>
+        </TD>
+        <TD align="center" valign="top">
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-souvenirs.gif" height="83" width="83"
+              alt="Stellar Souvenirs" border="0"></A>
+        </TD>
+        <TD align="center" valign="bottom">
+          <BR>
+          <BR>
+          <BR>
+          <BR>
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-sitemap.gif" height="67" width="104" alt="Site Map"
+              border="0"></A>
+        </TD>
+        <TD align="center" valign="middle">
+          <A href="#"><IMG src="/slides/oredev-2026/spacejam/p-behind.gif" height="63" width="67" alt="Behind the Jam"
+              border="0"></A>
+        </TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+</CENTER>

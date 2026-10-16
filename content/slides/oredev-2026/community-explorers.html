@@ -1,0 +1,45 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Other people ask what if too
+notes: |
+  I'm only scratching the surface.
+
+  Some people in our community take this to a whole other level.
+  
+  Lyra Rebane used modern CSS features to recreate a fully functioning x86 CPU
+  100% in CSS.
+
+  Jane Ori, amazing CSS experimenter, pushes CSS specs to their limits, often
+  exposing things that should never have been possible in the first place, like
+  revealing your IP address in CSS only.
+
+  Temani Afif, another very prolific CSS hacker, explores new UI features and
+  combines them together to unlock new possibilities, like CSS-only diagrams
+  which you can move around.
+
+  They push against the boundaries of new features. They take something that's
+  only just becoming possible and abuse it until it does things nobody originally
+  expected.
+  They don't take "no" for an answer.
+  They ask, "What if?"
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body { padding: 6vmin; }
+  h1 { margin: 0 0 5vmin; font-size: clamp(2rem, 4.7vw, 5rem); }
+  .examples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3vmin; }
+  article { border-block-start: .5vmin solid var(--color-yellow); padding-block-start: 2vmin; display: flex; flex-direction: column; }
+  h2 { font-size: clamp(1.3rem, 2.5vw, 2.7rem); margin: 0 0 2vmin 0; }
+  img { inline-size: 100%; flex-grow: 1; object-fit: contain; }
+</style>
+<main>
+  <h1>Other people ask “what if?” too.</h1>
+  <div class="examples">
+    <article><h2>Lyra Rebane</h2>
+    <img src="/slides/oredev-2026/images/css-cpu.png"></article>
+    <article><h2>Jane Ori</h2>
+    <img src="/slides/oredev-2026/images/css-ip.png"></article>
+    <article><h2>Temani Afif</h2>
+    <img src="/slides/oredev-2026/images/css-diagram.png"></article>
+  </div>
+</main>

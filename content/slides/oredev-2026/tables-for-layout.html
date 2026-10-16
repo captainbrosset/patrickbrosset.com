@@ -1,0 +1,28 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - We wanted layout, not tables
+notes: |
+  We didn't use tables because we loved tables.
+  We used them because we wanted layout,
+  and the web didn't have layout.
+
+  The tortured HTML markup we saw before was not just technical debt,
+  it was telling us something:
+  developers wanted control over layout.
+
+  It was evidence of an unmet need.
+
+  Next is another example of a thing we did to work around the lack of native
+  support for a pattern that emerged in the early 2000s.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body { padding: 8vmin; background: var(--color-yellow); color: var(--color-dark); }
+  h1 { font-size: clamp(2.5rem, 6.5vw, 7rem); line-height: 1.1; margin: 0; max-inline-size: 23ch; }
+  em { font-style: normal; background: var(--color-dark); color: var(--color-yellow); padding-inline: .15em; }
+  p { font-size: clamp(1.2rem, 2.5vw, 3rem); margin-block-start: 5vmin; text-wrap: pretty; }
+</style>
+<main>
+  <h1>We didn't want tables.<br>We wanted <em>layout.</em></h1>
+  <p>The workaround was evidence of an unmet need.</p>
+</main>

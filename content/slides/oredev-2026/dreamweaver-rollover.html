@@ -1,0 +1,74 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Making rollover buttons with Dreamweaver
+notes: |
+  Apps like Dreamweaver were a huge help.
+  They let me turn those visual designs into pages with actual content
+  and even a little interactivity.
+
+  I loved rollover effects, for example.
+  Dreamweaver could generate JavaScript that swapped images when you hovered
+  over or clicked a button.
+  If you wanted a fancy button that reacted to the user, swapping images was
+  pretty much the way to do it.
+
+  Images were the name of the game.
+  We wanted to reproduce, on this new web medium, exactly what we'd created
+  in our graphic design tools.
+---
+
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    display: grid;
+    place-content: center;
+  }
+
+  .rollover {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: max-content;
+
+    li {
+      margin: .5vw 0;
+      padding: 1vw 2vw;
+      font-weight: 5vw;
+      font-family: system-ui, sans-serif;
+      font-size: 2vw;
+      text-align: center;
+      color: white;
+      border-radius: 1vw;
+      background: linear-gradient(to bottom, #ff4d8a, #d4145a);
+      box-shadow: 0 4px 0 #8b0a30, inset 0 1px 0 rgba(255,255,255,0.3);
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+      top: 0;
+      transition: all 0.1s ease;
+
+      &:hover {
+        background: linear-gradient(to bottom, #c0103f, #ff4d8a);
+        box-shadow: 0 1px 0 #8b0a30, inset 0 2px 3px rgba(0,0,0,0.3);
+        top: 3px;
+      }
+
+      &:active {
+        background: linear-gradient(to bottom, #a00c35, #d4145a);
+        box-shadow: 0 0 0 #8b0a30, inset 0 3px 5px rgba(0,0,0,0.5);
+        top: 4px;
+      }
+    }
+  }
+</style>
+
+<ul class="rollover">
+  <li>Home</li>
+  <li>Tips</li>
+  <li>Sign my guestbook</li>
+  <li>About</li>
+</ul>

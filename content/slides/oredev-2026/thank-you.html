@@ -1,0 +1,87 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Thank you
+notes: |
+  Thank you
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body {
+    background: var(--color-yellow);
+    color: var(--color-dark);
+    overflow: hidden;
+  }
+
+  main > div {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    margin: 1vmin 0 6vmin;
+    font-size: clamp(3.5rem, 8vw, 9rem);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.5vmin;
+  }
+
+  a {
+    display: inline-block;
+    padding: 1.2vmin 2.2vmin;
+    border: .4vmin solid;
+    border-radius: 999px;
+    background: var(--color-light);
+    color: inherit;
+    font-size: clamp(1rem, 1.7vw, 2rem);
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: .7vmin .7vmin 0 var(--color-dark);
+  }
+
+  a:hover {
+    translate: -.3vmin -.3vmin;
+    box-shadow: 1vmin 1vmin 0 var(--color-dark);
+  }
+
+  a:focus-visible {
+    outline: .5vmin solid var(--color-dark);
+    outline-offset: .5vmin;
+  }
+
+  img {
+    position: fixed;
+    inset-block-end: -15vh;
+    inset-inline-end: -1vw;
+    inline-size: min(82vw, 170vh);
+    block-size: auto;
+    filter: drop-shadow(0 0 2vmin #1113);
+    scale: -1 1;
+    rotate: 11deg;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a {
+      transition: translate .15s, box-shadow .15s;
+    }
+  }
+</style>
+<main>
+  <div>
+    <h1>Thank you! TODO REDO PHOTO</h1>
+    <ul aria-label="Find me online">
+      <li><a href="https://patrickbrosset.com">patrickbrosset.com</a></li>
+      <li><a href="https://mas.to/@patrickbrosset">Mastodon: @patrickbrosset@mas.to</a></li>
+      <li><a href="https://bsky.app/profile/patrickbrosset.com">Bluesky: @patrickbrosset.com</a></li>
+    </ul>
+  </div>
+  <img src="/slides/oredev-2026/images/me-cartoon-cut-off.png" width="1000" height="606" alt="Cartoon illustration of Patrick Brosset">
+</main>

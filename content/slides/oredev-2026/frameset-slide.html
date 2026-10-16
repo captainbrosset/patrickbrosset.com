@@ -1,0 +1,54 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Before single-page apps
+notes: |
+  Let's go even further back in time than Ajax.
+  The need for loading content on various regions of a page without reloading the
+  full window has been around for a long time.
+
+  Who remembers framesets?
+  They let you define regions in a page and load different HTML documents into
+  them without reloading everything.
+  This was basically doing SPAs before SPAs were a thing.
+
+  A testament to the enduring need for partial page updates.
+  An early built-in solution for it, which goes back to Netscape 2 and IE3, and
+  which was part of the HTML4 spec.
+
+  But which didn't survive the passing of time, due to multiple issues like
+  back/forward navigation was broken, bookmarking was broken too, search engines
+  indexing was a disaster, etc.
+---
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #111;
+    display: grid;
+    place-content: center;
+  }
+
+  iframe {
+    border: 0;
+    width: calc(100vw - 10px);
+    height: calc(100vh - 10px);
+  }
+
+  button {
+    position: absolute;
+    inset: auto 1rem 1rem auto;
+    background: #111;
+    color: #e0ff3e;
+    padding: 0 .5rem 0.2rem .5rem;
+    font-size: 3rem;
+    border: 0;
+    border-radius: .5rem;
+    box-shadow: 0 0 .5rem rgba(0,0,0,.5);
+    font-family: monospace;
+    line-height: 1;
+    cursor: pointer;
+  }
+</style>
+<button type="button" data-slide-next aria-label="Next slide">&raquo;</button>
+<iframe src="/lab/frameset/"></iframe>

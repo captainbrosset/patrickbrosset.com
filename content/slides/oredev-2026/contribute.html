@@ -1,0 +1,69 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Contribute signals
+notes: |
+  Finally, contribute signals.
+
+  Two ways I want to highlight:
+
+  1. Developer-signals. It's a repo that collects thumbsups and use cases from
+  developers, about features that aren't yet available on all browsers.
+  It helps us understand what matters to developers.
+
+  You can engage with this through places like MDN and Can I Use, so very
+  simple.
+
+  2. Interop. There's also the Interop project.
+  Every year, developers have an opportunity to tell browser vendors about the
+  interoperability problems that hurt them most.
+  This happens in September/October, so too late for this year, but there's
+  always next year.
+  Browser vendors and other organizations then collaborate on improving those
+  areas.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body {
+    background: var(--color-light);
+    color: var(--color-dark);
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2vmin;
+  }
+
+  main > div {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    align-self: center;
+  }
+
+  .step {
+    color: #2b7072;
+    font-size: clamp(1rem, 1.8vw, 2rem);
+    font-weight: 750;
+  }
+
+  h1 {
+    margin: 2vmin 0 5vmin;
+    line-height: 1.1;
+  }
+
+  img {
+    max-inline-size: 100%;
+    max-block-size: 40dvh;
+    justify-self: end;
+  }
+</style>
+<main>
+  <div>
+    <p class="step">4 / Contribute</p>
+    <h1>Your needs are<br>valuable signals.</h1>
+  </div>
+  <img src="/slides/oredev-2026/images/mdn-dev-signals.png"
+    alt="MDN page about the moveBefore API, showing the Baseline banner, with a link to the developer-signals repo which reads Want more browser support for this feature? Tell us why.">
+  <img src="/slides/oredev-2026/images/interop-repo.png"
+    alt="The Interop repo on GitHub, showing the list of issues which are all focus area proposals for the upcoming Interop project iteration.">
+</main>

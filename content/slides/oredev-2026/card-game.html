@@ -1,0 +1,263 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Card game
+notes: |
+  Another similar example, also using customizable selects.
+---
+
+<style>
+  :root {
+    --card-width: 8vmin;
+    --card-height: 12vmin;
+  }
+
+  @supports not (appearance: base-select) {
+    body::before {
+      content: "Your browser doesn't support customizable selects.";
+      display: block;
+      background: #0001;
+      padding: .5rem;
+      inline-size: max-content;
+      border-radius: .25rem;
+    }
+  }
+
+  @property --card-fan-rotation {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 7deg;
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: system-ui;
+    display: grid;
+    place-content: center;
+    background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%);
+  }
+
+  /* ========================================
+       OPT-IN TO CUSTOMIZABLE SELECT
+       ======================================== */
+  select,
+  ::picker(select) {
+    appearance: base-select;
+  }
+
+  select,
+  option {
+    width: var(--card-width);
+    height: var(--card-height);
+    padding: 1vmin;
+    box-sizing: content-box;
+    border-radius: 1vmin;
+    cursor: pointer;
+    border: 0.5vmin solid white;
+    box-shadow: 0 0 2vmin rgba(0, 0, 0, 0.4);
+  }
+
+  select:hover,
+  option:hover {
+    box-shadow: 0 0 5vmin 1vmin rgba(0, 0, 0, 0.7);
+  }
+
+  /* ========================================
+       THE SELECT BUTTON (card back)
+       ======================================== */
+  select {
+    background:
+      /* Diamond pattern overlay */
+      repeating-linear-gradient(45deg,
+        transparent,
+        transparent 1vmin,
+        rgba(255, 255, 255, 0.05) 1vmin,
+        rgba(255, 255, 255, 0.05) 2vmin),
+      repeating-linear-gradient(-45deg,
+        transparent,
+        transparent 1vmin,
+        rgba(255, 255, 255, 0.05) 1vmin,
+        rgba(255, 255, 255, 0.05) 2vmin),
+      /* Base gradient */
+      linear-gradient(135deg, #8b0000 0%, #dc143c 50%, #8b0000 100%);
+  }
+
+  select:hover {
+    background: repeating-linear-gradient(45deg,
+        transparent,
+        transparent 1vmin,
+        rgba(255, 255, 255, 0.08) 1vmin,
+        rgba(255, 255, 255, 0.08) 2vmin),
+      repeating-linear-gradient(-45deg,
+        transparent,
+        transparent 1vmin,
+        rgba(255, 255, 255, 0.08) 1vmin,
+        rgba(255, 255, 255, 0.08) 2vmin),
+      linear-gradient(135deg, #a00000 0%, #ff1744 50%, #a00000 100%);
+  }
+
+  /* Hide the default dropdown arrow */
+  select::picker-icon {
+    display: none;
+  }
+
+  /* ========================================
+       THE PICKER (dropdown container)
+       ======================================== */
+  ::picker(select) {
+    background: transparent;
+    border: 0;
+    overflow: visible;
+
+    /* Position above the button, centered */
+    position-area: center center;
+    position-try: none;
+    inset: 0;
+
+    /* Keep picker visible during exit animation */
+    transition: display 0.25s allow-discrete;
+  }
+
+  select:open::picker(select) {
+    display: flex;
+  }
+
+  /* ========================================
+       CARD OPTIONS
+       ======================================== */
+  option {
+    background: white;
+
+    /* Calculate position in fan */
+    --card-fan-rotation: 0deg;
+    --card-fan-spread: -11vmin;
+    --option-index: calc(sibling-index() - 1);
+    --center: calc(sibling-count() / 2);
+    --offset-from-center: calc(var(--option-index) - var(--center));
+
+    transform-origin: center 75vmin;
+
+    /* Start stacked (no rotation, no spread) */
+    rotate: calc(var(--offset-from-center) * var(--card-fan-rotation));
+    translate: calc(var(--offset-from-center) * var(--card-fan-spread)) 0;
+
+    /* Transition to fanned state */
+    transition: --card-fan-rotation 0.2s ease-out;
+
+    font-size: 4vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1;
+  }
+
+  /* When picker is open, fan out the cards */
+  select:open option {
+    --card-fan-rotation: initial;
+  }
+
+  /* Starting style for entry animation */
+  @starting-style {
+    select:open option {
+      --card-fan-rotation: 0deg;
+    }
+  }
+
+  option:checked {
+    background: linear-gradient(135deg, #ffd700 0%, #ffec8b 50%, #ffd700 100%);
+    border-color: #ffd700;
+  }
+
+  /* Hide checkmark */
+  option::checkmark {
+    display: none;
+  }
+
+  /* Card symbols */
+  option .rank {
+    font-weight: bold;
+    font-family: Georgia, serif;
+  }
+
+  option.red {
+    color: #dc2626;
+  }
+
+  option.black {
+    color: #1f2937;
+  }
+</style>
+<select><button></button></select>
+<script>
+  const CARDS_PER_PLAYER = 9;
+  const RANKS = [
+    "A",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "J",
+    "Q",
+    "K"
+  ];
+  const SUITS = [
+    { symbol: "♥", code: "H", color: "red" },
+    { symbol: "♦", code: "D", color: "red" },
+    { symbol: "♠", code: "S", color: "black" },
+    { symbol: "♣", code: "C", color: "black" }
+  ];
+
+  const select = document.querySelector("select");
+
+  // Build the entire deck.
+  const deck = [];
+  for (const rank of RANKS) {
+    for (const suit of SUITS) {
+      deck.push({ rank, suit });
+    }
+  }
+
+  // Function to shuffle an array.
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  // Function to populate the select with card elements.
+  function populatePlayerDeck(select, cards) {
+    cards.forEach((card) => {
+      const option = document.createElement("option");
+      option.classList.add(card.suit.color);
+      option.value = card.rank + card.suit.code;
+      option.innerHTML = `
+            <span class="rank">${card.rank}</span>
+            <span class="suit">${card.suit.symbol}</span>
+          `;
+      select.appendChild(option);
+    });
+  }
+
+  // Shuffle the deck
+  const shuffledDeck = shuffle([...deck]);
+
+  // Take the top N cards for the player.
+  const playerCards = shuffledDeck.slice(0, CARDS_PER_PLAYER);
+
+  // Populate the select element with the player's cards.
+  populatePlayerDeck(select, playerCards);
+</script>

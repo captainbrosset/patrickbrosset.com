@@ -1,0 +1,78 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - The web-features explorer
+---
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: white;
+  }
+
+  .explorer-screenshot {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .explorer-link {
+    position: fixed;
+    inset-inline: 7vmin;
+    inset-block-start: 50%;
+    translate: 0 -50%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-content: center;
+    gap: 2vmin 4vmin;
+    padding: 3vmin;
+    background: #e0ff3e;
+    color: #111;
+    font-family: system-ui, sans-serif;
+    text-align: start;
+    text-decoration: none;
+    box-shadow: 1vmin 1vmin 0 #111;
+  }
+
+  .explorer-link strong {
+    display: block;
+    align-self: end;
+    font-size: clamp(1.8rem, 4vw, 4.5rem);
+    letter-spacing: -.04em;
+    text-wrap: balance;
+  }
+
+  .explorer-link span {
+    display: block;
+    align-self: start;
+    font-size: clamp(1rem, 2vw, 2.2rem);
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-underline-offset: .2em;
+  }
+
+  .explorer-link:focus-visible {
+    outline: .2rem solid #111;
+    outline-offset: .3rem;
+  }
+
+  .explorer-qrcode {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+    box-sizing: border-box;
+    display: block;
+    inline-size: 24vmin;
+    block-size: auto;
+    padding: 1.5vmin;
+    background: white;
+  }
+</style>
+<img class="explorer-screenshot" src="/slides/oredev-2026/images/explorer.png" alt="The web-features explorer">
+<a class="explorer-link" href="https://web-platform-dx.github.io/web-features-explorer/" target="_blank" rel="noopener noreferrer">
+  <strong>web-features explorer</strong>
+  <span>web-platform-dx.github.io/web-features-explorer/</span>
+  <img class="explorer-qrcode" src="/slides/oredev-2026/images/explorer-qrcode.svg" alt="Scan to open the web-features explorer" width="37" height="37">
+</a>

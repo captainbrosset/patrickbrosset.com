@@ -1,0 +1,106 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - The legacy of lowsrc
+notes: |
+  Here is another example. You've seen this before on the web.
+  A blurry low-resolution preview appears first, instead of an empty area where
+  and image is supposed to be.
+  And later, when the final, full resolution image has finished loading, it
+  appears in its place.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  .layout {
+    inline-size: 85vw;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .skeleton {
+    block-size: 15vmin;
+    background-image:
+      linear-gradient(to right,
+        transparent 0 10vmin,
+        var(--color-dark) 10vmin 12vmin,
+        transparent 12vmin 30vmin,
+        var(--color-dark) 30vmin 32vmin,
+        transparent 32vmin 35vmin,
+        var(--color-dark) 35vmin 37vmin,
+        transparent 37vmin 50vmin,
+        var(--color-dark) 50vmin 52vmin
+      ),
+      linear-gradient(to right,
+        transparent 0 28vmin,
+        var(--color-dark) 28vmin 30vmin,
+        transparent 30vmin 35vmin,
+        var(--color-dark) 35vmin 37vmin,
+        transparent 37vmin 58vmin,
+        var(--color-dark) 58vmin 60vmin
+      ),
+      linear-gradient(to right,
+        transparent 0 5vmin,
+        var(--color-dark) 5vmin 7vmin,
+        transparent 7vmin 11vmin,
+        var(--color-dark) 11vmin 13vmin,
+        transparent 13vmin 40vmin,
+        var(--color-dark) 40vmin 42vmin,
+        transparent 42vmin 47vmin,
+        var(--color-dark) 47vmin 49vmin,
+        transparent 49vmin 60vmin
+      ),
+      linear-gradient(to bottom, #FFF2 0 2vmin, transparent 2vmin 5vmin);
+    background-size:
+      52vmin 2vmin,
+      60vmin 2vmin,
+      60vmin 2vmin,
+      100% 5vmin;
+    background-repeat:
+      repeat-x,
+      repeat-x,
+      repeat-x,
+      repeat-y;
+    background-position:
+      0 1.5vmin,
+      0 6.5vmin,
+      0 11.5vmin,
+      0 1.5vmin;
+    clip-path: polygon(
+      0 0,
+      90% 0,
+      90% 5vmin,
+      85% 5vmin,
+      85% 10vmin,
+      95% 10vmin,
+      95% 15vmin,
+      0 100%,
+      0 0
+    );
+  }
+
+  .skeleton:first-child, .skeleton:last-child {
+    grid-column: 1 / 3;
+  }
+
+  img {
+    inline-size: 100%;
+    grid-row: 2 / 4;
+    grid-column: 2;
+
+    clip-path: inset(0);
+    filter: blur(40px);
+    animation: crisp .2s 2s linear forwards;
+  }
+
+  @keyframes crisp {
+    to {
+      filter: blur(0);
+    }
+  }
+</style>
+<div class="layout">
+  <div class="skeleton"></div>
+  <div class="skeleton"></div>
+  <div class="skeleton"></div>
+  <img class="preview" src="/slides/oredev-2026/images/me-in-96.jpg" alt="A picture of me in front of the computer, in 1996. The picture is very blurry at first, and then becomes clear.">
+  <div class="skeleton"></div>
+</div>

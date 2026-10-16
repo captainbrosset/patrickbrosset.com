@@ -1,0 +1,48 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Try something newly available
+notes: |
+  That's the next step: try something that's not ubiquitous yet.
+
+  Look at what's becoming available in browsers today. Take a look at release
+  notes and "Baseline Newly Available" features.
+  Pick something that looks useful and experiment with it.
+  
+  If you're not familiar with Baseline, let me explain briefly. Baseline is a
+  computed status that's based on web compatibility data, and it quickly tells
+  you whether something is supported in all major browsers or not, and for how
+  long. It gives you a sense of stability.
+  
+  One great way is, of course, MDN, which displays Baseline banners at the top
+  of most pages.
+  
+  But, here's another site that's based on the same data: the Explorer.
+  You can use it to list the "Newly Available" features, meaning those that
+  recenytly became available in major browsers.
+
+  If you're feeling even more adventurous, look at the features with limited
+  availability too.
+
+  Try them. Push them. See where they break.
+---
+<link rel="stylesheet" href="/slides/oredev-2026/shared.css">
+<style>
+  body { padding: 6vmin 7vmin; background: var(--color-light); color: var(--color-dark); }
+  .step { color: #2b7072; font-size: clamp(1rem, 1.8vw, 2rem); font-weight: 750; }
+  h1 { margin: 2vmin 0 4vmin; font-size: clamp(2.3rem, 5vw, 5.5rem); }
+  dl { display: grid; grid-template-columns: 1fr 1.7fr; gap: 2vmin 4vmin; font-size: clamp(1.1rem, 2vw, 2.2rem); line-height: 1.4; }
+  dt { font-weight: 750; display: grid; grid-template-columns: 2em 1fr; align-items: center; gap: .5em; } dd { margin: 0; }
+  dt img { inline-size: 2em; block-size: auto; }
+  p { font-size: clamp(1rem, 1.8vw, 2rem); text-wrap: pretty; }
+  a { color: #205b5d; text-underline-offset: .2em; }
+  a:focus-visible { outline: .2rem solid; outline-offset: .3rem; }
+</style>
+<main>
+  <p class="step">2 / Try</p>
+  <h1>Try something new.</h1>
+  <dl>
+    <dt><img src="/slides/oredev-2026/images/baseline-newly-icon.svg" alt="" width="540" height="300">Newly available</dt><dd>Supported across the Baseline browser set.</dd>
+    <dt><img src="/slides/oredev-2026/images/baseline-widely-icon.svg" alt="" width="540" height="300">Widely available</dt><dd>Thirty months since becoming newly available.</dd>
+    <dt><img src="/slides/oredev-2026/images/baseline-limited-icon.svg" alt="" width="540" height="300">Limited availability</dt><dd>An opportunity to explore, with care.</dd>
+  </dl>
+</main>

@@ -1,0 +1,43 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - SpaceJam 30 years later
+notes: |
+  If we did this site today, which I did here, not quite the same but almost.
+  We'd be able to use modern CSS layout.
+
+  This would need a relatively small amount of CSS.
+  Grid of Flexbox.
+  It could adapt fluidly to different viewport sizes.
+  [Grab the iframe and resize to make it smaller]
+
+  Things rearrange to always remain usable.
+  CSS and HTML are fully separated too, with HTML only describing the content.
+  In fact removing the CSS shows a simple title following by a list of links.
+  [Click spacejame to disable CSS. Click again to enable.]
+
+  And you can have fun too.
+  [Make viewport much wider]
+---
+<style>
+  html,
+  body {
+    margin: 0;
+    block-size: 100%;
+    overflow: hidden;
+    display: grid;
+    place-content: center;
+    background: url(/slides/oredev-2026/spacejam/bg_stars.gif);
+  }
+
+  iframe {
+    resize: both;
+    inline-size: 500px;
+    block-size: 500px;
+    border: 2px solid transparent;
+
+    &:hover {
+      border: 2px dashed lightgreen;
+    }
+  }
+</style>
+<iframe src="/slides/oredev-2026/spacejam-now-inner" title="Space Jam rebuilt with modern CSS layout"></iframe>

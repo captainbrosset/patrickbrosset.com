@@ -1,0 +1,33 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Sliced images and tables
+notes: |
+  I didn't have any programming knowledge, so my path into it was very visual.
+  I'd create designs in Photoshop, slice them into tiny pieces,
+  and then painstakingly put those pieces back together in HTML using tables,
+  spacer GIFs, and hard-coded positions and sizes.
+
+  The goal was to reproduce the original image exactly.
+  Not responsiveness.
+  Not adapting to user preferences.
+  Pixel-perfect everywhere.
+---
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #111;
+  }
+
+  img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+  }
+</style>
+
+<img src="/slides/oredev-2026/images/photoshop-slice.png"
+  alt="A 90s-looking personal website, with Photoshop slice areas overlaid on it.">

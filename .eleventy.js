@@ -5,6 +5,7 @@ const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/assets");
+  
   eleventyConfig.addPassthroughCopy("content/slides/AC-2025");
   eleventyConfig.addPassthroughCopy("content/slides/breakouts-day-2025");
   eleventyConfig.addPassthroughCopy("content/slides/Icons");
@@ -13,8 +14,13 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/slides/2025-10-CSS-Masonry.pdf");
   eleventyConfig.addPassthroughCopy("content/slides/2026-01-FOSDEM.pdf");
   eleventyConfig.addPassthroughCopy("content/slides/2026-09-17-WebMCP-DotAI.pdf");
+  
   eleventyConfig.addPassthroughCopy("content/slides/CSSDay-2026/**/*.{png,jpg,gif,GIF,svg,webp,avif,mp4,css,js,json}");
   eleventyConfig.addWatchTarget("content/slides/CSSDay-2026/");
+
+  eleventyConfig.addPassthroughCopy("content/slides/oredev-2026/**/*.{png,jpg,gif,GIF,svg,webp,avif,mp4,css,js,json}");
+  eleventyConfig.addWatchTarget("content/slides/oredev-2026/");
+  
   eleventyConfig.addPassthroughCopy("content/lab/**/*");
   eleventyConfig.addPassthroughCopy(
     "content/lab/notification-lab-manifest.json"

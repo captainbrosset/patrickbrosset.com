@@ -1,0 +1,314 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - SpaceJam 30 years later
+---
+
+<style>
+  @layer reset {
+    html,
+    body {
+      margin: 0;
+      block-size: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      align-content: center;
+    }
+
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    a {
+      color: transparent;
+      display: block;
+    }
+
+    h1 {
+      margin: 0;
+      color: transparent;
+      background-image: url(/slides/oredev-2026/spacejam/p-jamlogo.gif);
+      inline-size: 272px;
+      block-size: 165px;
+    }
+
+    * {
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    .shuttle a {
+      background-image: url(/slides/oredev-2026/spacejam/p-pressbox.gif);
+      inline-size: 131px;
+      block-size: 56px;
+    }
+
+    .central a {
+      background-image: url(/slides/oredev-2026/spacejam/p-jamcentral.gif);
+      inline-size: 55px;
+      block-size: 67px;
+    }
+
+    .bball a {
+      background-image: url(/slides/oredev-2026/spacejam/p-bball.gif);
+      inline-size: 62px;
+      block-size: 62px;
+    }
+
+    .lunar a {
+      background-image: url(/slides/oredev-2026/spacejam/p-lunartunes.gif);
+      inline-size: 95px;
+      block-size: 77px;
+    }
+
+    .lineup a {
+      background-image: url(/slides/oredev-2026/spacejam/p-lineup.gif);
+      inline-size: 63px;
+      block-size: 62px;
+    }
+
+    .jump a {
+      background-image: url(/slides/oredev-2026/spacejam/p-jump.gif);
+      inline-size: 58px;
+      block-size: 52px;
+    }
+
+    .junior a {
+      background-image: url(/slides/oredev-2026/spacejam/p-junior.gif);
+      inline-size: 49px;
+      block-size: 57px;
+    }
+
+    .store a {
+      background-image: url(/slides/oredev-2026/spacejam/p-studiostore.gif);
+      inline-size: 94px;
+      block-size: 72px;
+    }
+
+    .souvenirs a {
+      background-image: url(/slides/oredev-2026/spacejam/p-souvenirs.gif);
+      inline-size: 83px;
+      block-size: 83px;
+    }
+
+    .map a {
+      background-image: url(/slides/oredev-2026/spacejam/p-sitemap.gif);
+      inline-size: 104px;
+      block-size: 67px;
+    }
+
+    .behind a {
+      background-image: url(/slides/oredev-2026/spacejam/p-behind.gif);
+      inline-size: 67px;
+      block-size: 63px;
+    }
+  }
+
+  @layer small {
+    nav {
+      display: block;
+
+      h1 {
+        min-block-size: 200px;
+        inline-size: 100%;
+        background-size: contain;
+      }
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+
+        li {
+          align-self: center !important;
+
+          a {
+            background-size: contain;
+          }
+
+        }
+      }
+    }
+  }
+
+  @layer classic {
+    @media (min-width: 500px) {
+      nav {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        margin-inline: auto;
+        padding-inline: 10px;
+
+        h1 {
+          grid-area: 2 / 2 / 4 / 5;
+          place-self: center;
+        }
+
+        ul {
+          grid-area: 1 / 1 / span all / span all;
+          display: grid;
+          grid-template-columns: subgrid;
+          grid-template-rows: subgrid;
+          grid-template-areas:
+            "shuttle  shuttle     central    bball    lunar"
+            "lineup   .           .          .        jump"
+            "junior   .           .          .        store"
+            ".        souvenirs   map        behind   store";
+
+          .shuttle {
+            grid-area: shuttle;
+            place-self: end;
+
+          }
+
+          .central {
+            grid-area: central;
+            place-self: center;
+          }
+
+          .bball {
+            grid-area: bball;
+            place-self: start stretch;
+          }
+
+          .lunar {
+            grid-area: lunar;
+            place-self: end stretch;
+          }
+
+          .lineup {
+            grid-area: lineup;
+            place-self: end stretch;
+          }
+
+          .jump {
+            grid-area: jump;
+            place-self: end;
+          }
+
+          .junior {
+            grid-area: junior;
+            place-self: end stretch;
+          }
+
+          .store {
+            grid-area: store;
+            place-self: start stretch;
+          }
+
+          .souvenirs {
+            grid-area: souvenirs;
+            place-self: start stretch;
+          }
+
+          .map {
+            grid-area: map;
+            place-self: end stretch;
+          }
+
+          .behind {
+            grid-area: behind;
+            place-self: stretch;
+          }
+
+        }
+      }
+    }
+  }
+
+  @layer big {
+    @media (min-width: 900px) {
+      @keyframes orbit {
+        from {
+          offset-distance: 0%;
+          offset-path: circle(25vmin at 50% 50%);
+        }
+
+        to {
+          offset-distance: 100%;
+          offset-path: circle(25vmin at 50% 50%);
+        }
+      }
+
+      nav {
+        display: grid;
+        inline-size: 90vmin;
+        block-size: 90vmin;
+
+        h1 {
+          place-self: center;
+        }
+
+        ul {
+          display: block;
+          position: relative;
+          inset: 0 0 0 0;
+
+          li {
+            position: absolute;
+            place-self: unset;
+            offset-path: circle(25vmin at 50% 50%);
+            animation: orbit 20s linear infinite;
+            animation-delay: calc(sibling-index() * -1.8s);
+          }
+
+          &:hover {
+            li {
+              animation-play-state: paused;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<nav>
+  <h1 role="button" tabindex="0" aria-pressed="false">Space JAM</h1>
+  <ul>
+    <li class="shuttle"><a href="#">Press Box Shuttle</a></li>
+    <li class="central"><a href="#">Jam Central</a></li>
+    <li class="bball"><a href="#">Planet B-Ball</a></li>
+    <li class="lunar"><a href="#">Lunar Tunes</a></li>
+    <li class="lineup"><a href="#">The Lineup</a></li>
+    <li class="jump"><a href="#">Jump Station</a></li>
+    <li class="junior"><a href="#">Junior Jam</a></li>
+    <li class="store"><a href="#">Warner Studio Store</a></li>
+    <li class="souvenirs"><a href="#">Stellar Souvenirs</a></li>
+    <li class="map"><a href="#">Site Map</a></li>
+    <li class="behind"><a href="#">Behind the Jam</a></li>
+  </ul>
+</nav>
+
+<script>
+  const title = document.querySelector("h1");
+  let enabledStyleSheets = [];
+
+  function toggleStyles() {
+    const stylesAreEnabled = enabledStyleSheets.length === 0;
+
+    if (stylesAreEnabled) {
+      enabledStyleSheets = [...document.styleSheets].filter(styleSheet => !styleSheet.disabled);
+      enabledStyleSheets.forEach(styleSheet => styleSheet.disabled = true);
+    } else {
+      enabledStyleSheets.forEach(styleSheet => styleSheet.disabled = false);
+      enabledStyleSheets = [];
+    }
+
+    title.setAttribute("aria-pressed", String(stylesAreEnabled));
+  }
+
+  title.addEventListener("click", toggleStyles);
+  title.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleStyles();
+    }
+  });
+</script>

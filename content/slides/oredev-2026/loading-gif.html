@@ -1,0 +1,43 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - Loading GIFs
+notes: |
+  Behold the loading GIF!
+
+  Ajax became a very popular technique in the early 2000s.
+  And I was definitely here for it.
+
+  But until then, the browser had been responsible for navigating between pages
+  and it also gave users a clear indication that something was happening when
+  it navigated.
+  Status bar updates, loading indicator somewhere in the title bar.
+
+  Once we started loading content asynchronously, that indication disappeared.
+  And we needed a way to tell the user:
+  hang on, something is happening here.
+
+  So we turned to animated GIFs. And we went a bit crazy with them.
+  We'd load relatively heavy images, sometimes 100 KB or more,
+  just to display a little spinning animation while something else loaded.
+
+  Again, we weren't being stupid.
+  We had created a new interaction pattern, and that had created a new UX problem:
+  how do you tell the user that something is happening?
+
+  So we improvised with the tools of the time.
+---
+
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  display: grid;
+  place-content: center;
+}
+
+body {
+  background: radial-gradient(circle, #FFF 0% 20%, #111 200%);
+}
+</style>
+
+<img src="/slides/oredev-2026/loading-gifs/04.gif" alt="Wait">

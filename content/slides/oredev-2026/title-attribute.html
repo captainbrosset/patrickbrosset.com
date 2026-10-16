@@ -1,0 +1,95 @@
+---
+layout: slide.njk
+title: Fun never gets old - Oredev 2026 - The legacy of title
+notes: |
+  The web has had a primitive that a11y specialists, standards people, and devs
+  themselves have pushed back against for decades: the title attribute.
+
+  You can use it as a tooltip mechanism, but it has significant limitations.
+  
+  The resulting experience can be problematic for keyboard and touch users,
+  and developers have no control over what the browser-generated tooltip
+  looks like, when it appears, how big it is, etc.
+
+  And yet the need hasn't gone away.
+
+  Developers still need ways to provide supplementary information, particularly
+  for things like icon buttons.
+---
+
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  display: grid;
+  place-content: center;
+  gap: 2vmin;
+}
+.btn {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  inline-size: 10vmin;
+  aspect-ratio: 1;
+  background: #111;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-content: center;
+
+  &::before {
+    font-size: 7vmin;
+    font-family: emoji;
+  }
+}
+#add-button {
+  anchor-name: --add-button;
+}
+#add-button::before { content: "+"; }
+#del-button::before { content: "–"; }
+#home-button::before { content: "▲"; font-size: 4vmin; }
+#esc-button::before { content: "⨉"; font-size: 4vmin; }
+#cursor {
+  position: fixed;
+  position-anchor: --add-button;
+  left: calc(anchor(right) - 2vmin);
+  top: calc(anchor(bottom) - 3vmin);
+  block-size: 4vmin;
+  inline-size: 2vmin;
+  background: #e0ff3e;
+  border: 1px solid black;
+  border-shape: shape(
+    from 0 0,
+    line to 0 90%,
+    line to 40% 70%,
+    line to 65% 105%,
+    line to 85% 100%,
+    line to 60% 65%,
+    line to 110% 60%,
+    line to 0 0
+  );
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+#tooltip {
+  position: fixed;
+  position-anchor: --add-button;
+  left: calc(anchor(right) + 1vmin);
+  top: anchor(bottom);
+  padding: .5vmin;
+  font-size: 1.5vmin;
+  font-family: system-ui;
+  color: black;
+  background: white;
+  border: 1px solid black;
+
+}
+</style>
+
+<button class="btn" id="home-button"></button>
+<button class="btn" id="del-button"></button>
+<button class="btn" id="add-button"></button>
+<button class="btn" id="esc-button"></button>
+
+<div id="cursor"></div>
+<div id="tooltip">Add an item</div>
