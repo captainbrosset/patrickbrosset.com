@@ -4,6 +4,7 @@ const tabify = require("./tabify.js");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const path = require("path");
 const { listDecks } = require("./slide-decks.js");
+const { listAlbums } = require("./album-wall.js");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/assets");
@@ -26,7 +27,11 @@ module.exports = function (eleventyConfig) {
     eleventyExcludeFromCollections: true,
   });
 
-  eleventyConfig.addPassthroughCopy("content/lab/**/*");
+  // Spotify albums, with precomputed sort ranks, for the /lab/spotify-albums/ page.
+  eleventyConfig.addGlobalData("albums", listAlbums);
+
+  // The albums page is a template; a raw copy would shadow /lab/spotify-albums (no trailing slash).
+  eleventyConfig.addPassthroughCopy("content/lab/**/!(spotify-albums.html)");
   eleventyConfig.addPassthroughCopy(
     "content/lab/notification-lab-manifest.json"
   );

@@ -17,6 +17,10 @@ const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN;
 // JSON file paths
 const ALBUMS_FILE = path.join(__dirname, 'content', 'data', 'spotify-albums.json');
 const PLAYLISTS_FILE = path.join(__dirname, 'content', 'data', 'spotify-playlists.json');
+const TOP_FILE = path.join(__dirname, 'content', 'data', 'spotify-top.json');
+
+// Spotify's time ranges for top items: ~4 weeks, ~6 months, and ~1 year.
+const TOP_TIME_RANGES = ['short_term', 'medium_term', 'long_term'];
 
 if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
   console.error('Missing required environment variables:');
@@ -209,6 +213,57 @@ async function fetchAllPlaylists(accessToken) {
 }
 
 /**
+ * Fetch the user's top artists and tracks for every time range.
+ * Returns null (and keeps the previous backup) if they can't be fetched, for
+ * example when the refresh token lacks the user-top-read scope.
+ */
+async function fetchTopItems(accessToken) {
+  console.log('Fetching top artists and tracks from Spotify...');
+  const top = {};
+
+  for (const timeRange of TOP_TIME_RANGES) {
+    top[timeRange] = {};
+    for (const type of ['artists', 'tracks']) {
+      const items = [];
+      let url = `https://api.spotify.com/v1/me/top/${type}?time_range=${timeRange}&limit=50`;
+
+      while (url) {
+        const response = await fetch(url, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          let message = `Skipping top items: failed to fetch top ${type}: ${response.status} ${response.statusText}`;
+          if (response.status === 401 || response.status === 403) {
+            message += '. Reauthorize the Spotify app with the user-top-read scope. See README-SPOTIFY.md.';
+          }
+          console.warn(message);
+          return null;
+        }
+
+        const data = await response.json();
+        items.push(...data.items.map(item => type === 'artists'
+          ? { id: item.id, name: item.name }
+          : {
+            id: item.id,
+            name: item.name,
+            album: { id: item.album?.id, name: item.album?.name },
+            artists: item.artists.map(a => ({ id: a.id, name: a.name })),
+          }));
+        url = data.next;
+      }
+
+      top[timeRange][type] = items;
+      console.log(`Downloaded ${items.length} top ${type} (${timeRange})`);
+    }
+  }
+
+  return top;
+}
+
+/**
  * Save albums backup to JSON file
  */
 function saveAlbumsBackup(albums) {
@@ -253,6 +308,19 @@ function savePlaylistsBackup(playlists) {
 }
 
 /**
+ * Save top artists and tracks to JSON file
+ */
+function saveTopBackup(top) {
+  const backup = {
+    created_at: new Date().toISOString(),
+    ...top,
+  };
+
+  fs.writeFileSync(TOP_FILE, JSON.stringify(backup, null, 2));
+  console.log(`✓ Top artists and tracks saved to ${TOP_FILE}`);
+}
+
+/**
  * Main function
  */
 async function main() {
@@ -268,6 +336,13 @@ async function main() {
     
     const playlists = await fetchAllPlaylists(accessToken);
     savePlaylistsBackup(playlists);
+
+    console.log();
+
+    const top = await fetchTopItems(accessToken);
+    if (top) {
+      saveTopBackup(top);
+    }
     
     console.log('\n✓ Backup complete!');
   } catch (error) {

@@ -10,12 +10,15 @@ on:
 jobs:
   backup:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # push the backup commit
+      actions: write # trigger the site build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
       
       - name: Install dependencies
         run: npm install
@@ -26,10 +29,29 @@ jobs:
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
           SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
         run: node spotify-backup.js
+
+      - name: Extract album artwork colors
+        run: node spotify-album-colors.js
       
       - name: Commit and push changes
+        id: commit
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add content/data/spotify-albums.json content/data/spotify-playlists.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update Spotify backup data" && git push)
+          git add content/data/spotify-albums.json content/data/spotify-playlists.json content/data/spotify-album-colors.json
+          # Only written when the refresh token has the user-top-read scope.
+          if [ -f content/data/spotify-top.json ]; then git add content/data/spotify-top.json; fi
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore: update Spotify backup data"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Pushes made with GITHUB_TOKEN don't trigger the "Build site" workflow, so start it explicitly.
+      - name: Rebuild the site
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run main.yml --ref "${{ github.ref_name }}"

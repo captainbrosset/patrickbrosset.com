@@ -2,7 +2,11 @@
 
 ## Overview
 
-The `spotify-backup.js` script fetches my saved albums and playlists from Spotify and stores them as JSON data in `content/data/`.
+The `spotify-backup.js` script fetches my saved albums and playlists from Spotify and stores them as JSON data in `content/data/`. It also saves my top artists and tracks over the last 4 weeks, 6 months, and year to `spotify-top.json`. This requires the `user-top-read` scope; without it, the script logs a warning and skips the top items.
+
+The `spotify-album-colors.js` script extracts the dominant color of each album cover and caches it in `spotify-album-colors.json`. Only new albums are processed.
+
+The albums are displayed at `/lab/spotify-albums/`. `album-wall.js` prepares them at build time (exposed as the `albums` global data in `.eleventy.js`), so a new backup shows up on the next site build. Cover colors are used as image placeholders. An album is marked as top in a time range when one of its tracks is a top track, or one of its artists is a top artist.
 
 ## Usage
 
@@ -12,11 +16,12 @@ Set `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, and `SPOTIFY_REFRESH_TOKEN` in
 
 ```bash
 node spotify-backup.js
+node spotify-album-colors.js
 ```
 
 ### Automated weekly backups
 
-The `.github/workflows/spotify-backup.yml` workflow runs once a week.
+The `.github/workflows/spotify-backup.yml` workflow runs once a week. When the backup data changes, it commits it and starts the "Build site" workflow (`main.yml`), so the albums page is redeployed.
 
 ## Troubleshooting token refresh failures
 
@@ -29,11 +34,14 @@ An HTTP `400 Bad Request` alone does not identify the cause. The script reports 
 
 ### Renew the refresh token
 
-1. Open the existing app in the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard). Use the same client ID and secret as the GitHub Actions secrets.
-2. Follow Spotify's [Authorization Code Flow](https://developer.spotify.com/documentation/web-api/tutorials/code-flow) to authorize your Spotify account again. Request the `user-library-read`, `playlist-read-private`, and `playlist-read-collaborative` scopes. The `redirect_uri` must exactly match an allowed redirect URI in the app settings. Generate and verify the `state` parameter as described in that guide.
-3. Exchange the returned authorization `code` at `https://accounts.spotify.com/api/token` with `grant_type=authorization_code`, that `code`, and the same `redirect_uri`. Use HTTP Basic authentication with the app's client ID and secret and a form-encoded request body. Do this locally, not in workflow logs or through a third-party token generator.
-4. Copy the response's **`refresh_token`**, not its `access_token`, into the repository's `SPOTIFY_REFRESH_TOKEN` Actions secret. Update the local `.env` value too if you run manual backups.
-5. Go to **Actions > Weekly Spotify Backup > Run workflow** to confirm backups resume.
+Refresh tokens expire after about six months, so this needs to be done twice a year.
+
+1. In the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard), open the app whose client ID and secret are in `.env` and the GitHub secrets. Under **Edit settings > Redirect URIs**, make sure `http://127.0.0.1:8888/callback` is listed (Spotify doesn't accept `localhost`).
+2. Run `node spotify-auth.js`. It opens Spotify in your browser. Approve access, and the script saves the new refresh token to `.env` and copies it to your clipboard. It requests the `user-library-read`, `playlist-read-private`, `playlist-read-collaborative`, and `user-top-read` scopes.
+3. Paste the token into the `SPOTIFY_REFRESH_TOKEN` secret under **Settings > Secrets and variables > Actions** in the repository.
+4. Go to **Actions > Weekly Spotify Backup > Run workflow** to confirm backups resume.
+
+Never share the token or paste it into third-party token generators.
 
 ## Learn more
 

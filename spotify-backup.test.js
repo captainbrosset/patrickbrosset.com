@@ -6,9 +6,10 @@ const vm = require('node:vm');
 
 const source = fs.readFileSync(path.join(__dirname, 'spotify-backup.js'), 'utf8');
 
-async function runBackup(tokenResponse) {
+async function runBackup(tokenResponse, respond = () => null) {
   const requests = [];
   const errors = [];
+  const warnings = [];
   const writes = [];
   const exits = [];
   const env = {
@@ -21,7 +22,7 @@ async function runBackup(tokenResponse) {
     Buffer,
     URLSearchParams,
     process: { env, exit: code => exits.push(code) },
-    console: { log() {}, error: (...args) => errors.push(args.join(' ')) },
+    console: { log() {}, warn: (...args) => warnings.push(args.join(' ')), error: (...args) => errors.push(args.join(' ')) },
     require(name) {
       if (name === 'dotenv') return { config() {} };
       if (name === 'path') return path;
@@ -36,11 +37,11 @@ async function runBackup(tokenResponse) {
     async fetch(url, options) {
       requests.push({ url, options });
       if (requests.length === 1) return tokenResponse;
-      return new Response(JSON.stringify({ items: [], next: null }));
+      return respond(url) || new Response(JSON.stringify({ items: [], next: null }));
     },
   });
   await completion;
-  return { requests, errors, writes, exits, env };
+  return { requests, errors, warnings, writes, exits, env };
 }
 
 test('form-encodes the refresh token and preserves successful backups', async () => {
@@ -54,14 +55,27 @@ test('form-encodes the refresh token and preserves successful backups', async ()
   assert.equal(body.get('grant_type'), 'refresh_token');
   assert.equal(body.get('refresh_token'), result.env.SPOTIFY_REFRESH_TOKEN);
   assert.equal([...body].length, 2);
-  assert.equal(result.requests.length, 3);
+  // Token, albums, playlists, then top artists and tracks for 3 time ranges.
+  assert.equal(result.requests.length, 9);
   assert.deepEqual(result.exits, []);
   assert.deepEqual(result.errors, []);
-  assert.equal(result.writes.length, 2);
+  assert.equal(result.writes.length, 3);
   assert.equal(result.writes[0].data.total_albums, 0);
   assert.deepEqual(result.writes[0].data.albums, []);
   assert.equal(result.writes[1].data.total_playlists, 0);
   assert.deepEqual(result.writes[1].data.playlists, []);
+  assert.match(result.writes[2].file, /spotify-top\.json$/);
+  for (const range of ['short_term', 'medium_term', 'long_term']) {
+    assert.deepEqual(result.writes[2].data[range], { artists: [], tracks: [] });
+  }
+});
+
+test('missing top items scope keeps the albums and playlists backups', async () => {
+  const result = await runBackup(new Response(JSON.stringify({ access_token: 'test-access' })), url =>
+    url.includes('/me/top/') ? new Response('{}', { status: 403, statusText: 'Forbidden' }) : null);
+  assert.deepEqual(result.exits, []);
+  assert.equal(result.writes.length, 2);
+  assert.match(result.warnings.join('\n'), /403 Forbidden.*user-top-read/);
 });
 
 test('invalid_grant explains how to recover without exposing credentials', async () => {

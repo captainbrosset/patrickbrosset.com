@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Albums</title>
+  <meta name="description" content="The {{ albums.total }} albums saved in my Spotify library, sortable by date added, release year, artist, title, and more.">
+  <style>
+    :root {
+      color-scheme: dark light;
+      --bg: light-dark(#f4f1ea, #0e0e10);
+      --surface: light-dark(#fffdf8cc, #18181bcc);
+      --text: light-dark(#18181b, #f4f4f5);
+      --muted: light-dark(#5b5b66, #a1a1aa);
+      --accent: light-dark(#0f8a3c, #1ed760);
+      --line: light-dark(#18181b1f, #ffffff1f);
+      --radius: .5rem;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      view-transition-name: none;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background:
+        radial-gradient(60rem 30rem at 10% -10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%),
+        radial-gradient(50rem 30rem at 100% 0%, light-dark(#ff6b3d22, #7c3aed2e), transparent 70%);
+      background-repeat: no-repeat;
+    }
+
+    .masthead {
+      padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem) 1.5rem;
+
+      h1 {
+        margin: 0;
+        font-size: clamp(3rem, 10vw, 7.5rem);
+        font-weight: 900;
+        line-height: .9;
+        letter-spacing: -.04em;
+      }
+
+      p {
+        margin: 1rem 0 0;
+        max-width: 60ch;
+        color: var(--muted);
+        text-wrap: pretty;
+      }
+
+      a {
+        color: inherit;
+      }
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem 2rem;
+      margin: 2rem 0 0;
+      padding: 0;
+      list-style: none;
+
+      strong {
+        display: block;
+        font-size: 1.75rem;
+        font-variant-numeric: tabular-nums;
+        color: var(--text);
+      }
+    }
+
+    .controls {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: 1rem;
+      padding: .75rem clamp(1rem, 4vw, 3rem);
+      background: var(--surface);
+      backdrop-filter: blur(1rem) saturate(1.5);
+      border-block: 1px solid var(--line);
+
+      label {
+        flex: 1 1 9rem;
+        max-width: 20rem;
+        display: grid;
+        gap: .25rem;
+        font-size: .75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: var(--muted);
+      }
+
+      output {
+        margin-inline-start: auto;
+        align-self: center;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+
+        @media (width < 40rem) {
+          position: absolute;
+          clip-path: inset(50%);
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+        }
+      }
+    }
+
+    select, input {
+      min-width: 0;
+      font: inherit;
+      font-weight: 400;
+      letter-spacing: normal;
+      text-transform: none;
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: .5rem 1rem;
+
+      &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+    }
+
+    input[type="search"] {
+      width: auto;
+    }
+
+    select,
+    ::picker(select) {
+      appearance: base-select;
+    }
+
+    select {
+      cursor: pointer;
+
+      &::picker-icon {
+        color: var(--accent);
+        transition: rotate .2s;
+      }
+
+      &:open::picker-icon {
+        rotate: 180deg;
+      }
+    }
+
+    ::picker(select) {
+      margin-block: .5rem;
+      padding: .5rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--bg);
+      box-shadow: 0 1rem 3rem #0006;
+      opacity: 0;
+      translate: 0 -.5rem;
+      transition: opacity .15s, translate .15s, overlay .15s allow-discrete, display .15s allow-discrete;
+    }
+
+    ::picker(select):popover-open {
+      opacity: 1;
+      translate: 0;
+
+      @starting-style {
+        opacity: 0;
+        translate: 0 -.5rem;
+      }
+    }
+
+    option {
+      padding: .35rem .75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: normal;
+      text-transform: none;
+      color: var(--text);
+      border-radius: .5rem;
+      cursor: pointer;
+
+      &::checkmark {
+        color: var(--accent);
+      }
+
+      &:hover, &:focus-visible {
+        background: color-mix(in oklab, var(--accent) 15%, transparent);
+        outline: none;
+      }
+    }
+
+    optgroup {
+      padding-block-start: .5rem;
+      padding-inline-start: .75rem;
+      font-size: .7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+
+      &:first-child {
+        padding-block-start: 0;
+      }
+
+      option {
+        margin-inline-start: -.75rem;
+      }
+    }
+
+    .albums {
+      --sign: -1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, clamp(9rem, 14vw, 12rem)), 1fr));
+      gap: 2rem clamp(1rem, 2vw, 1.5rem);
+      margin: 0;
+      padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
+      list-style: none;
+      /* Keep keyboard and screen reader order in sync with the visual (sorted) order. */
+      reading-flow: grid-order;
+
+      &[data-dir="asc"] { --sign: 1; }
+      &[data-sort="added"] > .album { --rank: var(--added); }
+      &[data-sort="year"] > .album { --rank: var(--year); }
+      &[data-sort="artist"] > .album { --rank: var(--artist); }
+      &[data-sort="title"] > .album { --rank: var(--title); }
+      &[data-sort="tracks"] > .album { --rank: var(--tracks); }
+
+      &[data-sort="year"] .year,
+      &[data-sort="artist"] .artist,
+      &[data-sort="tracks"] .tracks,
+      &[data-sort="added"] .added {
+        color: var(--accent);
+      }
+
+      &:not([data-sort="added"]) .added,
+      &:not([data-sort="tracks"]) .tracks {
+        display: none;
+      }
+    }
+
+    .decade {
+      display: none;
+      grid-column: 1 / -1;
+      order: var(--asc-order);
+
+      .albums[data-sort="year"] > & {
+        display: block;
+      }
+
+      .albums[data-dir="desc"] > & {
+        order: var(--desc-order);
+      }
+
+      .albums[data-sort="year"] > &[hidden] {
+        display: none;
+      }
+
+      h2 {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+        margin: 1.5rem 0 -.5rem;
+        padding-block-end: .5rem;
+        border-block-end: 1px solid var(--line);
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -.04em;
+        color: transparent;
+        -webkit-text-stroke: 1.5px var(--text);
+      }
+
+      span {
+        font-size: .875rem;
+        font-weight: 400;
+        letter-spacing: normal;
+        color: var(--muted);
+        -webkit-text-stroke: 0;
+        font-variant-numeric: tabular-nums;
+      }
+    }
+
+    .album {
+      order: calc(var(--rank) * var(--sign) * 2);
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+      min-width: 0;
+      content-visibility: auto;
+      contain-intrinsic-block-size: auto 18rem;
+      view-transition-class: album;
+
+      &[hidden] {
+        display: none;
+      }
+
+      &.vt {
+        view-transition-name: match-element;
+      }
+
+      a {
+        display: flex;
+        flex-direction: column;
+        gap: .2rem;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .cover {
+        position: relative;
+        display: block;
+        margin-block-end: .6rem;
+        transition: translate .25s, scale .25s;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        border-radius: var(--radius);
+        background: var(--cover, linear-gradient(135deg, var(--line), transparent));
+        box-shadow: 0 .25rem .75rem #0003, 0 0 0 1px var(--line);
+        transition: box-shadow .25s;
+      }
+
+      a:hover .cover,
+      a:focus-visible .cover {
+        translate: 0 -.25rem;
+        scale: 1.02;
+      }
+
+      a:hover img,
+      a:focus-visible img {
+        box-shadow: 0 1rem 2rem color-mix(in oklab, var(--cover, #000) 60%, #0000), 0 0 0 2px var(--accent);
+      }
+
+      .badges {
+        position: absolute;
+        inset: auto auto .5rem .5rem;
+        display: flex;
+        align-items: center;
+        gap: .35rem;
+        padding: .2rem .55rem;
+        border-radius: 999px;
+        font-size: .7rem;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        color: #fff;
+        background: #000b;
+        backdrop-filter: blur(.5rem);
+        box-shadow: 0 0 0 1px #fff2;
+
+        b {
+          color: #1ed760;
+          text-transform: uppercase;
+          letter-spacing: .08em;
+        }
+
+        span + span::before {
+          content: "·";
+          margin-inline-end: .35rem;
+          opacity: .6;
+        }
+      }
+
+      a:focus-visible {
+        outline: none;
+      }
+
+      .name {
+        font-weight: 700;
+        line-height: 1.25;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        text-wrap: balance;
+      }
+
+      a:hover .name {
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-underline-offset: .2em;
+      }
+
+      p {
+        margin: 0;
+        font-size: .875rem;
+        color: var(--muted);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .meta {
+        display: flex;
+        gap: .5rem;
+        font-variant-numeric: tabular-nums;
+
+        span + span::before {
+          content: "·";
+          margin-inline-end: .5rem;
+          color: var(--muted);
+        }
+      }
+    }
+
+    .empty {
+      padding: 0 clamp(1rem, 4vw, 3rem) 4rem;
+      font-size: 1.25rem;
+      color: var(--muted);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes reveal {
+        from { opacity: 0; scale: .9; }
+      }
+
+      .album .cover {
+        animation: reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 80%;
+      }
+
+      ::view-transition-group(.album) {
+        animation-duration: .5s;
+        animation-timing-function: cubic-bezier(.2, .8, .2, 1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <h1>Albums</h1>
+    <p>Every album saved in my <a href="https://open.spotify.com/">Spotify</a> library. A GitHub action backs them up every week, and this page is built from that backup. Last updated <time datetime="{{ albums.updated }}">{{ albums.updated | formattedDateTime }}</time>.</p>
+    <ul class="stats">
+      <li><strong>{{ albums.total }}</strong> albums</li>
+      <li><strong>{{ albums.artists }}</strong> artists</li>
+      <li><strong>{{ albums.firstYear }}–{{ albums.lastYear }}</strong> released</li>
+    </ul>
+  </header>
+
+  <search class="controls">
+    <label>
+      Sort by
+      <select id="sort" name="sort">
+        <button><selectedcontent></selectedcontent></button>
+        <optgroup label="Library">
+          <option value="added-desc" selected>Recently added</option>
+          <option value="added-asc">First added</option>
+        </optgroup>
+        <optgroup label="Release">
+          <option value="year-desc">Newest releases</option>
+          <option value="year-asc">Oldest releases</option>
+        </optgroup>
+        <optgroup label="Name">
+          <option value="artist-asc">Artist, A to Z</option>
+          <option value="artist-desc">Artist, Z to A</option>
+          <option value="title-asc">Album, A to Z</option>
+          <option value="title-desc">Album, Z to A</option>
+        </optgroup>
+        <optgroup label="Length">
+          <option value="tracks-desc">Most tracks</option>
+          <option value="tracks-asc">Fewest tracks</option>
+        </optgroup>
+      </select>
+    </label>
+    {%- if albums.topRanges.length %}
+    <label>
+      Top in
+      <select id="top" name="top">
+        <button><selectedcontent></selectedcontent></button>
+        <option value="" selected>All albums</option>
+        {%- for range in albums.topRanges %}
+        <option value="{{ range.id }}">Last {{ range.label }} ({{ range.count }})</option>
+        {%- endfor %}
+      </select>
+    </label>
+    {%- endif %}
+    <label>
+      Filter
+      <input type="search" id="filter" name="q" placeholder="Album, artist, year" autocomplete="off" aria-keyshortcuts="/">
+    </label>
+    <output for="filter" id="count" aria-live="polite">{{ albums.total }} albums</output>
+  </search>
+
+  <main>
+    <ul class="albums" data-sort="added" data-dir="desc">
+      {%- for album in albums.list %}
+      <li class="album" data-decade="{{ album.decade }}"{% if album.top.length %} data-top="{% for range in album.top %}{{ range.id }} {% endfor %}"{% endif %} style="--added:{{ album.ranks.added }};--year:{{ album.ranks.year }};--artist:{{ album.ranks.artist }};--title:{{ album.ranks.title }};--tracks:{{ album.ranks.tracks }}{% if album.color %};--cover:{{ album.color }}{% endif %}">
+        <a href="{{ album.url | e }}" target="_blank" rel="noopener">
+          {%- if album.image %}
+          <span class="cover">
+            <img src="{{ album.image.url | e }}"{% if album.largeImage and album.largeImage.width > album.image.width %} srcset="{{ album.image.url | e }} {{ album.image.width }}w, {{ album.largeImage.url | e }} {{ album.largeImage.width }}w" sizes="(width < 30rem) 50vw, 15rem"{% endif %} width="{{ album.image.width }}" height="{{ album.image.height }}" alt="" {% if loop.index > 12 %}loading="lazy" {% endif %}decoding="async">
+            {%- if album.top.length %}
+            <span class="badges" title="{% for range in album.top %}Last {{ range.label }}: {{ range.reason | e }}{% if not loop.last %}&#10;{% endif %}{% endfor %}"><b>Top</b>{% for range in album.top %} <span>{{ range.short }}</span>{% endfor %}</span>
+            {%- endif %}
+          </span>
+          {%- endif %}
+          <span class="name">{{ album.name | e }}</span>
+        </a>
+        <p class="artist" title="{{ album.artist | e }}">{{ album.artist | e }}</p>
+        <p class="meta"><span class="year">{{ album.year }}</span><span class="added">Added <time datetime="{{ album.added }}">{{ album.added | formattedDateTime }}</time></span><span class="tracks">{{ album.tracks }} tracks</span></p>
+      </li>
+      {%- endfor %}
+      {%- for decade in albums.decades %}
+      <li class="decade" data-decade="{{ decade.id }}" style="--asc-order:{{ decade.ascOrder }};--desc-order:{{ decade.descOrder }}">
+        <h2>{{ decade.label }} <span data-count="{{ decade.count }}">{{ decade.count }} albums</span></h2>
+      </li>
+      {%- endfor %}
+    </ul>
+    <p class="empty" id="empty" hidden>No albums match your filter.</p>
+  </main>
+
+  <script type="module">
+    const list = document.querySelector(".albums");
+    const items = [...list.querySelectorAll(".album")];
+    const decades = [...list.querySelectorAll(".decade")];
+    const sortSelect = document.getElementById("sort");
+    const filterInput = document.getElementById("filter");
+    const topSelect = document.getElementById("top");
+    const count = document.getElementById("count");
+    const empty = document.getElementById("empty");
+    const sortValues = [...sortSelect.options].map((option) => option.value);
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+    function applySort(value) {
+      const [sort, dir] = value.split("-");
+      list.dataset.sort = sort;
+      list.dataset.dir = dir;
+    }
+
+    function visibleItems() {
+      return items.filter((item) => {
+        if (item.hidden) return false;
+        const { top, bottom } = item.getBoundingClientRect();
+        return bottom > 0 && top < innerHeight;
+      });
+    }
+
+    // Only the albums that are on screen before or after sorting take part in the
+    // view transition, so it stays cheap even with hundreds of albums.
+    function sortWithTransition(value) {
+      if (!document.startViewTransition || reducedMotion.matches) {
+        applySort(value);
+        return;
+      }
+
+      const previous = `${list.dataset.sort}-${list.dataset.dir}`;
+      const before = visibleItems();
+      applySort(value);
+      const after = visibleItems();
+      applySort(previous);
+
+      const animated = new Set([...before, ...after]);
+      for (const item of animated) item.classList.add("vt");
+
+      const transition = document.startViewTransition(() => applySort(value));
+      transition.finished.finally(() => {
+        for (const item of animated) item.classList.remove("vt");
+      });
+    }
+
+    function applyFilter() {
+      const terms = filterInput.value.toLowerCase().split(/\s+/).filter(Boolean);
+      const range = topSelect?.value;
+      let shown = 0;
+      for (const item of items) {
+        const text = item.querySelector(".name").textContent + " " + item.querySelector(".artist").textContent + " " + item.querySelector(".meta").textContent;
+        const matchesText = terms.every((term) => text.toLowerCase().includes(term));
+        const matchesTop = !range || item.dataset.top?.split(" ").includes(range);
+        item.hidden = !(matchesText && matchesTop);
+        if (!item.hidden) shown++;
+      }
+      count.value = shown === items.length ? `${items.length} albums` : `${shown} of ${items.length} albums`;
+      empty.hidden = shown > 0;
+      updateDecades();
+    }
+
+    function updateDecades() {
+      for (const decade of decades) {
+        const albums = items.filter((item) => !item.hidden && item.dataset.decade === decade.dataset.decade);
+        const label = decade.querySelector("[data-count]");
+        decade.hidden = albums.length === 0;
+        label.textContent = albums.length === Number(label.dataset.count)
+          ? `${albums.length} albums`
+          : `${albums.length} of ${label.dataset.count} albums`;
+      }
+    }
+
+    function updateUrl() {
+      const params = new URLSearchParams();
+      if (sortSelect.value !== sortValues[0]) params.set("sort", sortSelect.value);
+      if (topSelect?.value) params.set("top", topSelect.value);
+      if (filterInput.value.trim()) params.set("q", filterInput.value.trim());
+      const search = params.size ? `?${params}` : "";
+      history.replaceState(null, "", `${location.pathname}${search}`);
+    }
+
+    sortSelect.addEventListener("change", () => {
+      sortWithTransition(sortSelect.value);
+      updateUrl();
+    });
+
+    filterInput.addEventListener("input", () => {
+      applyFilter();
+      updateUrl();
+    });
+
+    topSelect?.addEventListener("change", () => {
+      applyFilter();
+      updateUrl();
+    });
+
+    addEventListener("keydown", (event) => {
+      if (event.key === "/" && !event.target.closest("input, select, textarea")) {
+        event.preventDefault();
+        filterInput.focus();
+      }
+    });
+
+    // Restore the state from the URL.
+    const params = new URLSearchParams(location.search);
+    if (sortValues.includes(params.get("sort"))) {
+      sortSelect.value = params.get("sort");
+      applySort(sortSelect.value);
+    }
+    if (params.has("q")) filterInput.value = params.get("q");
+    if (topSelect && [...topSelect.options].some((option) => option.value === params.get("top"))) {
+      topSelect.value = params.get("top");
+    }
+    if (filterInput.value || topSelect?.value) applyFilter();
+  </script>
+</body>
+</html>
