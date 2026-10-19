@@ -2,11 +2,11 @@
 
 ## Overview
 
-The `spotify-backup.js` script fetches my saved albums and playlists from Spotify and stores them as JSON data in `content/data/`. It also saves my top artists and tracks over the last 4 weeks, 6 months, and year to `spotify-top.json`. This requires the `user-top-read` scope; without it, the script logs a warning and skips the top items.
+The `spotify-backup.js` script fetches my saved albums and playlists from Spotify and stores them as JSON data in `content/data/`. It also saves my top 50 artists and tracks over the last 4 weeks, 6 months, and year to `spotify-top.json`. This requires the `user-top-read` scope; without it, the script logs a warning and skips the top items.
 
 The `spotify-album-colors.js` script extracts the dominant color of each album cover and caches it in `spotify-album-colors.json`. Only new albums are processed.
 
-The albums are displayed at `/lab/spotify-albums/`. `album-wall.js` prepares them at build time (exposed as the `albums` global data in `.eleventy.js`), so a new backup shows up on the next site build. Cover colors are used as image placeholders. An album is marked as top in a time range when one of its tracks is a top track, or one of its artists is a top artist.
+The albums are displayed at `/lab/spotify-albums/`. `album-wall.js` prepares them at build time (exposed as the `albums` global data in `.eleventy.js`), so a new backup shows up on the next site build. Cover colors are used as image placeholders. An album is marked as top in a time range when one of its tracks is in my top 50 tracks, or one of its artists is in my top 10 artists.
 
 ## Usage
 

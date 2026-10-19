@@ -8,6 +8,9 @@ const BACKUP_FILE = path.join(__dirname, "content", "data", "spotify-albums.json
 const COLORS_FILE = path.join(__dirname, "content", "data", "spotify-album-colors.json");
 const TOP_FILE = path.join(__dirname, "content", "data", "spotify-top.json");
 
+const TOP_TRACKS = 50;
+const TOP_ARTISTS = 10;
+
 const TOP_RANGES = [
   { id: "weeks", key: "short_term", label: "4 weeks", short: "4 wk" },
   { id: "months", key: "medium_term", label: "6 months", short: "6 mo" },
@@ -93,7 +96,10 @@ function listAlbums() {
 
 // Why an album is in the user's top items for a time range: one of its tracks is
 // a top track, or one of its artists is a top artist. Returns null otherwise.
+// Slicing also guards against older backups that contain the full listening history.
 function topReason(album, { artists = [], tracks = [] }) {
+  tracks = tracks.slice(0, TOP_TRACKS);
+  artists = artists.slice(0, TOP_ARTISTS);
   const trackRank = tracks.findIndex((track) => track.album?.id === album.id);
   if (trackRank !== -1) return `#${trackRank + 1} top track: ${tracks[trackRank].name}`;
 

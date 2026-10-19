@@ -21,6 +21,7 @@ const TOP_FILE = path.join(__dirname, 'content', 'data', 'spotify-top.json');
 
 // Spotify's time ranges for top items: ~4 weeks, ~6 months, and ~1 year.
 const TOP_TIME_RANGES = ['short_term', 'medium_term', 'long_term'];
+const TOP_LIMIT = 50;
 
 if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
   console.error('Missing required environment variables:');
@@ -225,9 +226,11 @@ async function fetchTopItems(accessToken) {
     top[timeRange] = {};
     for (const type of ['artists', 'tracks']) {
       const items = [];
-      let url = `https://api.spotify.com/v1/me/top/${type}?time_range=${timeRange}&limit=50`;
+      // Only fetch the first page. Following `next` pages through the whole listening
+      // history (thousands of items), which isn't a "top" list anymore.
+      const url = `https://api.spotify.com/v1/me/top/${type}?time_range=${timeRange}&limit=${TOP_LIMIT}`;
 
-      while (url) {
+      {
         const response = await fetch(url, {
           headers: {
             'Authorization': `Bearer ${accessToken}`,
@@ -252,7 +255,6 @@ async function fetchTopItems(accessToken) {
             album: { id: item.album?.id, name: item.album?.name },
             artists: item.artists.map(a => ({ id: a.id, name: a.name })),
           }));
-        url = data.next;
       }
 
       top[timeRange][type] = items;
