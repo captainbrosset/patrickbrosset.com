@@ -157,6 +157,8 @@ Images, CSS, JS, and other assets in the deck folder are copied automatically. R
 
 The deck's presenter board is at `/slides/my-talk-2027/`. Link to `/slides/my-talk-2027/#printout` to share the slides and notes; it works without JavaScript and links back to the presenter board.
 
+Both the presenter board and presentation window support Left/Right and PageUp/PageDown for navigation. If a slide's demo needs arrow keys, add `usesArrowKeys: true` to that slide's front matter. This reserves arrows for the demo throughout the slide, regardless of focus; PageUp/PageDown still navigate, and the presenter board's shortcuts are unchanged.
+
 ## Deployment
 
 The site is generated as static files in the `_site` directory and can be deployed to any static hosting service.

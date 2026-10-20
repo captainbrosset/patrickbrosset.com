@@ -28,6 +28,7 @@
 
   const sequence = SEQUENCE;
   const slideIndex = sequence.indexOf(currentSlide);
+  const usesArrowKeys = document.body.hasAttribute('data-slide-uses-arrow-keys');
 
   function navigateSlide(offset) {
     const nextIndex = slideIndex + offset;
@@ -49,11 +50,13 @@
       return;
     }
 
-    // PageDown / PageUp: navigate slides.
-    if (e.key === 'PageDown' && slideIndex + 1 < sequence.length) {
+    // Demos can reserve arrows; PageDown / PageUp still navigate.
+    if ((e.key === 'PageDown' || (!usesArrowKeys && e.key === 'ArrowRight')) &&
+        slideIndex + 1 < sequence.length) {
       e.preventDefault();
       navigateSlide(1);
-    } else if (e.key === 'PageUp' && slideIndex - 1 >= 0) {
+    } else if ((e.key === 'PageUp' || (!usesArrowKeys && e.key === 'ArrowLeft')) &&
+               slideIndex - 1 >= 0) {
       e.preventDefault();
       navigateSlide(-1);
     }

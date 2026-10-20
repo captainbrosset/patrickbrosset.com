@@ -14,7 +14,7 @@
       }
     </style>
   </head>
-  <body>
+  <body{% if usesArrowKeys %} data-slide-uses-arrow-keys{% endif %}>
     {{ content | safe }}
 
     {% if notes %}
