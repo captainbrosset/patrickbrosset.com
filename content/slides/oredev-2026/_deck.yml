@@ -7,13 +7,13 @@ slides:
   - dreamweaver-rollover
   - old-fancy-box
   - spacejam
-  - spacejam-now
+  # - spacejam-now
   - tables-for-layout
   - loading-gif
   - loading-gif-now
   - frameset-slide
   - react
-  - ajax
+  # - ajax
   - blob
   - constraints
   - we-are-done
@@ -37,9 +37,9 @@ slides:
   - try
   - explorer
   - complain
-  - manuel
+  # - manuel
   - contribute
-  - interop-rankings
+  # - interop-rankings
   - just-tell-us
   - workarounds-today
   - title-attribute
