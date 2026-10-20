@@ -364,6 +364,7 @@
       // Notes are rendered at build time in the printout.
       const notes = document.querySelector('#printout li[data-slug="' + CSS.escape(slug) + '"] .printout-notes');
       notesAreaEl.innerHTML = notes ? notes.innerHTML : '<p><em>No notes for this slide.</em></p>';
+      notesAreaEl.scrollTop = 0;
     }
   </script>
 </body>
