@@ -1,7 +1,44 @@
 {
-  "created_at": "2026-10-19T08:22:42.977Z",
+  "created_at": "2026-10-19T17:53:03.626Z",
   "total_albums": 693,
   "albums": [
+    {
+      "added_at": "2015-09-10T13:49:27Z",
+      "album": {
+        "id": "4bPT6Q8ppaSNppk1kbEbLl",
+        "name": "Mellon Collie And The Infinite Sadness (Remastered)",
+        "artists": [
+          {
+            "id": "40Yq4vzPs9VNUrIBG5Jr2i",
+            "name": "The Smashing Pumpkins"
+          }
+        ],
+        "release_date": "1995-12-12",
+        "total_tracks": 28,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4bPT6Q8ppaSNppk1kbEbLl"
+        },
+        "href": "https://api.spotify.com/v1/albums/4bPT6Q8ppaSNppk1kbEbLl?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2734c42e40240028664f939f81c",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e024c42e40240028664f939f81c",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048514c42e40240028664f939f81c",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:4bPT6Q8ppaSNppk1kbEbLl"
+      }
+    },
     {
       "added_at": "2026-04-14T13:06:38Z",
       "album": {
@@ -3346,43 +3383,6 @@
           }
         ],
         "uri": "spotify:album:04V6qz4iWdATMjRUIBqldz"
-      }
-    },
-    {
-      "added_at": "2016-05-16T07:24:51Z",
-      "album": {
-        "id": "1XyEkVYVt6Q7SJHb5e8IrI",
-        "name": "Drive",
-        "artists": [
-          {
-            "id": "2OVqg3lxC8ZIf0vHcEqaCf",
-            "name": "Cliff Martinez"
-          }
-        ],
-        "release_date": "2011-10-03",
-        "total_tracks": 16,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1XyEkVYVt6Q7SJHb5e8IrI"
-        },
-        "href": "https://api.spotify.com/v1/albums/1XyEkVYVt6Q7SJHb5e8IrI?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273ae2fcf0f206ac9562e9cf031",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02ae2fcf0f206ac9562e9cf031",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851ae2fcf0f206ac9562e9cf031",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1XyEkVYVt6Q7SJHb5e8IrI"
       }
     },
     {
@@ -15076,6 +15076,43 @@
       }
     },
     {
+      "added_at": "2016-05-16T07:24:51Z",
+      "album": {
+        "id": "1XyEkVYVt6Q7SJHb5e8IrI",
+        "name": "Drive",
+        "artists": [
+          {
+            "id": "2OVqg3lxC8ZIf0vHcEqaCf",
+            "name": "Cliff Martinez"
+          }
+        ],
+        "release_date": "2011-10-03",
+        "total_tracks": 16,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1XyEkVYVt6Q7SJHb5e8IrI"
+        },
+        "href": "https://api.spotify.com/v1/albums/1XyEkVYVt6Q7SJHb5e8IrI?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273ae2fcf0f206ac9562e9cf031",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02ae2fcf0f206ac9562e9cf031",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851ae2fcf0f206ac9562e9cf031",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1XyEkVYVt6Q7SJHb5e8IrI"
+      }
+    },
+    {
       "added_at": "2016-05-10T07:15:13Z",
       "album": {
         "id": "27lj323rr5ku9aEUwanp99",
@@ -16442,43 +16479,6 @@
           }
         ],
         "uri": "spotify:album:2HFGYQ34IDyeiJPdo1CRhs"
-      }
-    },
-    {
-      "added_at": "2015-09-10T13:49:27Z",
-      "album": {
-        "id": "4bPT6Q8ppaSNppk1kbEbLl",
-        "name": "Mellon Collie And The Infinite Sadness (Remastered)",
-        "artists": [
-          {
-            "id": "40Yq4vzPs9VNUrIBG5Jr2i",
-            "name": "The Smashing Pumpkins"
-          }
-        ],
-        "release_date": "1995-12-12",
-        "total_tracks": 28,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/4bPT6Q8ppaSNppk1kbEbLl"
-        },
-        "href": "https://api.spotify.com/v1/albums/4bPT6Q8ppaSNppk1kbEbLl?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2734c42e40240028664f939f81c",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e024c42e40240028664f939f81c",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048514c42e40240028664f939f81c",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:4bPT6Q8ppaSNppk1kbEbLl"
       }
     },
     {
