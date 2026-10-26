@@ -1,7 +1,44 @@
 {
-  "created_at": "2026-10-19T17:53:03.626Z",
+  "created_at": "2026-10-26T17:47:39.956Z",
   "total_albums": 693,
   "albums": [
+    {
+      "added_at": "2015-08-25T09:11:25Z",
+      "album": {
+        "id": "0Jw2xlzASX9RDCoXD8YJfd",
+        "name": "L'innocence",
+        "artists": [
+          {
+            "id": "2d1iZa3wlO73YOM6tCeWSI",
+            "name": "Kid Wise"
+          }
+        ],
+        "release_date": "2015-03-02",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0Jw2xlzASX9RDCoXD8YJfd"
+        },
+        "href": "https://api.spotify.com/v1/albums/0Jw2xlzASX9RDCoXD8YJfd?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273af5bdd67fd92bef1f104c52d",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02af5bdd67fd92bef1f104c52d",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851af5bdd67fd92bef1f104c52d",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0Jw2xlzASX9RDCoXD8YJfd"
+      }
+    },
     {
       "added_at": "2015-09-10T13:49:27Z",
       "album": {
@@ -40,6 +77,43 @@
       }
     },
     {
+      "added_at": "2015-08-27T14:05:44Z",
+      "album": {
+        "id": "2mxcotphjj78YfMvsi3OH7",
+        "name": "Magnifique",
+        "artists": [
+          {
+            "id": "57dN52uHvrHOxijzpIgu3E",
+            "name": "Ratatat"
+          }
+        ],
+        "release_date": "2015-07-15",
+        "total_tracks": 14,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2mxcotphjj78YfMvsi3OH7"
+        },
+        "href": "https://api.spotify.com/v1/albums/2mxcotphjj78YfMvsi3OH7?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273842a6eddfd1faf2efe550b7e",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02842a6eddfd1faf2efe550b7e",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851842a6eddfd1faf2efe550b7e",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2mxcotphjj78YfMvsi3OH7"
+      }
+    },
+    {
       "added_at": "2026-04-14T13:06:38Z",
       "album": {
         "id": "3DQueEd1Ft9PHWgovDzPKh",
@@ -74,6 +148,80 @@
           }
         ],
         "uri": "spotify:album:3DQueEd1Ft9PHWgovDzPKh"
+      }
+    },
+    {
+      "added_at": "2015-09-10T09:31:26Z",
+      "album": {
+        "id": "6Mvwt8iq0W1yGYL7utALKs",
+        "name": "Stubborn Heart",
+        "artists": [
+          {
+            "id": "08JjmxMZubdna3B9U6rbuf",
+            "name": "Stubborn Heart"
+          }
+        ],
+        "release_date": "2012-11-05",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6Mvwt8iq0W1yGYL7utALKs"
+        },
+        "href": "https://api.spotify.com/v1/albums/6Mvwt8iq0W1yGYL7utALKs?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273e9882f709d1d957907311f11",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02e9882f709d1d957907311f11",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851e9882f709d1d957907311f11",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6Mvwt8iq0W1yGYL7utALKs"
+      }
+    },
+    {
+      "added_at": "2026-05-04T13:38:28Z",
+      "album": {
+        "id": "34b2JCGkaXuPeYZk1FB4SR",
+        "name": "MOVIE",
+        "artists": [
+          {
+            "id": "4RB2EEsmLhQTOSVQQpDzNg",
+            "name": "Sofiane Pamart"
+          }
+        ],
+        "release_date": "2026-04-17",
+        "total_tracks": 20,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/34b2JCGkaXuPeYZk1FB4SR"
+        },
+        "href": "https://api.spotify.com/v1/albums/34b2JCGkaXuPeYZk1FB4SR?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2738c3354f98ab271c8b14b62e4",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e028c3354f98ab271c8b14b62e4",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048518c3354f98ab271c8b14b62e4",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:34b2JCGkaXuPeYZk1FB4SR"
       }
     },
     {
@@ -3053,339 +3201,6 @@
       }
     },
     {
-      "added_at": "2015-11-26T09:20:23Z",
-      "album": {
-        "id": "6b7DeWxueaZY0NNReD6TrK",
-        "name": "Home Again (Deluxe Version)",
-        "artists": [
-          {
-            "id": "0bzfPKdbXL5ezYW2z3UGQj",
-            "name": "Michael Kiwanuka"
-          }
-        ],
-        "release_date": "2012-01-01",
-        "total_tracks": 15,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6b7DeWxueaZY0NNReD6TrK"
-        },
-        "href": "https://api.spotify.com/v1/albums/6b7DeWxueaZY0NNReD6TrK?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273cf3cd9588ec89ab911b70780",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02cf3cd9588ec89ab911b70780",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851cf3cd9588ec89ab911b70780",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6b7DeWxueaZY0NNReD6TrK"
-      }
-    },
-    {
-      "added_at": "2015-12-21T11:00:02Z",
-      "album": {
-        "id": "3X62Y9ex6Rlx2DJnVAaX6E",
-        "name": "Akö",
-        "artists": [
-          {
-            "id": "0QnqZZKkxzvl9bnSJnoV8E",
-            "name": "Blick Bassy"
-          }
-        ],
-        "release_date": "2015-04-06",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3X62Y9ex6Rlx2DJnVAaX6E"
-        },
-        "href": "https://api.spotify.com/v1/albums/3X62Y9ex6Rlx2DJnVAaX6E?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273cd04ece04e726c229b72c9f3",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02cd04ece04e726c229b72c9f3",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851cd04ece04e726c229b72c9f3",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3X62Y9ex6Rlx2DJnVAaX6E"
-      }
-    },
-    {
-      "added_at": "2019-08-21T13:07:34Z",
-      "album": {
-        "id": "5hjlzVCJCePW4DmMJVryla",
-        "name": "Put Your Back N 2 It",
-        "artists": [
-          {
-            "id": "2ueoLVCXQ948OfhVvAy3Nn",
-            "name": "Perfume Genius"
-          }
-        ],
-        "release_date": "2012-02-20",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/5hjlzVCJCePW4DmMJVryla"
-        },
-        "href": "https://api.spotify.com/v1/albums/5hjlzVCJCePW4DmMJVryla?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273ffad89c951153e190298d8c8",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02ffad89c951153e190298d8c8",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851ffad89c951153e190298d8c8",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:5hjlzVCJCePW4DmMJVryla"
-      }
-    },
-    {
-      "added_at": "2014-04-21T16:13:20Z",
-      "album": {
-        "id": "4pefQ21iSk8hdnxw3WSB5Y",
-        "name": "It's Album Time",
-        "artists": [
-          {
-            "id": "49gaZqfow2v8EEQmjGyEIw",
-            "name": "Todd Terje"
-          }
-        ],
-        "release_date": "2014-04-07",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/4pefQ21iSk8hdnxw3WSB5Y"
-        },
-        "href": "https://api.spotify.com/v1/albums/4pefQ21iSk8hdnxw3WSB5Y?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273e92e2ccb32e1b3e58766bd93",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02e92e2ccb32e1b3e58766bd93",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851e92e2ccb32e1b3e58766bd93",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:4pefQ21iSk8hdnxw3WSB5Y"
-      }
-    },
-    {
-      "added_at": "2024-09-24T13:23:33Z",
-      "album": {
-        "id": "3XG5dH7LcDZlkOWmtvLzXB",
-        "name": "15 Again (Deluxe Edition)",
-        "artists": [
-          {
-            "id": "4sf3QZW8a3xZ14IGsOAzoy",
-            "name": "Cassius"
-          }
-        ],
-        "release_date": "2006",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3XG5dH7LcDZlkOWmtvLzXB"
-        },
-        "href": "https://api.spotify.com/v1/albums/3XG5dH7LcDZlkOWmtvLzXB?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27324ee286d8ebcaf83d4b899ab",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0224ee286d8ebcaf83d4b899ab",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485124ee286d8ebcaf83d4b899ab",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3XG5dH7LcDZlkOWmtvLzXB"
-      }
-    },
-    {
-      "added_at": "2026-04-14T08:20:15Z",
-      "album": {
-        "id": "6o86bV7TAt5x4exc2qLDqC",
-        "name": "Actual Life (April 14 - December 17 2020)",
-        "artists": [
-          {
-            "id": "4oLeXFyACqeem2VImYeBFe",
-            "name": "Fred again.."
-          }
-        ],
-        "release_date": "2021-04-15",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6o86bV7TAt5x4exc2qLDqC"
-        },
-        "href": "https://api.spotify.com/v1/albums/6o86bV7TAt5x4exc2qLDqC?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273723d4df900fd02eff83579d9",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02723d4df900fd02eff83579d9",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851723d4df900fd02eff83579d9",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6o86bV7TAt5x4exc2qLDqC"
-      }
-    },
-    {
-      "added_at": "2016-02-03T22:51:27Z",
-      "album": {
-        "id": "6KHhT15M6l7cgaPZamEpM3",
-        "name": "Ritual Spirit",
-        "artists": [
-          {
-            "id": "6FXMGgJwohJLUSr5nVlf9X",
-            "name": "Massive Attack"
-          }
-        ],
-        "release_date": "2016-01-28",
-        "total_tracks": 4,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6KHhT15M6l7cgaPZamEpM3"
-        },
-        "href": "https://api.spotify.com/v1/albums/6KHhT15M6l7cgaPZamEpM3?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2737b228c3bc7a8cc5621445b86",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e027b228c3bc7a8cc5621445b86",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048517b228c3bc7a8cc5621445b86",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6KHhT15M6l7cgaPZamEpM3"
-      }
-    },
-    {
-      "added_at": "2016-02-24T08:25:59Z",
-      "album": {
-        "id": "6JLS96rMyyFzQTlpNuRV51",
-        "name": "All I Need",
-        "artists": [
-          {
-            "id": "2OIJq28O1lXrZ2x3NGSk8P",
-            "name": "Pablo Nouvelle"
-          }
-        ],
-        "release_date": "2016-01-29",
-        "total_tracks": 15,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6JLS96rMyyFzQTlpNuRV51"
-        },
-        "href": "https://api.spotify.com/v1/albums/6JLS96rMyyFzQTlpNuRV51?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273b11b6e10126b848de6fac1b7",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02b11b6e10126b848de6fac1b7",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851b11b6e10126b848de6fac1b7",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6JLS96rMyyFzQTlpNuRV51"
-      }
-    },
-    {
-      "added_at": "2016-04-26T12:11:16Z",
-      "album": {
-        "id": "04V6qz4iWdATMjRUIBqldz",
-        "name": "Creatures",
-        "artists": [
-          {
-            "id": "3Dw9w3jnmr58ocgxiwITcq",
-            "name": "Rone"
-          }
-        ],
-        "release_date": "2015-02-09",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/04V6qz4iWdATMjRUIBqldz"
-        },
-        "href": "https://api.spotify.com/v1/albums/04V6qz4iWdATMjRUIBqldz?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273399a3384c4e1e391f4e8ce75",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02399a3384c4e1e391f4e8ce75",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851399a3384c4e1e391f4e8ce75",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:04V6qz4iWdATMjRUIBqldz"
-      }
-    },
-    {
       "added_at": "2026-06-13T16:12:17Z",
       "album": {
         "id": "3DwFd9rWKeSNKhYeBgRfbD",
@@ -3423,40 +3238,40 @@
       }
     },
     {
-      "added_at": "2026-05-04T13:38:28Z",
+      "added_at": "2026-04-14T08:20:15Z",
       "album": {
-        "id": "34b2JCGkaXuPeYZk1FB4SR",
-        "name": "MOVIE",
+        "id": "6o86bV7TAt5x4exc2qLDqC",
+        "name": "Actual Life (April 14 - December 17 2020)",
         "artists": [
           {
-            "id": "4RB2EEsmLhQTOSVQQpDzNg",
-            "name": "Sofiane Pamart"
+            "id": "4oLeXFyACqeem2VImYeBFe",
+            "name": "Fred again.."
           }
         ],
-        "release_date": "2026-04-17",
-        "total_tracks": 20,
+        "release_date": "2021-04-15",
+        "total_tracks": 17,
         "external_urls": {
-          "spotify": "https://open.spotify.com/album/34b2JCGkaXuPeYZk1FB4SR"
+          "spotify": "https://open.spotify.com/album/6o86bV7TAt5x4exc2qLDqC"
         },
-        "href": "https://api.spotify.com/v1/albums/34b2JCGkaXuPeYZk1FB4SR?locale=*",
+        "href": "https://api.spotify.com/v1/albums/6o86bV7TAt5x4exc2qLDqC?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b2738c3354f98ab271c8b14b62e4",
+            "url": "https://i.scdn.co/image/ab67616d0000b273723d4df900fd02eff83579d9",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e028c3354f98ab271c8b14b62e4",
+            "url": "https://i.scdn.co/image/ab67616d00001e02723d4df900fd02eff83579d9",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d000048518c3354f98ab271c8b14b62e4",
+            "url": "https://i.scdn.co/image/ab67616d00004851723d4df900fd02eff83579d9",
             "height": 64,
             "width": 64
           }
         ],
-        "uri": "spotify:album:34b2JCGkaXuPeYZk1FB4SR"
+        "uri": "spotify:album:6o86bV7TAt5x4exc2qLDqC"
       }
     },
     {
@@ -4345,6 +4160,43 @@
           }
         ],
         "uri": "spotify:album:6ooBxhsOVedpX4zPTCyL86"
+      }
+    },
+    {
+      "added_at": "2024-09-24T13:23:33Z",
+      "album": {
+        "id": "3XG5dH7LcDZlkOWmtvLzXB",
+        "name": "15 Again (Deluxe Edition)",
+        "artists": [
+          {
+            "id": "4sf3QZW8a3xZ14IGsOAzoy",
+            "name": "Cassius"
+          }
+        ],
+        "release_date": "2006",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3XG5dH7LcDZlkOWmtvLzXB"
+        },
+        "href": "https://api.spotify.com/v1/albums/3XG5dH7LcDZlkOWmtvLzXB?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27324ee286d8ebcaf83d4b899ab",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0224ee286d8ebcaf83d4b899ab",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485124ee286d8ebcaf83d4b899ab",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3XG5dH7LcDZlkOWmtvLzXB"
       }
     },
     {
@@ -8931,6 +8783,43 @@
       }
     },
     {
+      "added_at": "2019-08-21T13:07:34Z",
+      "album": {
+        "id": "5hjlzVCJCePW4DmMJVryla",
+        "name": "Put Your Back N 2 It",
+        "artists": [
+          {
+            "id": "2ueoLVCXQ948OfhVvAy3Nn",
+            "name": "Perfume Genius"
+          }
+        ],
+        "release_date": "2012-02-20",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/5hjlzVCJCePW4DmMJVryla"
+        },
+        "href": "https://api.spotify.com/v1/albums/5hjlzVCJCePW4DmMJVryla?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273ffad89c951153e190298d8c8",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02ffad89c951153e190298d8c8",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851ffad89c951153e190298d8c8",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:5hjlzVCJCePW4DmMJVryla"
+      }
+    },
+    {
       "added_at": "2019-08-20T11:49:16Z",
       "album": {
         "id": "3v0307hcXI9bJ02G4jfkml",
@@ -12562,7 +12451,7 @@
             "name": "Faith No More"
           }
         ],
-        "release_date": "1992",
+        "release_date": "2015-03-02",
         "total_tracks": 31,
         "external_urls": {
           "spotify": "https://open.spotify.com/album/4cg5GrTMewtbntkO84uE2k"
@@ -12570,17 +12459,17 @@
         "href": "https://api.spotify.com/v1/albums/4cg5GrTMewtbntkO84uE2k?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b27336842671366bfeb3d7c5f19e",
+            "url": "https://i.scdn.co/image/ab67616d0000b2735df1869ebf2a17d84da509f2",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e0236842671366bfeb3d7c5f19e",
+            "url": "https://i.scdn.co/image/ab67616d00001e025df1869ebf2a17d84da509f2",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d0000485136842671366bfeb3d7c5f19e",
+            "url": "https://i.scdn.co/image/ab67616d000048515df1869ebf2a17d84da509f2",
             "height": 64,
             "width": 64
           }
@@ -15187,6 +15076,43 @@
       }
     },
     {
+      "added_at": "2016-04-26T12:11:16Z",
+      "album": {
+        "id": "04V6qz4iWdATMjRUIBqldz",
+        "name": "Creatures",
+        "artists": [
+          {
+            "id": "3Dw9w3jnmr58ocgxiwITcq",
+            "name": "Rone"
+          }
+        ],
+        "release_date": "2015-02-09",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/04V6qz4iWdATMjRUIBqldz"
+        },
+        "href": "https://api.spotify.com/v1/albums/04V6qz4iWdATMjRUIBqldz?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273399a3384c4e1e391f4e8ce75",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02399a3384c4e1e391f4e8ce75",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851399a3384c4e1e391f4e8ce75",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:04V6qz4iWdATMjRUIBqldz"
+      }
+    },
+    {
       "added_at": "2016-04-15T12:19:52Z",
       "album": {
         "id": "1LyW9F9wTXDjgGKIUNYCMM",
@@ -15483,6 +15409,43 @@
       }
     },
     {
+      "added_at": "2016-02-24T08:25:59Z",
+      "album": {
+        "id": "6JLS96rMyyFzQTlpNuRV51",
+        "name": "All I Need",
+        "artists": [
+          {
+            "id": "2OIJq28O1lXrZ2x3NGSk8P",
+            "name": "Pablo Nouvelle"
+          }
+        ],
+        "release_date": "2016-01-29",
+        "total_tracks": 15,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6JLS96rMyyFzQTlpNuRV51"
+        },
+        "href": "https://api.spotify.com/v1/albums/6JLS96rMyyFzQTlpNuRV51?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273b11b6e10126b848de6fac1b7",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02b11b6e10126b848de6fac1b7",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851b11b6e10126b848de6fac1b7",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6JLS96rMyyFzQTlpNuRV51"
+      }
+    },
+    {
       "added_at": "2016-02-22T06:47:25Z",
       "album": {
         "id": "37lWyRxkf3wQHCOlXM5WfX",
@@ -15554,6 +15517,43 @@
           }
         ],
         "uri": "spotify:album:36E5LAM5D3AKnVx8s5dyc6"
+      }
+    },
+    {
+      "added_at": "2016-02-03T22:51:27Z",
+      "album": {
+        "id": "6KHhT15M6l7cgaPZamEpM3",
+        "name": "Ritual Spirit",
+        "artists": [
+          {
+            "id": "6FXMGgJwohJLUSr5nVlf9X",
+            "name": "Massive Attack"
+          }
+        ],
+        "release_date": "2016-01-28",
+        "total_tracks": 4,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6KHhT15M6l7cgaPZamEpM3"
+        },
+        "href": "https://api.spotify.com/v1/albums/6KHhT15M6l7cgaPZamEpM3?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2737b228c3bc7a8cc5621445b86",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e027b228c3bc7a8cc5621445b86",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048517b228c3bc7a8cc5621445b86",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6KHhT15M6l7cgaPZamEpM3"
       }
     },
     {
@@ -15816,6 +15816,43 @@
       }
     },
     {
+      "added_at": "2015-12-21T11:00:02Z",
+      "album": {
+        "id": "3X62Y9ex6Rlx2DJnVAaX6E",
+        "name": "Akö",
+        "artists": [
+          {
+            "id": "0QnqZZKkxzvl9bnSJnoV8E",
+            "name": "Blick Bassy"
+          }
+        ],
+        "release_date": "2015-04-06",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3X62Y9ex6Rlx2DJnVAaX6E"
+        },
+        "href": "https://api.spotify.com/v1/albums/3X62Y9ex6Rlx2DJnVAaX6E?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273cd04ece04e726c229b72c9f3",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02cd04ece04e726c229b72c9f3",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851cd04ece04e726c229b72c9f3",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3X62Y9ex6Rlx2DJnVAaX6E"
+      }
+    },
+    {
       "added_at": "2015-12-14T11:57:06Z",
       "album": {
         "id": "2ciTCzps9J9KMwtH3NqRye",
@@ -15924,6 +15961,43 @@
           }
         ],
         "uri": "spotify:album:21jUB9RqplD6OqtsTjKBnO"
+      }
+    },
+    {
+      "added_at": "2015-11-26T09:20:23Z",
+      "album": {
+        "id": "6b7DeWxueaZY0NNReD6TrK",
+        "name": "Home Again (Deluxe Version)",
+        "artists": [
+          {
+            "id": "0bzfPKdbXL5ezYW2z3UGQj",
+            "name": "Michael Kiwanuka"
+          }
+        ],
+        "release_date": "2012-01-01",
+        "total_tracks": 15,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6b7DeWxueaZY0NNReD6TrK"
+        },
+        "href": "https://api.spotify.com/v1/albums/6b7DeWxueaZY0NNReD6TrK?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273cf3cd9588ec89ab911b70780",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02cf3cd9588ec89ab911b70780",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851cf3cd9588ec89ab911b70780",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6b7DeWxueaZY0NNReD6TrK"
       }
     },
     {
@@ -16479,117 +16553,6 @@
           }
         ],
         "uri": "spotify:album:2HFGYQ34IDyeiJPdo1CRhs"
-      }
-    },
-    {
-      "added_at": "2015-09-10T09:31:26Z",
-      "album": {
-        "id": "6Mvwt8iq0W1yGYL7utALKs",
-        "name": "Stubborn Heart",
-        "artists": [
-          {
-            "id": "08JjmxMZubdna3B9U6rbuf",
-            "name": "Stubborn Heart"
-          }
-        ],
-        "release_date": "2012-11-05",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6Mvwt8iq0W1yGYL7utALKs"
-        },
-        "href": "https://api.spotify.com/v1/albums/6Mvwt8iq0W1yGYL7utALKs?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273e9882f709d1d957907311f11",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02e9882f709d1d957907311f11",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851e9882f709d1d957907311f11",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6Mvwt8iq0W1yGYL7utALKs"
-      }
-    },
-    {
-      "added_at": "2015-08-27T14:05:44Z",
-      "album": {
-        "id": "2mxcotphjj78YfMvsi3OH7",
-        "name": "Magnifique",
-        "artists": [
-          {
-            "id": "57dN52uHvrHOxijzpIgu3E",
-            "name": "Ratatat"
-          }
-        ],
-        "release_date": "2015-07-15",
-        "total_tracks": 14,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/2mxcotphjj78YfMvsi3OH7"
-        },
-        "href": "https://api.spotify.com/v1/albums/2mxcotphjj78YfMvsi3OH7?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273842a6eddfd1faf2efe550b7e",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02842a6eddfd1faf2efe550b7e",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851842a6eddfd1faf2efe550b7e",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:2mxcotphjj78YfMvsi3OH7"
-      }
-    },
-    {
-      "added_at": "2015-08-25T09:11:25Z",
-      "album": {
-        "id": "0Jw2xlzASX9RDCoXD8YJfd",
-        "name": "L'innocence",
-        "artists": [
-          {
-            "id": "2d1iZa3wlO73YOM6tCeWSI",
-            "name": "Kid Wise"
-          }
-        ],
-        "release_date": "2015-03-02",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0Jw2xlzASX9RDCoXD8YJfd"
-        },
-        "href": "https://api.spotify.com/v1/albums/0Jw2xlzASX9RDCoXD8YJfd?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273af5bdd67fd92bef1f104c52d",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02af5bdd67fd92bef1f104c52d",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851af5bdd67fd92bef1f104c52d",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0Jw2xlzASX9RDCoXD8YJfd"
       }
     },
     {
@@ -25569,7 +25532,7 @@
             "name": "Gesaffelstein"
           }
         ],
-        "release_date": "2013-10-28",
+        "release_date": "2013-10-25",
         "total_tracks": 14,
         "external_urls": {
           "spotify": "https://open.spotify.com/album/3MiiF9utmtGnLVITgl0JP7"
@@ -25741,6 +25704,43 @@
           }
         ],
         "uri": "spotify:album:2fpcgO6HxWRz4u2dm3ECsH"
+      }
+    },
+    {
+      "added_at": "2014-04-21T16:13:20Z",
+      "album": {
+        "id": "4pefQ21iSk8hdnxw3WSB5Y",
+        "name": "It's Album Time",
+        "artists": [
+          {
+            "id": "49gaZqfow2v8EEQmjGyEIw",
+            "name": "Todd Terje"
+          }
+        ],
+        "release_date": "2014-04-07",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4pefQ21iSk8hdnxw3WSB5Y"
+        },
+        "href": "https://api.spotify.com/v1/albums/4pefQ21iSk8hdnxw3WSB5Y?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273e92e2ccb32e1b3e58766bd93",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02e92e2ccb32e1b3e58766bd93",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851e92e2ccb32e1b3e58766bd93",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:4pefQ21iSk8hdnxw3WSB5Y"
       }
     }
   ]
