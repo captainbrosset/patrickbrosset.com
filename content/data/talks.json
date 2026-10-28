@@ -1,5 +1,13 @@
 [
   {
+    "url": "/slides/2026-10-27-WebMCP-TPAC-Dev-Meetup.pdf",
+    "img": "/assets/webmcp-tpac-dev-meetup-2026.avif",
+    "alt": "The audience at the W3C developer meetup in Dublin, seated around long tables in a large room, with the stage and screen in the background.",
+    "title": "WebMCP: Stop scraping the web, start calling it (W3C TPAC developer meetup, Dublin)",
+    "date": "2026-10-27",
+    "description": "Back to WebMCP, this time for the W3C developer meetup alongside TPAC in Dublin. Fitting, since WebMCP is being standardized at the W3C. Agentic browsing today works <em>despite</em> websites, not <em>with</em> them: agents scrape the DOM, guess where to click, and break when the UI changes. In this short talk, I argue that agentic browsing should be built by web developers, and show how WebMCP lets websites expose tools, where it shines compared to server-side MCP, and how to try it in Edge today. Come <a href='https://www.w3.org/community/webmachinelearning/'>join the community group</a> and help shape it!<br><a href='/slides/2026-10-27-WebMCP-TPAC-Dev-Meetup.pdf'>Slides</a>."
+  },
+  {
     "url": "https://www.youtube.com/watch?v=Oxv4SUBjIxw",
     "img": "/assets/tpac-26-webdx-update.png",
     "alt": "Me, speaking in front of the camera, next to the title slide which reads: WebDX Community Group.",
