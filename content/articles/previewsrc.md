@@ -130,17 +130,17 @@ We don't want to change this pattern, but instead implement it in the browser so
 
 ## What's in the proposal?
 
-For now, our proposal focuses only on loading, displaying, and replacing the preview image. To achieve this, we propose to introduce a new attribute for the `<img>` element called `previewsrc`:
+Our proposal focuses on loading, displaying, and replacing the preview. To achieve this, we propose to introduce a new `preview` attribute for the `<img>` element (and for `<source>` elements inside `<picture>`):
 
 ```html
-<img previewsrc="tiny-blurry-preview.png" src="full-image.avif">
+<img preview="url(tiny-blurry-preview.png)" src="full-image.avif">
 ```
 
-With the `previewsrc` attribute, the browser would:
+The `preview` attribute accepts an image URL (wrapped in `url()`) including data-URLs, a compact representation such as `blurhash("...")`, or a plain color such as `#ccd8e0`. With it, the browser would:
 
 * Load the preview and final images, always giving priority to the final image.
 * Display the preview.
-* Replace the preview with the final image when it becomes ready.
+* Replace the preview with the final image as soon as the browser would normally display it, including progressive content, or skip the preview if the final image is ready first.
 
 This already simplifies the process of handling image previews a lot because you don't need to use or write code to load the preview, handle cases where the preview doesn't exist or fails to load before the final image is ready, and handle the image swap yourself.
 
@@ -151,11 +151,11 @@ We'd love your feedback on this initial proposal: **do you consider this a valua
 If you're using a library or framework to handle previews today, your solution might also support the following features:
 
 1. Customize the transition between the preview and the final image, for example by adding a fade effect, to make the swap look nicer.
-1. Support compact formats such as blurhash directly, without needing to write additional code.
+1. Support more compact formats such as blurhash, without needing to write additional code. The proposal accepts such values in `preview`, but the formats themselves, and how they get encoded and decoded, would be defined by separate specifications.
 
-Our initial proposal doesn't support these features. When the final image becomes ready to paint, the browser directly replaces the preview with the final image, with no customizable transition. Also, it doesn't natively support compact formats such as blurhash.
+Our initial proposal doesn't include the first one. When the final image can be displayed, the browser directly replaces the preview with the final image, with no transition. Customizable styling and transitions are being explored in separate CSS proposals. Also, the proposal doesn't define compact formats such as blurhash itself.
 
-We're currently considering them as optional enhancements that could be added in the future, but your feedback on their importance would help us prioritize them: **would you use `previewsrc` alone or would you require support for these optional enhancements (and if so, which ones) before adopting it?**
+We're currently considering them as optional enhancements that could be added in the future, but your feedback on their importance would help us prioritize them: **would you use `preview` alone or would you require support for these optional enhancements (and if so, which ones) before adopting it?**
 
 ## Let us know!
 
@@ -173,19 +173,19 @@ You might be wondering about the following questions, so let me provide some ans
 
 ### Doesn't a preview image create a second request?
 
-Sure, if you set `previewsrc` to another image URL, then an additional network request will be made, which potentially will consume bandwidth. However, consider this:
+Sure, if you set `preview` to an image URL, then an additional network request will be made, which potentially will consume bandwidth. However, consider this:
 
 - The final image loading would never be delayed by the preview.
 - The browser would always treat preview loading as "best effort".
 - The browser would assign a lower priority to preview fetches and decodes.
 - The browser would, in fact, completely skip previews when they are unlikely to be useful.
-- And you could still continue to use blurhash strings or data URLs for previews, avoiding a second network request altogether.
+- And you can use blurhash strings, colors, or data URLs for previews, avoiding a second network request altogether.
 
 It's important to keep in mind that this is _not_ a replacement for proper image optimization, and not a performance feature.
 
 ### Does this avoid abuse?
 
-It doesn't. There is actually no enforcement mechanism in the proposal for ensuring that developers use the `previewsrc` attribute responsibly.
+It doesn't. There is actually no enforcement mechanism in the proposal for ensuring that developers use the `preview` attribute responsibly.
 
 The proposal depends on developer discipline, the same discipline they apply when using existing image preview techniques.
 
@@ -205,13 +205,13 @@ But also, not all sites generate progressive image versions at all.
 
 They keep working as before.
 
-An `<img>` inside a `<picture>` element can still use the `previewsrc` attribute. The existing `<picture>`, `srcset`, and `sizes` algorithms continue selecting the final image.
+The existing `<picture>`, `srcset`, and `sizes` algorithms continue selecting the final image. The `preview` and `previewset` attributes can be set on both `<img>` and `<source>` elements. The preview comes from the element that supplied the selected image: a selected `<source>` uses its own preview and never falls back to the `<img>` one, since it may show a different crop or color scheme. `previewset` also lets you provide density-based preview candidates, such as `url(thumb.avif) 1x, url(thumb-2x.avif) 2x`.
 
 ## Why not just display the preview as a background-image of the &lt;img&gt; instead?
 
 Using CSS to paint a background-image on the `<img>` element while it loads is a common technique, as described in [How to fake Progressive WebP Images](https://shkspr.mobi/blog/2020/04/how-to-fake-progressive-webp-images/).
 
-The advantage of a browser-provided `previewsrc` attribute over this are:
-* Both the preview and final URLs are directly associated with the `<img>` element.
-* The `previewsrc` attribute would get reflected as an HTMLImageElement property.
+The advantage of a browser-provided `preview` attribute over this are:
+* Both the preview and final images are directly associated with the `<img>` element.
+* The `preview` attribute would get reflected as an HTMLImageElement property.
 * The browser would manage error handling, sizing and positioning, synchronizing updates, and best-effort scheduling
