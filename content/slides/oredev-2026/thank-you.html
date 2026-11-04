@@ -17,7 +17,7 @@ notes: |
   }
 
   h1 {
-    margin: 1vmin 0 6vmin;
+    margin: 1vmin 0 10vmin;
     font-size: clamp(3.5rem, 8vw, 9rem);
     line-height: 1;
     white-space: nowrap;
@@ -35,12 +35,12 @@ notes: |
 
   a {
     display: inline-block;
-    padding: 1.2vmin 2.2vmin;
-    border: .4vmin solid;
-    border-radius: 999px;
+    padding: 2vmin 3vmin;
+    border: .5vmin solid;
+    border-radius: 100vw;
     background: var(--color-light);
     color: inherit;
-    font-size: clamp(1rem, 1.7vw, 2rem);
+    font-size: clamp(1rem, 2vw, 3rem);
     font-weight: 700;
     text-decoration: none;
     box-shadow: .7vmin .7vmin 0 var(--color-dark);
@@ -56,17 +56,6 @@ notes: |
     outline-offset: .5vmin;
   }
 
-  img {
-    position: fixed;
-    inset-block-end: -15vh;
-    inset-inline-end: -1vw;
-    inline-size: min(82vw, 170vh);
-    block-size: auto;
-    filter: drop-shadow(0 0 2vmin #1113);
-    scale: -1 1;
-    rotate: 11deg;
-  }
-
   @media (prefers-reduced-motion: no-preference) {
     a {
       transition: translate .15s, box-shadow .15s;
@@ -75,12 +64,11 @@ notes: |
 </style>
 <main>
   <div>
-    <h1>Thank you! TODO REDO PHOTO</h1>
+    <h1>Thank you!</h1>
     <ul aria-label="Find me online">
       <li><a href="https://patrickbrosset.com">patrickbrosset.com</a></li>
       <li><a href="https://mas.to/@patrickbrosset">Mastodon: @patrickbrosset@mas.to</a></li>
       <li><a href="https://bsky.app/profile/patrickbrosset.com">Bluesky: @patrickbrosset.com</a></li>
     </ul>
   </div>
-  <img src="/slides/oredev-2026/images/me-cartoon-cut-off.png" width="1000" height="606" alt="Cartoon illustration of Patrick Brosset">
 </main>
