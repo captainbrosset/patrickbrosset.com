@@ -1,5 +1,13 @@
 [
   {
+    "url": "/slides/oredev-2026/#printout",
+    "img": "/assets/oredev-talk-banner.avif",
+    "alt": "My speaker banner for the conference, with my face and the title of the talk on it.",
+    "title": "Fun never gets old: 30 years of creative constraints on the web",
+    "date": "2026-11-05",
+    "description": "The early web was a playground. We hacked table layouts, sliced images, and spent hours on rounded corners. The tools were limited, but we made things anyway. Constraints fueled our creativity. That spirit is the web's most important legacy. In this talk, we'll trace an arc from Netscape-era hacks to modern web techniques, showing how creative abuses of technology can become the standards of the era. Along the way, we'll push today's newest features in ways they probably weren't designed for. Because it's fun and fun is how we learn, but more importantly, because that's how we make the web better together."
+  },
+  {
     "url": "/slides/2026-10-27-WebMCP-TPAC-Dev-Meetup.pdf",
     "img": "/assets/webmcp-tpac-dev-meetup-2026.avif",
     "alt": "The audience at the W3C developer meetup in Dublin, seated around long tables in a large room, with the stage and screen in the background.",
