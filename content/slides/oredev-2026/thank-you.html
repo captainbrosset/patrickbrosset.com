@@ -9,23 +9,29 @@ notes: |
     background: var(--color-yellow);
     color: var(--color-dark);
     overflow: hidden;
+    padding: 0;
   }
 
-  main > div {
-    position: relative;
-    z-index: 1;
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7vmin;
   }
 
   h1 {
-    margin: 1vmin 0 10vmin;
+    margin: 0;
     font-size: clamp(3.5rem, 8vw, 9rem);
     line-height: 1;
     white-space: nowrap;
+    padding: 0 7vmin;
+    place-self: end center;
   }
-
+  
   ul {
+    grid-column: 1;
     margin: 0;
-    padding: 0;
+    padding: 0 7vmin;
+    place-self: start center;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -61,14 +67,22 @@ notes: |
       transition: translate .15s, box-shadow .15s;
     }
   }
+
+  img {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    block-size: 100%;
+    inline-size: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 </style>
 <main>
-  <div>
-    <h1>Thank you!</h1>
-    <ul aria-label="Find me online">
-      <li><a href="https://patrickbrosset.com">patrickbrosset.com</a></li>
-      <li><a href="https://mas.to/@patrickbrosset">Mastodon: @patrickbrosset@mas.to</a></li>
-      <li><a href="https://bsky.app/profile/patrickbrosset.com">Bluesky: @patrickbrosset.com</a></li>
-    </ul>
-  </div>
+  <h1>Thank you!</h1>
+  <ul aria-label="Find me online">
+    <li><a href="https://patrickbrosset.com">patrickbrosset.com</a></li>
+    <li><a href="https://mas.to/@patrickbrosset">Mastodon: @patrickbrosset@mas.to</a></li>
+    <li><a href="https://bsky.app/profile/patrickbrosset.com">Bluesky: @patrickbrosset.com</a></li>
+  </ul>
+  <img src="/slides/oredev-2026/images/me.jpg" alt="Me, in front of the Oredev 2026 poster, with a thumb up.">
 </main>
