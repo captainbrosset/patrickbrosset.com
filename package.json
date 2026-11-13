@@ -11,7 +11,8 @@
     "dotenv": "^16.3.1",
     "eleventy-plugin-youtube-embed": "^1.13.0",
     "js-yaml": "^5.5.0",
-    "sharp": "^0.35.5"
+    "sharp": "^0.35.5",
+    "web-features": "^3.45.0"
   },
   "scripts": {
     "build": "npx @11ty/eleventy",

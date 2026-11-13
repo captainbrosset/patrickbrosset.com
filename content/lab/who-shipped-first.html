@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Who shipped first?</title>
+  <meta name="description" content="Which browser engine (Chromium, Gecko or WebKit) shipped web features first? Based on the web-features dataset.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: light-dark(#f7f7f4, #141416);
+      --surface: light-dark(#fff, #1e1e22);
+      --text: light-dark(#1b1b1f, #ececf0);
+      --muted: light-dark(#666672, #9b9ba8);
+      --border: light-dark(#dcdcd4, #35353c);
+      --chromium: #1a73e8;
+      --gecko: #ff7139;
+      --webkit: #1fa37a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 1.5rem 1rem 4rem;
+      background: var(--bg);
+      color: var(--text);
+      font: 1rem/1.5 system-ui, sans-serif;
+    }
+
+    main { max-width: 60rem; margin: 0 auto; }
+    h1 { margin: 0; font-size: 2rem; }
+    h2 { margin: 2rem 0 .5rem; font-size: 1.25rem; }
+    p { margin: .5rem 0; }
+    .muted { color: var(--muted); font-size: .9rem; }
+    a { color: inherit; }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin: 1rem 0; }
+    select, input[type=search] {
+      font: inherit; padding: .3rem .5rem; color: inherit;
+      background: var(--surface); border: 1px solid var(--border); border-radius: .4rem;
+    }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: .75rem; padding: 1rem; }
+
+    .totals { display: grid; gap: .75rem; }
+    .total { display: grid; grid-template-columns: 6rem 1fr 4rem; align-items: center; gap: .75rem; }
+    .total .bar { block-size: 1.5rem; border-radius: .3rem; inline-size: calc(var(--share) * 100%); background: var(--c); min-inline-size: 2px; }
+    .total .count { text-align: end; font-variant-numeric: tabular-nums; font-weight: 700; }
+
+    .dot { display: inline-block; inline-size: .8em; block-size: .8em; border-radius: 50%; background: var(--c); margin-inline-end: .3em; }
+    .chromium { --c: var(--chromium); }
+    .gecko { --c: var(--gecko); }
+    .webkit { --c: var(--webkit); }
+
+    .legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .9rem; margin-block-end: .5rem; }
+
+    svg { inline-size: 100%; block-size: auto; display: block; }
+    svg text { fill: var(--muted); font-size: 11px; }
+    svg .grid { stroke: var(--border); }
+    svg .line { fill: none; stroke: var(--c); stroke-width: 2.5; stroke-linejoin: round; }
+
+    table { inline-size: 100%; border-collapse: collapse; font-size: .9rem; }
+    th, td { text-align: start; padding: .35rem .5rem; border-block-end: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 600; }
+    td.first { font-weight: 700; }
+    td.date { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    td.none { color: light-dark(#c62828, #ff6b6b); font-weight: 700; background: color-mix(in srgb, currentColor 10%, transparent); }
+    td.none::before { content: "✗ "; }
+    td.win { background: color-mix(in srgb, var(--c) 18%, transparent); font-weight: 700; }
+    td.win::before { content: "★ "; }
+
+    button { font: inherit; padding: .4rem .9rem; border-radius: .4rem; border: 1px solid var(--border); background: var(--surface); color: inherit; cursor: pointer; }
+    .table-wrap { overflow-x: auto; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Who shipped first?</h1>
+  <p>For each web feature, which browser engine shipped it first: <span class="chromium"><span class="dot"></span>Chromium</span> (Chrome and Edge), <span class="gecko"><span class="dot"></span>Gecko</span> (Firefox) or <span class="webkit"><span class="dot"></span>WebKit</span> (Safari)? Desktop releases only, discouraged features excluded, using the release date of the first version that supports each feature in the <a href="https://github.com/web-platform-dx/web-features">web-features</a> dataset.</p>
+  <p class="muted">Features that any engine already supported by {{ shipped.cutoff }} are ignored ({{ shipped.skippedLegacy }} features): Safari and Firefox were around for years before Chrome existed, so crediting them with those says nothing about who innovates first. When the earliest engines shipped a feature in the same month, it's treated as a concerted launch and no engine gets credit. Data generated on {{ shipped.generated }}; {{ shipped.skippedApproximate }} features were left out because their first version is only known approximately (e.g. “≤79”).</p>
+
+  <div class="controls">
+    <label>Scope
+      <select id="min-engines">
+        <option value="1" selected>All features</option>
+        <option value="2">Features supported in at least 2 engines</option>
+        <option value="3">Only features supported in all 3 engines</option>
+      </select>
+    </label>
+  </div>
+
+  <h2>Features shipped first, by engine</h2>
+  <div class="card totals" id="totals"></div>
+
+  <h2>Cumulative first shipments over time</h2>
+  <div class="card">
+    <div class="legend">
+      <span class="chromium"><span class="dot"></span>Chromium</span>
+      <span class="gecko"><span class="dot"></span>Gecko</span>
+      <span class="webkit"><span class="dot"></span>WebKit</span>
+    </div>
+    <div id="chart"></div>
+  </div>
+
+  <h2>All features</h2>
+  <div class="controls">
+    <input type="search" id="search" placeholder="Search features" aria-label="Search features">
+    <label>First shipped by
+      <select id="filter-engine">
+        <option value="">anyone</option>
+        <option value="chromium">Chromium</option>
+        <option value="gecko">Gecko</option>
+        <option value="webkit">WebKit</option>
+        <option value="none">no one (same month)</option>
+      </select>
+    </label>
+    <span class="muted" id="list-count"></span>
+  </div>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Chromium</th><th>Gecko</th><th>WebKit</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</main>
+
+<script type="application/json" id="data">{{ shipped.features | dump | safe }}</script>
+<script>
+  const ENGINES = [
+    { id: "chromium", label: "Chromium" },
+    { id: "gecko", label: "Gecko" },
+    { id: "webkit", label: "WebKit" },
+  ];
+  const all = JSON.parse(document.getElementById("data").textContent);
+  const current = () => all.filter((f) => f.engines >= Number(document.getElementById("min-engines").value));
+
+  function renderTotals(features) {
+    const counts = Object.fromEntries(ENGINES.map((e) => [e.id, features.filter((f) => f.first.includes(e.id)).length]));
+    const max = Math.max(...Object.values(counts), 1);
+    document.getElementById("totals").innerHTML = ENGINES.map((e) => `
+      <div class="total ${e.id}">
+        <span><span class="dot"></span>${e.label}</span>
+        <div class="bar" style="--share:${counts[e.id] / max}"></div>
+        <span class="count">${counts[e.id]}</span>
+      </div>`).join("") + `<p class="muted">Out of ${features.length} features; ${features.filter((f) => !f.first.length).length} shipped in the same month by multiple engines and count for no one.</p>`;
+  }
+
+  function renderChart(features) {
+    const startYear = {{ shipped.cutoff | truncate(4, true, "") }};
+    const endYear = new Date().getFullYear();
+    const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+    const series = ENGINES.map((e) => {
+      let total = 0;
+      return {
+        ...e,
+        points: years.map((y) => (total += features.filter((f) => f.first.includes(e.id) && +f.dates[e.id].slice(0, 4) === y).length)),
+      };
+    });
+    const max = Math.max(...series.flatMap((s) => s.points), 1);
+    const W = 800, H = 320, L = 40, R = 16, T = 10, B = 28;
+    const x = (i) => L + (i / Math.max(years.length - 1, 1)) * (W - L - R);
+    const y = (v) => T + (1 - v / max) * (H - T - B);
+    const grid = [0, .25, .5, .75, 1].map((p) => {
+      const v = Math.round(max * p);
+      return `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+    }).join("");
+    const labels = years.map((yr, i) => (yr % 2 === 0 ? `<text x="${x(i)}" y="${H - 8}" text-anchor="middle">${yr}</text>` : "")).join("");
+    const lines = series.map((s) => `<g class="${s.id}"><polyline class="line" points="${s.points.map((v, i) => `${x(i)},${y(v)}`).join(" ")}"/></g>`).join("");
+    document.getElementById("chart").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Cumulative number of features first shipped by each engine, by year">${grid}${labels}${lines}</svg>`;
+  }
+
+  function renderList(features) {
+    const query = document.getElementById("search").value.trim().toLowerCase();
+    const engine = document.getElementById("filter-engine").value;
+    const rows = features
+      .filter((f) => (!engine || (engine === "none" ? !f.first.length : f.first.includes(engine))) && (!query || f.name.toLowerCase().includes(query) || f.id.includes(query)))
+      .sort((a, b) => Math.min(...Object.values(b.dates).map(Date.parse)) - Math.min(...Object.values(a.dates).map(Date.parse)));
+    document.getElementById("list-count").textContent = `${rows.length} features`;
+    document.getElementById("rows").innerHTML = rows.map((f) => `
+      <tr>
+        <td><a href="https://web-platform-dx.github.io/web-features-explorer/features/${encodeURIComponent(f.id)}/">${f.name.replace(/</g, "&lt;")}</a></td>
+        ${ENGINES.map((e) => f.dates[e.id]
+          ? `<td class="date ${e.id} ${f.first.includes(e.id) ? "win" : ""}">${f.dates[e.id]}</td>`
+          : `<td class="none">not yet</td>`).join("")}
+      </tr>`).join("");
+  }
+
+  function render() {
+    const features = current();
+    renderTotals(features);
+    renderChart(features);
+    renderList(features);
+  }
+
+  document.getElementById("min-engines").addEventListener("change", render);
+  document.getElementById("search").addEventListener("input", () => renderList(current()));
+  document.getElementById("filter-engine").addEventListener("change", () => renderList(current()));
+  render();
+</script>
+</body>
+</html>

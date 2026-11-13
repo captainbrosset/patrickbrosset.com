@@ -5,6 +5,7 @@ const pluginRss = require("@11ty/eleventy-plugin-rss");
 const path = require("path");
 const { listDecks } = require("./slide-decks.js");
 const { listAlbums } = require("./album-wall.js");
+const { listWhoShippedFirst } = require("./who-shipped-first.js");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("content/assets");
@@ -30,8 +31,11 @@ module.exports = function (eleventyConfig) {
   // Spotify albums, with precomputed sort ranks, for the /lab/spotify-albums/ page.
   eleventyConfig.addGlobalData("albums", listAlbums);
 
-  // The albums page is a template; a raw copy would shadow /lab/spotify-albums (no trailing slash).
-  eleventyConfig.addPassthroughCopy("content/lab/**/!(spotify-albums.html)");
+  // Which engine shipped each web feature first, for the /lab/who-shipped-first/ page.
+  eleventyConfig.addGlobalData("shipped", listWhoShippedFirst);
+
+  // These pages are templates; a raw copy would shadow them (no trailing slash).
+  eleventyConfig.addPassthroughCopy("content/lab/**/!(spotify-albums|who-shipped-first).html");
   eleventyConfig.addPassthroughCopy(
     "content/lab/notification-lab-manifest.json"
   );

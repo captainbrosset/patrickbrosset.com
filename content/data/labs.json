@@ -1,5 +1,25 @@
 [
   {
+    "url": "alpha-shared-transparency",
+    "img": "/assets/alpha-os.avif",
+    "alt": "A fake operating system display showing 2 windows and 3 notification messages. A range input controls how transparent the windows and messages are. The borders, shadows and background colors all adapt to this global transparency value.",
+    "title": "One transparency value to rule them all, with CSS <code>alpha()</code>",
+    "description": "The CSS <code>alpha()</code> function is now Baseline Newly available, so all 3 major browser engines support it, e.g. <code>alpha(from red / 0.5)</code>. This fake OS uses it to drive a bunch of borders, backgrounds, and shadows that all react to the same transparency value in different ways.",
+    "date": "2026-11-13"
+  },
+  {
+    "url": "who-shipped-first",
+    "title": "Who shipped first?",
+    "description": "Which browser engine, Chromium, Gecko or WebKit, shipped web features first? Totals, trend over time, and a feature list, built from the <a href='https://github.com/web-platform-dx/web-features'>web-features</a> dataset.",
+    "date": "2026-11-10"
+  },
+  {
+    "url": "spotify-albums",
+    "title": "My Spotify albums",
+    "description": "A wall of the albums saved in my Spotify library, sortable by date added, release year, artist, title, and length. Built from a weekly backup, sorted with CSS <code>order</code> and <code>reading-flow</code>, and animated with view transitions.",
+    "date": "2026-10-19"
+  },
+  {
     "url": "grid-lanes-dashboard",
     "img": "/assets/grid-lanes-dashboard.webp",
     "alt": "A dashboard UI, for illustration purposes only. It contains about 10 different boxes, some with graphs, others with numbers, or tables, etc. They're all of different widths and heights, but the resulting layout is still a regular rectangle, with boxes filling all of the empty space.",

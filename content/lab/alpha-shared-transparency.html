@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shared transparency value and the alpha() CSS function</title>
+<style>
+  :root {
+    --transparency: 0;
+    --opacity: max(0.4, calc(1 - var(--transparency)));
+    --brand: oklch(60% 0.25 300);
+    --brand-dark: oklch(35% 0.15 300);
+    --accent: oklch(75% 0.2 60);
+    --accent-dark: oklch(40% 0.1 60);
+    --surface: oklch(25% 0.03 280);
+    --scroll: oklch(70% 0.2 160);
+    --ink: oklch(95% 0 0);
+    color-scheme: dark;
+    font-family: system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    min-block-size: 100vh;
+    display: grid;
+    place-content: center;
+    gap: 2rem;
+    color: var(--ink);
+    background: url(/assets/sunset.jpg) center / cover fixed;
+  }
+
+  .controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  /* Every color below is derived from --opacity: one number controls them all. */
+  .desktop {
+    position: relative;
+    inline-size: min(90vw, 70rem);
+    block-size: 70vh;
+  }
+
+  .window {
+    position: absolute;
+    inline-size: 60%;
+    block-size: 60%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--brand);
+    border-radius: 0.5rem;
+    corner-shape: squircle;
+    background: alpha(from var(--surface) / var(--opacity));
+    box-shadow:
+      0 0.5rem 1.5rem alpha(from black / calc(var(--opacity) * 0.6)),
+      0 0 calc(0.5rem + var(--transparency) * 2rem) alpha(from var(--brand) / calc(var(--transparency) * 0.8));
+    backdrop-filter: blur(10px);
+  }
+
+  .files {
+    inset: 0 auto auto 0;
+  }
+
+  /* The focused window keeps solid text; background windows fade it too. */
+  .window {
+    --text-alpha: var(--opacity);
+    color: alpha(from var(--ink) / var(--text-alpha));
+  }
+
+  .window:last-child {
+    --text-alpha: 1;
+  }
+
+  .terminal {
+    inset: auto 0 0 auto;
+  }
+
+  .titlebar {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    padding: 0.4rem 0.6rem;
+    border-bottom: 2px solid alpha(from var(--brand) / var(--opacity));
+    background: alpha(from var(--brand-dark) / var(--opacity));
+  }
+
+  .titlebar i {
+    inline-size: 0.8rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: alpha(from var(--accent) / var(--text-alpha));
+  }
+
+  .titlebar span {
+    margin-inline-start: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .folders {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    align-content: start;
+    gap: 1rem;
+    padding: 1rem;
+    min-block-size: 0;
+    overflow: auto;
+    scrollbar-color: alpha(from var(--scroll) / var(--opacity)) alpha(from var(--surface) / var(--opacity));
+  }
+
+  .folder {
+    display: grid;
+    gap: 0.5rem;
+    justify-items: center;
+    padding: 0.75rem;
+    border: 2px solid alpha(from var(--accent) / var(--opacity));
+    background: alpha(from var(--accent-dark) / var(--opacity));
+  }
+
+  .folder::before {
+    content: "";
+    inline-size: 3.5rem;
+    block-size: 2.5rem;
+    border-radius: 0.3rem;
+    background: alpha(from var(--accent) / var(--opacity));
+  }
+
+  .toasts {
+    position: fixed;
+    inset: 1rem 1rem auto auto;
+    display: grid;
+    gap: 0.75rem;
+    inline-size: 18rem;
+  }
+
+  /* Each toast is fainter than the previous one, on top of the shared opacity. */
+  .toast {
+    --toast-opacity: calc(var(--opacity) * (1 - (sibling-index() - 1) * 0.2));
+    padding: 0.75rem 1rem;
+    border: 2px solid alpha(from var(--accent) / var(--toast-opacity));
+    border-inline-start-width: 0.5rem;
+    border-radius: 0.5rem;
+    background: alpha(from var(--surface) / var(--toast-opacity));
+    box-shadow: 0 0.25rem 1rem alpha(from black / calc(var(--toast-opacity) * 0.6));
+    backdrop-filter: blur(10px);
+    font-size: 0.9rem;
+  }
+
+  .toast b {
+    display: block;
+    color: var(--accent);
+  }
+
+  .terminal pre {
+    margin: 0;
+    flex: 1;
+    min-block-size: 0;
+    overflow: auto;
+    scrollbar-color: alpha(from var(--scroll) / var(--opacity)) alpha(from black / var(--opacity));
+    padding: 1rem;
+    font-size: 1rem;
+    background: alpha(from black / var(--opacity));
+  }
+
+  .prompt { color: alpha(from oklch(80% 0.2 145) / var(--text-alpha)); }
+  .dir { color: alpha(from oklch(75% 0.15 250) / var(--text-alpha)); font-weight: bold; }
+  .exec { color: alpha(from oklch(80% 0.2 145) / var(--text-alpha)); }
+  .link { color: alpha(from oklch(80% 0.12 200) / var(--text-alpha)); }
+  .perm { color: alpha(from oklch(80% 0.15 90) / var(--text-alpha)); }
+  .date { color: alpha(from oklch(75% 0.15 320) / var(--text-alpha)); }
+  .dim { color: alpha(from oklch(70% 0 0) / var(--text-alpha)); }
+  .cursor { animation: blink 1s steps(1) infinite; }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+</style>
+
+<label class="controls">
+  Transparency
+  <input type="range" min="0" max="1" step="0.01" value="0"
+    oninput="document.documentElement.style.setProperty('--transparency', this.value)">
+</label>
+
+<div class="desktop">
+  <div class="window files">
+    <div class="titlebar"><i></i><i></i><i></i><span>Files</span></div>
+    <div class="folders">
+      <div class="folder">Documents</div>
+      <div class="folder">Pictures</div>
+      <div class="folder">Music</div>
+      <div class="folder">Projects</div>
+      <div class="folder">Downloads</div>
+      <div class="folder">Trash</div>
+    </div>
+  </div>
+
+  <div class="window terminal">
+    <div class="titlebar"><i></i><i></i><i></i><span>Terminal</span></div>
+<pre><span class="prompt">me@lab</span>:<span class="dir">~/alpha</span>$ ls -al
+<span class="dim">total 40</span>
+<span class="perm">drwxr-xr-x</span>  6 me  staff   192 <span class="date">Nov 13 16:27</span> <span class="dir">.</span>
+<span class="perm">drwxr-xr-x</span>  3 me  staff    96 <span class="date">Nov 13 09:00</span> <span class="dir">..</span>
+<span class="perm">-rw-r--r--</span>  1 me  staff   812 <span class="date">Nov 13 16:20</span> alpha.css
+<span class="perm">-rwxr-xr-x</span>  1 me  staff  2048 <span class="date">Nov 12 18:02</span> <span class="exec">build.sh</span>
+<span class="perm">drwxr-xr-x</span>  4 me  staff   128 <span class="date">Nov 10 11:45</span> <span class="dir">lab</span>
+<span class="perm">-rw-r--r--</span>  1 me  staff  4096 <span class="date">Nov  9 08:31</span> notes.txt
+<span class="perm">lrwxr-xr-x</span>  1 me  staff    11 <span class="date">Nov  8 14:03</span> <span class="link">latest</span> -> <span class="dir">lab</span>
+<span class="prompt">me@lab</span>:<span class="dir">~/alpha</span>$ <span class="cursor">_</span></pre>
+  </div>
+</div>
+
+<div class="toasts">
+  <div class="toast"><b>Build finished</b>build.sh completed in 2.4s</div>
+  <div class="toast"><b>New message</b>Your sunset wallpaper is ready</div>
+  <div class="toast"><b>Update available</b>alpha() is now Baseline</div>
+</div>
+
+<script>
+  // Clicking a window moves it to the end of the desktop, which puts it on top.
+  const desktop = document.querySelector(".desktop");
+  desktop.addEventListener("pointerdown", e => {
+    const win = e.target.closest(".window");
+    if (win && win !== desktop.lastElementChild) {
+      desktop.append(win);
+    }
+  });
+</script>
