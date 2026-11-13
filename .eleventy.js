@@ -35,7 +35,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData("shipped", listWhoShippedFirst);
 
   // These pages are templates; a raw copy would shadow them (no trailing slash).
-  eleventyConfig.addPassthroughCopy("content/lab/**/!(spotify-albums|who-shipped-first).html");
+  eleventyConfig.addPassthroughCopy("content/lab/**/!(spotify-albums|who-shipped-first).*");
   eleventyConfig.addPassthroughCopy(
     "content/lab/notification-lab-manifest.json"
   );

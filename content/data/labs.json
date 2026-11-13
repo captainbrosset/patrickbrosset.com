@@ -9,14 +9,18 @@
   },
   {
     "url": "who-shipped-first",
+    "img": "/assets/who-shipped-first.avif",
+    "alt": "A chart and a list of web features showing which browser engine, Chromium, Gecko or WebKit, shipped them first.",
     "title": "Who shipped first?",
     "description": "Which browser engine, Chromium, Gecko or WebKit, shipped web features first? Totals, trend over time, and a feature list, built from the <a href='https://github.com/web-platform-dx/web-features'>web-features</a> dataset.",
     "date": "2026-11-10"
   },
   {
     "url": "spotify-albums",
+    "img": "/assets/albums.avif",
+    "alt": "A wall of album covers from my Spotify library, with controls to sort them by date added, release year, artist, title, and length.",
     "title": "My Spotify albums",
-    "description": "A wall of the albums saved in my Spotify library, sortable by date added, release year, artist, title, and length. Built from a weekly backup, sorted with CSS <code>order</code> and <code>reading-flow</code>, and animated with view transitions.",
+    "description": "A wall of the albums saved in my Spotify library, sortable by date added, release year, artist, title, and length. Built from a weekly backup.",
     "date": "2026-10-19"
   },
   {
