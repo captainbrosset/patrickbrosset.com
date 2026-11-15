@@ -30,7 +30,34 @@ const equivalents = (s) => SENTENCES.filter((x) => normKey(x.answer) === normKey
 
 /* ---------- Helpers ---------- */
 const shuffle = (a) => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const tokens = (s) => s.toLowerCase().replace(/[’‘`]/g, "'").replace(/[^a-z0-9'\s]/g, ' ').split(/\s+/).filter(Boolean);
+// Equivalent forms are reduced to one canonical form so either is accepted:
+// contractions ("what's" = "what is", "don't" = "do not") and UK/US spellings.
+const CONTRACTED_IS = new Set(['what', 'who', 'where', 'when', 'how', 'why', 'that', 'there', 'here', 'it', 'he', 'she']);
+const IRREGULAR = { "can't": ['can', 'not'], cannot: ['can', 'not'], "won't": ['will', 'not'], "let's": ['let', 'us'], "i'm": ['i', 'am'], "ain't": ['is', 'not'] };
+const SPELLING = {
+  favorite: 'favourite', favorites: 'favourites', color: 'colour', colors: 'colours', traveling: 'travelling',
+  traveled: 'travelled', mom: 'mum', neighbor: 'neighbour', neighbors: 'neighbours', center: 'centre', theater: 'theatre', gray: 'grey',
+};
+const SUFFIXES = { "'re": 'are', "'ve": 'have', "'ll": 'will', "'m": 'am', "'d": 'would' };
+
+function expandWord(w) {
+  if (IRREGULAR[w]) return IRREGULAR[w];
+  if (w.endsWith("n't") && w.length > 3) return [w.slice(0, -3), 'not'];
+  if (w.endsWith("'s") && CONTRACTED_IS.has(w.slice(0, -2))) return [w.slice(0, -2), 'is'];
+  for (const [suffix, full] of Object.entries(SUFFIXES))
+    if (w.endsWith(suffix) && w.length > suffix.length) return [w.slice(0, -suffix.length), full];
+  return [SPELLING[w] ?? w];
+}
+
+// One entry per canonical token, remembering which typed word it came from (i)
+function words(s) {
+  const out = [];
+  s.toLowerCase().replace(/[’‘`]/g, "'").replace(/[^a-z0-9'\s]/g, ' ').split(/\s+/).filter(Boolean).forEach((raw, i) => {
+    for (const t of expandWord(raw)) out.push({ t, raw, i });
+  });
+  return out;
+}
+const tokens = (s) => words(s).map((x) => x.t);
 const display = (s) => s.replace(/[?.!,]/g, '').split(/\s+/).filter(Boolean);
 const pad = (n) => String(n).padStart(2, '0');
 const dayKey = (d = new Date()) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
@@ -304,21 +331,31 @@ function renderClue() {
 
 // Longest common subsequence on words → which typed words are right, wrong or missing
 function compare(typed, target) {
-  const a = tokens(typed), b = tokens(target);
+  const A = words(typed), B = words(target);
+  const a = A.map((x) => x.t), b = B.map((x) => x.t);
   const dp = Array.from({ length: a.length + 1 }, () => new Array(b.length + 1).fill(0));
   for (let i = a.length - 1; i >= 0; i--)
     for (let j = b.length - 1; j >= 0; j--)
       dp[i][j] = a[i] === b[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
-  const out = [];
+  const raw = [];
   let i = 0, j = 0;
   while (i < a.length && j < b.length) {
-    if (a[i] === b[j]) { out.push({ w: a[i], t: 'ok' }); i++; j++; }
-    else if (dp[i + 1][j] >= dp[i][j + 1]) { out.push({ w: a[i], t: 'ko' }); i++; }
-    else { out.push({ w: b[j], t: 'miss' }); j++; }
+    if (a[i] === b[j]) { raw.push({ ...A[i], side: 'a', s: 'ok' }); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) { raw.push({ ...A[i], side: 'a', s: 'ko' }); i++; }
+    else { raw.push({ ...B[j], side: 'b', s: 'miss' }); j++; }
   }
-  while (i < a.length) out.push({ w: a[i++], t: 'ko' });
-  while (j < b.length) out.push({ w: b[j++], t: 'miss' });
-  const good = out.filter((o) => o.t === 'ok').length;
+  while (i < a.length) raw.push({ ...A[i], side: 'a', s: 'ko' }), i++;
+  while (j < b.length) raw.push({ ...B[j], side: 'b', s: 'miss' }), j++;
+
+  // Show words as written ("what's"), merging the tokens of one expanded word
+  const out = [];
+  for (const x of raw) {
+    const last = out[out.length - 1];
+    if (last && last.side === x.side && last.i === x.i) {
+      if (x.s !== 'ok') last.t = x.s;
+    } else out.push({ w: x.raw, t: x.s, side: x.side, i: x.i });
+  }
+  const good = raw.filter((o) => o.s === 'ok').length;
   return { out, ratio: good / Math.max(a.length, b.length, 1) };
 }
 
