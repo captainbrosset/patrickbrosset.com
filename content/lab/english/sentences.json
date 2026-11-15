@@ -1,0 +1,226 @@
+[
+  {
+    "question": "What's your full name?",
+    "answer": "My full name is John Smith."
+  },
+  {
+    "question": "What's your whole name?",
+    "answer": "My whole name is John Smith."
+  },
+  {
+    "question": "What's your first name?",
+    "answer": "My first name is John."
+  },
+  {
+    "question": "What's your middle name?",
+    "answer": "I don't have a middle name."
+  },
+  {
+    "question": "What's your surname?",
+    "answer": "My surname is Smith."
+  },
+  {
+    "question": "What's your last name?",
+    "answer": "My last name is Smith."
+  },
+  {
+    "question": "What's your family name?",
+    "answer": "My family name is Smith."
+  },
+  {
+    "question": "Do you have a nickname?",
+    "answer": "Yes, my nickname is Jo."
+  },
+  {
+    "question": "Do you have an alias?",
+    "answer": "No, I don't have an alias."
+  },
+  {
+    "question": "Where are you from?",
+    "answer": "I'm from France."
+  },
+  {
+    "question": "Where do you come from?",
+    "answer": "I come from France."
+  },
+  {
+    "question": "What's your nationality?",
+    "answer": "I'm French."
+  },
+  {
+    "question": "Where do you live?",
+    "answer": "I live in Dijon, in France."
+  },
+  {
+    "question": "What's your address?",
+    "answer": "My address is 2 rue des Fleurs, Dijon, France."
+  },
+  {
+    "question": "Do you live in a flat or in a house?",
+    "answer": "I live in a house."
+  },
+  {
+    "question": "Do you have your own bedroom?",
+    "answer": "Yes, I have my own bedroom."
+  },
+  {
+    "question": "How old are you?",
+    "answer": "I'm thirteen years old."
+  },
+  {
+    "question": "When is your birthday?",
+    "answer": "My birthday is on the tenth of May."
+  },
+  {
+    "question": "When and where were you born?",
+    "answer": "I was born on the tenth of May, 2013, in Dijon."
+  },
+  {
+    "question": "Where do you go to school?",
+    "answer": "I go to school in Dijon."
+  },
+  {
+    "question": "Where do you study?",
+    "answer": "I study at a school in Dijon."
+  },
+  {
+    "question": "What is your favourite school subject?",
+    "answer": "My favourite school subject is PE."
+  },
+  {
+    "question": "What are you good at?",
+    "answer": "I'm good at football."
+  },
+  {
+    "question": "What is your favourite colour?",
+    "answer": "My favourite colour is blue."
+  },
+  {
+    "question": "What is your favourite sport?",
+    "answer": "My favourite sport is football."
+  },
+  {
+    "question": "What is your favourite food?",
+    "answer": "My favourite food is pizza."
+  },
+  {
+    "question": "What is your favourite drink?",
+    "answer": "My favourite drink is apple juice."
+  },
+  {
+    "question": "How many people are there in your family?",
+    "answer": "There are five people in my family."
+  },
+  {
+    "question": "Do you have any siblings?",
+    "answer": "Yes, I have one sister and one brother."
+  },
+  {
+    "question": "Do you have any brothers and sisters?",
+    "answer": "I have one sister and one brother."
+  },
+  {
+    "question": "What are their names?",
+    "answer": "My sister's name is Emma and my brother's name is Jack."
+  },
+  {
+    "question": "What do your parents do for a living?",
+    "answer": "My mum is a teacher and my dad is a cook."
+  },
+  {
+    "question": "What are your parents' jobs?",
+    "answer": "My mum is a teacher and my dad is a cook."
+  },
+  {
+    "question": "What would you like to be when you grow up?",
+    "answer": "I'd like to be a football player."
+  },
+  {
+    "question": "What do you want to do in the future?",
+    "answer": "I want to play football."
+  },
+  {
+    "question": "What are your hobbies?",
+    "answer": "My hobbies are football and video games."
+  },
+  {
+    "question": "Do you have any hobbies?",
+    "answer": "Yes, I like playing football and video games."
+  },
+  {
+    "question": "What do you like?",
+    "answer": "I like football, video games and music."
+  },
+  {
+    "question": "What do you like doing in your free time?",
+    "answer": "I like playing video games with my friends."
+  },
+  {
+    "question": "What is your favourite day of the week?",
+    "answer": "My favourite day of the week is Saturday."
+  },
+  {
+    "question": "What is your favourite month of the year?",
+    "answer": "My favourite month of the year is July."
+  },
+  {
+    "question": "What is your favourite month of the year, and why?",
+    "answer": "My favourite month is July because it's the summer holidays."
+  },
+  {
+    "question": "Who is your favourite singer?",
+    "answer": "My favourite singer is Ed Sheeran."
+  },
+  {
+    "question": "Who is your favourite band?",
+    "answer": "My favourite band is Coldplay."
+  },
+  {
+    "question": "Who is your favourite band, and why?",
+    "answer": "My favourite band is Coldplay because I like their songs."
+  },
+  {
+    "question": "According to you, what is the best movie of all time?",
+    "answer": "I think the best movie is Star Wars."
+  },
+  {
+    "question": "According to you, what is the best movie of all time, and why?",
+    "answer": "I think the best movie is Star Wars because I love the story."
+  },
+  {
+    "question": "What is your favourite place on earth?",
+    "answer": "My favourite place is the beach."
+  },
+  {
+    "question": "What is your favourite place on earth, and why?",
+    "answer": "My favourite place is the beach because I love swimming."
+  },
+  {
+    "question": "Do you enjoy travelling?",
+    "answer": "Yes, I enjoy travelling."
+  },
+  {
+    "question": "Where have you been?",
+    "answer": "I've been to Canada and Ireland."
+  },
+  {
+    "question": "In your opinion, what is the most beautiful place in your country?",
+    "answer": "I think the most beautiful place in France is Corsica."
+  },
+  {
+    "question": "In your opinion, what is the most beautiful place in your country, and why?",
+    "answer": "I think Corsica is the most beautiful place because I love the mountains."
+  },
+  {
+    "question": "Why do you study English?",
+    "answer": "I study English because I want to travel."
+  },
+  {
+    "question": "How are you today?",
+    "answer": "I'm fine, thank you."
+  },
+  {
+    "question": "How do you feel today?",
+    "answer": "I feel happy today."
+  }
+]

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5b3df5">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ask Me!">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Ask Me! – Learn English questions</title>
+<link rel="stylesheet" href="style.css">
+<script src="data.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<main id="app">
+
+  <section id="home" class="screen" aria-labelledby="home-title">
+    <div class="top">
+      <p class="streak" id="streak-pill">🔥 <span id="streak">0</span> day streak</p>
+      <button id="mute" class="ghost" type="button" aria-label="Sound on" aria-pressed="false">🔊</button>
+    </div>
+    <h1 id="home-title">Ask&nbsp;Me! <span aria-hidden="true">🎯</span></h1>
+    <p class="lead">You see the <strong>answer</strong>.<br>Find the <strong>question</strong>!</p>
+
+    <div class="stats">
+      <label><span>Today: <b><span id="today-n">0</span>/<span id="goal">10</span></b> questions</span>
+        <progress id="today-bar" max="10" value="0"></progress></label>
+      <label><span>Learned: <b><span id="learned">0</span>/<span id="total">0</span></b> questions</span>
+        <progress id="learned-bar" max="1" value="0"></progress></label>
+      <p class="points">⭐ <span id="total-xp">0</span> points</p>
+    </div>
+
+    <button id="learn" class="learn" type="button">
+      <span class="emoji">📚</span><span><b>Learn new questions</b><small id="learn-sub">5 cards, then a quick test</small></span>
+    </button>
+
+    <div class="levels">
+      <button class="level" data-level="1"><span class="emoji">🟢</span><span><b>Level 1 · Choose</b><small>Pick the right question</small></span><span class="best" data-best="1"></span></button>
+      <button class="level" data-level="2"><span class="emoji">🟡</span><span><b>Level 2 · Word order</b><small>Tap the words in order</small></span><span class="best" data-best="2"></span></button>
+      <button class="level" data-level="3"><span class="emoji">🟠</span><span><b>Level 3 · Clues</b><small>Fill in the missing words</small></span><span class="best" data-best="3"></span></button>
+      <button class="level" data-level="4"><span class="emoji">🔴</span><span><b>Level 4 · Expert</b><small>Write the whole question</small></span><span class="best" data-best="4"></span></button>
+    </div>
+
+    <h2 class="sub">Badges</h2>
+    <ul id="badges" class="badges"></ul>
+  </section>
+
+  <section id="learnscreen" class="screen" hidden aria-label="Learn">
+    <header class="bar">
+      <button id="learn-quit" class="ghost" type="button" aria-label="Back to menu">✕</button>
+      <progress id="learn-progress" max="5" value="0" aria-label="Progress"></progress>
+    </header>
+    <div class="card">
+      <p class="label">Answer 💬 <button class="ghost small speak" data-from="learn-answer" type="button" aria-label="Listen to the answer">🔊</button></p>
+      <p id="learn-answer" class="answer"></p>
+    </div>
+    <p id="learn-pattern" class="pattern"></p>
+    <div id="learn-q" class="card question-card" hidden>
+      <p class="label">Question ❓ <button class="ghost small speak" data-from="learn-question" type="button" aria-label="Listen to the question">🔊</button></p>
+      <p id="learn-question" class="answer"></p>
+      <p class="label">🗣️ Say it out loud 3 times!</p>
+    </div>
+    <button id="learn-reveal" class="secondary" type="button">👀 Can you guess? Show the question</button>
+    <button id="learn-next" class="primary" type="button" hidden>Next ➜</button>
+  </section>
+
+  <section id="game" class="screen" hidden aria-label="Game">
+    <header class="bar">
+      <button id="quit" class="ghost" type="button" aria-label="Back to menu">✕</button>
+      <progress id="progress" max="10" value="0" aria-label="Progress"></progress>
+      <span class="score">⭐ <span id="score">0</span></span>
+    </header>
+
+    <div class="card">
+      <p class="label">Answer 💬 <button id="speak" class="ghost small speak" data-from="answer" type="button" aria-label="Listen to the answer">🔊</button></p>
+      <p id="answer" class="answer"></p>
+    </div>
+
+    <p id="pattern" class="pattern" hidden></p>
+    <p class="label">What is the question?</p>
+
+    <div id="choices" class="choices" hidden></div>
+
+    <div id="order" hidden>
+      <div id="slots" class="chips slots" aria-label="Your question" data-empty="Tap the words below in the right order"></div>
+      <div id="bank" class="chips bank" aria-label="Words"></div>
+      <button id="check-order" class="primary" type="button" disabled>Check ✔</button>
+    </div>
+
+    <form id="form" autocomplete="off" hidden>
+      <p id="clue" class="clue" hidden></p>
+      <input id="input" type="text" enterkeyhint="done" autocapitalize="sentences"
+             autocomplete="off" autocorrect="off" spellcheck="false"
+             placeholder="Type the question…" aria-label="Your question">
+      <button id="check" class="primary" type="submit">Check ✔</button>
+    </form>
+
+    <div id="feedback" class="feedback" hidden aria-live="polite">
+      <p id="verdict" class="verdict"></p>
+      <p id="diff" class="diff"></p>
+      <p class="correct-label">Correct question: <button class="ghost small speak" data-from="correct" type="button" aria-label="Listen to the question">🔊</button></p>
+      <p id="correct" class="correct"></p>
+      <p id="also" class="also" hidden></p>
+      <button id="next" class="primary" type="button">Next ➜</button>
+    </div>
+  </section>
+
+  <section id="result" class="screen" hidden aria-labelledby="result-title">
+    <h2 id="result-title">Round finished!</h2>
+    <p id="stars" class="stars" aria-hidden="true"></p>
+    <p class="big"><span id="final-score">0</span> / <span id="max-score">0</span> points</p>
+    <p id="result-msg" class="lead"></p>
+    <p id="result-learned" class="lead"></p>
+    <div id="mistakes"></div>
+    <button id="again" class="primary" type="button">Play again 🔁</button>
+    <button id="menu" class="secondary" type="button">Menu</button>
+  </section>
+
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
