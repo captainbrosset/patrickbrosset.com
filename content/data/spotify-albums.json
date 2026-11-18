@@ -1,7 +1,118 @@
 {
-  "created_at": "2026-11-09T21:42:12.368Z",
+  "created_at": "2026-11-16T21:21:59.942Z",
   "total_albums": 694,
   "albums": [
+    {
+      "added_at": "2026-05-04T13:38:28Z",
+      "album": {
+        "id": "34b2JCGkaXuPeYZk1FB4SR",
+        "name": "MOVIE",
+        "artists": [
+          {
+            "id": "4RB2EEsmLhQTOSVQQpDzNg",
+            "name": "Sofiane Pamart"
+          }
+        ],
+        "release_date": "2026-04-17",
+        "total_tracks": 20,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/34b2JCGkaXuPeYZk1FB4SR"
+        },
+        "href": "https://api.spotify.com/v1/albums/34b2JCGkaXuPeYZk1FB4SR?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2738c3354f98ab271c8b14b62e4",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e028c3354f98ab271c8b14b62e4",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048518c3354f98ab271c8b14b62e4",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:34b2JCGkaXuPeYZk1FB4SR"
+      }
+    },
+    {
+      "added_at": "2024-09-24T13:23:33Z",
+      "album": {
+        "id": "3XG5dH7LcDZlkOWmtvLzXB",
+        "name": "15 Again (Deluxe Edition)",
+        "artists": [
+          {
+            "id": "4sf3QZW8a3xZ14IGsOAzoy",
+            "name": "Cassius"
+          }
+        ],
+        "release_date": "2006",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3XG5dH7LcDZlkOWmtvLzXB"
+        },
+        "href": "https://api.spotify.com/v1/albums/3XG5dH7LcDZlkOWmtvLzXB?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27324ee286d8ebcaf83d4b899ab",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0224ee286d8ebcaf83d4b899ab",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485124ee286d8ebcaf83d4b899ab",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3XG5dH7LcDZlkOWmtvLzXB"
+      }
+    },
+    {
+      "added_at": "2026-10-02T14:11:13Z",
+      "album": {
+        "id": "41qn4oxd4WFgz4JSBI9Ips",
+        "name": "Beyond Skin",
+        "artists": [
+          {
+            "id": "5NCKpzuowtihcIrIHFjKbJ",
+            "name": "Nitin Sawhney"
+          }
+        ],
+        "release_date": "1999-06-21",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/41qn4oxd4WFgz4JSBI9Ips"
+        },
+        "href": "https://api.spotify.com/v1/albums/41qn4oxd4WFgz4JSBI9Ips?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273e96f2f90cae31455ce0dc30c",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02e96f2f90cae31455ce0dc30c",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851e96f2f90cae31455ce0dc30c",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:41qn4oxd4WFgz4JSBI9Ips"
+      }
+    },
     {
       "added_at": "2026-10-29T08:03:03Z",
       "album": {
@@ -37,6 +148,191 @@
           }
         ],
         "uri": "spotify:album:3IuTF27Ypc8DwhWzXfELUf"
+      }
+    },
+    {
+      "added_at": "2023-01-16T09:34:19Z",
+      "album": {
+        "id": "1lawEY4GlNceyJ74IbAfYx",
+        "name": "Alba",
+        "artists": [
+          {
+            "id": "4AJsNqBqkRLJIngQsvZAGw",
+            "name": "BIRRD"
+          }
+        ],
+        "release_date": "2022-11-25",
+        "total_tracks": 5,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1lawEY4GlNceyJ74IbAfYx"
+        },
+        "href": "https://api.spotify.com/v1/albums/1lawEY4GlNceyJ74IbAfYx?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273cc1961a2dba68fba2b65fb6f",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02cc1961a2dba68fba2b65fb6f",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851cc1961a2dba68fba2b65fb6f",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1lawEY4GlNceyJ74IbAfYx"
+      }
+    },
+    {
+      "added_at": "2022-04-25T10:49:39Z",
+      "album": {
+        "id": "6hmoquO4YfCBj1p9cyqloK",
+        "name": "Nanodiamond",
+        "artists": [
+          {
+            "id": "6tur6gkfmy5lrI9A4rIzlt",
+            "name": "Sissi Rada"
+          }
+        ],
+        "release_date": "2021-11-19",
+        "total_tracks": 13,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6hmoquO4YfCBj1p9cyqloK"
+        },
+        "href": "https://api.spotify.com/v1/albums/6hmoquO4YfCBj1p9cyqloK?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27350f6f5a818fe71b0149fcca9",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0250f6f5a818fe71b0149fcca9",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485150f6f5a818fe71b0149fcca9",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6hmoquO4YfCBj1p9cyqloK"
+      }
+    },
+    {
+      "added_at": "2022-08-25T16:41:11Z",
+      "album": {
+        "id": "0gifF5J9tLgo2fpl5F6TQP",
+        "name": "Here Be Dragons",
+        "artists": [
+          {
+            "id": "1it6OQb9fceS1M3gfd6erX",
+            "name": "The Kilimanjaro Darkjazz Ensemble"
+          }
+        ],
+        "release_date": "2016-03-31",
+        "total_tracks": 9,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0gifF5J9tLgo2fpl5F6TQP"
+        },
+        "href": "https://api.spotify.com/v1/albums/0gifF5J9tLgo2fpl5F6TQP?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273471b29b7bb824ed3b930b538",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02471b29b7bb824ed3b930b538",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851471b29b7bb824ed3b930b538",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0gifF5J9tLgo2fpl5F6TQP"
+      }
+    },
+    {
+      "added_at": "2022-10-22T14:44:04Z",
+      "album": {
+        "id": "4gsWRHhTuxJv3GUHcvXoF9",
+        "name": "9 Pieces",
+        "artists": [
+          {
+            "id": "5If5Tdg66Q5X3L57G7A6Pn",
+            "name": "Thylacine"
+          }
+        ],
+        "release_date": "2022-10-21",
+        "total_tracks": 9,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/4gsWRHhTuxJv3GUHcvXoF9"
+        },
+        "href": "https://api.spotify.com/v1/albums/4gsWRHhTuxJv3GUHcvXoF9?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2736a796e457b11914a47d5580b",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e026a796e457b11914a47d5580b",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048516a796e457b11914a47d5580b",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:4gsWRHhTuxJv3GUHcvXoF9"
+      }
+    },
+    {
+      "added_at": "2023-10-25T07:12:33Z",
+      "album": {
+        "id": "2YMWspDGtbDgYULXvVQFM6",
+        "name": "Gris (Original Game Soundtrack)",
+        "artists": [
+          {
+            "id": "6EUPmAvpY341eXZwJVy6dn",
+            "name": "Berlinist"
+          }
+        ],
+        "release_date": "2018-12-13",
+        "total_tracks": 27,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2YMWspDGtbDgYULXvVQFM6"
+        },
+        "href": "https://api.spotify.com/v1/albums/2YMWspDGtbDgYULXvVQFM6?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273784fc2a403f3ef8b29148f41",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02784fc2a403f3ef8b29148f41",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851784fc2a403f3ef8b29148f41",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2YMWspDGtbDgYULXvVQFM6"
       }
     },
     {
@@ -333,43 +629,6 @@
           }
         ],
         "uri": "spotify:album:6Mvwt8iq0W1yGYL7utALKs"
-      }
-    },
-    {
-      "added_at": "2026-05-04T13:38:28Z",
-      "album": {
-        "id": "34b2JCGkaXuPeYZk1FB4SR",
-        "name": "MOVIE",
-        "artists": [
-          {
-            "id": "4RB2EEsmLhQTOSVQQpDzNg",
-            "name": "Sofiane Pamart"
-          }
-        ],
-        "release_date": "2026-04-17",
-        "total_tracks": 20,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/34b2JCGkaXuPeYZk1FB4SR"
-        },
-        "href": "https://api.spotify.com/v1/albums/34b2JCGkaXuPeYZk1FB4SR?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2738c3354f98ab271c8b14b62e4",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e028c3354f98ab271c8b14b62e4",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048518c3354f98ab271c8b14b62e4",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:34b2JCGkaXuPeYZk1FB4SR"
       }
     },
     {
@@ -1221,43 +1480,6 @@
           }
         ],
         "uri": "spotify:album:62OfSUbBm4t5ootwPrYHQI"
-      }
-    },
-    {
-      "added_at": "2026-10-02T14:11:13Z",
-      "album": {
-        "id": "41qn4oxd4WFgz4JSBI9Ips",
-        "name": "Beyond Skin",
-        "artists": [
-          {
-            "id": "5NCKpzuowtihcIrIHFjKbJ",
-            "name": "Nitin Sawhney"
-          }
-        ],
-        "release_date": "1999-06-21",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/41qn4oxd4WFgz4JSBI9Ips"
-        },
-        "href": "https://api.spotify.com/v1/albums/41qn4oxd4WFgz4JSBI9Ips?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273e96f2f90cae31455ce0dc30c",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02e96f2f90cae31455ce0dc30c",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851e96f2f90cae31455ce0dc30c",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:41qn4oxd4WFgz4JSBI9Ips"
       }
     },
     {
@@ -2638,606 +2860,6 @@
       }
     },
     {
-      "added_at": "2022-01-19T09:46:41Z",
-      "album": {
-        "id": "1zNtJFMCNIyT0X19jpcI3j",
-        "name": "Friends That Break Your Heart",
-        "artists": [
-          {
-            "id": "53KwLdlmrlCelAZMaLVZqU",
-            "name": "James Blake"
-          }
-        ],
-        "release_date": "2021-10-08",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1zNtJFMCNIyT0X19jpcI3j"
-        },
-        "href": "https://api.spotify.com/v1/albums/1zNtJFMCNIyT0X19jpcI3j?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27338d030048ec770b15633dbc1",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0238d030048ec770b15633dbc1",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485138d030048ec770b15633dbc1",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1zNtJFMCNIyT0X19jpcI3j"
-      }
-    },
-    {
-      "added_at": "2022-12-09T08:48:05Z",
-      "album": {
-        "id": "0qxsfpy2VU0i4eDR9RTaAU",
-        "name": "Love & Hate",
-        "artists": [
-          {
-            "id": "0bzfPKdbXL5ezYW2z3UGQj",
-            "name": "Michael Kiwanuka"
-          }
-        ],
-        "release_date": "2016-07-15",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0qxsfpy2VU0i4eDR9RTaAU"
-        },
-        "href": "https://api.spotify.com/v1/albums/0qxsfpy2VU0i4eDR9RTaAU?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2731070095e88dce90a090171b5",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e021070095e88dce90a090171b5",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048511070095e88dce90a090171b5",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0qxsfpy2VU0i4eDR9RTaAU"
-      }
-    },
-    {
-      "added_at": "2022-12-06T09:02:48Z",
-      "album": {
-        "id": "6gUJuSvAxaJyzWyISP4WHf",
-        "name": "Orange",
-        "artists": [
-          {
-            "id": "5xPGMBPmPrZPiBHn2Bmn8d",
-            "name": "Luke Anger"
-          }
-        ],
-        "release_date": "2022-11-29",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6gUJuSvAxaJyzWyISP4WHf"
-        },
-        "href": "https://api.spotify.com/v1/albums/6gUJuSvAxaJyzWyISP4WHf?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27363e98f24f0acbf16af8b6b8c",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0263e98f24f0acbf16af8b6b8c",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485163e98f24f0acbf16af8b6b8c",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6gUJuSvAxaJyzWyISP4WHf"
-      }
-    },
-    {
-      "added_at": "2023-04-30T17:32:55Z",
-      "album": {
-        "id": "0Cq0t6HFg2UeAEqwED7ezE",
-        "name": "blómi",
-        "artists": [
-          {
-            "id": "54KCNI7URCrG6yjQK3Ukow",
-            "name": "Susanne Sundfør"
-          }
-        ],
-        "release_date": "2023-04-28",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0Cq0t6HFg2UeAEqwED7ezE"
-        },
-        "href": "https://api.spotify.com/v1/albums/0Cq0t6HFg2UeAEqwED7ezE?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27376a913721400a5470fae5a39",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0276a913721400a5470fae5a39",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485176a913721400a5470fae5a39",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0Cq0t6HFg2UeAEqwED7ezE"
-      }
-    },
-    {
-      "added_at": "2023-05-11T09:50:39Z",
-      "album": {
-        "id": "16iHaqzAXTv2iYjch5A8ID",
-        "name": "Amethyst Rock Star",
-        "artists": [
-          {
-            "id": "11K0HIZKfdB6ez0VhIgxPm",
-            "name": "Saul Williams"
-          }
-        ],
-        "release_date": "2001-01-01",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/16iHaqzAXTv2iYjch5A8ID"
-        },
-        "href": "https://api.spotify.com/v1/albums/16iHaqzAXTv2iYjch5A8ID?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273cb215a8e96d614c34453dbb6",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02cb215a8e96d614c34453dbb6",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851cb215a8e96d614c34453dbb6",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:16iHaqzAXTv2iYjch5A8ID"
-      }
-    },
-    {
-      "added_at": "2023-10-12T12:47:44Z",
-      "album": {
-        "id": "0kRXiNC2Yd1ZUaXZfjJJAW",
-        "name": "The Inventory Of Our Desire",
-        "artists": [
-          {
-            "id": "6AE7CSJUwDMnTXV4yKVLLv",
-            "name": "Thomas Azier"
-          }
-        ],
-        "release_date": "2023-02-10",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0kRXiNC2Yd1ZUaXZfjJJAW"
-        },
-        "href": "https://api.spotify.com/v1/albums/0kRXiNC2Yd1ZUaXZfjJJAW?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273299166d73fb9ed50865f847b",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02299166d73fb9ed50865f847b",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851299166d73fb9ed50865f847b",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0kRXiNC2Yd1ZUaXZfjJJAW"
-      }
-    },
-    {
-      "added_at": "2023-11-17T09:24:38Z",
-      "album": {
-        "id": "2TXWR97zHUHqzoPZGJB33N",
-        "name": "the old man and the sea",
-        "artists": [
-          {
-            "id": "3ktomWIGRVocpxmXAU0ZxP",
-            "name": "nu_tone"
-          }
-        ],
-        "release_date": "2023-10-27",
-        "total_tracks": 10,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/2TXWR97zHUHqzoPZGJB33N"
-        },
-        "href": "https://api.spotify.com/v1/albums/2TXWR97zHUHqzoPZGJB33N?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2737bd77e3f81302fefda8bae6e",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e027bd77e3f81302fefda8bae6e",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048517bd77e3f81302fefda8bae6e",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:2TXWR97zHUHqzoPZGJB33N"
-      }
-    },
-    {
-      "added_at": "2024-01-19T08:17:52Z",
-      "album": {
-        "id": "754ju3m25jKqrlevlJibZl",
-        "name": "°1",
-        "artists": [
-          {
-            "id": "0glR494sLIJfgyO03vHgnw",
-            "name": "Champion"
-          }
-        ],
-        "release_date": "2013-05-28",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/754ju3m25jKqrlevlJibZl"
-        },
-        "href": "https://api.spotify.com/v1/albums/754ju3m25jKqrlevlJibZl?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27352a384e8057f40341f29f8ef",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0252a384e8057f40341f29f8ef",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485152a384e8057f40341f29f8ef",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:754ju3m25jKqrlevlJibZl"
-      }
-    },
-    {
-      "added_at": "2024-11-02T10:08:01Z",
-      "album": {
-        "id": "57oYjOsWdRUGOjSX4RbyM4",
-        "name": "Briefly Shaking",
-        "artists": [
-          {
-            "id": "7GTdDYxmQpf3ofwXdDacrf",
-            "name": "Anja Garbarek"
-          }
-        ],
-        "release_date": "2005-09-26",
-        "total_tracks": 11,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/57oYjOsWdRUGOjSX4RbyM4"
-        },
-        "href": "https://api.spotify.com/v1/albums/57oYjOsWdRUGOjSX4RbyM4?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273f0ecf0eea58c88e38f3c3089",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02f0ecf0eea58c88e38f3c3089",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851f0ecf0eea58c88e38f3c3089",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:57oYjOsWdRUGOjSX4RbyM4"
-      }
-    },
-    {
-      "added_at": "2025-08-27T14:07:21Z",
-      "album": {
-        "id": "0CxPbTRARqKUYighiEY9Sz",
-        "name": "Use Your Illusion I",
-        "artists": [
-          {
-            "id": "3qm84nBOXUEQ2vnTfUTTFC",
-            "name": "Guns N' Roses"
-          }
-        ],
-        "release_date": "1991-09-17",
-        "total_tracks": 16,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0CxPbTRARqKUYighiEY9Sz"
-        },
-        "href": "https://api.spotify.com/v1/albums/0CxPbTRARqKUYighiEY9Sz?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273e44963b8bb127552ac761873",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02e44963b8bb127552ac761873",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851e44963b8bb127552ac761873",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0CxPbTRARqKUYighiEY9Sz"
-      }
-    },
-    {
-      "added_at": "2025-11-25T10:39:07Z",
-      "album": {
-        "id": "18XFe4CPBgVezXkxZP6rTb",
-        "name": "The Score (Expanded Edition)",
-        "artists": [
-          {
-            "id": "2WKdxPFRD7IqZvlIAvhMgY",
-            "name": "Fugees"
-          },
-          {
-            "id": "2Mu5NfyYm8n5iTomuKAEHl",
-            "name": "Ms. Lauryn Hill"
-          },
-          {
-            "id": "7aBzpmFXB4WWpPl2F7RjBe",
-            "name": "Wyclef Jean"
-          }
-        ],
-        "release_date": "1996-02-13",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/18XFe4CPBgVezXkxZP6rTb"
-        },
-        "href": "https://api.spotify.com/v1/albums/18XFe4CPBgVezXkxZP6rTb?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2735b7865be7f7fcc05faec6137",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e025b7865be7f7fcc05faec6137",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048515b7865be7f7fcc05faec6137",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:18XFe4CPBgVezXkxZP6rTb"
-      }
-    },
-    {
-      "added_at": "2020-02-27T08:42:06Z",
-      "album": {
-        "id": "3lETJkavciTauiSyOV1gZC",
-        "name": "Low Roar",
-        "artists": [
-          {
-            "id": "5WoWlP0ihSFIxnppxjwSgE",
-            "name": "Low Roar"
-          }
-        ],
-        "release_date": "2011",
-        "total_tracks": 12,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3lETJkavciTauiSyOV1gZC"
-        },
-        "href": "https://api.spotify.com/v1/albums/3lETJkavciTauiSyOV1gZC?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b2730f52f1f501575d94fed2db5f",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e020f52f1f501575d94fed2db5f",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d000048510f52f1f501575d94fed2db5f",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3lETJkavciTauiSyOV1gZC"
-      }
-    },
-    {
-      "added_at": "2020-08-04T11:49:48Z",
-      "album": {
-        "id": "1AckkxSo39144vOBrJ1GkS",
-        "name": "Tenacious D",
-        "artists": [
-          {
-            "id": "1XpDYCrUJnvCo9Ez6yeMWh",
-            "name": "Tenacious D"
-          }
-        ],
-        "release_date": "2001-09-25",
-        "total_tracks": 21,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1AckkxSo39144vOBrJ1GkS"
-        },
-        "href": "https://api.spotify.com/v1/albums/1AckkxSo39144vOBrJ1GkS?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273ee0285c63a334af9b91fa12b",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02ee0285c63a334af9b91fa12b",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851ee0285c63a334af9b91fa12b",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1AckkxSo39144vOBrJ1GkS"
-      }
-    },
-    {
-      "added_at": "2025-10-05T06:13:25Z",
-      "album": {
-        "id": "2ck94HfgcSOoCPY9qjc8Wg",
-        "name": "Siècle",
-        "artists": [
-          {
-            "id": "1iQhd9xO2v82j0dBbt4tHz",
-            "name": "Superpoze"
-          }
-        ],
-        "release_date": "2025-10-03",
-        "total_tracks": 8,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/2ck94HfgcSOoCPY9qjc8Wg"
-        },
-        "href": "https://api.spotify.com/v1/albums/2ck94HfgcSOoCPY9qjc8Wg?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273d5cf179ff36d582db61d7a59",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02d5cf179ff36d582db61d7a59",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851d5cf179ff36d582db61d7a59",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:2ck94HfgcSOoCPY9qjc8Wg"
-      }
-    },
-    {
-      "added_at": "2025-10-05T10:08:54Z",
-      "album": {
-        "id": "0B0Wk2YO00pFe0ez3ixarQ",
-        "name": "No Ends No Beginnings EP",
-        "artists": [
-          {
-            "id": "0JYlkNmu76Wu1DgvWNWq7X",
-            "name": "Everything Is Recorded"
-          }
-        ],
-        "release_date": "2025-10-01",
-        "total_tracks": 4,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0B0Wk2YO00pFe0ez3ixarQ"
-        },
-        "href": "https://api.spotify.com/v1/albums/0B0Wk2YO00pFe0ez3ixarQ?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273ee2a065cf6e1ee30b98e34b7",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02ee2a065cf6e1ee30b98e34b7",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851ee2a065cf6e1ee30b98e34b7",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0B0Wk2YO00pFe0ez3ixarQ"
-      }
-    },
-    {
-      "added_at": "2022-05-05T08:22:08Z",
-      "album": {
-        "id": "44gt02albfXsycbp4xmOpK",
-        "name": "Reminiscence",
-        "artists": [
-          {
-            "id": "7x4r9H8a1f60caFnTB4xmA",
-            "name": "Hélène Vogelsinger"
-          }
-        ],
-        "release_date": "2021-05-07",
-        "total_tracks": 6,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/44gt02albfXsycbp4xmOpK"
-        },
-        "href": "https://api.spotify.com/v1/albums/44gt02albfXsycbp4xmOpK?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273e181956ca9c272e67ba33826",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02e181956ca9c272e67ba33826",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851e181956ca9c272e67ba33826",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:44gt02albfXsycbp4xmOpK"
-      }
-    },
-    {
       "added_at": "2026-06-13T16:12:17Z",
       "album": {
         "id": "3DwFd9rWKeSNKhYeBgRfbD",
@@ -3497,6 +3119,51 @@
       }
     },
     {
+      "added_at": "2025-11-25T10:39:07Z",
+      "album": {
+        "id": "18XFe4CPBgVezXkxZP6rTb",
+        "name": "The Score (Expanded Edition)",
+        "artists": [
+          {
+            "id": "2WKdxPFRD7IqZvlIAvhMgY",
+            "name": "Fugees"
+          },
+          {
+            "id": "2Mu5NfyYm8n5iTomuKAEHl",
+            "name": "Ms. Lauryn Hill"
+          },
+          {
+            "id": "7aBzpmFXB4WWpPl2F7RjBe",
+            "name": "Wyclef Jean"
+          }
+        ],
+        "release_date": "1996-02-13",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/18XFe4CPBgVezXkxZP6rTb"
+        },
+        "href": "https://api.spotify.com/v1/albums/18XFe4CPBgVezXkxZP6rTb?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2735b7865be7f7fcc05faec6137",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e025b7865be7f7fcc05faec6137",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048515b7865be7f7fcc05faec6137",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:18XFe4CPBgVezXkxZP6rTb"
+      }
+    },
+    {
       "added_at": "2025-11-17T13:20:10Z",
       "album": {
         "id": "3eG7SaLEdlmKLapewG6m4J",
@@ -3568,6 +3235,117 @@
           }
         ],
         "uri": "spotify:album:0nA01XOVBUoi1zDVVYKz4i"
+      }
+    },
+    {
+      "added_at": "2025-10-05T10:08:54Z",
+      "album": {
+        "id": "0B0Wk2YO00pFe0ez3ixarQ",
+        "name": "No Ends No Beginnings EP",
+        "artists": [
+          {
+            "id": "0JYlkNmu76Wu1DgvWNWq7X",
+            "name": "Everything Is Recorded"
+          }
+        ],
+        "release_date": "2025-10-01",
+        "total_tracks": 4,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0B0Wk2YO00pFe0ez3ixarQ"
+        },
+        "href": "https://api.spotify.com/v1/albums/0B0Wk2YO00pFe0ez3ixarQ?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273ee2a065cf6e1ee30b98e34b7",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02ee2a065cf6e1ee30b98e34b7",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851ee2a065cf6e1ee30b98e34b7",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0B0Wk2YO00pFe0ez3ixarQ"
+      }
+    },
+    {
+      "added_at": "2025-10-05T06:13:25Z",
+      "album": {
+        "id": "2ck94HfgcSOoCPY9qjc8Wg",
+        "name": "Siècle",
+        "artists": [
+          {
+            "id": "1iQhd9xO2v82j0dBbt4tHz",
+            "name": "Superpoze"
+          }
+        ],
+        "release_date": "2025-10-03",
+        "total_tracks": 8,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2ck94HfgcSOoCPY9qjc8Wg"
+        },
+        "href": "https://api.spotify.com/v1/albums/2ck94HfgcSOoCPY9qjc8Wg?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273d5cf179ff36d582db61d7a59",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02d5cf179ff36d582db61d7a59",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851d5cf179ff36d582db61d7a59",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2ck94HfgcSOoCPY9qjc8Wg"
+      }
+    },
+    {
+      "added_at": "2025-08-27T14:07:21Z",
+      "album": {
+        "id": "0CxPbTRARqKUYighiEY9Sz",
+        "name": "Use Your Illusion I",
+        "artists": [
+          {
+            "id": "3qm84nBOXUEQ2vnTfUTTFC",
+            "name": "Guns N' Roses"
+          }
+        ],
+        "release_date": "1991-09-17",
+        "total_tracks": 16,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0CxPbTRARqKUYighiEY9Sz"
+        },
+        "href": "https://api.spotify.com/v1/albums/0CxPbTRARqKUYighiEY9Sz?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273e44963b8bb127552ac761873",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02e44963b8bb127552ac761873",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851e44963b8bb127552ac761873",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0CxPbTRARqKUYighiEY9Sz"
       }
     },
     {
@@ -4126,6 +3904,43 @@
       }
     },
     {
+      "added_at": "2024-11-02T10:08:01Z",
+      "album": {
+        "id": "57oYjOsWdRUGOjSX4RbyM4",
+        "name": "Briefly Shaking",
+        "artists": [
+          {
+            "id": "7GTdDYxmQpf3ofwXdDacrf",
+            "name": "Anja Garbarek"
+          }
+        ],
+        "release_date": "2005-09-26",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/57oYjOsWdRUGOjSX4RbyM4"
+        },
+        "href": "https://api.spotify.com/v1/albums/57oYjOsWdRUGOjSX4RbyM4?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273f0ecf0eea58c88e38f3c3089",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02f0ecf0eea58c88e38f3c3089",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851f0ecf0eea58c88e38f3c3089",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:57oYjOsWdRUGOjSX4RbyM4"
+      }
+    },
+    {
       "added_at": "2024-09-26T15:47:00Z",
       "album": {
         "id": "6ooBxhsOVedpX4zPTCyL86",
@@ -4160,43 +3975,6 @@
           }
         ],
         "uri": "spotify:album:6ooBxhsOVedpX4zPTCyL86"
-      }
-    },
-    {
-      "added_at": "2024-09-24T13:23:33Z",
-      "album": {
-        "id": "3XG5dH7LcDZlkOWmtvLzXB",
-        "name": "15 Again (Deluxe Edition)",
-        "artists": [
-          {
-            "id": "4sf3QZW8a3xZ14IGsOAzoy",
-            "name": "Cassius"
-          }
-        ],
-        "release_date": "2006",
-        "total_tracks": 17,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/3XG5dH7LcDZlkOWmtvLzXB"
-        },
-        "href": "https://api.spotify.com/v1/albums/3XG5dH7LcDZlkOWmtvLzXB?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27324ee286d8ebcaf83d4b899ab",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0224ee286d8ebcaf83d4b899ab",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485124ee286d8ebcaf83d4b899ab",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:3XG5dH7LcDZlkOWmtvLzXB"
       }
     },
     {
@@ -4611,6 +4389,43 @@
       }
     },
     {
+      "added_at": "2024-01-19T08:17:52Z",
+      "album": {
+        "id": "754ju3m25jKqrlevlJibZl",
+        "name": "°1",
+        "artists": [
+          {
+            "id": "0glR494sLIJfgyO03vHgnw",
+            "name": "Champion"
+          }
+        ],
+        "release_date": "2013-05-28",
+        "total_tracks": 17,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/754ju3m25jKqrlevlJibZl"
+        },
+        "href": "https://api.spotify.com/v1/albums/754ju3m25jKqrlevlJibZl?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27352a384e8057f40341f29f8ef",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0252a384e8057f40341f29f8ef",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485152a384e8057f40341f29f8ef",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:754ju3m25jKqrlevlJibZl"
+      }
+    },
+    {
       "added_at": "2023-12-21T09:59:31Z",
       "album": {
         "id": "5LY0M7xf1d8Xe8b0LOydPu",
@@ -4645,6 +4460,43 @@
           }
         ],
         "uri": "spotify:album:5LY0M7xf1d8Xe8b0LOydPu"
+      }
+    },
+    {
+      "added_at": "2023-11-17T09:24:38Z",
+      "album": {
+        "id": "2TXWR97zHUHqzoPZGJB33N",
+        "name": "the old man and the sea",
+        "artists": [
+          {
+            "id": "3ktomWIGRVocpxmXAU0ZxP",
+            "name": "nu_tone"
+          }
+        ],
+        "release_date": "2023-10-27",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/2TXWR97zHUHqzoPZGJB33N"
+        },
+        "href": "https://api.spotify.com/v1/albums/2TXWR97zHUHqzoPZGJB33N?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2737bd77e3f81302fefda8bae6e",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e027bd77e3f81302fefda8bae6e",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048517bd77e3f81302fefda8bae6e",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:2TXWR97zHUHqzoPZGJB33N"
       }
     },
     {
@@ -4722,40 +4574,40 @@
       }
     },
     {
-      "added_at": "2023-10-25T07:12:33Z",
+      "added_at": "2023-10-12T12:47:44Z",
       "album": {
-        "id": "2YMWspDGtbDgYULXvVQFM6",
-        "name": "Gris (Original Game Soundtrack)",
+        "id": "0kRXiNC2Yd1ZUaXZfjJJAW",
+        "name": "The Inventory Of Our Desire",
         "artists": [
           {
-            "id": "6EUPmAvpY341eXZwJVy6dn",
-            "name": "Berlinist"
+            "id": "6AE7CSJUwDMnTXV4yKVLLv",
+            "name": "Thomas Azier"
           }
         ],
-        "release_date": "2018-12-13",
-        "total_tracks": 27,
+        "release_date": "2023-02-10",
+        "total_tracks": 10,
         "external_urls": {
-          "spotify": "https://open.spotify.com/album/2YMWspDGtbDgYULXvVQFM6"
+          "spotify": "https://open.spotify.com/album/0kRXiNC2Yd1ZUaXZfjJJAW"
         },
-        "href": "https://api.spotify.com/v1/albums/2YMWspDGtbDgYULXvVQFM6?locale=*",
+        "href": "https://api.spotify.com/v1/albums/0kRXiNC2Yd1ZUaXZfjJJAW?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b273784fc2a403f3ef8b29148f41",
+            "url": "https://i.scdn.co/image/ab67616d0000b273299166d73fb9ed50865f847b",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e02784fc2a403f3ef8b29148f41",
+            "url": "https://i.scdn.co/image/ab67616d00001e02299166d73fb9ed50865f847b",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00004851784fc2a403f3ef8b29148f41",
+            "url": "https://i.scdn.co/image/ab67616d00004851299166d73fb9ed50865f847b",
             "height": 64,
             "width": 64
           }
         ],
-        "uri": "spotify:album:2YMWspDGtbDgYULXvVQFM6"
+        "uri": "spotify:album:0kRXiNC2Yd1ZUaXZfjJJAW"
       }
     },
     {
@@ -4833,6 +4685,43 @@
       }
     },
     {
+      "added_at": "2023-05-11T09:50:39Z",
+      "album": {
+        "id": "16iHaqzAXTv2iYjch5A8ID",
+        "name": "Amethyst Rock Star",
+        "artists": [
+          {
+            "id": "11K0HIZKfdB6ez0VhIgxPm",
+            "name": "Saul Williams"
+          }
+        ],
+        "release_date": "2001-01-01",
+        "total_tracks": 11,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/16iHaqzAXTv2iYjch5A8ID"
+        },
+        "href": "https://api.spotify.com/v1/albums/16iHaqzAXTv2iYjch5A8ID?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273cb215a8e96d614c34453dbb6",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02cb215a8e96d614c34453dbb6",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851cb215a8e96d614c34453dbb6",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:16iHaqzAXTv2iYjch5A8ID"
+      }
+    },
+    {
       "added_at": "2023-05-04T09:14:54Z",
       "album": {
         "id": "72DvPJ5XCCJxseKtoaCfrk",
@@ -4867,6 +4756,43 @@
           }
         ],
         "uri": "spotify:album:72DvPJ5XCCJxseKtoaCfrk"
+      }
+    },
+    {
+      "added_at": "2023-04-30T17:32:55Z",
+      "album": {
+        "id": "0Cq0t6HFg2UeAEqwED7ezE",
+        "name": "blómi",
+        "artists": [
+          {
+            "id": "54KCNI7URCrG6yjQK3Ukow",
+            "name": "Susanne Sundfør"
+          }
+        ],
+        "release_date": "2023-04-28",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/0Cq0t6HFg2UeAEqwED7ezE"
+        },
+        "href": "https://api.spotify.com/v1/albums/0Cq0t6HFg2UeAEqwED7ezE?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27376a913721400a5470fae5a39",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0276a913721400a5470fae5a39",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485176a913721400a5470fae5a39",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:0Cq0t6HFg2UeAEqwED7ezE"
       }
     },
     {
@@ -5096,43 +5022,6 @@
       }
     },
     {
-      "added_at": "2023-01-16T09:34:19Z",
-      "album": {
-        "id": "1lawEY4GlNceyJ74IbAfYx",
-        "name": "Alba",
-        "artists": [
-          {
-            "id": "4AJsNqBqkRLJIngQsvZAGw",
-            "name": "BIRRD"
-          }
-        ],
-        "release_date": "2022-11-25",
-        "total_tracks": 5,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/1lawEY4GlNceyJ74IbAfYx"
-        },
-        "href": "https://api.spotify.com/v1/albums/1lawEY4GlNceyJ74IbAfYx?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273cc1961a2dba68fba2b65fb6f",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02cc1961a2dba68fba2b65fb6f",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851cc1961a2dba68fba2b65fb6f",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:1lawEY4GlNceyJ74IbAfYx"
-      }
-    },
-    {
       "added_at": "2023-01-09T17:53:28Z",
       "album": {
         "id": "5p2tJfbniQOhY1S61270Jo",
@@ -5207,40 +5096,77 @@
       }
     },
     {
-      "added_at": "2022-10-22T14:44:04Z",
+      "added_at": "2022-12-09T08:48:05Z",
       "album": {
-        "id": "4gsWRHhTuxJv3GUHcvXoF9",
-        "name": "9 Pieces",
+        "id": "0qxsfpy2VU0i4eDR9RTaAU",
+        "name": "Love & Hate",
         "artists": [
           {
-            "id": "5If5Tdg66Q5X3L57G7A6Pn",
-            "name": "Thylacine"
+            "id": "0bzfPKdbXL5ezYW2z3UGQj",
+            "name": "Michael Kiwanuka"
           }
         ],
-        "release_date": "2022-10-21",
-        "total_tracks": 9,
+        "release_date": "2016-07-15",
+        "total_tracks": 10,
         "external_urls": {
-          "spotify": "https://open.spotify.com/album/4gsWRHhTuxJv3GUHcvXoF9"
+          "spotify": "https://open.spotify.com/album/0qxsfpy2VU0i4eDR9RTaAU"
         },
-        "href": "https://api.spotify.com/v1/albums/4gsWRHhTuxJv3GUHcvXoF9?locale=*",
+        "href": "https://api.spotify.com/v1/albums/0qxsfpy2VU0i4eDR9RTaAU?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b2736a796e457b11914a47d5580b",
+            "url": "https://i.scdn.co/image/ab67616d0000b2731070095e88dce90a090171b5",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e026a796e457b11914a47d5580b",
+            "url": "https://i.scdn.co/image/ab67616d00001e021070095e88dce90a090171b5",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d000048516a796e457b11914a47d5580b",
+            "url": "https://i.scdn.co/image/ab67616d000048511070095e88dce90a090171b5",
             "height": 64,
             "width": 64
           }
         ],
-        "uri": "spotify:album:4gsWRHhTuxJv3GUHcvXoF9"
+        "uri": "spotify:album:0qxsfpy2VU0i4eDR9RTaAU"
+      }
+    },
+    {
+      "added_at": "2022-12-06T09:02:48Z",
+      "album": {
+        "id": "6gUJuSvAxaJyzWyISP4WHf",
+        "name": "Orange",
+        "artists": [
+          {
+            "id": "5xPGMBPmPrZPiBHn2Bmn8d",
+            "name": "Luke Anger"
+          }
+        ],
+        "release_date": "2022-11-29",
+        "total_tracks": 10,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/6gUJuSvAxaJyzWyISP4WHf"
+        },
+        "href": "https://api.spotify.com/v1/albums/6gUJuSvAxaJyzWyISP4WHf?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27363e98f24f0acbf16af8b6b8c",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0263e98f24f0acbf16af8b6b8c",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485163e98f24f0acbf16af8b6b8c",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:6gUJuSvAxaJyzWyISP4WHf"
       }
     },
     {
@@ -5282,43 +5208,6 @@
           }
         ],
         "uri": "spotify:album:6V7vpT9XvJccQgnkG6hRZv"
-      }
-    },
-    {
-      "added_at": "2022-08-25T16:41:11Z",
-      "album": {
-        "id": "0gifF5J9tLgo2fpl5F6TQP",
-        "name": "Here Be Dragons",
-        "artists": [
-          {
-            "id": "1it6OQb9fceS1M3gfd6erX",
-            "name": "The Kilimanjaro Darkjazz Ensemble"
-          }
-        ],
-        "release_date": "2016-03-31",
-        "total_tracks": 9,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/0gifF5J9tLgo2fpl5F6TQP"
-        },
-        "href": "https://api.spotify.com/v1/albums/0gifF5J9tLgo2fpl5F6TQP?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b273471b29b7bb824ed3b930b538",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e02471b29b7bb824ed3b930b538",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00004851471b29b7bb824ed3b930b538",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:0gifF5J9tLgo2fpl5F6TQP"
       }
     },
     {
@@ -5544,6 +5433,43 @@
       }
     },
     {
+      "added_at": "2022-05-05T08:22:08Z",
+      "album": {
+        "id": "44gt02albfXsycbp4xmOpK",
+        "name": "Reminiscence",
+        "artists": [
+          {
+            "id": "7x4r9H8a1f60caFnTB4xmA",
+            "name": "Hélène Vogelsinger"
+          }
+        ],
+        "release_date": "2021-05-07",
+        "total_tracks": 6,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/44gt02albfXsycbp4xmOpK"
+        },
+        "href": "https://api.spotify.com/v1/albums/44gt02albfXsycbp4xmOpK?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273e181956ca9c272e67ba33826",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02e181956ca9c272e67ba33826",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851e181956ca9c272e67ba33826",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:44gt02albfXsycbp4xmOpK"
+      }
+    },
+    {
       "added_at": "2022-05-03T07:25:46Z",
       "album": {
         "id": "3CPVa0a5QGqxkuiGqNQjSp",
@@ -5615,43 +5541,6 @@
           }
         ],
         "uri": "spotify:album:3EqSo281BRrMwQ5X5mDYHe"
-      }
-    },
-    {
-      "added_at": "2022-04-25T10:49:39Z",
-      "album": {
-        "id": "6hmoquO4YfCBj1p9cyqloK",
-        "name": "Nanodiamond",
-        "artists": [
-          {
-            "id": "6tur6gkfmy5lrI9A4rIzlt",
-            "name": "Sissi Rada"
-          }
-        ],
-        "release_date": "2021-11-19",
-        "total_tracks": 13,
-        "external_urls": {
-          "spotify": "https://open.spotify.com/album/6hmoquO4YfCBj1p9cyqloK"
-        },
-        "href": "https://api.spotify.com/v1/albums/6hmoquO4YfCBj1p9cyqloK?locale=*",
-        "images": [
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000b27350f6f5a818fe71b0149fcca9",
-            "height": 640,
-            "width": 640
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d00001e0250f6f5a818fe71b0149fcca9",
-            "height": 300,
-            "width": 300
-          },
-          {
-            "url": "https://i.scdn.co/image/ab67616d0000485150f6f5a818fe71b0149fcca9",
-            "height": 64,
-            "width": 64
-          }
-        ],
-        "uri": "spotify:album:6hmoquO4YfCBj1p9cyqloK"
       }
     },
     {
@@ -5919,6 +5808,43 @@
           }
         ],
         "uri": "spotify:album:6rsuC6MTI9G9jqvB8ps4et"
+      }
+    },
+    {
+      "added_at": "2022-01-19T09:46:41Z",
+      "album": {
+        "id": "1zNtJFMCNIyT0X19jpcI3j",
+        "name": "Friends That Break Your Heart",
+        "artists": [
+          {
+            "id": "53KwLdlmrlCelAZMaLVZqU",
+            "name": "James Blake"
+          }
+        ],
+        "release_date": "2021-10-08",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1zNtJFMCNIyT0X19jpcI3j"
+        },
+        "href": "https://api.spotify.com/v1/albums/1zNtJFMCNIyT0X19jpcI3j?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b27338d030048ec770b15633dbc1",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e0238d030048ec770b15633dbc1",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000485138d030048ec770b15633dbc1",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1zNtJFMCNIyT0X19jpcI3j"
       }
     },
     {
@@ -7340,6 +7266,43 @@
       }
     },
     {
+      "added_at": "2020-08-04T11:49:48Z",
+      "album": {
+        "id": "1AckkxSo39144vOBrJ1GkS",
+        "name": "Tenacious D",
+        "artists": [
+          {
+            "id": "1XpDYCrUJnvCo9Ez6yeMWh",
+            "name": "Tenacious D"
+          }
+        ],
+        "release_date": "2001-09-25",
+        "total_tracks": 21,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/1AckkxSo39144vOBrJ1GkS"
+        },
+        "href": "https://api.spotify.com/v1/albums/1AckkxSo39144vOBrJ1GkS?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b273ee0285c63a334af9b91fa12b",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e02ee0285c63a334af9b91fa12b",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00004851ee0285c63a334af9b91fa12b",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:1AckkxSo39144vOBrJ1GkS"
+      }
+    },
+    {
       "added_at": "2020-08-04T11:49:37Z",
       "album": {
         "id": "1nXNVxTKqOzvy7zYAmddR0",
@@ -7781,6 +7744,43 @@
           }
         ],
         "uri": "spotify:album:3yzN5sQahqRFKNtDM2YZSO"
+      }
+    },
+    {
+      "added_at": "2020-02-27T08:42:06Z",
+      "album": {
+        "id": "3lETJkavciTauiSyOV1gZC",
+        "name": "Low Roar",
+        "artists": [
+          {
+            "id": "5WoWlP0ihSFIxnppxjwSgE",
+            "name": "Low Roar"
+          }
+        ],
+        "release_date": "2011",
+        "total_tracks": 12,
+        "external_urls": {
+          "spotify": "https://open.spotify.com/album/3lETJkavciTauiSyOV1gZC"
+        },
+        "href": "https://api.spotify.com/v1/albums/3lETJkavciTauiSyOV1gZC?locale=*",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/ab67616d0000b2730f52f1f501575d94fed2db5f",
+            "height": 640,
+            "width": 640
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d00001e020f52f1f501575d94fed2db5f",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/ab67616d000048510f52f1f501575d94fed2db5f",
+            "height": 64,
+            "width": 64
+          }
+        ],
+        "uri": "spotify:album:3lETJkavciTauiSyOV1gZC"
       }
     },
     {
@@ -8320,17 +8320,17 @@
         "href": "https://api.spotify.com/v1/albums/18JyZd2XLdT2rmekw6EwoS?locale=*",
         "images": [
           {
-            "url": "https://i.scdn.co/image/ab67616d0000b2730cfdf9ca895535a0e53be30f",
+            "url": "https://i.scdn.co/image/ab67616d0000b273c952d669a27ad66b06d951ee",
             "height": 640,
             "width": 640
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d00001e020cfdf9ca895535a0e53be30f",
+            "url": "https://i.scdn.co/image/ab67616d00001e02c952d669a27ad66b06d951ee",
             "height": 300,
             "width": 300
           },
           {
-            "url": "https://i.scdn.co/image/ab67616d000048510cfdf9ca895535a0e53be30f",
+            "url": "https://i.scdn.co/image/ab67616d00004851c952d669a27ad66b06d951ee",
             "height": 64,
             "width": 64
           }
