@@ -86,7 +86,7 @@ This benefits both sides:
 
 The above is only half the story. What if your page doesn't define an explicit accent color? What will the component library do then?
 
-The initial value of the `accent-color` property is `auto`, and that leaves the browser in charge of choosing the accent (in Chromium-based browsers for example,it's a light blue).
+The initial value of the `accent-color` property is `auto`, and that leaves the browser in charge of choosing the accent. For example, in Chromium-based browsers, it's light blue on web pages, and matches the user's preferred system accent color in installed web apps.
 
 So the component library can rely on the `AccentColor` value, even if you don't explicitly set an accent color.
 
@@ -138,7 +138,7 @@ The `AccentColor` and `AccentColorText` system colors are supported in all major
 * WebKit has an [approved implementation PR](https://github.com/WebKit/WebKit/pull/74949), so support should be coming in future versions.
 * Gecko (Firefox) has a [positive stance](https://github.com/mozilla/standards-positions/issues/1438) on implementing, but there has been no movement on [the bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1929716) yet.
 
-Reflecting the value of `accent-color` in `AccentColor` has also been [proposed for inclusion in Interop 2027](https://github.com/web-platform-tests/interop/issues/1361). So, crosing fingers that all browser engines add support for this soon.
+Reflecting the value of `accent-color` in `AccentColor` has also been [proposed for inclusion in Interop 2027](https://github.com/web-platform-tests/interop/issues/1361). So, crossing fingers that all browser engines add support for this soon.
 
 There's no great detection mechanism here. You can test if the system color values are supported, but that won't tell you if they actually follow the `accent-color` property:
 
