@@ -132,10 +132,10 @@ These two keywords are color values, and they can therefore be used wherever a c
 
 ## Browser support
 
-The `AccentColor` and `AccentColorText` system colors are supported in all major browser engines (Chromium, WebKit, and Gecko). But, they don't yet follow the `accent-color` property in all browsers:
+The `AccentColor` and `AccentColorText` system colors are supported in all major browser engines (Chromium, WebKit, and Gecko). But, they don't yet follow the `accent-color` property in all browsers. Here is the details:
 
-* In Chromium-based browsers, support is coming with Chrome and Edge 159.
-* WebKit has an [approved implementation PR](https://github.com/WebKit/WebKit/pull/74949), so support should be coming in future versions.
+* In Chromium-based browsers, such as Chrome or Edge, the system colors follow the `accent-color` property starting with Chrome and Edge 159.
+* WebKit has [merged the implementation](https://github.com/WebKit/WebKit/pull/74949), so the code is in. We're now waiting for it to ship in future Safari releases.
 * Gecko (Firefox) has a [positive stance](https://github.com/mozilla/standards-positions/issues/1438) on implementing, but there has been no movement on [the bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1929716) yet.
 
 Reflecting the value of `accent-color` in `AccentColor` has also been [proposed for inclusion in Interop 2027](https://github.com/web-platform-tests/interop/issues/1361). So, crossing fingers that all browser engines add support for this soon.
