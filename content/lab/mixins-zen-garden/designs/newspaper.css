@@ -1,0 +1,144 @@
+/* Newspaper: black and white, centered masthead, text in columns, navigation as a top strip. */
+
+@mixin --page {
+	font: 1rem/1.5 "Times New Roman", Times, serif;
+	color: #111;
+	margin: 0;
+	background: #f6f3ea;
+}
+
+@mixin --container {
+	display: flex;
+	flex-direction: column;
+	max-width: 62rem;
+	margin: 0 auto;
+	padding: 1rem 1.5rem 3rem;
+}
+
+@mixin --masthead {
+	padding: 1rem 0;
+	text-align: center;
+	border-top: 4px double #111;
+	border-bottom: 4px double #111;
+}
+
+@mixin --site-title {
+	margin: 0;
+	font: 900 clamp(2.5rem, 8vw, 4.5rem)/1 "Old English Text MT", "Times New Roman", serif;
+}
+
+@mixin --site-subtitle {
+	margin: .5rem 0 0;
+	font-size: .875rem;
+	font-weight: normal;
+	letter-spacing: .3em;
+	text-transform: uppercase;
+}
+
+@mixin --summary {
+	margin: 1rem 0;
+	padding: .5rem 0;
+	text-align: center;
+	font-style: italic;
+	border-bottom: 1px solid #111;
+	& p { margin: 0; }
+}
+
+@mixin --preamble {
+	margin-bottom: 1.5rem;
+	column-count: 2;
+	column-gap: 2rem;
+	column-rule: 1px solid #111;
+	@media (width < 40rem) {
+		column-count: 1;
+	}
+}
+
+@mixin --section {
+	margin-bottom: 1.5rem;
+	column-count: 2;
+	column-gap: 2rem;
+	column-rule: 1px solid #111;
+	@media (width < 40rem) {
+		column-count: 1;
+	}
+}
+
+@mixin --term-description {
+	margin: 0 0 .5rem;
+}
+
+@mixin --footer {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	column-span: all;
+	padding-top: .5rem;
+	border-top: 4px double #111;
+}
+
+@mixin --heading {
+	margin: 0 0 .5rem;
+	padding-bottom: .25rem;
+	border-bottom: 2px solid #111;
+	text-transform: uppercase;
+	column-span: all;
+}
+
+@mixin --text {
+	margin: 0 0 .75rem;
+	text-align: justify;
+	hyphens: auto;
+}
+
+@mixin --link {
+	color: inherit;
+	text-decoration-thickness: 1px;
+	&:hover { background: #111; color: #f6f3ea; }
+	&:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+}
+
+@mixin --code {
+	font-size: .9em;
+	border-bottom: 1px dotted #111;
+}
+
+@mixin --code-block {
+	overflow-x: auto;
+	padding: .75rem;
+	border: 1px solid #111;
+	background: #fff;
+	text-align: left;
+	column-span: all;
+}
+
+@mixin --sidebar {
+	order: -1;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .25rem 2rem;
+	align-items: baseline;
+	padding: .5rem 0;
+	border-bottom: 1px solid #111;
+	font-size: .875rem;
+}
+
+@mixin --sidebar-heading {
+	margin: 0;
+	font-size: .75rem;
+	text-transform: uppercase;
+	letter-spacing: .15em;
+}
+
+@mixin --nav-list {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 0 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+@mixin --nav-link {
+	&[aria-current] { font-weight: bold; }
+}

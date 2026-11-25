@@ -1,5 +1,13 @@
 [
   {
+    "url": "mixins-zen-garden",
+    "img": "/assets/mixin-zen-garden-site.png",
+    "alt": "A screenshot of the demo.",
+    "title": "Mixin Zen Garden",
+    "description": "An experiment heavily inspired by the CSS Zen Garden, showcasing the use of CSS mixins for theming. To learn more, read <a href='/articles/2026-11-25-the-beauty-of-css-mixins/'>The beauty of CSS mixins</a> first.",
+    "date": "2026-11-25"
+  },
+  {
     "url": "alpha-shared-transparency",
     "img": "/assets/alpha-os.avif",
     "alt": "A fake operating system display showing 2 windows and 3 notification messages. A range input controls how transparent the windows and messages are. The borders, shadows and background colors all adapt to this global transparency value.",

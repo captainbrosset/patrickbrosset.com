@@ -1,0 +1,182 @@
+/* Midnight: a dark, monospace, grid-based design. No images. */
+
+@mixin --page {
+	font: 1rem/1.6 ui-monospace, "Cascadia Code", Consolas, monospace;
+	color: #cfe3ee;
+	margin: 0;
+	background-color: #0b0f14;
+	background-image: radial-gradient(#1b2a3a 1px, transparent 1px);
+	background-size: 20px 20px;
+}
+
+@mixin --container {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 15rem;
+	gap: 0 3rem;
+	max-width: 75rem;
+	margin: 0 auto;
+	padding: 2rem;
+	@media (width < 50rem) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	&::before {
+		content: "";
+		position: fixed;
+		inset: 0 auto 0 0;
+		width: .25rem;
+		background: linear-gradient(#4ef, #f4a);
+	}
+}
+
+@mixin --masthead {
+	margin-bottom: 1rem;
+}
+
+@mixin --site-title {
+	margin: 0;
+	font-size: 2.5rem;
+	color: #4ef;
+	text-shadow: 0 0 .75rem rgb(68 238 255 / .6);
+	&::before { content: "> "; color: #f4a; }
+	&::after { content: "_"; }
+	@media (prefers-reduced-motion: no-preference) {
+		&::after { animation: blink 1s steps(2) infinite; }
+	}
+}
+
+@mixin --site-subtitle {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: normal;
+	color: #7c93a5;
+}
+
+@mixin --summary {
+	margin-bottom: 1.5rem;
+	padding-left: 1rem;
+	border-left: 3px solid #4ef;
+	color: #9fb4c4;
+	font-style: italic;
+}
+
+@mixin --preamble {
+	margin-bottom: 2rem;
+}
+
+@mixin --section {
+	margin-bottom: 2rem;
+}
+
+@mixin --term-list {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: .5rem 1.5rem;
+	@media (width < 50rem) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+@mixin --term {
+	margin: 0;
+}
+
+@mixin --term-description {
+	margin: 0;
+	color: #9fb4c4;
+}
+
+@mixin --footer {
+	display: flex;
+	gap: 1.5rem;
+	margin-top: 2rem;
+	padding-top: 1rem;
+	border-top: 1px dashed #345;
+}
+
+@mixin --heading {
+	margin: 0 0 .75rem;
+	font-size: 1.25rem;
+	color: #fb4;
+	&::before { content: "## "; opacity: .5; }
+}
+
+@mixin --text {
+	max-width: 70ch;
+	margin: 0 0 1rem;
+}
+
+@mixin --link {
+	color: #4ef;
+	text-underline-offset: .2em;
+	&:visited { color: #b9a0ff; }
+	&:hover { background: #4ef; color: #0b0f14; }
+	&:focus-visible { outline: 2px dashed #fb4; outline-offset: 2px; }
+}
+
+@mixin --code {
+	padding: .1em .35em;
+	border: 1px solid #234;
+	background: #121b24;
+	color: #9fe8a8;
+}
+
+@mixin --code-block {
+	overflow-x: auto;
+	padding: 1rem;
+	border: 1px solid #234;
+	background: #0f161d;
+	color: #9fe8a8;
+}
+
+@mixin --sidebar {
+	grid-column: 2;
+	grid-row: 1 / span 3;
+	align-self: start;
+	position: sticky;
+	top: 1rem;
+	padding: 1rem;
+	border: 1px solid #234;
+	background: #10161d;
+	font-size: .875rem;
+	@media (width < 50rem) {
+		grid-column: 1;
+		grid-row: auto;
+		position: static;
+	}
+	&::before {
+		content: "~/designs";
+		display: block;
+		margin-bottom: 1rem;
+		color: #567;
+		font-size: .75rem;
+	}
+}
+
+@mixin --sidebar-heading {
+	margin: 1rem 0 .5rem;
+	font-size: .75rem;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	color: #fb4;
+	&::before { content: "$ "; color: #f4a; }
+}
+
+@mixin --nav-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+@mixin --nav-item {
+	margin: .25rem 0;
+	&::before { content: "› "; color: #567; }
+}
+
+@mixin --nav-link {
+	&[aria-current] { font-weight: bold; text-decoration: none; }
+}
+
+/* @keyframes inside @mixin does not work in this build, so it stays at the top level. */
+@keyframes blink {
+	50% { opacity: 0; }
+}

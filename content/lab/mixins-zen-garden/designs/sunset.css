@@ -1,0 +1,164 @@
+/* Sunset: soft gradient, rounded cards, centered column, floating navigation bar. */
+
+@mixin --page {
+	font: 1.125rem/1.65 system-ui, sans-serif;
+	color: #3b2a4a;
+	margin: 0;
+	background: linear-gradient(160deg, #ffd6a5, #ffadad 45%, #bdb2ff);
+	background-attachment: fixed;
+}
+
+@mixin --container {
+	max-width: 46rem;
+	margin: 0 auto;
+	padding: 2rem 1rem 6rem;
+	&::after {
+		content: "";
+		position: fixed;
+		right: -6rem;
+		bottom: -6rem;
+		width: 18rem;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background: radial-gradient(#fff8 20%, #fff0 70%);
+		pointer-events: none;
+	}
+}
+
+@mixin --masthead {
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+
+@mixin --site-title {
+	margin: 0;
+	font-size: 3rem;
+	color: #fff;
+	text-shadow: 0 .1em .4em #0003;
+}
+
+@mixin --site-subtitle {
+	margin: 0;
+	font-size: 1.125rem;
+	font-weight: normal;
+	color: #fffd;
+}
+
+@mixin --summary {
+	margin-bottom: 1.5rem;
+	padding: 1rem 1.5rem;
+	border-radius: 1rem;
+	background: #fff6;
+	backdrop-filter: blur(6px);
+	text-align: center;
+	& p { margin: .25rem 0; }
+}
+
+@mixin --preamble {
+	margin-bottom: 1.5rem;
+	padding: 1.5rem;
+	border-radius: 1.5rem;
+	background: #fffe;
+	box-shadow: 0 .5rem 1.5rem #0002;
+}
+
+@mixin --section {
+	margin-bottom: 1.5rem;
+	padding: 1.5rem;
+	border-radius: 1.5rem;
+	background: #fffe;
+	box-shadow: 0 .5rem 1.5rem #0002;
+}
+
+@mixin --term {
+	margin-top: .75rem;
+}
+
+@mixin --term-description {
+	margin: 0;
+	color: #6a5a7a;
+}
+
+@mixin --footer {
+	--link-color: #fff;
+	display: flex;
+	justify-content: center;
+	gap: 1.5rem;
+}
+
+@mixin --heading {
+	margin: 0 0 .75rem;
+	font-size: 1.5rem;
+	color: #d6336c;
+}
+
+@mixin --text {
+	margin: 0 0 1rem;
+}
+
+@mixin --link {
+	color: var(--link-color, #6741d9);
+	text-underline-offset: .2em;
+	&:hover { color: #d6336c; }
+	&:focus-visible { outline: 3px solid #d6336c; outline-offset: 2px; border-radius: .25rem; }
+}
+
+@mixin --code {
+	padding: .1em .4em;
+	border-radius: .4em;
+	background: #f3e8ff;
+	font-size: .9em;
+}
+
+@mixin --code-block {
+	overflow-x: auto;
+	padding: 1rem;
+	border-radius: 1rem;
+	background: #2d1f3d;
+	color: #ffe8d6;
+}
+
+@mixin --sidebar {
+	position: fixed;
+	bottom: 1rem;
+	left: 50%;
+	translate: -50% 0;
+	display: flex;
+	gap: .5rem 1.5rem;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
+	max-width: calc(100vw - 2rem);
+	box-sizing: border-box;
+	padding: .5rem 1.5rem;
+	border-radius: 1.5rem;
+	background: #fffe;
+	box-shadow: 0 .5rem 1.5rem #0003;
+	font-size: .9375rem;
+	line-height: 1.3;
+}
+
+@mixin --sidebar-heading {
+	margin: 0;
+	font-size: .75rem;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	color: #8a7a9a;
+	white-space: nowrap;
+}
+
+@mixin --nav-list {
+	display: flex;
+	gap: 0 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+@mixin --nav-item {
+	white-space: nowrap;
+}
+
+@mixin --nav-link {
+	&[aria-current] { font-weight: bold; color: #d6336c; }
+}

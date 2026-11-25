@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Mixin Zen Garden: The Beauty of CSS Mixins</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="A demonstration of what can be accomplished visually through CSS mixins.">
+	<!-- Each line below is an extension point. A design defines these mixins.
+		   Undefined ones do nothing. -->
+	<style>
+		body                 { @apply --page; }
+		.layout              { @apply --container; }
+		header               { @apply --masthead; }
+		header h1            { @apply --site-title; }
+		header h2            { @apply --site-subtitle; }
+		.blurb               { @apply --summary; }
+		.intro               { @apply --preamble; }
+		main                 { @apply --content; }
+		main section         { @apply --section; }
+		dl                   { @apply --term-list; }
+		dt                   { @apply --term; }
+		dd                   { @apply --term-description; }
+		footer               { @apply --footer; }
+		:is(.intro, main) h3 { @apply --heading; }
+		p                    { @apply --text; }
+		a                    { @apply --link; }
+		:not(pre) > code     { @apply --code; }
+		pre                  { @apply --code-block; }
+		aside                { @apply --sidebar; }
+		aside h3             { @apply --sidebar-heading; }
+		aside ul             { @apply --nav-list; }
+		aside li             { @apply --nav-item; }
+		aside a              { @apply --nav-link; }
+	</style>
+
+	<!-- Load the selected design from the query parameter ?design=name -->
+	<script>
+		const DEFAULT_DESIGN = "midnight";
+		const design = new URLSearchParams(location.search).get("design") ?? DEFAULT_DESIGN;
+		if (/^[a-z0-9-]+$/.test(design)) {
+			const link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.href = `designs/${design}.css`;
+			document.head.append(link);
+		}
+	</script>
+</head>
+
+<body>
+<div class="layout">
+
+	<section class="top">
+		<header>
+			<h1>Mixin Zen Garden</h1>
+			<h2>The beauty of <abbr title="Cascading Style Sheets">CSS</abbr> mixins</h2>
+		</header>
+
+		<div class="blurb">
+			<p>A demonstration of what can be accomplished with <abbr title="Cascading Style Sheets">CSS</abbr> mixins. Select a design from the list to load it into this page.</p>
+			<p>The <abbr title="HyperText Markup Language">HTML</abbr> never changes. Only the mixins do.</p>
+		</div>
+
+		<div class="intro">
+			<h3>The road to enlightenment</h3>
+			<p>In 2003, the <a href="https://csszengarden.com/">CSS Zen Garden</a> showed that one fixed page of semantic <abbr title="HyperText Markup Language">HTML</abbr> could look completely different with only a style sheet. The markup was the contract.</p>
+			<p>Native CSS mixins allow a new kind of contract. The page applies a list of named mixins, such as <code>--page</code>, <code>--heading</code> and <code>--sidebar</code>. A design defines what each one means. It cannot write any other rule.</p>
+			<p>Read this page, pick a design, then write your own. Everything you need is below.</p>
+		</div>
+	</section>
+
+	<main>
+		<section id="rules">
+			<h3>The rules</h3>
+			<p>A design is one CSS file. It can contain <code>@mixin</code> rules, plus top-level <code>@keyframes</code> and <code>@font-face</code> rules. It cannot contain selectors or custom properties on <code>:root</code>. Use <code>@media</code> inside a mixin.</p>
+			<p>Inside a mixin you can write anything that is valid in a style rule. That includes declarations, nested rules, <code>::before</code> and <code>::after</code>, <code>@media</code>, <code>@container</code> and <code>@supports</code>. Do not rely on the markup of this page. It can change at any time. The mixin names are the only contract.</p>
+			<p>You do not have to define every mixin. A mixin you do not define does nothing, and the browser defaults apply.</p>
+		</section>
+
+		<section id="example">
+			<h3>What a design looks like</h3>
+			<p>This is a complete design. Save it as <code>designs/my-design.css</code> and open <code>?design=my-design</code>.</p>
+<pre>@mixin --page {
+  font: 1.2rem/1.6 Georgia, serif;
+  background: lightyellow;
+}
+
+@mixin --heading {
+  color: crimson;
+  &amp;::before { content: "§ "; }
+}
+
+@mixin --link {
+  color: navy;
+  &amp;:hover { background: gold; }
+}</pre>
+		</section>
+
+		<section id="regions">
+			<h3>Mixins: page and regions</h3>
+			<dl>
+				<dt><code>--page</code></dt>
+				<dd>The entire page. Use it for the base font, text color and margins. You can also use it for page-wide decorations, such as backgrounds, with the <code>::before</code> and <code>::after</code> pseudo-elements.</dd>
+				<dt><code>--container</code></dt>
+				<dd>The wrapper around the introduction, the main content and the sidebar. Use it for the overall layout: grid, columns, width, padding. You can also use it for decorations behind the layout, with <code>::before</code> and <code>::after</code>.</dd>
+				<dt><code>--masthead</code></dt>
+				<dd>The top of the page, which holds the site title and subtitle.</dd>
+				<dt><code>--site-title</code></dt>
+				<dd>The name of the site. Often used for image replacement.</dd>
+				<dt><code>--site-subtitle</code></dt>
+				<dd>The tagline of the site.</dd>
+				<dt><code>--summary</code></dt>
+				<dd>The short summary at the start of the page.</dd>
+				<dt><code>--preamble</code></dt>
+				<dd>The introduction text.</dd>
+				<dt><code>--content</code></dt>
+				<dd>The main content of the page: all of the sections and the footer.</dd>
+				<dt><code>--section</code></dt>
+				<dd>Every section of the main content. It holds a heading and the text, lists or code that follow it.</dd>
+				<dt><code>--footer</code></dt>
+				<dd>The footer of the page. It holds a row of links. Use <code>display: flex</code> and <code>gap</code> to space them.</dd>
+			</dl>
+		</section>
+
+		<section id="text">
+			<h3>Mixins: text</h3>
+			<dl>
+				<dt><code>--heading</code></dt>
+				<dd>Every section heading in the introduction and in the main content.</dd>
+				<dt><code>--text</code></dt>
+				<dd>Every paragraph of text.</dd>
+				<dt><code>--link</code></dt>
+				<dd>Every link. Define the <code>&amp;:visited</code>, <code>&amp;:hover</code> and <code>&amp;:focus-visible</code> states inside it.</dd>
+				<dt><code>--code</code></dt>
+				<dd>Every piece of inline code. It does not apply to code inside a code block.</dd>
+				<dt><code>--code-block</code></dt>
+				<dd>Every block of preformatted code, including the code inside it.</dd>
+				<dt><code>--term-list</code></dt>
+				<dd>Every list of terms and their descriptions, such as the lists of mixins on this page.</dd>
+				<dt><code>--term</code></dt>
+				<dd>Every term in those lists.</dd>
+				<dt><code>--term-description</code></dt>
+				<dd>The description of each term.</dd>
+			</dl>
+		</section>
+
+		<section id="sidebar">
+			<h3>Mixins: sidebar</h3>
+			<dl>
+				<dt><code>--sidebar</code></dt>
+				<dd>The sidebar, which holds the list of designs, the inspiration links and the resources. You can also use it for decorations, with <code>::before</code> and <code>::after</code>.</dd>
+				<dt><code>--sidebar-heading</code></dt>
+				<dd>Every heading in the sidebar.</dd>
+				<dt><code>--nav-list</code></dt>
+				<dd>Every list of links in the sidebar.</dd>
+				<dt><code>--nav-item</code></dt>
+				<dd>Every item in those lists.</dd>
+				<dt><code>--nav-link</code></dt>
+				<dd>Every link in the sidebar. It applies after <code>--link</code>.</dd>
+			</dl>
+		</section>
+
+		<section id="notes">
+			<h3>Good to know</h3>
+			<p>Mixins in this page take no arguments. The mixin name is the only thing the page and the design have to agree on.</p>
+			<p>The markup of this page is not a public contract. It can change at any time, so avoid selectors that depend on it. Choose the mixin by the role of the element, not by how you want it to look.</p>
+			<p>CSS mixins are an experimental feature. Use a recent Chromium browser, open <code>about://flags</code>, and enable the "Experimental Web Platform features" flag.</p>
+			<p>Please keep the page accessible: keep a visible focus indicator, keep enough contrast and respect <code>prefers-reduced-motion</code>.</p>
+		</section>
+
+		<footer>
+			<a href="https://drafts.csswg.org/css-mixins-1/" title="The CSS Functions and Mixins specification">Spec</a>
+			<a href="https://csszengarden.com/" title="The original CSS Zen Garden by Dave Shea">Zen</a>
+		</footer>
+	</main>
+
+	<aside>
+		<h3 class="designs">Select a design:</h3>
+		<nav aria-label="Designs">
+			<ul>
+				<li><a href="?design=midnight">Midnight</a></li>
+				<li><a href="?design=paper">Paper</a></li>
+				<li><a href="?design=brutalist">Brutalist</a></li>
+				<li><a href="?design=newspaper">Newspaper</a></li>
+				<li><a href="?design=sunset">Sunset</a></li>
+				<li><a href="?design=terminal">Terminal</a></li>
+			</ul>
+		</nav>
+
+		<h3 class="archive-links">Inspiration:</h3>
+		<ul>
+			<li><a href="https://csszengarden.com/">The original CSS Zen Garden</a></li>
+		</ul>
+
+		<h3 class="resource-links">Resources:</h3>
+		<ul>
+			<li><a href="https://drafts.csswg.org/css-mixins-1/">The specification</a></li>
+			<li><a id="source-link" href="designs/midnight.css">View this design's CSS source</a></li>
+		</ul>
+	</aside>
+
+</div>
+
+<script>
+	document.querySelector(`aside a[href="?design=${design}"]`)?.setAttribute("aria-current", "page");
+	document.querySelector("#source-link").href = `designs/${design}.css`;
+
+	// Unsupported at-rules are dropped by the parser, so insertRule() throws.
+	const supportsMixins = (() => {
+		try {
+			new CSSStyleSheet().insertRule("@mixin --test { color: red; }");
+			return true;
+		} catch {
+			return false;
+		}
+	})();
+
+	if (!supportsMixins) {
+		const warning = document.createElement("div");
+		warning.setAttribute("role", "alert");
+		warning.style.cssText = "position: sticky; top: 0; z-index: 1000; padding: 1rem; background: #ffe066; color: #000; font: 1rem/1.4 system-ui, sans-serif; text-align: center;";
+		warning.innerHTML = "Your browser does not support CSS mixins, so designs cannot load. Use a recent Chromium browser, open <code>about://flags</code>, and enable the \"Experimental Web Platform features\" flag.";
+		document.body.prepend(warning);
+	}
+</script>
+</body>
+</html>

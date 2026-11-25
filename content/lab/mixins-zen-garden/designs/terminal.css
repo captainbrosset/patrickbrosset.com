@@ -1,0 +1,173 @@
+/* Terminal: black monospace text on white, a single narrow column, everything aligned to the left edge. */
+
+@mixin --page {
+	font: 1rem/1.5 ui-monospace, "Cascadia Code", Consolas, "Courier New", monospace;
+	color: #000;
+	background: #fff;
+	margin: 0;
+}
+
+@mixin --container {
+	max-width: 80ch;
+	margin: 0 auto;
+	padding: 3rem 2ch 6rem;
+}
+
+@mixin --masthead {
+	margin-bottom: 3rem;
+}
+
+@mixin --site-title {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: bold;
+	&::before { content: "$ "; }
+	&::after { content: "_"; }
+	@media (prefers-reduced-motion: no-preference) {
+		&::after { animation: terminal-blink 1s steps(1) infinite; }
+	}
+}
+
+@mixin --site-subtitle {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: normal;
+	&::before { content: "» "; }
+}
+
+@mixin --summary {
+	margin: 0 0 3rem;
+	&::before {
+		content: "----------------------------------------";
+		display: block;
+		overflow: hidden;
+	}
+}
+
+@mixin --preamble {
+	margin-bottom: 3rem;
+}
+
+@mixin --section {
+	margin-bottom: 3rem;
+}
+
+@mixin --term-list {
+	margin: 0;
+	border-left: 1px solid #000;
+}
+
+@mixin --term {
+	position: relative;
+	margin-top: 1.5rem;
+	padding-left: 3ch;
+	font-weight: bold;
+	&:first-child { margin-top: 0; }
+	&::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: .75rem;
+		width: 2ch;
+		border-top: 1px solid #000;
+	}
+}
+
+@mixin --term-description {
+	position: relative;
+	margin: 0;
+	padding-left: 6ch;
+	&::before {
+		content: "";
+		position: absolute;
+		left: 3ch;
+		top: 0;
+		width: 2ch;
+		height: .75rem;
+		border-left: 1px solid #000;
+		border-bottom: 1px solid #000;
+	}
+}
+
+@mixin --footer {
+	display: flex;
+	gap: 4ch;
+	margin-top: 3rem;
+	&::before {
+		content: "----------------------------------------";
+		display: block;
+		overflow: hidden;
+	}
+}
+
+@mixin --heading {
+	margin: 0 0 1.5rem;
+	font-size: 1rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	&::before { content: "[ "; }
+	&::after { content: " ]"; }
+}
+
+@mixin --text {
+	margin: 0 0 1.5rem;
+}
+
+@mixin --link {
+	color: #000;
+	text-decoration: underline;
+	text-underline-offset: .2em;
+	&:hover { background: #000; color: #fff; }
+	&:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+}
+
+@mixin --code {
+	font: inherit;
+	color: #0550ae;
+}
+
+@mixin --code-block {
+	overflow-x: auto;
+	margin: 0 0 1.5rem;
+	padding: 1.5rem 2ch;
+	border: 1px solid #000;
+	font: inherit;
+	color: #116329;
+}
+
+@mixin --sidebar {
+	margin-top: 3rem;
+	&::before {
+		content: "----------------------------------------";
+		display: block;
+		overflow: hidden;
+	}
+}
+
+@mixin --sidebar-heading {
+	margin: 1.5rem 0 0;
+	font-size: 1rem;
+	font-weight: bold;
+	&::before { content: "$ "; }
+}
+
+@mixin --nav-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+@mixin --nav-item {
+	margin: 0;
+	&::before { content: "├─ "; }
+	&:last-child::before { content: "└─ "; }
+}
+
+@mixin --nav-link {
+	&[aria-current] { font-weight: bold; }
+	&[aria-current]::after { content: " *"; }
+}
+
+@keyframes terminal-blink {
+	50% { opacity: 0; }
+}
