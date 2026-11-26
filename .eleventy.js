@@ -1,6 +1,5 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const embedYouTube = require("eleventy-plugin-youtube-embed");
-const tabify = require("./tabify.js");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const path = require("path");
 const { listDecks } = require("./slide-decks.js");
@@ -53,7 +52,6 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(embedYouTube);
-  eleventyConfig.addPlugin(tabify);
   eleventyConfig.addPlugin(pluginRss);
 
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
