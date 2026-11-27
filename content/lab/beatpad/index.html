@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#14141a">
+<title>BeatPad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<header class="bar">
+  <h1>BeatPad</h1>
+  <div class="bar-actions">
+    <button type="button" id="midi-status" class="chip" title="MIDI settings">MIDI off</button>
+    <button type="button" id="edit-toggle" aria-pressed="false">Edit</button>
+    <button type="button" id="settings-btn">Settings</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section id="pads" class="pads" aria-label="Pads"></section>
+
+  <aside id="editor" class="editor" aria-labelledby="ed-title" hidden>
+    <h2 id="ed-title">Pad <span id="ed-index"></span></h2>
+    <form id="pad-form" class="fields" autocomplete="off">
+      <label>Name <input name="name" maxlength="12"></label>
+      <label>Color <input type="color" name="color"></label>
+
+      <fieldset>
+        <legend>Sound</legend>
+        <label>Source <select name="sound" id="sound-select"></select></label>
+        <div class="row">
+          <button type="button" id="rec-btn">● Record from mic</button>
+          <button type="button" id="file-btn">Load file…</button>
+          <button type="button" id="del-sample" hidden>Delete sample</button>
+          <input type="file" id="file-input" accept="audio/*" hidden>
+        </div>
+        <div class="row small">
+          <label class="inline"><input type="checkbox" id="opt-trim" checked> Trim silence</label>
+          <label class="inline"><input type="checkbox" id="opt-norm" checked> Normalize</label>
+        </div>
+        <div class="meter" id="meter" hidden><div id="meter-bar"></div></div>
+        <canvas id="wave" aria-label="Sample waveform" role="img"></canvas>
+        <label>Start <input type="range" name="start" min="0" max="1" step="0.001"><output></output></label>
+        <label>End <input type="range" name="end" min="0" max="1" step="0.001"><output></output></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Playback</legend>
+        <label>Volume <input type="range" name="vol" min="0" max="1.5" step="0.01"><output></output></label>
+        <label>Pan <input type="range" name="pan" min="-1" max="1" step="0.01"><output></output></label>
+        <label>Pitch <input type="range" name="pitch" min="-24" max="24" step="1"><output></output></label>
+        <label>Mode
+          <select name="mode">
+            <option value="oneshot">One-shot (plays fully)</option>
+            <option value="gate">Gate (stops on release)</option>
+            <option value="loop">Loop (tap to toggle)</option>
+          </select>
+        </label>
+        <label>Choke group
+          <select name="choke" data-num>
+            <option value="0">None</option>
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+            <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+          </select>
+        </label>
+        <label class="inline"><input type="checkbox" name="reverse"> Reverse</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Triggers</legend>
+        <label>MIDI note <input type="number" name="note" min="0" max="127" step="1"></label>
+        <div class="row">
+          <span id="note-name" class="hint"></span>
+          <button type="button" id="learn-btn">MIDI learn</button>
+        </div>
+        <div class="row">
+          <span class="hint">Keyboard key</span>
+          <button type="button" id="key-btn">—</button>
+        </div>
+      </fieldset>
+    </form>
+  </aside>
+</main>
+
+<dialog id="settings" closedby="any" aria-labelledby="set-title">
+  <h2 id="set-title">Settings</h2>
+  <form id="settings-form" class="fields" autocomplete="off">
+    <fieldset>
+      <legend>Pads</legend>
+      <label>Columns <input type="number" name="cols" min="1" max="8" step="1"></label>
+      <label>Rows <input type="number" name="rows" min="1" max="8" step="1"></label>
+      <label>Master volume <input type="range" name="master" min="0" max="1" step="0.01"><output></output></label>
+      <label>Velocity
+        <select name="velocityMode">
+          <option value="fixed">Fixed</option>
+          <option value="position">By touch position (top = loud)</option>
+          <option value="pressure">By pressure (if device supports it)</option>
+        </select>
+      </label>
+      <label>Fixed velocity <input type="range" name="fixedVel" min="1" max="127" step="1"><output></output></label>
+      <label class="inline"><input type="checkbox" name="keys"> Computer keyboard triggers pads</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>MIDI</legend>
+      <p id="midi-note" class="hint"></p>
+      <div class="row"><button type="button" id="midi-enable">Enable WebMIDI</button></div>
+      <label>Input
+        <select name="midi.input" id="midi-in"><option value="all">All inputs</option></select>
+      </label>
+      <label>Output
+        <select name="midi.output" id="midi-out"><option value="">None</option></select>
+      </label>
+      <label>Receive channel
+        <select name="midi.inChannel" id="midi-in-ch" data-num></select>
+      </label>
+      <label>Send channel
+        <select name="midi.outChannel" id="midi-out-ch" data-num></select>
+      </label>
+      <label class="inline"><input type="checkbox" name="midi.receive"> Receive notes (play pads from MIDI)</label>
+      <label class="inline"><input type="checkbox" name="midi.send"> Send notes when pads are played</label>
+      <label class="inline"><input type="checkbox" name="midi.local"> Play internal sounds when pads are played</label>
+      <details>
+        <summary>Use with GarageBand on a Mac</summary>
+        <ol class="hint">
+          <li>Open Audio MIDI Setup, then Window → Show MIDI Studio.</li>
+          <li>Double-click IAC Driver and tick "Device is online".</li>
+          <li>Click "Enable WebMIDI" above and allow the browser prompt.</li>
+          <li>Set Output to "IAC Driver Bus 1".</li>
+          <li>In GarageBand, select a software instrument track. Tap the pads to play it.</li>
+        </ol>
+        <p class="hint">Pad notes start at 36 (C2). Change them per pad in Edit mode. To avoid double sounds, turn off "Play internal sounds" and do not send GarageBand's output back to BeatPad.</p>
+      </details>
+    </fieldset>
+
+    <fieldset>
+      <legend>Configuration</legend>
+      <div class="row">
+        <button type="button" id="export-btn">Export</button>
+        <button type="button" id="import-btn">Import</button>
+        <button type="button" id="reset-btn" class="danger">Reset all</button>
+        <input type="file" id="import-input" accept="application/json,.json" hidden>
+      </div>
+      <p class="hint">Export saves pad settings only. Recorded samples stay in this browser.</p>
+    </fieldset>
+  </form>
+  <form method="dialog"><button class="primary">Close</button></form>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

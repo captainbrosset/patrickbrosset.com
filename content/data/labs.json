@@ -1,5 +1,13 @@
 [
   {
+    "url": "beatpad",
+    "img": "/assets/beatpad.webp",
+    "alt": "screenshot of BeatPad, showing a 4 by 4 grid of colorful buttons",
+    "title": "BeatPad",
+    "description": "A beat maker pad that works with touch, mouse, and keyboard. Sample sounds from the microphone, tweak every pad, and use it as a WebMIDI controller for a DAW like GarageBand.",
+    "date": "2026-11-27"
+  },
+  {
     "url": "mixins-zen-garden",
     "img": "/assets/mixin-zen-garden-site.png",
     "alt": "A screenshot of the demo.",
