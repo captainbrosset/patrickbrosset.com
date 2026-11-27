@@ -1,9 +1,9 @@
 .popup-hell {
-  margin: var(--big-spacing) 0;
+  margin: 4rem 0;
   height: 70vh;
   overflow: hidden;
   position: relative;
-  border: var(--separator);
+  border: 2px solid black;
   background: #6fa7b9;
   font-family: system-ui;
 }
@@ -14,9 +14,9 @@
 
 @scope (.popup-hell) {
   .popup {
-    border: var(--separator);
+    border: 2px solid black;
     border-radius: .5rem;
-    background: var(--back);
+    background: white;
     font-size: .8rem;
     width: max-content;
     max-width: 15rem;
@@ -45,9 +45,9 @@
 
   .popup .title {
     padding: .125rem .5rem;
-    border-block-end: var(--separator);
-    background: var(--text);
-    color: var(--back);
+    border-block-end: 2px solid black;
+    background: black;
+    color: white;
   }
 
   .popup .content {
@@ -56,13 +56,13 @@
   
   .popup .actions {
     padding: .125rem .5rem;
-    border-block-start: var(--separator);
+    border-block-start: 2px solid black;
     text-align: center;
   }
 
   .popup .actions button {
     font-size: inherit;
     font-family: inherit;
-    border: 1px solid var(--text);
+    border: 1px solid black;
   }
 }

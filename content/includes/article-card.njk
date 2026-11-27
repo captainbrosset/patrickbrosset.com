@@ -1,0 +1,18 @@
+{% set readLabel = "Read article" %}
+{% if post.data.external %}
+  {% set readLabel = "Read article at " ~ (post.data.external | externalDomain) %}
+{% endif %}
+<section class="list-section">
+  <div class="card-layout">
+    <img loading="lazy" src="{{ post.data.thumbnail }}" alt="{% if post.data.altText %}{{ post.data.altText }}{% else %}Article thumbnail for illustration only{% endif %}" style="view-transition-name: article-thumbnail-{{ post.data.title | slugify }};">
+    <h2 style="view-transition-name: article-title-{{ post.data.title | slugify }};">
+      <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}">{{ post.data.title }}</a>
+    </h2>
+    <div class="list-meta">
+      <time class="badge" datetime="{{ post.date | dateTime }}" style="view-transition-name: article-date-{{ post.data.title | slugify }};">{{ post.date | formattedDateTime }}</time>
+    </div>
+    <p>{{ post.data.excerpt | safe }}
+      <a class="read-link" href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}" aria-label="{{ readLabel | escape }}: {{ post.data.title | striptags | escape }}">{{ readLabel | escape }}</a>
+    </p>
+  </div>
+</section>

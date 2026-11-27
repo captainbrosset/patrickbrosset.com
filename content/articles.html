@@ -4,20 +4,11 @@ title: Articles
 ---
 
 <section class="list-section">
-  <h1>Articles</h1>
   <p>Articles I wrote here, and on other sites, about the web.</p>
 </section>
 
 {% for post in collections.article | reverse %}
   {% if not post.data.draft %}
-    <section class="list-section">
-      <h2 style="view-transition-name: article-title-{{ post.data.title | slugify }};">
-        <a href="{% if post.data.external %}{{ post.data.external }}{% else %}{{ post.url }}{% endif %}">{{ post.data.title }}</a>
-      </h2>
-      <time class="badge" datetime="{{ post.date | dateTime }}" style="view-transition-name: article-date-{{ post.data.title | slugify }};">{{ post.date | formattedDateTime }}</time>
-      {% if post.data.external %}<span class="badge">External link to {{ post.data.external | externalDomain }}</span>{% endif %}
-      <p>{{ post.data.excerpt | safe }}</p>
-      <img loading="lazy" src="{{ post.data.thumbnail }}" alt="{% if post.data.altText %}{{ post.data.altText }}{% else %}Article thumbnail for illustration only{% endif %}" style="view-transition-name: article-thumbnail-{{ post.data.title | slugify }};">
-    </section>
+    {% include "article-card.njk" %}
   {% endif %}
 {% endfor %}

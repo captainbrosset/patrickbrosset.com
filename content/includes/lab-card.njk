@@ -1,0 +1,14 @@
+{% set labUrl = lab.url %}
+{% if not lab.url.startsWith("http") and not lab.url.startsWith("/") %}
+  {% set labUrl = "/lab/" ~ lab.url %}
+{% endif %}
+<section class="list-section">
+  <div class="card-layout">
+    {% if lab.img %}<img loading="lazy" src="{{ lab.img }}" alt="{{ lab.alt }}">{% endif %}
+    <h2><a href="{{ labUrl }}">{{ lab.title | safe }}</a></h2>
+    <time class="badge" datetime="{{ lab.date }}">{{ lab.date | formattedDateTime }}</time>
+    <p>{{ lab.description | safe }}
+      <a class="read-link" href="{{ labUrl }}" aria-label="Open lab: {{ lab.title | striptags | escape }}">Open lab</a>
+    </p>
+  </div>
+</section>

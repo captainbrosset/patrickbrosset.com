@@ -1,0 +1,10 @@
+<section class="list-section"{% if talk.lang %} lang="{{ talk.lang }}"{% endif %}>
+  <div class="card-layout">
+    <figure><img loading="lazy" src="{{ talk.img }}" alt="{{ talk.alt }}">{% if talk.credit %}<figcaption>Photo: {{ talk.credit | safe }}</figcaption>{% endif %}</figure>
+    <h2><a href="{{ talk.url }}">{{ talk.title | safe }}</a></h2>
+    <time class="badge" datetime="{{ talk.date }}">{{ talk.date | formattedDateTime }}</time>
+    <p>{{ talk.description | safe }}
+      <a class="read-link" href="{{ talk.url }}" aria-label="See talk: {{ talk.title | striptags | escape }}">See talk</a>
+    </p>
+  </div>
+</section>
